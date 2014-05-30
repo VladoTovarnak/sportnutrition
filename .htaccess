@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+   RewriteEngine on
+   
+	RewriteRule ^registration/$	/registrace		[R=301,L]
+	RewriteRule	^basket/$		/kosik			[R=301,L]
+	RewriteRule	^search/$		/vyhledavani-produktu	[R=301,L]
+
+	RewriteRule ^administrace/help.php	/admin/j_tips/view	[R=301,QSA,L]
+   
+   RewriteRule    ^$ app/webroot/    [L]
+   RewriteRule    (.*) app/webroot/$1 [L]
+</IfModule>

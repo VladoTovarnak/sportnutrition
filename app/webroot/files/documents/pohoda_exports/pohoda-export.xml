@@ -1,0 +1,85 @@
+<dat:dataPack id="3478" ico="42956391" application="e-shop" version="2.0" note="Import Objednavky"
+	xmlns:dat="http://www.stormware.cz/schema/version_2/data.xsd"
+	xmlns:ord="http://www.stormware.cz/schema/version_2/order.xsd"
+	xmlns:typ="http://www.stormware.cz/schema/version_2/type.xsd"
+>
+	<dat:dataPackItem id="31702" version="2.0">
+		<ord:order version="2.0">
+			<ord:orderHeader>
+				<ord:orderType>receivedOrder</ord:orderType>
+				<ord:numberOrder>31702</ord:numberOrder>
+				<ord:date>2014-04-29</ord:date>
+				<ord:text></ord:text>
+				<ord:partnerIdentity>
+					<typ:address>
+						<typ:company>Martin Polák</typ:company>
+						<typ:name>Martin Polák</typ:name>
+						<typ:city>Mokrá-Horákov</typ:city>
+						<typ:street>Mokrá 307</typ:street>
+						<typ:zip>66404</typ:zip>
+						<typ:ico></typ:ico>
+						<typ:dic></typ:dic>
+						<typ:phone>723238866</typ:phone>
+						<typ:email>brko11@gmail.com</typ:email>
+					</typ:address>
+					<typ:shipToAddress>
+			            <typ:name></typ:name>
+			            <typ:city></typ:city>
+			            <typ:street></typ:street>
+			            <typ:zip></typ:zip>
+					</typ:shipToAddress>
+				</ord:partnerIdentity>
+				<ord:paymentType>
+					<typ:ids>Dobírkou</typ:ids>
+				</ord:paymentType>
+			</ord:orderHeader>
+			<ord:orderDetail>
+				<ord:orderItem>
+					<ord:text>Mutant Whey Protein 2,3g, 2808 (PVL)</ord:text> 
+					<ord:quantity>1</ord:quantity> 
+					<ord:payVAT>true</ord:payVAT> 
+					<ord:rateVAT>low</ord:rateVAT> 
+					<ord:homeCurrency>
+						<typ:unitPrice>990</typ:unitPrice> 
+					</ord:homeCurrency>
+					<ord:stockItem>
+						<typ:stockItem>
+							<typ:ids>2808</typ:ids> 
+						</typ:stockItem>
+					</ord:stockItem>
+				</ord:orderItem>
+				<ord:orderItem>
+					<ord:text>Balík do ruky České pošty</ord:text> 
+					<ord:quantity>1</ord:quantity>
+					<ord:payVAT>true</ord:payVAT> 
+					<ord:rateVAT></ord:rateVAT> 
+					<ord:homeCurrency>
+						<typ:unitPrice>80.00</typ:unitPrice> 
+					</ord:homeCurrency>
+					<ord:stockItem>
+						<typ:stockItem>
+							<typ:ids></typ:ids> 
+						</typ:stockItem>
+					</ord:stockItem>
+				</ord:orderItem>
+				<ord:orderItem>
+					<ord:text>Na dobírku</ord:text> 
+					<ord:quantity>1</ord:quantity> 
+					<ord:payVAT>true</ord:payVAT> 
+					<ord:rateVAT>none</ord:rateVAT> 
+					<ord:homeCurrency>
+						<typ:unitPrice>0</typ:unitPrice> 
+					</ord:homeCurrency>
+					<ord:stockItem>
+						<typ:stockItem>
+							<typ:ids></typ:ids>
+						</typ:stockItem>
+					</ord:stockItem>
+				</ord:orderItem>
+			</ord:orderDetail>
+			<ord:orderSummary>
+				<ord:roundingDocument>math2one</ord:roundingDocument> 
+			</ord:orderSummary>
+		</ord:order>
+	</dat:dataPackItem>
+</dat:dataPack>
