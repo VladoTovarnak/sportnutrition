@@ -118,6 +118,11 @@ class PagesController extends AppController{
 		$hp_recommended = $this->RecommendedProduct->hp_list($customer_type_id);
 		$this->set('hp_recommended', $hp_recommended);
 		
+		App::import('Model', 'DiscountedProduct');
+		$this->DiscountedProduct = new DiscountedProduct;
+		$hp_discounted = $this->DiscountedProduct->hp_list($customer_type_id);
+		$this->set('hp_discounted', $hp_discounted);
+		
 		App::import('Model', 'MostSoldProduct');
 		$this->MostSoldProduct = new MostSoldProduct;
 		$hp_most_sold = $this->MostSoldProduct->hp_list($customer_type_id);

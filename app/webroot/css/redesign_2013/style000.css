@@ -32,22 +32,32 @@ hr.cleaner {
 }
 
 #header {
-    background: #EEEEEE;
+    background: #FFF;
     padding: 1px;
     width: 790px;
     float: left;
 }
+
+#header a#logo{
+	display: block;
+	float: left;
+	margin-top: 20px;
+}
+
+/*
 #header h1 {
-    width: 167px; height: 73px;
+    width: 240px; height: 125px;
     overflow: hidden;
     position: relative;
     float: left;
 }
 #header h1 span {
     position: absolute; left: 0; top: 0;
-    background: url('/images/redesign_2013/logo.png');
-    width: 167px; height: 73px;
+    background: url('/images/redesign_2013/logo_snv.png');
+    width: 240px; height: 125px;
 }
+*/
+
 #header ul.menu {
     background: #E2001A;
     border: 3px solid #D00909;
@@ -240,6 +250,7 @@ form div.pair button {
     float: right;
     background: #F0F0F0;
     margin-right: 12px;
+    height:255px;
 }
 #sidebox h2 {
     background: url("/images/redesign_2013/thumbUp.png") no-repeat 0 7px;
@@ -255,7 +266,7 @@ form div.pair button {
 }
 #sidebox ul li {
     list-style: url("/images/redesign_2013/sidebox_li.png");
-    line-height: 25px;
+    line-height: 35px;
 }
 #sidebox ul li b.red {
     color: #E10019;list-style: url("/images/redesign_2013/sidebox_li.png");
@@ -384,8 +395,8 @@ form div.pair button {
 
 #main div.product.card {
     float: left;
-    height: 160px; width: 256px;
-    margin: 10px 10px 20px 0;
+    width: 256px;
+    margin: 10px 10px 0px 0px;
     position: relative;
     overflow: hidden;
 }
@@ -397,16 +408,15 @@ form div.pair button {
 }
 #main div.product.card img {
     float: left;
-    /*	width: 90px; */
 }
 #main div.product.card.small img {
     width: 55px;
 }
 #main div.product.card h3 {
     float: right;
-    margin: 7px 0 0 0;
+    margin: 0px 0px 5px 0px;
     width: 156px;
-    line-height: 17px;
+    line-height: 12px;
 }
 #main div.product.card.small h3 {
     margin: 0;
@@ -415,16 +425,76 @@ form div.pair button {
 #main div.product.card h3 a {
     color: #2F2F2F;
     text-decoration: none;
-    font-size: 16px; font-weight: normal;
+    font-size: 14px; font-weight: bold;
 }
 #main div.product.card p {
     font-size: 14px;
     display: block;
-    border-top: 1px solid #ccc;
+    /*border-top: 1px solid #ccc;*/
     margin: 7px 0 0 10px; padding: 7px 0 0 0;
     width: 150px;
     float: left;
 }
+
+#main div.product.card a.image_holder{
+	display:block;
+	float:left;
+	width:90px;
+	height:150px;
+}
+
+#main div.product.card input.cart_add{
+	background: #E2001A;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border: none;
+	color: #fff;
+	padding: 5px 35px;
+	font-size:11px;
+	margin:0px 0px 0px 10px;
+	margin-top:5px;
+}
+
+#main div.product.card p.comments {
+	font-size:10px;
+	border:none;
+	padding:0px;
+	margin:5px 0px 0px 10px;
+}
+
+#main div.product.card p.comments a{
+	color:#000;
+	text-decoration:none;
+}
+
+#main div.product.card p.comments a:hover{
+	color:#222;
+	text-decoration:underline;
+}
+
+#main div.product.card p.prices {
+	padding:0px;
+	margin:5px 0px 0px 10px;
+	border:none;
+}
+
+#main div.product.card p.prices span.price {
+	color:#E2001A;
+	font-size: 23px;
+	font-weight: bold;
+}
+
+#main div.product.card p.guarantee {
+	font-size:10px;
+	border:none;
+	padding:0px;
+	margin:0px 0px 0px 10px;
+}
+
+#main div.product.card p.guarantee span.first_line{
+	color: #E2001A;
+}
+
 #main div.product.card b.price {
     font-size: 22px;
     color: #E2001A;
@@ -784,13 +854,33 @@ ul.breadcrumbs li:last-child a {
     background: #E8E8E8;
     width: 385px;
     height: 280px;
-    margin: 10px 0 0 0; padding: 20px 10px 10px 10px;
+    margin: 10px 0 0 0; padding: 10px 10px 10px 10px;
 }
+
 #main div.left div.card.big h3 {
-    font-weight: normal;
-    font-size: 19px;
     width: 205px;
 }
+
+#main div.left div.card.big h3 a {
+    font-weight: bold;
+    font-size: 19px;
+    line-height:19px;
+    color:#E2001A;
+}
+
+#main div.left div.card.big a.image_holder {
+	width:170px;
+	height:250px;
+}
+
+#main div.left div.card.big a img {
+	width:auto;
+}
+
+#main div.left div.product.card.big{
+	height:180px;
+}
+
 #main div.left div.product.card.big p {
     width: 190px;
 }
@@ -813,8 +903,8 @@ ul.breadcrumbs li:last-child a {
 }
 #main div.left div.best {
     background: #E8E8E8;
-    padding: 10px;
-    width: 160px; height: 290px;
+    padding: 5px 10px 10px 10px;
+    width: 160px; height: 185px;
     overflow: hidden;
 }
 #main div.left div.best a {
@@ -831,7 +921,7 @@ ul.breadcrumbs li:last-child a {
     margin: 5px 0 0 0;
 }
 #main div.right.best {
-    height: 290px;
+    /*height: 290px;*/
 }
 
 #main div.right.filter h3 {

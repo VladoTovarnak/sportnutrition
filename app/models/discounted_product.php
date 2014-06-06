@@ -1,6 +1,6 @@
 <?php 
-class RecommendedProduct extends AppModel {
-	var $name = 'RecommendedProduct';
+class DiscountedProduct extends AppModel {
+	var $name = 'DiscountedProduct';
 	
 	var $actsAs = array(
 		'Containable',
@@ -26,7 +26,7 @@ class RecommendedProduct extends AppModel {
 	 * @param int $product_id
 	 */
 	function isIncluded($product_id) {
-		return $this->hasAny(array('RecommendedProduct.product_id' => $product_id));
+		return $this->hasAny(array('DiscountedProduct.product_id' => $product_id));
 	}
 	
 	/**
@@ -34,7 +34,7 @@ class RecommendedProduct extends AppModel {
 	 */
 	function hp_list($customer_type_id = 0) {
 		$this->Product->virtualFields['price'] = $this->Product->price;
-		$recommended = $this->Product->find('all', array(
+		$discounted = $this->Product->find('all', array(
 			'conditions' => array('Product.active' => true),
 			'contain' => array(),
 			'fields' => array(
@@ -52,10 +52,10 @@ class RecommendedProduct extends AppModel {
 			),
 			'joins' => array(
 				array(
-					'table' => 'recommended_products',
-					'alias' => 'RecommendedProduct',
+					'table' => 'discounted_products',
+					'alias' => 'DiscountedProduct',
 					'type' => 'INNER',
-					'conditions' => array('Product.id = RecommendedProduct.product_id')
+					'conditions' => array('Product.id = DiscountedProduct.product_id')
 				),
 				array(
 					'table' => 'images',
@@ -70,11 +70,11 @@ class RecommendedProduct extends AppModel {
 					'conditions' => array('Product.id = CustomerTypeProductPrice.product_id AND CustomerTypeProductPrice.customer_type_id = ' . $customer_type_id)
 				),
 			),
-			'order' => array('RecommendedProduct.order' => 'asc')
+			'order' => array('DiscountedProduct.order' => 'asc')
 		));
 		unset($this->Product->virtualFields['price']);
 
-		return $recommended;
+		return $discounted;
 	}
 }
 ?>
