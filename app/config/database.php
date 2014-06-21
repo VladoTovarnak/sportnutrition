@@ -83,7 +83,7 @@ class DATABASE_CONFIG {
 	var $default = array(
 		'driver' => 'mysql',
 		'persistent' => false,
-		'host' => 'localhost',
+		'host' => 'wm55.wedos.net',
 		'port' => '',
 		'login' => 'a64454_obchod',
 		'password' => '74XA4bD2',
