@@ -186,4 +186,10 @@ define('HP_URI', '/');
 define('FILES_DIR', 'files');
 define('DOCUMENTS_DIR', FILES_DIR . DS . 'documents');
 define('POHODA_EXPORT_DIR', DOCUMENTS_DIR . DS . 'pohoda_exports');
+
+$host = 'wm55.wedos.net';
+if ( $_SERVER['HTTP_HOST'] == 'localhost' ){
+	$host = 'localhost';
+}
+define('__DB_HOST__', $host);
 ?>

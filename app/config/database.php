@@ -80,11 +80,10 @@
  */
 class DATABASE_CONFIG {
 
-	
 	var $default = array(
 		'driver' => 'mysql',
 		'persistent' => false,
-		'host' => 'wm55.wedos.net',
+		'host' => __DB_HOST__,
 		'port' => '',
 		'login' => 'a64454_obchod',
 		'password' => '74XA4bD2',
