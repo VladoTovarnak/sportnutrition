@@ -8,7 +8,7 @@
 
 <div id="body">
 	<div id="header">
-		<h1><a href="/">SNV - Sport Nutrition Vávra<span></span></a></h1>
+		<a id="logo" href="/"><img src="/images/redesign_2013/logo_snv.png" width="240px" height="125px" alt="SNV - sportovní výživa pro Vás" /></a>
 		<?php
 			echo $this->element(REDESIGN_PATH . 'login_box');
 			echo $this->element(REDESIGN_PATH . 'horizontal_menu');
@@ -60,7 +60,10 @@
 	<hr class="cleaner" />
 	<?php echo $this->element(REDESIGN_PATH . 'footer')?>
 </div>
-
+<?php
+	echo $this->element(REDESIGN_PATH . 'heureka_overeno');
+	echo $this->element(REDESIGN_PATH . 'facebook_prava');
+?>
 </body>
 </html>
 <?php echo $this->element('sql_dump')?>

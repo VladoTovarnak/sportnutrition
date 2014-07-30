@@ -53,7 +53,11 @@ class Image extends AppModel {
 	}
 
 	function resize($file_in, $file_out, $max_x, $max_y = 0) {
-	    $imagesize = getimagesize($file_in);
+		if (!$imagesize = getimagesize($file_in)) {
+			debug('"' . $file_in . '"');
+			return false;
+		}
+
 		if ((!$max_x && !$max_y) || !$imagesize[0] || !$imagesize[1]) {
 	        return false;
 	    }
@@ -75,6 +79,7 @@ class Image extends AppModel {
 	    if (!$img) {
 	        return false;
 	    }
+	    
 	    if ($max_x) {
 	        $width = $max_x;
 	        $height = round($imagesize[1] * $width / $imagesize[0]);
@@ -83,8 +88,19 @@ class Image extends AppModel {
 	        $height = $max_y;
 	        $width = round($imagesize[0] * $height / $imagesize[1]);
 	    }
-	    $img2 = imagecreatetruecolor($width, $height);
-	    imagecopyresampled($img2, $img, 0, 0, 0, 0, $width, $height, $imagesize[0], $imagesize[1]);
+	    
+	    $off_x = ceil(($max_x - $width) / 2);
+	    $off_y = 0;
+	    if ($max_y) {
+	    	$off_y = ceil(($max_y - $height) / 2);
+	    }
+	    
+	    
+	    $img2 = imagecreatetruecolor($max_x, $max_y);
+	    $bg = imagecolorallocate($img2, 255, 255, 255);
+	    imagefill ($img2, 0, 0, $bg);
+	    
+	    imagecopyresampled($img2, $img, $off_x, $off_y, 0, 0, $width, $height, $imagesize[0], $imagesize[1]);
 	    if ($imagesize[2] == 2) {
 	        $return = imagejpeg($img2, $file_out, 80);
 			@imagedestroy($return);

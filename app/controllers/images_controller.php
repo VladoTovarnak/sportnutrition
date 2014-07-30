@@ -253,5 +253,27 @@ class ImagesController extends AppController {
 		$this->Image->import();
 		die('here');
 	}
+	
+	function resize_test() {
+		$dir = 'product-images';
+	
+		$files = scandir($dir);
+		// vyfiltruju adresare, o kterych vim, ze tam jsou
+		$files = array_filter($files, function($item) {
+			return !in_array($item, array('.', '..', 'medium', 'small'));
+		});
+	
+			foreach ($files as $file) {
+				$path = $dir . '/' . $file;
+				if (file_exists($path)) {
+					if (!file_exists($dir . '/small/' . $file) && !file_exists($dir . '/medium/' . $file)) {
+						$this->Image->makeThumbnails($path);
+					}
+				} else {
+					debug('neexistuje: ' . $path);
+				}
+			}
+			die('hotovo');
+	}
 }
 ?>

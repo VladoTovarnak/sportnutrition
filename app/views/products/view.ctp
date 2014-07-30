@@ -3,14 +3,16 @@
 	
 	<!-- OBRAZKY -->
 	<div class="photos">
-		<?php if (empty($product['Image'])) { ?>
-		<a href="/images/na.jpg" class="big fancybox"><img src="/na.jpg" alt="" /></a>
-		<?php } else {
+<?php 
+		if (empty($product['Image'])) {
+			echo '<img src="/img/na_medium.jpg" alt="" />';
+		} else {
 			$class = 'big';
 			$image_type = 'medium';
-			foreach ($product['Image'] as $image) { ?>
-		<a href="/product-images/<?php echo $image['name']?>" class="<?php echo $class?> fancybox"><img src="/product-images/<?php echo $image_type?>/<?php echo $image['name']?>" alt="" /></a>
-		<?php
+
+			foreach ($product['Image'] as $image_item) {
+				$image = 'product-images/' . $image_type . '/' . $image_item['name'];
+				echo '<a href="/product-images/' . $image_item['name'] . '" class="' . $class . ' fancybox"><img src="' . $image . '" alt="" /></a>';
 				$class = 'min'; 
 				$image_type = 'small';
 			}

@@ -86,7 +86,10 @@
 	<hr class="cleaner" />
 	<?php echo $this->element(REDESIGN_PATH . 'footer')?>
 </div>
-
+<?php
+	echo $this->element(REDESIGN_PATH . 'heureka_overeno');
+	echo $this->element(REDESIGN_PATH . 'facebook_prava');
+?>
 </body>
 </html>
 <?php echo $this->element('sql_dump')?>

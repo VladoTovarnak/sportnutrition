@@ -396,6 +396,7 @@ form div.pair button {
 #main div.product.card {
     float: left;
     width: 256px;
+    height: 175px;
     margin: 10px 10px 0px 0px;
     position: relative;
     overflow: hidden;
@@ -440,7 +441,7 @@ form div.pair button {
 	display:block;
 	float:left;
 	width:90px;
-	height:150px;
+	height:170px;
 }
 
 #main div.product.card input.cart_add{
