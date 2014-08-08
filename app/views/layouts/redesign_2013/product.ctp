@@ -14,9 +14,11 @@
 			echo $this->element(REDESIGN_PATH . 'horizontal_menu');
 		?>
 	</div>
-	<?php echo $this->element(REDESIGN_PATH . 'sidebox')?>
-	<?php echo $this->element(REDESIGN_PATH . 'search_box')?>
-
+	<?php
+		echo $this->element(REDESIGN_PATH . 'sidebox');
+		echo $this->element(REDESIGN_PATH . 'submenu');
+		echo $this->element(REDESIGN_PATH . 'search_box');
+	?>
 	<hr class="cleaner" />
 
 	<div id="sidebar"><?php
@@ -52,7 +54,22 @@
 			<?php	} ?>
 				<div style="clear:both"></div>
 				</div>
-				
+			<?php } ?>
+			
+			<?php 
+				if (isset($right_sidebar_products) && !empty($right_sidebar_products)) { ?>
+				<div>
+				<h2><span>Podobné produkty</span></h2>
+			<?php	foreach ($right_sidebar_products as $right_sidebar_product) {?>
+				<div class="product card small">
+					<h3><a href="/<?php echo $right_sidebar_product['Product']['url']?>"><?php echo $right_sidebar_product['Product']['name']?></a></h3>
+					<a href="#"><img src="/product-images/small/<?php echo $right_sidebar_product['Image']['name']?>" alt="Obrázek <?php echo $right_sidebar_product['Product']['name']?>" /></a>
+					<div class="rating"></div>
+					<b class="price"><?php echo $right_sidebar_product['Product']['price']?> Kč</b>
+				</div>
+			<?php	} ?>
+				<div style="clear:both"></div>
+				</div>
 			<?php } ?>
 		</div>
 		<hr class="cleaner" />

@@ -36,11 +36,12 @@
 			echo $this->element(REDESIGN_PATH . 'horizontal_menu');
 		?>
 	</div>
-	<?php echo $this->element(REDESIGN_PATH . 'sidebox')?>
-	<?php echo $this->element(REDESIGN_PATH . 'search_box')?>
-
+	<?php
+		echo $this->element(REDESIGN_PATH . 'sidebox');
+		echo $this->element(REDESIGN_PATH . 'submenu');
+		echo $this->element(REDESIGN_PATH . 'search_box');
+	?>
 	<hr class="cleaner" />
-
 	<div id="sidebar"><?php
 		echo $this->element(REDESIGN_PATH . 'categories_menu');
 		echo $this->element(REDESIGN_PATH . 'manufacturer_select');

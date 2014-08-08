@@ -37,7 +37,11 @@
 <?php
 	// zvyraznena cena se zobrazuje ve formulari pro objednani produktu bez variant, ale my ji chceme zobrazit i pokud se produkt neda objednat nebo pokud ma produkt varianty
 	if (!$product['Availability']['cart_allowed'] || (!empty($subproducts) && $product['Availability']['cart_allowed'])) { ?>
-	<p><b class="price"><?php echo $product['Product']['price'] ?>&nbsp;Kč</b></p>
+	<p class="prices">
+<?php	if (isset($product['Product']['retail_price_with_dph']) && $product['Product']['retail_price_with_dph'] > $product['Product']['price']) { ?>
+	Běžná cena: <?php echo $product['Product']['retail_price_with_dph'] ?>&nbsp;Kč<br/>
+<?php } ?>
+	<b class="price">Cena: <?php echo $product['Product']['price'] ?>&nbsp;Kč</b></p>
 <?php }
 	// pokud se produkt neda objednat, zobrazim informaci
 	if (!$product['Availability']['cart_allowed']) { ?>
@@ -52,6 +56,9 @@
 		<div class="g-plusone" data-href="http://www.<?php echo CUST_ROOT?>/<?php echo $product['Product']['url']?>"></div>
 	</div>
 	<hr class="cleaner" />
+	<div class="availability">
+		<b>Dostupnost:</b>&nbsp;<?php echo ucfirst($product['Availability']['name'])?>
+	</div>
 </div>
 
 <!-- VLOZENI DO KOSIKU, KDYZ PRODUKT MA VARIANTY -->

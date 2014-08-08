@@ -116,6 +116,9 @@
 			// menu hlavni kategorie
 			$this->set('categories_menu', $this->Product->CategoriesProduct->Category->getSubcategoriesMenuList($opened_category_id, $this->Session->check('Customer')));
 			
+			// submenu kategorii
+			$this->set('categories_submenu', $this->Product->CategoriesProduct->Category->getSubmenuCategories());
+			
 			// vyrobci do selectu
 			$manufacturers_list = $this->Product->Manufacturer->find('list', array(
 				'conditions' => array('Manufacturer.active' => true)	

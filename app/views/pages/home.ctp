@@ -41,10 +41,10 @@
 
 		<div class="left">
 			<h2><span>Nejprodávanější</span></h2>
-<?php		$first = true;
-			foreach ($hp_most_sold as $product) {
-				if ($first) {?>
-					<div class="product card big">
+			<div id="best_products" class="slidorion">
+				<div class="slider">
+<?php			foreach ($hp_most_sold as $product) { ?>
+					<div class="slide product card big" style="z-index: 2; left: 0px; top: 0px;">
 						<h3><a href="<?php echo $product['Product']['url']?>"><?php echo $product['Product']['name']?></a></h3>
 						<a class="image_holder" href="/<?php echo $product['Product']['url']?>">
 							<img src="/product-images/small/<?php echo $product['Image']['name']?>" alt="<?php echo $product['Product']['title']?>"/>
@@ -56,21 +56,15 @@
 							<span class="common">Běžná cena: <?php echo $suggested_product['Product']['retail_price_with_dph']?> Kč</span><br />
 							<span class="price">Cena: <?php echo $suggested_product['Product']['price']?> Kč</span>
 						</p>
-						
-						
-						<!-- <p><?php echo $product['Product']['short_description']?></p>
-						<b class="price"><?php echo $product['Product']['price']?> Kč</b>
-						<a href="/<?php echo $product['Product']['url']?>" class="info">Více informací o produktu</a> -->
 					</div>
-					<div class="right best">
-<?php 				
-					$first = false;
-				} else {
-?>
-					<a href="/<?php echo $product['Product']['url']?>"><?php echo $product['Product']['name']?></a>
-<?php
-				}
-			} ?>
+<?php			} ?>
+				</div>
+				<div class="accordion right best">
+<?php			foreach ($hp_most_sold as $product) { ?>
+					<div class="header"><?php echo $product['Product']['name']?></div>
+					<div class="content" style="display: none;"></div>
+<?php 			} ?>
+				</div>
 			</div>
 		</div>
 

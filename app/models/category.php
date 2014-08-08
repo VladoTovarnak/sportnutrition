@@ -108,10 +108,17 @@ class Category extends AppModel {
 		$path_ids[] = ROOT_CATEGORY_ID;
 		// je mozne, ze uz jsem v podstromu sportovni vyzivy, proto mozne duplicity smazu
 		$path_ids = array_unique($path_ids);
-
+		
 		$conditions = array(
 			"parent_id IN ('" . implode("', '", $path_ids) . "')",
 		);
+		
+		// idcka kategorii, ktere nechci ve vertikalnim menu zobrazit
+		$unwanted_category_ids = array(2, 4, 5, 6, 7);
+		
+		if (!empty($unwanted_category_ids)) {
+			$conditions[] = 'Category.id NOT IN (' . implode(',', $unwanted_category_ids) . ')';
+		}
 		
 		if (!$show_all) {
 			$conditions['active'] = true;
@@ -136,6 +143,18 @@ class Category extends AppModel {
 		return array(
 			'categories' => $categories, 'path_ids' => $path_ids, 'opened_category_id' => $opened_category_id
 		);
+	}
+	
+	function getSubmenuCategories() {
+		$submenu_category_ids = array(2, 4, 5, 6, 7);
+		$categories = $this->find('all', array(
+			'conditions' => array('Category.id' => $submenu_category_ids),
+			'contain' => array(),
+			'fields' => array('Category.id', 'Category.name', 'Category.url'),
+			'order' => array('Category.id')	
+		));
+
+		return ($categories);
 	}
 	
 	/**

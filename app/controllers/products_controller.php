@@ -238,6 +238,54 @@ class ProductsController extends AppController {
 		$stack = $this->Session->read('ProductStack');
 		$stack = $this->Product->update_stack($stack, $id);
 		$this->Session->write('ProductStack', $stack);
+		
+		if (!empty($product['CategoriesProduct'])) {
+			$this->Product->virtualFields['price'] = $this->Product->price;
+			$right_sidebar_products = $this->Product->find('all', array(
+				'conditions' => array(
+					'Product.active' => true,
+					'CategoriesProduct.category_id' => $product['CategoriesProduct'][0]['category_id'],
+					'Availability.cart_allowed' => true
+				),
+				'contain' => array(),
+				'joins' => array(
+					array(
+						'table' => 'categories_products',
+						'alias' => 'CategoriesProduct',
+						'type' => 'INNER',
+						'conditions' => array('Product.id = CategoriesProduct.product_id')
+					),
+					array(
+						'table' => 'availabilities',
+						'alias' => 'Availability',
+						'type' => 'INNER',
+						'conditions' => array('Product.availability_id = Availability.id')
+					),
+					array(
+						'table' => 'images',
+						'alias' => 'Image',
+						'type' => 'INNER',
+						'conditions' => array('Product.id = Image.product_id AND Image.is_main = 1')
+					),
+					array(
+						'table' => 'customer_type_product_prices',
+						'alias' => 'CustomerTypeProductPrice',
+						'type' => 'LEFT',
+						'conditions' => array('Product.id = CustomerTypeProductPrice.product_id AND CustomerTypeProductPrice.customer_type_id = ' . $customer_type_id)
+					)
+				),
+				'fields' => array(
+					'Product.id',
+					'Product.name',
+					'Product.price',
+					'Image.id',
+					'Image.name'
+				),
+				'limit' => 3
+			));
+			unset($this->Product->virtualFields['price']);
+			$this->set('right_sidebar_products', $right_sidebar_products);
+		}
 	}
 	
 	/**

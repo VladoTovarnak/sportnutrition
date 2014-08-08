@@ -14,8 +14,11 @@
 			echo $this->element(REDESIGN_PATH . 'horizontal_menu');
 		?>
 	</div>
-	<?php echo $this->element(REDESIGN_PATH . 'sidebox')?>
-	<?php echo $this->element(REDESIGN_PATH . 'search_box')?>
+	<?php
+		echo $this->element(REDESIGN_PATH . 'sidebox');
+		echo $this->element(REDESIGN_PATH . 'submenu');
+		echo $this->element(REDESIGN_PATH . 'search_box');
+	?>
 
 	<hr class="cleaner" />
 
@@ -47,7 +50,7 @@
 			<h3>Podle značky</h3>
 			<ul>
 				<?php foreach ($filter_manufacturers as $filter_manufacturer) { ?>
-				<li><a href="#" class="filter_manufacturer" rel="<?php echo $filter_manufacturer['Manufacturer']['id']?>"><?php echo $filter_manufacturer['Manufacturer']['name']?>  (<?php echo $filter_manufacturer[0]['Manufacturer__products_count']?>)</a></li>
+				<li><label><input type="checkbox" /><?php echo $filter_manufacturer['Manufacturer']['name']?>  (<?php echo $filter_manufacturer[0]['Manufacturer__products_count']?>)</label></li>
 				<?php } ?>
 			</ul>
 			<?php } ?>
@@ -67,7 +70,7 @@
 			<h3>Podle příchuti</h3>
 			<ul>
 				<?php foreach ($filter_attributes as $filter_attribute) { ?>
-				<li><a href="#" class="filter_attribute" rel="<?php echo $filter_attribute['Attribute']['id']?>"><?php echo $filter_attribute['Attribute']['value']?>  (<?php echo $filter_attribute[0]['Attribute__products_count']?>)</a></li>
+				<li><label><input type="checkbox" /><?php echo $filter_attribute['Attribute']['value']?>  (<?php echo $filter_attribute[0]['Attribute__products_count']?>)</label></li>
 				<?php } ?>
 			</ul>
 			<?php }
@@ -80,6 +83,34 @@
 			<?php } ?>
 			</ul>
 			<?php } ?>
+			<div>
+				<h2><span>Akční výrobky:</span></h2>
+				<div class="product card small">
+					<h3><a href="/super-bcaa-85-000mg-liquid-1l-super-bcaa-85-000mg-liquid-1l-p3252">Super BCAA 85 000mg liquid 1l + Super BCAA 85 000mg liquid 1l</a></h3>
+					<a href="#"><img src="/product-images/small/super-bcaa-85-000-liquid-1l-1l.jpg" alt="Obrázek Super BCAA 85 000mg liquid 1l + Super BCAA 85 000mg liquid 1l" /></a>
+					<div class="rating"></div>
+					<b class="price">478 Kč</b>
+				</div>
+				<div class="product card small">
+					<h3><a href="/xtreme-bcaa-2000-15tbl-blistr-p3632">Xtreme BCAA 2000 15tbl blistr</a></h3>
+					<a href="#"><img src="/product-images/small/xtreme-bcaa-2000-fitness-authority.jpg" alt="Obrázek Xtreme BCAA 2000 15tbl blistr" /></a>
+					<div class="rating"></div>
+					<b class="price">49 Kč</b>
+				</div>
+				<div class="product card small">
+					<h3><a href="/excelent-protein-bar-85g-p1442">Excelent protein bar 85g</a></h3>
+					<a href="#"><img src="/product-images/small/excelent-protein-bar-85g.jpg" alt="Obrázek Excelent protein bar 85g" /></a>
+					<div class="rating"></div>
+					<b class="price">41 Kč</b>
+				</div>
+				<div class="product card small">
+					<h3><a href="/gela-pure-900-250cps-p1770">GELA Pure 900 250cps</a></h3>
+					<a href="#"><img src="/product-images/small/gela-pure-900-250cps_1.jpg" alt="Obrázek GELA Pure 900 250cps" /></a>
+					<div class="rating"></div>
+					<b class="price">308 Kč</b>
+				</div>
+				<div style="clear:both"></div>
+			</div>
 		</div>
 		<hr class="cleaner" />
 	</div>
