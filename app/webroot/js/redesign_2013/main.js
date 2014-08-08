@@ -20,6 +20,7 @@ $(function() {
 	});
 
 	$("#slides").slidorion();
+	$("#best_products").slidorion();
 
 	$(".tabs").tabs();
 	$(".fancybox").fancybox();

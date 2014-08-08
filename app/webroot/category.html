@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html>
+	<head>
+				<meta charset="utf-8" />
+		<link rel="stylesheet" href="./index_files/style000.css" type="text/css" media="screen">
+		<script type="text/javascript" async="" src="./index_files/gjs.php"></script><script id="facebook-jssdk" src="./index_files/all.js"></script><script charset="utf-8" src="./index_files/jquery.js" type="text/javascript"></script>
+		<script type="text/javascript" src="./index_files/jquery.mousewheel-3.0.6.pack.js"></script>
+		<script type="text/javascript" src="./index_files/jquery.fancybox.js"></script>
+		<link rel="stylesheet" type="text/css" href="./index_files/jquery.fancybox.css" media="screen">
+		<script charset="utf-8" src="./index_files/jquery.easing.js" type="text/javascript"></script>
+		<script charset="utf-8" src="./index_files/jquery.slidorion.js" type="text/javascript"></script>
+		<script charset="utf-8" src="./index_files/main.js" type="text/javascript"></script>
+		<title>Sportovní výživa, doplňky stravy, kloubní výživa, vitamíny : Sportnutrition</title>
+		<meta name="description" content="Sportovní výživa od Sport Nutrition. Proteinové a sacharidové přípravky (proteiny, sacharidy, gainery), vitamíny a aminokyseliny.">
+		<link rel="stylesheet" href="http://64454.w54.wedos.ws/css/redesign_2013/jqueryui/style.css?Wednesday%206th%20of%20August%202014%2002:26:49%20PM">
+		<script charset="utf-8" src="./index_files/jquery-ui.js" type="text/javascript"></script>
+
+		<!-- JRATING -->
+		<!-- include CSS & JS files -->
+		<!-- CSS file -->
+		<link rel="stylesheet" type="text/css" href="./index_files/jRating.jquery.css" media="screen">
+		<!-- jQuery files -->
+		<script type="text/javascript" src="./index_files/jRating.jquery.js"></script>
+		<script type="text/javascript" src="./index_files/product_rating_management.js"></script>
+		<script type="text/javascript" src="./index_files/js"></script><script src="./index_files/main(1).js" type="text/javascript"></script>
+		</head>
+<body>
+
+<div id="body">
+	<div id="header">
+		<a id="logo" href="/"><img src="/images/redesign_2013/logo_snv.png" width="240px" height="125px" alt="SNV - sportovní výživa pro Vás" /></a>
+		<ul class="accordion">
+	<li class="login active"><a href="#login">Přihlášení</a></li>
+	<li class="basket"><a href="#basket">Nákupní košík</a></li>
+	<li class="info"><a href="#info">Vše o nákupu</a></li>
+</ul>
+<div id="login">
+	<div id="login_wrapper">
+<form id="login_form_top" method="post" action="/prihlaseni"><div style="display:none;"><input type="hidden" name="_method" value="POST" /></div><input name="data[Customer][login]" type="text" placeholder="Login" id="CustomerLogin" />&nbsp;<input type="password" name="data[Customer][password]" placeholder="Heslo" id="CustomerPassword" />&nbsp;<button name="login">OK</button><input type="hidden" name="data[Customer][backtrace_url]" value="/kreatinove-pripravky-c18" id="CustomerBacktraceUrl" /></form><p><a href="/obnova-hesla">Zapomněl(a) jsem heslo</a> | <a href="/registrace">Chci se zaregistrovat</a></p>	</div>
+</div>
+
+<div id="basket" style="display:none">
+<p>Košík je prázdný.</p>
+</div>
+
+<div id="info" style="display:none">
+	<div class="left">
+		<ul>
+			<li><a href="/jak-nakupovat.htm">Jak nakupovat</a></li>
+			<li><a href="/obchodni-podminky.htm">Obchodní podmínky</a></li>
+			<!-- 
+			<li><a href="/doprava.htm">Způsoby a ceny dopravy</a></li>
+			<li><a href="/osobni-odber.htm">Osobní odběr</a></li>
+ 			-->
+		</ul>
+	</div>
+	<div class="left">
+		<ul>
+			<li><a href="/firma.htm#provozovatel">Informace o provozovateli</a></li>
+			<li><a href="/firma.htm#prodejna">Naše prodejna</a></li>
+			<!-- 
+			<li><a href="/reklamacni-rad.htm">Reklamační řád</a></li>
+			<li><a href="/firma.htm">Jak nás kontaktovat</a></li>
+			 -->
+		</ul>
+	</div>
+	<hr class="cleaner" />
+</div><ul class="menu">
+	<li><a href="/doprava.htm">Doprava</a></li>
+	<li><a href="/obchodni-podminky.htm">Obchodní podmínky</a></li>
+	<li><a href="/reklamacni-rad.htm">Reklamační řád</a></li>
+	<li><a href="/firma.htm">Kontakt</a></li>
+	<li class="phone">608 962 685</li>
+	<li class="mail"><a href="mailto:info@sportnutrition.cz">info@sportnutrition.cz</a></li>
+</ul>	</div>
+		<div id="sidebox">
+		<h2><b>Výhody</b> našeho eshopu</h2>
+		<ul>
+			<li><b class="red">Denní expedice</b> zásilek</li>
+			<li>Zboží <b>skladem</b></li>
+			<li><b class="red">Garance</b> nejnižších cen</li>
+			<li><b>Vrácení zboží</b> do 14 dnů</li>
+		</ul>
+	</div>	<div id="search">
+<!-- 	<a href="#">Lorem ispum</a>
+	<a href="#">Kuldere mutes</a> -->
+	<form id="search_form" method="get" action="/vyhledavani-produktu">		<div class="pair">
+			Vyhledávání:
+			<input name="q" type="text" class="text" placeholder="Zde zadejte hledaný výraz" id="SearchQ" />			<input type="hidden" name="sorting" id="SearchSorting" />			<input type="hidden" name="paging" id="SearchPaging" />			<button name="send"> </button>
+		</div>
+	</form></div>
+	<hr class="cleaner" />
+
+	<div id="sidebar"><h2>Sportovní výživa</h2>
+<ul id="menu">
+	<li class="open">
+		<span></span>		<a href="/sportovni-vyziva-c9"><span></span>Sportovní výživa</a>
+		<ul>
+			<li>
+								<a href="/aminokyseliny-c15">Aminokyseliny</a>
+							</li>
+			<li>
+								<a href="/proteiny-c16">Proteiny</a>
+							</li>
+			<li>
+								<a href="/sacharidove-pripravky-c17">Sacharidové přípravky</a>
+							</li>
+			<li class="open">
+				<span></span>				<a href="/kreatinove-pripravky-c18"><span></span>Kreatinové přípravky</a>
+								<ul>
+					<li>
+						<a href="/praskove-c62">práškové</a>
+											</li>
+					<li>
+						<a href="/tablety-kapsle-c63">tablety, kapsle</a>
+											</li>
+				</ul>
+			</li>
+			<li>
+								<a href="/specialni-pripravky-c19">Speciální přípravky</a>
+							</li>
+			<li>
+								<a href="/no-produkty-c20">NO - produkty</a>
+							</li>
+			<li>
+								<a href="/spalovace-tuku-c21">Spalovače tuku</a>
+							</li>
+			<li>
+								<a href="/kloubni-vyziva-c22">Kloubní výživa</a>
+							</li>
+			<li>
+								<a href="/vitaminy-a-mineraly-c23">Vitamíny a minerály</a>
+							</li>
+			<li>
+								<a href="/napoje-c24">Nápoje</a>
+							</li>
+			<li>
+								<a href="/tycinky-susene-maso-gely-c25">Tyčinky, sušené maso, gely</a>
+							</li>
+			<li>
+								<a href="/enduro-drive-nejenom-pro-cyklisty-c26">Enduro drive-nejenom pro cyklisty </a>
+							</li>
+		</ul>
+	</li>
+	<li>
+				<a href="/aktualni-akce-c2">Aktuální AKCE </a>
+	</li>
+	<li>
+				<a href="/darky-c4">DÁRKY</a>
+	</li>
+	<li>
+				<a href="/darkove-poukazy-c5">Dárkové poukazy</a>
+	</li>
+	<li>
+				<a href="/vyprodej-c6">VÝPRODEJ</a>
+	</li>
+	<li>
+				<a href="/vyhodne-balicky-c7">VÝHODNÉ BALÍČKY</a>
+	</li>
+	<li>
+				<a href="/rukavice-opasky-fitness-doplnky-c10">Rukavice, opasky, fitness doplňky</a>
+	</li>
+	<li>
+				<a href="/sportovni-obleceni-c11">Sportovní oblečení</a>
+	</li>
+	<li>
+				<a href="/knizni-publikace-a-specialy-c12">Knižní publikace a speciály</a>
+	</li>
+	<li>
+				<a href="/fitness-vybaveni-a-prislusenstvi-c13">Fitness vybavení a příslušenství</a>
+	</li>
+	<li>
+				<a href="/novinky-c14">NOVINKY</a>
+	</li>
+</ul><script type="text/javascript">
+$(document).ready(function() {
+	$('#ManufacturerSelect').change(function() {
+		 $("#ManufacturerSelect option:selected").each(function() {
+			 manufacturerId = $(this).attr('value');
+			 if (manufacturerId) {
+				// natahnu vyrobce a presmeruju
+				$.ajax({
+					type: 'POST',
+					url: '/manufacturers/ajax_get_url',
+					dataType: 'json',
+					data: {
+						id: manufacturerId
+					},
+					success: function(data) {
+						if (data.success) {
+							window.location.href = data.message;
+						}
+					}
+				});
+			 }
+		});
+	});
+});
+</script>
+
+<h3 class="star">Výrobci</h3>
+<select name="id" id="ManufacturerSelect">
+<option value="">Vyberte výrobce</option>
+<option value="122"> Jan Tana</option>
+<option value="112"> SmartShake</option>
+<option value="84">Abisal</option>
+<option value="25">All The Whey</option>
+<option value="26">Aminostar</option>
+<option value="41">Amix</option>
+<option value="79">Ariana</option>
+<option value="18">ATP</option>
+<option value="27">AXIS LABS</option>
+<option value="10">Betancourt Nut.</option>
+<option value="13">BioTech</option>
+<option value="134">Bitters</option>
+<option value="21">BSN</option>
+<option value="132">Cannabissimo coffe</option>
+<option value="38">Carne Labs</option>
+<option value="119">Cellucor</option>
+<option value="44">Champion Nut.</option>
+<option value="47">Cytosport</option>
+<option value="110">Dedicated </option>
+<option value="80">Dream Tan</option>
+<option value="11">Dymatize</option>
+<option value="50">EAS</option>
+<option value="39">Extrifit</option>
+<option value="121">FitMax</option>
+<option value="89">Fitness Authority</option>
+<option value="120">FITNESS COFFEE </option>
+<option value="97">Fortified Nut.</option>
+<option value="20">Fruit Of The Loom</option>
+<option value="126">Full Force F2</option>
+<option value="55">Gaspari Nut.</option>
+<option value="100">Gatta Active </option>
+<option value="106">GRANNY S</option>
+<option value="93">Grenade</option>
+<option value="71">H Sport</option>
+<option value="78">HMS</option>
+<option value="102">Holma s.r.o.</option>
+<option value="116">HumaBolic Science</option>
+<option value="111">Infinite Labs (Orlando, Florida)</option>
+<option value="34">Inner Armour</option>
+<option value="5">Interaktiv Nut.</option>
+<option value="77">ISS Research</option>
+<option value="76">Jerky</option>
+<option value="82">Knihy</option>
+<option value="32">LG Sciences</option>
+<option value="127">LSP nutrition</option>
+<option value="113">Mad Max</option>
+<option value="24">MAN SPORTS</option>
+<option value="70">MedPharma</option>
+<option value="37">MEGA PRO</option>
+<option value="118">Mex Nutrition</option>
+<option value="22">Millenium</option>
+<option value="133">Monvitaly s.r.o.</option>
+<option value="48">MRM  USA</option>
+<option value="75">MultiPower</option>
+<option value="62">MUSCLE ASYLUM</option>
+<option value="57">Muscle Meds</option>
+<option value="94">Muscle Pharm USA</option>
+<option value="12">MuscleTech</option>
+<option value="2">MVP Biotech Nutrition</option>
+<option value="15">NANOX Nut.</option>
+<option value="69">Nature&#039;s Bounty</option>
+<option value="81">NEBBIA</option>
+<option value="49">Next Nutrition</option>
+<option value="45">NO LIMIT</option>
+<option value="96">NOKIA</option>
+<option value="23">nutrabolics</option>
+<option value="108">NutraScience</option>
+<option value="14">Nutrend</option>
+<option value="1">Nutrex</option>
+<option value="130">Oat King</option>
+<option value="85">OBH Nordica </option>
+<option value="98">Olimp Sport Nutrition</option>
+<option value="92">Olimpex</option>
+<option value="59">Optimum Nut.</option>
+<option value="90">Panthera USA</option>
+<option value="123">Penco</option>
+<option value="99">Pharma Freak</option>
+<option value="58">PHD Nutrition</option>
+<option value="104">PHP EDGE</option>
+<option value="114">Premier Nutrition</option>
+<option value="36">Prolab</option>
+<option value="103">PROM-IN</option>
+<option value="107">Promax nutrition</option>
+<option value="109">Promera Health</option>
+<option value="31">Promil</option>
+<option value="3">Protamin</option>
+<option value="28">PVL</option>
+<option value="115">Reaction Nutrition</option>
+<option value="67">RedBull</option>
+<option value="88">Reflex Nut.</option>
+<option value="125">Ronnie</option>
+<option value="101">RONNIE COLEMAN</option>
+<option value="51">SAN</option>
+<option value="35">Sanas</option>
+<option value="46">Sci-Fit USA</option>
+<option value="54">SCITEC Nutrition</option>
+<option value="43">Scivation</option>
+<option value="129">Simos</option>
+<option value="61">SIRIX</option>
+<option value="8">SNV</option>
+<option value="131">Spokey</option>
+<option value="16">Sport Nutrition</option>
+<option value="86">SportsArt</option>
+<option value="6">SunGold Nutrients</option>
+<option value="83">Svět kulturistiky</option>
+<option value="4">Syntrax USA</option>
+<option value="95">Tested Nutrition</option>
+<option value="91">Trec Nutrition</option>
+<option value="42">TWINLAB</option>
+<option value="40">Ultimate Nut.</option>
+<option value="33">Universal Nut.</option>
+<option value="63">USA Laboratories</option>
+<option value="29">USA Sports Labs</option>
+<option value="124">USN</option>
+<option value="66">USP Labs</option>
+<option value="128">VitaHarmony</option>
+<option value="53">VITALMAX</option>
+<option value="87">VivaVitamins</option>
+<option value="9">VPX</option>
+<option value="68">Walmark</option>
+<option value="60">WEIDER</option>
+<option value="52">Wellness Food</option>
+<option value="105">Worldwide Sport Nutri., Inc</option>
+<option value="19">XXtreme Nut.</option>
+</select><h3 class="star">Ocenění</h3>
+<img src="/images/redesign_2013/heureka.jpg" alt="Heureka ShopRoku 2012 Finalista"/><h3 class="facebook">Facebook</h3>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/cs_CZ/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-like-box" data-href="https://www.facebook.com/pages/SportNutrition/230263693680695?fref=ts" data-width="193" data-height="400" data-show-faces="true" data-stream="false" data-header="true"></div></div>
+
+	<div id="main">
+		<ul class="breadcrumbs"><li><a href="/">Úvodní stránka</a></li><li><a href="/sportovni-vyziva-c9">Sportovní výživa</a></li><li><a href="/kreatinove-pripravky-c18">Kreatinové přípravky</a></li></ul><hr class="cleaner" />		<div><a href="/l-carnitin-100-000-chrom-1000ml-p919"><img class="banner" src="/images/category-banner.jpg" alt="" /></a></div>
+		<div class="left">
+			<h2><span>Nejprodávanější v této kategorii</span></h2>
+<div class="dark">
+
+	<div class="product card">
+		<h3><a href="/creatin-monohydrat-500g-creatin-monohydrat-500g-p555">Creatin monohydrát 500g + Creatin monohydrát 500g</a></h3>
+		<a class="image_holder" href="/creatin-monohydrat-500g-creatin-monohydrat-500g-p555">
+			<img src="/product-images/small/creatin-monohydrat-500g-creatin-monohydrat-500g.jpg" alt="Obrázek Creatin monohydrát 500g + Creatin monohydrát 500g" width="90" height="170"/>
+		</a>
+		<div class="g_rating" data-average="" data-id="555"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+				<span class="common">Běžná cena: 860.00 Kč</span><br />
+				<span class="price">Cena: 409 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+
+	
+	<div class="product card">
+		<h3><a href="/creatine-ph-x-crea-alkatech-210kps-forma-kre-alkalyn-p263">Creatine pH-X (Crea-Alkatech) 210kps.- forma Kre-alkalyn</a></h3>
+		<a class="image_holder" href="/creatine-ph-x-crea-alkatech-210kps-forma-kre-alkalyn-p263">
+			<img src="/product-images/small/creatine-ph-x-crea-alkatech-210kps-forma-kre-alkalyn.jpg" alt="Obrázek Creatine pH-X (Crea-Alkatech) 210kps.- forma Kre-alkalyn" width="90" height="170"/>
+		</a>
+		<div class="g_rating" data-average="" data-id="263"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+				<span class="common">Běžná cena: 720.00 Kč</span><br />
+				<span class="price">Cena: 330 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+
+		<hr class="cleaner" />
+</div>
+
+
+
+		<h2><span>Kreatinové přípravky</span></h2>
+		<div class="paginator">
+			<form id="filter_form" method="get" action="/kreatinove-pripravky-c18">			Řadit podle:
+			<select name="sorting" class="sorting" id="CategoriesProductSorting">
+<option value="0" selected="selected">Nejprodávánější</option>
+<option value="1">Nejlevnější</option>
+<option value="2">Nejdražší</option>
+<option value="3">Abecedy</option>
+</select>
+	<div class="on_page">
+				Na stránku:
+			<select name="paging" class="paging" id="CategoriesProductPaging">
+<option value="0" selected="selected">16</option>
+<option value="1">24</option>
+<option value="2">32</option>
+<option value="3">vše</option>
+</select>			<input type="hidden" name="manufacturer_id" id="CategoriesProductManufacturerId" />			<input type="hidden" name="attribute_id" id="CategoriesProductAttributeId" />			</form>	
+<strong>62</strong> položek&nbsp;<span class="current">1</span>&nbsp;<span><a href="/categories_products/view/18/page:2">2</a></span>&nbsp;<span><a href="/categories_products/view/18/page:3">3</a></span>&nbsp;<span><a href="/categories_products/view/18/page:4">4</a></span>
+		</div>
+		</div>
+		
+		<div class="products">
+	<div class="product card">
+		<h3><a href="/creatin-monohydrat-500g-creatin-monohydrat-500g-p555">Creatin monohydrát 500g + Creatin monohydrát 500g</a></h3>
+		<a class="image_holder" href="/creatin-monohydrat-500g-creatin-monohydrat-500g-p555">
+			<img src="/product-images/small/creatin-monohydrat-500g-creatin-monohydrat-500g.jpg" alt="Obrázek Creatin monohydrát 500g + Creatin monohydrát 500g" width="90" height="170"/>
+		</a>
+		<div class="rating" data-average="" data-id="555"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+			<span class="common">Běžná cena: 860.00 Kč</span><br />
+			<span class="price">Cena: 409 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+	<div class="product card">
+		<h3><a href="/creatine-ph-x-crea-alkatech-210kps-forma-kre-alkalyn-p263">Creatine pH-X (Crea-Alkatech) 210kps.- forma Kre-alkalyn</a></h3>
+		<a class="image_holder" href="/creatine-ph-x-crea-alkatech-210kps-forma-kre-alkalyn-p263">
+			<img src="/product-images/small/creatine-ph-x-crea-alkatech-210kps-forma-kre-alkalyn.jpg" alt="Obrázek Creatine pH-X (Crea-Alkatech) 210kps.- forma Kre-alkalyn" width="90" height="170"/>
+		</a>
+		<div class="rating" data-average="" data-id="263"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+			<span class="common">Běžná cena: 720.00 Kč</span><br />
+			<span class="price">Cena: 330 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+	<div class="product card">
+		<h3><a href="/cell-mass-20-new-525g-vzorek-no-xplode-p1560">Cell mass 2.0 NEW 525g + vzorek No xplode</a></h3>
+		<a class="image_holder" href="/cell-mass-20-new-525g-vzorek-no-xplode-p1560">
+			<img src="/product-images/small/cell-mass-20-new-525g.jpg" alt="Obrázek Cell mass 2.0 NEW 525g + vzorek No xplode" width="90" height="170"/>
+		</a>
+		<div class="rating" data-average="" data-id="1560"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+			<span class="common">Běžná cena: 1450.00 Kč</span><br />
+			<span class="price">Cena: 879 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+	<div class="product card">
+		<h3><a href="/creatin-monohyrat-500g-snv-p552">Creatin monohyrát 500g SNV</a></h3>
+		<a class="image_holder" href="/creatin-monohyrat-500g-snv-p552">
+			<img src="/product-images/small/creatin-monohyrat-500g-snv.jpg" alt="Obrázek Creatin monohyrát 500g SNV" width="90" height="170"/>
+		</a>
+		<div class="rating" data-average="" data-id="552"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+			<span class="common">Běžná cena: 430.00 Kč</span><br />
+			<span class="price">Cena: 230 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+	<div class="product card">
+		<h3><a href="/100-creatine-monohydrate-500g-bio-tech-doza-p16">100% Creatine monohydrate 500g Bio Tech dóza</a></h3>
+		<a class="image_holder" href="/100-creatine-monohydrate-500g-bio-tech-doza-p16">
+			<img src="/product-images/small/100-creatine-monohydrate-500g-bio-tech-doza.jpg" alt="Obrázek 100% Creatine monohydrate 500g Bio Tech dóza" width="90" height="170"/>
+		</a>
+		<div class="rating" data-average="" data-id="16"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+			<span class="common">Běžná cena: 450.00 Kč</span><br />
+			<span class="price">Cena: 280 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+	<div class="product card">
+		<h3><a href="/creatine-sumivy-13-tbl-p140">Creatine šumivý 13 tbl.</a></h3>
+		<a class="image_holder" href="/creatine-sumivy-13-tbl-p140">
+			<img src="/img/na_small.jpg" alt="Obrázek Creatine šumivý 13 tbl." width="90" height="170"/>
+		</a>
+		<div class="rating" data-average="" data-id="140"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+			<span class="common">Běžná cena: 130.00 Kč</span><br />
+			<span class="price">Cena: 104 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+	<div class="product card">
+		<h3><a href="/new-creatine-ph-x-pro-120-kps-p262">NEW Creatine pH-X PRO 120 kps</a></h3>
+		<a class="image_holder" href="/new-creatine-ph-x-pro-120-kps-p262">
+			<img src="/product-images/small/new-creatine-ph-x-pro-creatine-ph-x-=-kre-alkalyn-120-kps.jpg" alt="Obrázek NEW Creatine pH-X PRO 120 kps" width="90" height="170"/>
+		</a>
+		<div class="rating" data-average="" data-id="262"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+			<span class="common">Běžná cena: 690.00 Kč</span><br />
+			<span class="price">Cena: 499 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+	<div class="product card">
+		<h3><a href="/100-creatin-monohydrate-1-kg-bio-tech-vzorek-nitro-gold-pro-enzy-fusion-p92">100% Creatin Monohydrate 1 kg Bio Tech + vzorek Nitro gold pro enzy fusion</a></h3>
+		<a class="image_holder" href="/100-creatin-monohydrate-1-kg-bio-tech-vzorek-nitro-gold-pro-enzy-fusion-p92">
+			<img src="/product-images/small/100-creatin-monohydrate-1-kg-bio-tech.jpg" alt="Obrázek 100% Creatin Monohydrate 1 kg Bio Tech + vzorek Nitro gold pro enzy fusion" width="90" height="170"/>
+		</a>
+		<div class="rating" data-average="" data-id="92"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+			<span class="common">Běžná cena: 760.00 Kč</span><br />
+			<span class="price">Cena: 486 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+	<div class="product card">
+		<h3><a href="/creatine-300g-muscle-pharm-usa-p3365">Creatine 300g, Muscle Pharm USA</a></h3>
+		<a class="image_holder" href="/creatine-300g-muscle-pharm-usa-p3365">
+			<img src="/product-images/small/creatine-300g-muscle-pharm-usa.jpg" alt="Obrázek Creatine 300g, Muscle Pharm USA" width="90" height="170"/>
+		</a>
+		<div class="rating" data-average="" data-id="3365"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+			<span class="common">Běžná cena: 590.00 Kč</span><br />
+			<span class="price">Cena: 490 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+	<div class="product card">
+		<h3><a href="/100-creatine-monohydrate-500-g-sacek-p28">100% Creatine monohydrate 500 g sáček</a></h3>
+		<a class="image_holder" href="/100-creatine-monohydrate-500-g-sacek-p28">
+			<img src="/product-images/small/100-creatine-monohydrate-500-g-sacek.jpg" alt="Obrázek 100% Creatine monohydrate 500 g sáček" width="90" height="170"/>
+		</a>
+		<div class="rating" data-average="" data-id="28"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+			<span class="common">Běžná cena: 410.00 Kč</span><br />
+			<span class="price">Cena: 243 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+	<div class="product card">
+		<h3><a href="/cell-tech-performance-2-7kg-creatin-formule-p732">Cell Tech Performance 2,7kg - creatin formule</a></h3>
+		<a class="image_holder" href="/cell-tech-performance-2-7kg-creatin-formule-p732">
+			<img src="/product-images/small/cell-tech-performance-2-7kg-creatin-formule.jpg" alt="Obrázek Cell Tech Performance 2,7kg - creatin formule" width="90" height="170"/>
+		</a>
+		<div class="rating" data-average="" data-id="732"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+			<span class="common">Běžná cena: 2562.00 Kč</span><br />
+			<span class="price">Cena: 919 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+	<div class="product card">
+		<h3><a href="/crea-pure-ethyl-ester-250cps-p1751">Crea Pure Ethyl Ester 250cps</a></h3>
+		<a class="image_holder" href="/crea-pure-ethyl-ester-250cps-p1751">
+			<img src="/product-images/small/crea-pure-ethyl-ester-250cps_1.jpg" alt="Obrázek Crea Pure Ethyl Ester 250cps" width="90" height="170"/>
+		</a>
+		<div class="rating" data-average="" data-id="1751"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+			<span class="common">Běžná cena: 561.00 Kč</span><br />
+			<span class="price">Cena: 460 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+	<div class="product card">
+		<h3><a href="/creatin-monohydrat-1000g-snv-p588">Creatin monohydrat 1000g SNV</a></h3>
+		<a class="image_holder" href="/creatin-monohydrat-1000g-snv-p588">
+			<img src="/product-images/small/creatin-monohydrat-1000g-snv.jpg" alt="Obrázek Creatin monohydrat 1000g SNV" width="90" height="170"/>
+		</a>
+		<div class="rating" data-average="" data-id="588"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+			<span class="common">Běžná cena: 890.00 Kč</span><br />
+			<span class="price">Cena: 450 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+	<div class="product card">
+		<h3><a href="/kre-alkalyn-120-kapsli-nutrend-p574">KRE-ALKALYN 120 kapslí- Nutrend</a></h3>
+		<a class="image_holder" href="/kre-alkalyn-120-kapsli-nutrend-p574">
+			<img src="/product-images/small/kre-alkalyn-120-kapsli-nutrend.jpg" alt="Obrázek KRE-ALKALYN 120 kapslí- Nutrend" width="90" height="170"/>
+		</a>
+		<div class="rating" data-average="" data-id="574"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+			<span class="common">Běžná cena: 690.00 Kč</span><br />
+			<span class="price">Cena: 646 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+	<div class="product card">
+		<h3><a href="/creatine-s-taurinem-400g-dextroza-500g-p2832">Creatine s taurinem 400g + Dextróza 500g</a></h3>
+		<a class="image_holder" href="/creatine-s-taurinem-400g-dextroza-500g-p2832">
+			<img src="/product-images/small/creatine-s-taurinem-400g-dextroza-500g.jpg" alt="Obrázek Creatine s taurinem 400g + Dextróza 500g" width="90" height="170"/>
+		</a>
+		<div class="rating" data-average="" data-id="2832"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+			<span class="common">Běžná cena: 598.00 Kč</span><br />
+			<span class="price">Cena: 467 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+	<div class="product card">
+		<h3><a href="/creatin-tablety-200-tbl-p27">Creatin Tablety, 200 tbl.</a></h3>
+		<a class="image_holder" href="/creatin-tablety-200-tbl-p27">
+			<img src="/product-images/small/creatin-tablety-200-tbl.jpg" alt="Obrázek Creatin Tablety, 200 tbl." width="90" height="170"/>
+		</a>
+		<div class="rating" data-average="" data-id="27"></div>
+		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="prices">
+			<span class="common">Běžná cena: 490.00 Kč</span><br />
+			<span class="price">Cena: 328 Kč</span>
+		</p>
+		<p class="guarantee">
+			<span class="first_line">Garance nejnižší ceny!</span><br />
+			<span class="second_line">Pro více informací pokračujte zde.</span>
+		</p>
+	</div>
+	<hr class="cleaner" />
+</div>		<div class="paginator">
+			<form method="get" action="/kreatinove-pripravky-c18">			Řadit podle:
+			<select name="sorting" class="sorting" id="CategoriesProductSorting">
+<option value="0" selected="selected">Nejprodávánější</option>
+<option value="1">Nejlevnější</option>
+<option value="2">Nejdražší</option>
+<option value="3">Abecedy</option>
+</select>			Produktů stránku:
+			<select name="paging" class="paging" id="CategoriesProductPaging">
+<option value="0" selected="selected">16</option>
+<option value="1">24</option>
+<option value="2">32</option>
+<option value="3">vše</option>
+</select>			</form>	
+<strong>62</strong> položek&nbsp;<span class="current">1</span>&nbsp;<span><a href="/categories_products/view/18/page:2">2</a></span>&nbsp;<span><a href="/categories_products/view/18/page:3">3</a></span>&nbsp;<span><a href="/categories_products/view/18/page:4">4</a></span>		</div>
+ <p><span style="font-size: 10pt; color: black; line-height: 115%; font-family: 'Verdana','sans-serif';">
+<p><span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;;"><span style="font-size: x-small;"><strong>V této sekci naleznete širokou škálu kreatinových produktů tuzemských či zahraničních značek. </strong></span></span></p>
+<p><span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;;"><span style="font-size: x-small;"><strong>Přejděte do příslušné podkategorie: "</strong><a href="http://www.sportnutrition.cz/rubriky/sportovni-vyziva/kreatinove-pripravky/tekute/"><strong>tekuté</strong></a><strong>", "</strong><a href="http://www.sportnutrition.cz/rubriky/sportovni-vyziva/kreatinove-pripravky/praskove/"><strong>práškové</strong></a><strong>", "</strong><a href="http://www.sportnutrition.cz/rubriky/sportovni-vyziva/kreatinove-pripravky/tablety-kapsle/"><strong>tablety, kapsle</strong></a><strong>"</strong></span></span></p>
+<span style="font-size: 10pt; color: black; font-family: 'Verdana','sans-serif';"><span><span><span style="font-size: x-small;"><span style="color: #800080;"><span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;;">
+<p class="MsoNormal" style="margin: 0cm 0cm 10pt;"><span><strong>Chcete získat</strong> <span style="font-family: 'Verdana','sans-serif';"><strong>ještě větší slevy</strong></span>? <span style="text-decoration: underline;"><a href="http://www.sportnutrition.cz/registrace/"><span style="color: black; font-family: 'Verdana','sans-serif';"><strong>Zaregistrujte se</strong></span></a>!</span> Pak se Vám budou zobrazovat ceny pro registrované zákazníky. Jste již zaregistrován (a)? <span style="text-decoration: underline;"><span style="font-family: 'Verdana','sans-serif';"><strong>Přihlaste se!</strong></span></span></span></p>
+</span></span></span></span></span></span>
+<p class="MsoNormal" style="margin: 0cm 0cm 10pt;"><span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;;"><strong>Kreatin</strong></span></p>
+</span></p>
+<p><span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;;"><span style="font-size: 10pt; color: black; line-height: 115%; font-family: 'Verdana','sans-serif';">Legální a účinný doplněk, který pomáhá zlepšit výkon, znásobit sílu, zrychlit nárůst svalové hmoty a urychlit regeneraci. Kreatin je přirozeně se vyskytující aminokyselina, která se v lidském těle tvoří z glycinu, argininu a metioninu. Syntéza kreatinu z výše uvedených tří aminokyselin probíhá v játrech, slinivce břišní a ledvinách. Po svém vzniku je kreatin transportován do svalů, srdce a mozku, kde je využíván jako zdroj energie.</span><span style="font-size: x-small;"> </span></span></p>
+<p><strong><span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;; font-size: x-small;">Kde se kreatin v těle nachází?</span></strong></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 10pt;"><span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;; font-size: x-small;">Kosterní svalstvo 70kg člověka obsahuje zhruba 95% veškerých tělesných zásob kreatinu. Zbývajících 5% se nachází společně v srdci, mozku a varlatech. </span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 10pt;"><strong><span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;; font-size: x-small;">Jakou funkci kreatin v těle má?</span></strong></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 10pt;"><span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;; font-size: x-small;">Kreatin je důležitým zdrojem chemické energie pro svalovou kontrakci. Energie pro svalovou kontrakci pochází z intramuskulárních zásob adenozintrifosfátu (ATP) a různých procesů resyntézy (obnovy) ATP. Během krátkodobého vysoce intenzivního zatížení dochází k rapidnímu poklesu zásob ATP ve svalech a je potřeba velmi razantní obnovy pomocí procesů resyntézy.</span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 10pt;"><span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;; font-size: x-small;">Jedním z mechanismů, který je schopen pokrýt potřebu ATP během výše uvedeného zatížení, je reakce kreatin fosfátu. Při této reakci prodělá rapidní vratnou fosforylaci, během níž je fosfátová skupina poskytnuta ke vzniku ATP. Tento proces poskytuje velmi rychle ATP pro udržení jeho hladiny během extrémního zatížení.</span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 10pt;"><span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;; font-size: x-small;">Jinak řečeno, kreatin je základním zdrojem energie pro svalovou kontrakci. Na výši jeho množství je přímo závislá možnost délky a kvality výkonu.</span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 10pt;"><span style="font-size: x-small;"><span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;;">Během posledních pěti let proběhlo minimálně 100 výzkumů, které se zaměřovaly na vliv kreatinu na fyzický výkon. Výsledky většiny z nich se shodly na tom, že suplementace kreatinu zřetelně zlepšuje fyzický výkon. <span style="font-size: 10pt; color: black; line-height: 115%; font-family: 'Verdana','sans-serif';">Dalším z efektů kreatinu je jeho vliv na zvýšení tělesné hmotnosti a bylo také zjištěno, že kreatin má vliv na zřetelné snížení celkového množství cholesterolu a triglyceridů.</span></span></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 10pt;"><span style="font-size: 10pt; color: black; line-height: 115%; font-family: 'Verdana','sans-serif';"><strong><span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;;">Suplementace kreatinem</span></strong></span></p>
+<p class="MsoNormal" style="margin: 0cm 0cm 10pt;"><span style="font-family: &quot;verdana&quot;, &quot;geneva&quot;; font-size: x-small;">Používání kreatinu je jednou z nejlepších a nejefektivnějších možností, jak dosáhnout zlepšení fyzického výkonu. V případě, že je používán v dávkách, které jsou doporučeny na základě výsledků vědeckých výzkumů, jedná se o zcela bezpečný způsob zlepšení tréninkových výsledků. Sportovci, kteří ho chtějí používat, mohou očekávat zvýšení tělesné hmotnosti a zároveň snížení podílu tělesného tuku, jestliže je součástí kvalitního tréninkového procesu.</span></p>		</div>
+		<div class="right filter">
+						<h2><span>Filtrovat podle:</span></h2>
+			<form method="post" action="">
+						<h3>Podle značky</h3>
+			<ul>
+								<li><label><input type="checkbox" />Amix  (12)</label></li>
+								<li><label><input type="checkbox" />BioTech  (8)</label></li>
+								<li><label><input type="checkbox" />Trec Nutrition  (6)</label></li>
+								<li><label><input type="checkbox" />Aminostar  (5)</label></li>
+								<li><label><input type="checkbox" />Nutrend  (4)</label></li>
+								<li><label><input type="checkbox" />SNV  (3)</label></li>
+								<li><label><input type="checkbox" />WEIDER  (3)</label></li>
+							</ul>
+			<!-- DODELAT ROZDELENI PRODUKTU PODLE FORMY
+			<h3>Podle formy</h3>
+			<ul>
+				<li><a href="#">Aenean commod  (28)</a></li>
+				<li><a href="#">SULDERES  (5)</a></li>
+				<li><a href="#">JUMBOO  (45)</a></li>
+				<li><a href="#">HYPER SVAL  (12)</a></li>
+				<li><a href="#">UDER  (15)</a></li>
+				<li><a href="#">DETHORT  (18)</a></li>
+				<li><a href="#">JUBENDERRSS  (2)</a></li>
+			</ul>
+-->
+						<h3>Podle příchuti</h3>
+			<ul>
+								<li><a href="#" class="filter_attribute" rel="32">pomeranč  (3)</a></li>
+								<li><a href="#" class="filter_attribute" rel="31">citrón  (3)</a></li>
+								<li><a href="#" class="filter_attribute" rel="77">modrý hrozen  (1)</a></li>
+								<li><a href="#" class="filter_attribute" rel="67">malina  (1)</a></li>
+								<li><a href="#" class="filter_attribute" rel="34">višeň  (1)</a></li>
+							</ul>
+			</form>
+						<h2><span>Naposledy zobrazené</span></h2>
+			<ul>
+							<li><a href="/arnold-series-iron-whey-protein-2270g-p3911">ARNOLD SERIES IRON WHEY Protein 2270G</a></li>
+							<li><a href="/tribulus-terrestris-snv-100tbl-l-darek-nad-5000kc-p2313">Tribulus Terrestris SNV 100tbl l  - Dárek nad 5000Kč</a></li>
+							<li><a href="/xtreme-bcaa-2000-15tbl-blistr-p3632">Xtreme BCAA 2000 15tbl blistr</a></li>
+							<li><a href="/teplaky-s-new-logem-2014-nebbia-–-kod-710-p3358">Tepláky s NEW logem 2014 NEBBIA – kod 710</a></li>
+						</ul>
+
+
+				<div>
+					<h2><span>Akční výrobky:</span></h2>
+					<div class="product card small">
+						<h3><a href="/super-bcaa-85-000mg-liquid-1l-super-bcaa-85-000mg-liquid-1l-p3252">Super BCAA 85 000mg liquid 1l + Super BCAA 85 000mg liquid 1l</a></h3>
+						<a href="#"><img src="/product-images/small/super-bcaa-85-000-liquid-1l-1l.jpg" alt="Obrázek Super BCAA 85 000mg liquid 1l + Super BCAA 85 000mg liquid 1l" /></a>
+						<div class="rating"></div>
+						<b class="price">478 Kč</b>
+					</div>
+					<div class="product card small">
+						<h3><a href="/xtreme-bcaa-2000-15tbl-blistr-p3632">Xtreme BCAA 2000 15tbl blistr</a></h3>
+						<a href="#"><img src="/product-images/small/xtreme-bcaa-2000-fitness-authority.jpg" alt="Obrázek Xtreme BCAA 2000 15tbl blistr" /></a>
+						<div class="rating"></div>
+						<b class="price">49 Kč</b>
+					</div>
+					<div class="product card small">
+						<h3><a href="/excelent-protein-bar-85g-p1442">Excelent protein bar 85g</a></h3>
+						<a href="#"><img src="/product-images/small/excelent-protein-bar-85g.jpg" alt="Obrázek Excelent protein bar 85g" /></a>
+						<div class="rating"></div>
+						<b class="price">41 Kč</b>
+					</div>
+					<div class="product card small">
+						<h3><a href="/gela-pure-900-250cps-p1770">GELA Pure 900 250cps</a></h3>
+						<a href="#"><img src="/product-images/small/gela-pure-900-250cps_1.jpg" alt="Obrázek GELA Pure 900 250cps" /></a>
+						<div class="rating"></div>
+						<b class="price">308 Kč</b>
+					</div>
+					<div style="clear:both"></div>
+				</div>
+
+			</div>
+			<hr class="cleaner" />
+
+					</div>
+		<hr class="cleaner" />
+	</div>
+	<hr class="cleaner" />
+	<div id="footer">
+	<div class="info">
+		<h2>Informace</h2>
+		<ul>
+			<li><a href="/jak-nakupovat.htm">Jak nakupovat?</a></li>
+			<li><a href="#">Často kladené dotazy</a></li>
+			<li><a href="/firma.htm">Kontaktní a reklamační údaje</a></li>
+			<li><a href="/doprava.htm">Ceník dopravy</a></li>
+		</ul>
+	</div>
+	<div class="recommend">
+		<h2>Doporučit známému</h2>
+		<p>Zadejte e-mailovou adresu
+		<br /> kam máme zaslat odkaz</p>
+		<form id="RecommendationViewForm" method="post" action="/recommendations/send"><div style="display:none;"><input type="hidden" name="_method" value="POST" /></div>		<div class="pair">
+			<input name="data[Recommendation][target_email]" type="text" placeholder="Napište e-mail" id="RecommendationTargetEmail" /><input type="hidden" name="data[Recommendation][request_uri]" value="/kreatinove-pripravky-c18" id="RecommendationRequestUri" />			<button name="recommend">OK</button>
+		</div>
+		</form>	</div>
+	<div class="company">
+		<h2>Provozovatel</h2>
+		<p>Sport Nutrition<br/>Stanislav Vávra<br />
+		IČO: 42956391<br />
+		DIČ: CZ6204250613<br />
+		TEL: <b>608 962 685</b></p>
+	</div>
+	<div class="news">
+		<h2 id="subscription">Novinky e-mailem</h2>
+		<p>Odebírejte naše novinky e-mailem</p>
+		<form id="SubscriberViewForm" method="post" action="/subscribers/add"><div style="display:none;"><input type="hidden" name="_method" value="POST" /></div>		<div class="pair" style="width:262px">
+			<input name="data[Subscriber][email]" type="text" placeholder="Napište e-mail" maxlength="150" id="SubscriberEmail" /><input type="hidden" name="data[Subscriber][request_uri]" value="/kreatinove-pripravky-c18" id="SubscriberRequestUri" />			<button name="news">OK</button>
+					</div>
+		</form>	</div>
+	<hr />
+
+	<div class="copyright">
+		<img src="/images/redesign_2013/logo_dark.png" alt="Sport Nutrition Vávra CZ" />
+		&copy; <a href="/">www.sportnutrition.cz</a> All rights Reserved.
+		<a href="https://www.facebook.com/pages/SportNutrition/230263693680695?fref=ts" target="_blank"><img src="/images/redesign_2013/logo_facebook.png" alt="Facebook" /></a>
+		<a href="https://plus.google.com/b/107543305825459915226/107543305825459915226/about?hl=cs" target="_blank"><img src="/images/redesign_2013/logo_google.png" alt="Google+" /></a>
+		<a href="http://www.youtube.com/channel/UCheMzjYoHUiq-9I5OH3DdKA" target="_blank"><img src="/images/redesign_2013/logo_youtube.png" alt="YouTube" /></a>
+	</div>
+</div>
+<table class="cake-sql-log" id="cakeSqlLog_140748846953e491d58b8dc8_88551090" summary="Cake SQL Log" cellspacing="0" border = "0"><caption>(default) 124 queries took 1037 ms</caption><thead>
+	<tr><th>Nr</th><th>Query</th><th>Error</th><th>Affected</th><th>Num. rows</th><th>Took (ms)</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>DESCRIBE `categories_products`</td><td></td><td style = "text-align: right">6</td><td style = "text-align: right">6</td><td style = "text-align: right">3</td></tr>
+<tr><td>2</td><td>DESCRIBE `categories`</td><td></td><td style = "text-align: right">16</td><td style = "text-align: right">16</td><td style = "text-align: right">3</td></tr>
+<tr><td>3</td><td>DESCRIBE `products`</td><td></td><td style = "text-align: right">45</td><td style = "text-align: right">45</td><td style = "text-align: right">6</td></tr>
+<tr><td>4</td><td>DESCRIBE `manufacturers`</td><td></td><td style = "text-align: right">8</td><td style = "text-align: right">8</td><td style = "text-align: right">5</td></tr>
+<tr><td>5</td><td>DESCRIBE `tax_classes`</td><td></td><td style = "text-align: right">8</td><td style = "text-align: right">8</td><td style = "text-align: right">8</td></tr>
+<tr><td>6</td><td>DESCRIBE `shippings`</td><td></td><td style = "text-align: right">12</td><td style = "text-align: right">12</td><td style = "text-align: right">5</td></tr>
+<tr><td>7</td><td>DESCRIBE `orders`</td><td></td><td style = "text-align: right">34</td><td style = "text-align: right">34</td><td style = "text-align: right">6</td></tr>
+<tr><td>8</td><td>DESCRIBE `customers`</td><td></td><td style = "text-align: right">18</td><td style = "text-align: right">18</td><td style = "text-align: right">5</td></tr>
+<tr><td>9</td><td>DESCRIBE `customer_types`</td><td></td><td style = "text-align: right">7</td><td style = "text-align: right">7</td><td style = "text-align: right">5</td></tr>
+<tr><td>10</td><td>DESCRIBE `customer_type_product_prices`</td><td></td><td style = "text-align: right">6</td><td style = "text-align: right">6</td><td style = "text-align: right">5</td></tr>
+<tr><td>11</td><td>DESCRIBE `addresses`</td><td></td><td style = "text-align: right">12</td><td style = "text-align: right">12</td><td style = "text-align: right">5</td></tr>
+<tr><td>12</td><td>DESCRIBE `customer_logins`</td><td></td><td style = "text-align: right">6</td><td style = "text-align: right">6</td><td style = "text-align: right">5</td></tr>
+<tr><td>13</td><td>DESCRIBE `payments`</td><td></td><td style = "text-align: right">7</td><td style = "text-align: right">7</td><td style = "text-align: right">5</td></tr>
+<tr><td>14</td><td>DESCRIBE `payment_types`</td><td></td><td style = "text-align: right">5</td><td style = "text-align: right">5</td><td style = "text-align: right">5</td></tr>
+<tr><td>15</td><td>DESCRIBE `statuses`</td><td></td><td style = "text-align: right">8</td><td style = "text-align: right">8</td><td style = "text-align: right">15</td></tr>
+<tr><td>16</td><td>DESCRIBE `mail_templates`</td><td></td><td style = "text-align: right">5</td><td style = "text-align: right">5</td><td style = "text-align: right">5</td></tr>
+<tr><td>17</td><td>DESCRIBE `ordered_products`</td><td></td><td style = "text-align: right">9</td><td style = "text-align: right">9</td><td style = "text-align: right">5</td></tr>
+<tr><td>18</td><td>DESCRIBE `ordered_products_attributes`</td><td></td><td style = "text-align: right">5</td><td style = "text-align: right">5</td><td style = "text-align: right">19</td></tr>
+<tr><td>19</td><td>DESCRIBE `attributes`</td><td></td><td style = "text-align: right">6</td><td style = "text-align: right">6</td><td style = "text-align: right">6</td></tr>
+<tr><td>20</td><td>DESCRIBE `options`</td><td></td><td style = "text-align: right">4</td><td style = "text-align: right">4</td><td style = "text-align: right">5</td></tr>
+<tr><td>21</td><td>DESCRIBE `attributes_subproducts`</td><td></td><td style = "text-align: right">5</td><td style = "text-align: right">5</td><td style = "text-align: right">5</td></tr>
+<tr><td>22</td><td>DESCRIBE `subproducts`</td><td></td><td style = "text-align: right">9</td><td style = "text-align: right">9</td><td style = "text-align: right">5</td></tr>
+<tr><td>23</td><td>DESCRIBE `availabilities`</td><td></td><td style = "text-align: right">9</td><td style = "text-align: right">9</td><td style = "text-align: right">5</td></tr>
+<tr><td>24</td><td>DESCRIBE `carts_products`</td><td></td><td style = "text-align: right">8</td><td style = "text-align: right">8</td><td style = "text-align: right">6</td></tr>
+<tr><td>25</td><td>DESCRIBE `carts`</td><td></td><td style = "text-align: right">5</td><td style = "text-align: right">5</td><td style = "text-align: right">42</td></tr>
+<tr><td>26</td><td>DESCRIBE `ordernotes`</td><td></td><td style = "text-align: right">7</td><td style = "text-align: right">7</td><td style = "text-align: right">7</td></tr>
+<tr><td>27</td><td>DESCRIBE `administrators`</td><td></td><td style = "text-align: right">5</td><td style = "text-align: right">5</td><td style = "text-align: right">12</td></tr>
+<tr><td>28</td><td>DESCRIBE `product_types`</td><td></td><td style = "text-align: right">7</td><td style = "text-align: right">7</td><td style = "text-align: right">10</td></tr>
+<tr><td>29</td><td>DESCRIBE `images`</td><td></td><td style = "text-align: right">8</td><td style = "text-align: right">8</td><td style = "text-align: right">5</td></tr>
+<tr><td>30</td><td>DESCRIBE `product_documents`</td><td></td><td style = "text-align: right">6</td><td style = "text-align: right">6</td><td style = "text-align: right">4</td></tr>
+<tr><td>31</td><td>DESCRIBE `comments`</td><td></td><td style = "text-align: right">12</td><td style = "text-align: right">12</td><td style = "text-align: right">9</td></tr>
+<tr><td>32</td><td>DESCRIBE `related_products`</td><td></td><td style = "text-align: right">6</td><td style = "text-align: right">6</td><td style = "text-align: right">10</td></tr>
+<tr><td>33</td><td>DESCRIBE `recommended_products`</td><td></td><td style = "text-align: right">5</td><td style = "text-align: right">5</td><td style = "text-align: right">5</td></tr>
+<tr><td>34</td><td>DESCRIBE `flags`</td><td></td><td style = "text-align: right">3</td><td style = "text-align: right">3</td><td style = "text-align: right">4</td></tr>
+<tr><td>35</td><td>DESCRIBE `flags_products`</td><td></td><td style = "text-align: right">4</td><td style = "text-align: right">4</td><td style = "text-align: right">16</td></tr>
+<tr><td>36</td><td>SELECT `ProductType`.`id`, `ProductType`.`text` FROM `product_types` AS `ProductType`   WHERE 1 = 1   ORDER BY `ProductType`.`order` ASC </td><td></td><td style = "text-align: right">3</td><td style = "text-align: right">3</td><td style = "text-align: right">0</td></tr>
+<tr><td>37</td><td>DESCRIBE `redirects`</td><td></td><td style = "text-align: right">5</td><td style = "text-align: right">5</td><td style = "text-align: right">21</td></tr>
+<tr><td>38</td><td>SELECT `Redirect`.`id`, `Redirect`.`created`, `Redirect`.`modified`, `Redirect`.`request_uri`, `Redirect`.`target_uri` FROM `redirects` AS `Redirect`   WHERE `request_uri` = &#039;/kreatinove-pripravky-c18&#039;    LIMIT 1</td><td></td><td style = "text-align: right">0</td><td style = "text-align: right">0</td><td style = "text-align: right">0</td></tr>
+<tr><td>39</td><td>DESCRIBE `settings`</td><td></td><td style = "text-align: right">5</td><td style = "text-align: right">5</td><td style = "text-align: right">5</td></tr>
+<tr><td>40</td><td>SELECT `Setting`.`value` FROM `settings` AS `Setting`   WHERE `Setting`.`name` = &#039;CUST_ROOT&#039;    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>41</td><td>SELECT `Setting`.`value` FROM `settings` AS `Setting`   WHERE `Setting`.`name` = &#039;CUST_NAME&#039;    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>42</td><td>SELECT `Setting`.`value` FROM `settings` AS `Setting`   WHERE `Setting`.`name` = &#039;CUST_COMPANY&#039;    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">1</td></tr>
+<tr><td>43</td><td>SELECT `Setting`.`value` FROM `settings` AS `Setting`   WHERE `Setting`.`name` = &#039;CUST_ICO&#039;    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>44</td><td>SELECT `Setting`.`value` FROM `settings` AS `Setting`   WHERE `Setting`.`name` = &#039;CUST_DIC&#039;    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>45</td><td>SELECT `Setting`.`value` FROM `settings` AS `Setting`   WHERE `Setting`.`name` = &#039;CUST_PHONE&#039;    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>46</td><td>SELECT `Setting`.`value` FROM `settings` AS `Setting`   WHERE `Setting`.`name` = &#039;CUST_MAIL&#039;    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>47</td><td>SELECT `Setting`.`value` FROM `settings` AS `Setting`   WHERE `Setting`.`name` = &#039;CUST_STREET&#039;    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">6</td></tr>
+<tr><td>48</td><td>SELECT `Setting`.`value` FROM `settings` AS `Setting`   WHERE `Setting`.`name` = &#039;CUST_CITY&#039;    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>49</td><td>SELECT `Setting`.`value` FROM `settings` AS `Setting`   WHERE `Setting`.`name` = &#039;CUST_ZIP&#039;    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>50</td><td>SELECT `Category`.`lft`, `Category`.`rght` FROM `categories` AS `Category`   WHERE `Category`.`id` = 18    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">2</td></tr>
+<tr><td>51</td><td>SELECT `Category`.`id`, `Category`.`created`, `Category`.`modified`, `Category`.`name`, `Category`.`title`, `Category`.`description`, `Category`.`heading`, `Category`.`breadcrumb`, `Category`.`content`, `Category`.`url`, `Category`.`parent_id`, `Category`.`lft`, `Category`.`rght`, `Category`.`sportnutrition_id`, `Category`.`active`, `Category`.`public` FROM `categories` AS `Category`   WHERE 1 = 1 AND `Category`.`lft` &lt;= 68 AND `Category`.`rght` &gt;= 73   ORDER BY `Category`.`lft` asc </td><td></td><td style = "text-align: right">2</td><td style = "text-align: right">2</td><td style = "text-align: right">2</td></tr>
+<tr><td>52</td><td>SELECT `Category`.`id`, `Category`.`created`, `Category`.`modified`, `Category`.`name`, `Category`.`title`, `Category`.`description`, `Category`.`heading`, `Category`.`breadcrumb`, `Category`.`content`, `Category`.`url`, `Category`.`parent_id`, `Category`.`lft`, `Category`.`rght`, `Category`.`sportnutrition_id`, `Category`.`active`, `Category`.`public` FROM `categories` AS `Category`   WHERE `Category`.`id` = 18 AND `Category`.`active` = 1    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">1</td></tr>
+<tr><td>53</td><td>SELECT `Category`.`lft`, `Category`.`rght` FROM `categories` AS `Category`   WHERE 1 = 1 AND `Category`.`id` = 18    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">2</td></tr>
+<tr><td>54</td><td>SELECT `Category`.`id`, `Category`.`created`, `Category`.`modified`, `Category`.`name`, `Category`.`title`, `Category`.`description`, `Category`.`heading`, `Category`.`breadcrumb`, `Category`.`content`, `Category`.`url`, `Category`.`parent_id`, `Category`.`lft`, `Category`.`rght`, `Category`.`sportnutrition_id`, `Category`.`active`, `Category`.`public` FROM `categories` AS `Category`   WHERE 1 = 1 AND `Category`.`rght` &lt; 73 AND `Category`.`lft` &gt; 68   ORDER BY `Category`.`lft` asc </td><td></td><td style = "text-align: right">2</td><td style = "text-align: right">2</td><td style = "text-align: right">5</td></tr>
+<tr><td>55</td><td>SELECT `Product`.`id`, `Product`.`name`, `Product`.`url`, `Product`.`short_description`, `Product`.`retail_price_with_dph`, `Product`.`discount_common`, `Image`.`id`, `Image`.`name`, SUM(`OrderedProduct`.`product_quantity`) AS total_quantity, (ROUND(COALESCE(`Product`.`overall_rate` / `Product`.`voted_count`))) AS  `Product__rate`, (FLOOR(IF(`CustomerTypeProductPrice`.`price`, `CustomerTypeProductPrice`.`price`, IF(`Product`.`discount_common`, `Product`.`discount_common`, `Product`.`retail_price_with_dph`)))) AS  `Product__price` FROM `products` AS `Product` LEFT JOIN ordered_products AS `OrderedProduct` ON (`OrderedProduct`.`product_id` = `Product`.`id`) LEFT JOIN categories_products AS `CategoriesProduct` ON (`CategoriesProduct`.`product_id` = `Product`.`id`) LEFT JOIN images AS `Image` ON (`Image`.`product_id` = `Product`.`id`) INNER JOIN availabilities AS `Availability` ON (`Availability`.`id` = `Product`.`availability_id` AND `Availability`.`cart_allowed` = 1) LEFT JOIN customer_type_product_prices AS `CustomerTypeProductPrice` ON (`Product`.`id` = `CustomerTypeProductPrice`.`product_id` AND `CustomerTypeProductPrice`.`customer_type_id` = 0)  WHERE `CategoriesProduct`.`category_id` IN (62, 63, 18) AND `Image`.`is_main` = &#039;1&#039; AND `Product`.`active` = 1  GROUP BY `Product`.`id`  ORDER BY `total_quantity` desc  LIMIT 2</td><td></td><td style = "text-align: right">2</td><td style = "text-align: right">2</td><td style = "text-align: right">155</td></tr>
+<tr><td>56</td><td>SELECT `Category`.`lft`, `Category`.`rght` FROM `categories` AS `Category`   WHERE 1 = 1 AND `Category`.`id` = 18    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">1</td></tr>
+<tr><td>57</td><td>SELECT `Category`.`id`, `Category`.`created`, `Category`.`modified`, `Category`.`name`, `Category`.`title`, `Category`.`description`, `Category`.`heading`, `Category`.`breadcrumb`, `Category`.`content`, `Category`.`url`, `Category`.`parent_id`, `Category`.`lft`, `Category`.`rght`, `Category`.`sportnutrition_id`, `Category`.`active`, `Category`.`public` FROM `categories` AS `Category`   WHERE 1 = 1 AND `Category`.`rght` &lt; 73 AND `Category`.`lft` &gt; 68   ORDER BY `Category`.`lft` asc </td><td></td><td style = "text-align: right">2</td><td style = "text-align: right">2</td><td style = "text-align: right">0</td></tr>
+<tr><td>58</td><td>SELECT `Product`.`id` FROM `products` AS `Product` LEFT JOIN ordered_products AS `OrderedProduct` ON (`OrderedProduct`.`product_id` = `Product`.`id`) INNER JOIN categories_products AS `CategoriesProduct` ON (`CategoriesProduct`.`product_id` = `Product`.`id`) LEFT JOIN images AS `Image` ON (`Image`.`product_id` = `Product`.`id` AND `Image`.`is_main` = &quot;1&quot;) LEFT JOIN customer_type_product_prices AS `CustomerTypeProductPrice` ON (`Product`.`id` = `CustomerTypeProductPrice`.`product_id` AND `CustomerTypeProductPrice`.`customer_type_id` = 0) INNER JOIN availabilities AS `Availability` ON (`Availability`.`id` = `Product`.`availability_id` AND `Availability`.`cart_allowed` = 1)  WHERE `CategoriesProduct`.`category_id` IN (62, 63, 18) AND `Product`.`active` = 1 AND (FLOOR(IF(`CustomerTypeProductPrice`.`price`, `CustomerTypeProductPrice`.`price`, IF(`Product`.`discount_common`, `Product`.`discount_common`, `Product`.`retail_price_with_dph`)))) &gt; 0  GROUP BY `Product`.`id`  ORDER BY `Product`.`priority` asc, `Product`.`active` desc </td><td></td><td style = "text-align: right">62</td><td style = "text-align: right">62</td><td style = "text-align: right">18</td></tr>
+<tr><td>59</td><td>SELECT `Product`.`id`, `Product`.`name`, `Product`.`url`, `Product`.`short_description`, `Product`.`retail_price_with_dph`, `Product`.`discount_common`, `Image`.`id`, `Image`.`name`, `Availability`.`id`, `Availability`.`cart_allowed`, (ROUND(COALESCE(`Product`.`overall_rate` / `Product`.`voted_count`))) AS  `Product__rate`, (FLOOR(IF(`CustomerTypeProductPrice`.`price`, `CustomerTypeProductPrice`.`price`, IF(`Product`.`discount_common`, `Product`.`discount_common`, `Product`.`retail_price_with_dph`)))) AS  `Product__price`, (SUM(`OrderedProduct`.`product_quantity`)) AS  `Product__sold` FROM `products` AS `Product` LEFT JOIN ordered_products AS `OrderedProduct` ON (`OrderedProduct`.`product_id` = `Product`.`id`) INNER JOIN categories_products AS `CategoriesProduct` ON (`CategoriesProduct`.`product_id` = `Product`.`id`) LEFT JOIN images AS `Image` ON (`Image`.`product_id` = `Product`.`id` AND `Image`.`is_main` = &quot;1&quot;) LEFT JOIN customer_type_product_prices AS `CustomerTypeProductPrice` ON (`Product`.`id` = `CustomerTypeProductPrice`.`product_id` AND `CustomerTypeProductPrice`.`customer_type_id` = 0) INNER JOIN availabilities AS `Availability` ON (`Availability`.`id` = `Product`.`availability_id` AND `Availability`.`cart_allowed` = 1)  WHERE `CategoriesProduct`.`category_id` IN (62, 63, 18) AND `Product`.`active` = 1 AND (FLOOR(IF(`CustomerTypeProductPrice`.`price`, `CustomerTypeProductPrice`.`price`, IF(`Product`.`discount_common`, `Product`.`discount_common`, `Product`.`retail_price_with_dph`)))) &gt; 0  GROUP BY `Product`.`id`  ORDER BY (SUM(`OrderedProduct`.`product_quantity`)) desc  LIMIT 16</td><td></td><td style = "text-align: right">16</td><td style = "text-align: right">16</td><td style = "text-align: right">172</td></tr>
+<tr><td>60</td><td>DESCRIBE `subscribers`</td><td></td><td style = "text-align: right">4</td><td style = "text-align: right">4</td><td style = "text-align: right">5</td></tr>
+<tr><td>61</td><td>SELECT `ProductType`.`id`, `ProductType`.`text` FROM `product_types` AS `ProductType`   WHERE 1 = 1   ORDER BY `ProductType`.`order` ASC </td><td></td><td style = "text-align: right">3</td><td style = "text-align: right">3</td><td style = "text-align: right">3</td></tr>
+<tr><td>62</td><td>SELECT `Cart`.`id`, `Cart`.`rand`, `Cart`.`userAgent`, `Cart`.`created`, `Cart`.`modified` FROM `carts` AS `Cart`   WHERE `rand` = &#039;2138290525&#039; AND `userAgent` = &#039;07140d68b7b4f19f968358183c5d7a17&#039;    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">6</td></tr>
+<tr><td>63</td><td>SELECT `CartsProduct`.`id`, `CartsProduct`.`cart_id`, `CartsProduct`.`product_id`, `CartsProduct`.`subproduct_id`, `CartsProduct`.`product_attributes`, `CartsProduct`.`quantity`, `CartsProduct`.`price_with_dph`, `CartsProduct`.`price_wout_dph` FROM `carts_products` AS `CartsProduct`   WHERE `CartsProduct`.`cart_id` = (2601)   </td><td></td><td style = "text-align: right">0</td><td style = "text-align: right">0</td><td style = "text-align: right">2</td></tr>
+<tr><td>64</td><td>SELECT `CartsProduct`.`quantity`, `CartsProduct`.`price_with_dph` FROM `carts_products` AS `CartsProduct` LEFT JOIN `carts` AS `Cart` ON (`CartsProduct`.`cart_id` = `Cart`.`id`) LEFT JOIN `products` AS `Product` ON (`CartsProduct`.`product_id` = `Product`.`id`) LEFT JOIN `subproducts` AS `Subproduct` ON (`CartsProduct`.`subproduct_id` = `Subproduct`.`id`)  WHERE `cart_id` = 2601   </td><td></td><td style = "text-align: right">0</td><td style = "text-align: right">0</td><td style = "text-align: right">0</td></tr>
+<tr><td>65</td><td>SELECT `Category`.`lft`, `Category`.`rght` FROM `categories` AS `Category`   WHERE `Category`.`id` = 18    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">3</td></tr>
+<tr><td>66</td><td>SELECT `Category`.`id`, `Category`.`name` FROM `categories` AS `Category`   WHERE 1 = 1 AND `Category`.`lft` &lt;= 68 AND `Category`.`rght` &gt;= 73   ORDER BY `Category`.`lft` asc </td><td></td><td style = "text-align: right">2</td><td style = "text-align: right">2</td><td style = "text-align: right">2</td></tr>
+<tr><td>67</td><td>SELECT `Category`.`id`, `Category`.`lft`, `Category`.`url`, `Category`.`name`, `Category`.`parent_id` FROM `categories` AS `Category`   WHERE parent_id IN (&#039;9&#039;, &#039;18&#039;, &#039;0&#039;) AND `active` = 1 AND `public` = 1   ORDER BY FIELD (`Category`.`id`, 9) DESC, `Category`.`lft` asc </td><td></td><td style = "text-align: right">25</td><td style = "text-align: right">25</td><td style = "text-align: right">5</td></tr>
+<tr><td>68</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 15   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">13</td></tr>
+<tr><td>69</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 15 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">3</td></tr>
+<tr><td>70</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 16   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">7</td></tr>
+<tr><td>71</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 16 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">7</td></tr>
+<tr><td>72</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 17   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>73</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 17 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">2</td></tr>
+<tr><td>74</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 62   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">5</td></tr>
+<tr><td>75</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 62 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">3</td></tr>
+<tr><td>76</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 63   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">3</td></tr>
+<tr><td>77</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 63 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">10</td></tr>
+<tr><td>78</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 18   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">1</td></tr>
+<tr><td>79</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 18 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>80</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 19   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>81</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 19 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">1</td></tr>
+<tr><td>82</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 20   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">1</td></tr>
+<tr><td>83</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 20 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>84</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 21   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">1</td></tr>
+<tr><td>85</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 21 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">4</td></tr>
+<tr><td>86</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 22   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>87</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 22 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">4</td></tr>
+<tr><td>88</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 23   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>89</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 23 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">2</td></tr>
+<tr><td>90</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 24   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">4</td></tr>
+<tr><td>91</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 24 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">7</td></tr>
+<tr><td>92</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 25   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">1</td></tr>
+<tr><td>93</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 25 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>94</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 26   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>95</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 26 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">3</td></tr>
+<tr><td>96</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 9   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">10</td></tr>
+<tr><td>97</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 9 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">1</td></tr>
+<tr><td>98</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 2   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">3</td></tr>
+<tr><td>99</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 2 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">6</td></tr>
+<tr><td>100</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 4   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>101</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 4 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">2</td></tr>
+<tr><td>102</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 5   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">1</td></tr>
+<tr><td>103</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 5 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>104</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 6   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>105</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 6 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">3</td></tr>
+<tr><td>106</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 7   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>107</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 7 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>108</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 10   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>109</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 10 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">18</td></tr>
+<tr><td>110</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 11   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">1</td></tr>
+<tr><td>111</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 11 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">1</td></tr>
+<tr><td>112</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 12   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>113</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 12 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">1</td></tr>
+<tr><td>114</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 13   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">1</td></tr>
+<tr><td>115</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 13 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">4</td></tr>
+<tr><td>116</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct`   WHERE `CategoriesProduct`.`category_id` = 14   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>117</td><td>SELECT COUNT(*) AS `count` FROM `categories_products` AS `CategoriesProduct` LEFT JOIN `products` AS `Product` ON (`CategoriesProduct`.`product_id` = `Product`.`id`)  WHERE `CategoriesProduct`.`category_id` = 14 AND `Product`.`active` = 1   </td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>118</td><td>SELECT `Manufacturer`.`id`, `Manufacturer`.`name` FROM `manufacturers` AS `Manufacturer`   WHERE `Manufacturer`.`active` = 1   ORDER BY `Manufacturer`.`name` asc </td><td></td><td style = "text-align: right">124</td><td style = "text-align: right">124</td><td style = "text-align: right">0</td></tr>
+<tr><td>119</td><td>SELECT `Category`.`lft`, `Category`.`rght` FROM `categories` AS `Category`   WHERE 1 = 1 AND `Category`.`id` = 18    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">0</td></tr>
+<tr><td>120</td><td>SELECT `Category`.`id`, `Category`.`created`, `Category`.`modified`, `Category`.`name`, `Category`.`title`, `Category`.`description`, `Category`.`heading`, `Category`.`breadcrumb`, `Category`.`content`, `Category`.`url`, `Category`.`parent_id`, `Category`.`lft`, `Category`.`rght`, `Category`.`sportnutrition_id`, `Category`.`active`, `Category`.`public` FROM `categories` AS `Category`   WHERE 1 = 1 AND `Category`.`rght` &lt; 73 AND `Category`.`lft` &gt; 68   ORDER BY `Category`.`lft` asc </td><td></td><td style = "text-align: right">2</td><td style = "text-align: right">2</td><td style = "text-align: right">0</td></tr>
+<tr><td>121</td><td>SELECT `Manufacturer`.`id`, `Manufacturer`.`name`, (COUNT(DISTINCT(`Product`.`id`))) AS  `Manufacturer__products_count` FROM `manufacturers` AS `Manufacturer` LEFT JOIN products AS `Product` ON (`Manufacturer`.`id` = `Product`.`manufacturer_id`) INNER JOIN categories_products AS `CategoriesProduct` ON (`Product`.`id` = `CategoriesProduct`.`product_id`) INNER JOIN availabilities AS `Availability` ON (`Availability`.`id` = `Product`.`availability_id` AND `Availability`.`cart_allowed` = 1)  WHERE `Product`.`active` = 1 AND `CategoriesProduct`.`category_id` IN (&#039;62&#039;, &#039;63&#039;, &#039;18&#039;)  GROUP BY `Manufacturer`.`id`  ORDER BY (COUNT(DISTINCT(`Product`.`id`))) desc  LIMIT 7</td><td></td><td style = "text-align: right">7</td><td style = "text-align: right">7</td><td style = "text-align: right">8</td></tr>
+<tr><td>122</td><td>SELECT `Category`.`lft`, `Category`.`rght` FROM `categories` AS `Category`   WHERE 1 = 1 AND `Category`.`id` = 18    LIMIT 1</td><td></td><td style = "text-align: right">1</td><td style = "text-align: right">1</td><td style = "text-align: right">12</td></tr>
+<tr><td>123</td><td>SELECT `Category`.`id`, `Category`.`created`, `Category`.`modified`, `Category`.`name`, `Category`.`title`, `Category`.`description`, `Category`.`heading`, `Category`.`breadcrumb`, `Category`.`content`, `Category`.`url`, `Category`.`parent_id`, `Category`.`lft`, `Category`.`rght`, `Category`.`sportnutrition_id`, `Category`.`active`, `Category`.`public` FROM `categories` AS `Category`   WHERE 1 = 1 AND `Category`.`rght` &lt; 73 AND `Category`.`lft` &gt; 68   ORDER BY `Category`.`lft` asc </td><td></td><td style = "text-align: right">2</td><td style = "text-align: right">2</td><td style = "text-align: right">0</td></tr>
+<tr><td>124</td><td>SELECT `Attribute`.`id`, `Attribute`.`value`, (COUNT(DISTINCT(`Product`.`id`))) AS  `Attribute__products_count` FROM `attributes` AS `Attribute` INNER JOIN attributes_subproducts AS `AttributesSubproduct` ON (`Attribute`.`id` = `AttributesSubproduct`.`attribute_id`) INNER JOIN subproducts AS `Subproduct` ON (`Subproduct`.`id` = `AttributesSubproduct`.`subproduct_id`) INNER JOIN products AS `Product` ON (`Product`.`id` = `Subproduct`.`product_id`) INNER JOIN categories_products AS `CategoriesProduct` ON (`Product`.`id` = `CategoriesProduct`.`product_id`) INNER JOIN availabilities AS `Availability` ON (`Availability`.`id` = `Product`.`availability_id` AND `Availability`.`cart_allowed` = 1)  WHERE `Product`.`active` = 1 AND `Attribute`.`option_id` IN (1, 7, 9, 11, 13, 15, 16) AND `CategoriesProduct`.`category_id` IN (&#039;62&#039;, &#039;63&#039;, &#039;18&#039;)  GROUP BY `Attribute`.`id`  ORDER BY (COUNT(DISTINCT(`Product`.`id`))) desc  LIMIT 7</td><td></td><td style = "text-align: right">5</td><td style = "text-align: right">5</td><td style = "text-align: right">195</td></tr>
+</tbody></table>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+var _hwq = _hwq || [];
+    _hwq.push(['setKey', '2CE1ECA351EBBD47F06DF24414582CA0']);_hwq.push(['setTopPos', '0']);_hwq.push(['showWidget', '22']);(function() {
+    var ho = document.createElement('script'); ho.type = 'text/javascript'; ho.async = true;
+    ho.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.heureka.cz/direct/i/gjs.php?n=wdgt&sak=2CE1ECA351EBBD47F06DF24414582CA0';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ho, s);
+})();
+//]]>
+</script><div id="fbprava">
+	<a href='http://www.facebook.com/pages/Sportnutrition/230263693680695' target='_blank'>
+		<img src="/images/fbprava.jpg" alt="Facebook" style="position:fixed; top:300px; right:0px;" width="31" height="170"/>
+	</a>
+</div></body>
+</html>
+<table class="cake-sql-log" id="cakeSqlLog_140748846953e491d58f1340_03839573" summary="Cake SQL Log" cellspacing="0" border = "0"><caption>(default) 124 queries took 1037 ms</caption><thead>
+	<tr><th>Nr</th><th>Query</th><th>Error</th><th>Affected</th><th>Num. rows</th><th>Took (ms)</th></tr>
+</thead>
+<tbody>
+</tbody></table>
