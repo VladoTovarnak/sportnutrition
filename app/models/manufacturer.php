@@ -21,6 +21,8 @@ class Manufacturer extends AppModel {
 	
 	var $order = array('Manufacturer.name' => 'asc');
 	
+	var $filter_limit = null;
+	
 	function get_url($id) {
 		$url = '';
 		$manufacturer = $this->find('first', array(
@@ -59,7 +61,7 @@ class Manufacturer extends AppModel {
 			$category_ids = $this->Product->CategoriesProduct->Category->subtree_ids($opened_category_id);
 			$conditions = array_merge($conditions, array('CategoriesProduct.category_id' => $category_ids));
 		}
-		$limit = 7;
+		$limit = $this->filter_limit;
 		$this->virtualFields['products_count'] = 'COUNT(DISTINCT(Product.id))';
 		// chci $limit vyrobcu, kteri maji (pro danou kategorii) nejvice produktu (do filtru ve vypisu produktu)
 		$filter_manufacturers = $this->find('all', array(
@@ -88,7 +90,7 @@ class Manufacturer extends AppModel {
 			'fields' => array('Manufacturer.id', 'Manufacturer.name', 'Manufacturer.products_count'),
 			'limit' => $limit,
 			'group' => array('Manufacturer.id'),
-			'order' => array('Manufacturer.products_count' => 'desc')
+			'order' => array('Manufacturer.products_count' => 'desc', 'Manufacturer.name' => 'asc')
 		));
 		// odnastavim virtualni pole vytvorena za behu
 		unset($this->virtualFields['products_count']);

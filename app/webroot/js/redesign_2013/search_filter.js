@@ -7,5 +7,5 @@ $(function() {
 	$('.sorting').change(function() {
 		$('#SearchSorting').val($(this).val());
 		$('#search_form').submit();
-	})
+	});
 });

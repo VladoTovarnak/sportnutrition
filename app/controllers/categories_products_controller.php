@@ -151,11 +151,16 @@ class CategoriesProductsController extends AppController {
 			'Product.active' => true,
 			'Product.price >' => 0
 		);
-		
+
 		if (isset($_GET['manufacturer_id']) && !empty($_GET['manufacturer_id'])) {
 			$manufacturer_id = $_GET['manufacturer_id'];
-			$conditions = array_merge($conditions, array('Product.manufacturer_id' => $manufacturer_id));
-			$this->data['CategoriesProduct']['manufacturer_id'] = $manufacturer_id;
+			$manufacturer_id_arr = explode(',', $manufacturer_id);
+			if ($this->CategoriesProduct->Product->Manufacturer->filter_limit && count($manufacturer_id_arr) == $this->CategoriesProduct->Product->Manufacturer->filter_limit) {
+				$manufacturer_id = '';
+			} else {
+				$conditions = array_merge($conditions, array('Product.manufacturer_id' => $manufacturer_id_arr));
+				$this->data['CategoriesProduct']['manufacturer_id'] = $manufacturer_id;
+			}
 		}
 		
 		$joins = array(
@@ -193,7 +198,8 @@ class CategoriesProductsController extends AppController {
 		
 		if (isset($_GET['attribute_id']) && !empty($_GET['attribute_id'])) {
 			$attribute_id = $_GET['attribute_id'];
-			$conditions = array_merge($conditions, array('AttributesSubproduct.attribute_id' => $attribute_id));
+			$attribute_id_arr = explode(',', $attribute_id);
+			$conditions = array_merge($conditions, array('AttributesSubproduct.attribute_id' => $attribute_id_arr));
 			$this->data['CategoriesProduct']['attribute_id'] = $attribute_id;
 			
 			$add_joins = array(

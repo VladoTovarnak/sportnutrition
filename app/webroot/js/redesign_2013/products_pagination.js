@@ -1,21 +1,55 @@
 $(function() {
 	$('.paging').change(function() {
+		$('#body').mask('Načítám...');
 		this.form.submit();
 	});
 	
 	$('.sorting').change(function() {
+		$('#body').mask('Načítám...');
 		this.form.submit();
-	})
+	});
+
+	selected_man_str = $('#CategoriesProductManufacturerId').val();
+	if (selected_man_str == '') {
+		$('.filter_manufacturer').attr('checked', 'checked');
+	} else {
+		selected_man_arr = selected_man_str.split(',');
+		for (i = 0; i < selected_man_arr.length; i++) {
+			selected_man_item = selected_man_arr[i];
+			$('#Manufacturer' + selected_man_item).attr('checked', 'checked');
+		}
+	}
 	
-	$('.filter_manufacturer').click(function() {
-		$('#CategoriesProductManufacturerId').val($(this).attr('rel'));
-		$('#CategoriesProductAttributeId').val('');
+	selected_att_str = $('#CategoriesProductAttributeId').val();
+	if (selected_att_str == '') {
+		$('.filter_attribute').attr('checked', 'checked');
+	} else {
+		selected_att_arr = selected_att_str.split(',');
+		for (i = 0; i < selected_att_arr.length; i++) {
+			selected_att_item = selected_att_arr[i];
+			$('#Attribute' + selected_att_item).attr('checked', 'checked');
+		}
+	}
+	
+	$('#body').unmask();
+	
+	$('.filter_manufacturer').change(function() {
+		$('#body').mask('Načítám...');
+		selected_man = [];
+		$('.filter_manufacturer:checked').each(function() {
+			selected_man.push($(this).attr('rel'));
+		});
+		$('#CategoriesProductManufacturerId').val(selected_man.toString());
 		$('#filter_form').submit();
 	});
 	
-	$('.filter_attribute').click(function() {
-		$('#CategoriesProductAttributeId').val($(this).attr('rel'));
-		$('#CategoriesProductManufacturerId').val('');
+	$('.filter_attribute').change(function() {
+		$('#body').mask('Načítám...');
+		selected_att = [];
+		$('.filter_attribute:checked').each(function() {
+			selected_att.push($(this).attr('rel'));
+		});
+		$('#CategoriesProductAttributeId').val(selected_att.toString());
 		$('#filter_form').submit();
 	});
 });

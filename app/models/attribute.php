@@ -28,6 +28,8 @@ class Attribute extends AppModel {
 	
 	var $hasMany = array('AttributesSubproduct', 'OrderedProductsAttribute'); 
 	
+	var $filter_limit = 7;
+	
 	function filter_attributes($opened_category_id, $option_ids = null) {
 		// defaultne chci vypisovat prichute, ale muze se v budoucnu pouzit i pro vypis ostatnich trid atributu
 		if (!$option_ids) {
@@ -40,7 +42,7 @@ class Attribute extends AppModel {
 			$category_ids = $this->AttributesSubproduct->Subproduct->Product->CategoriesProduct->Category->subtree_ids($opened_category_id);
 			$conditions = array_merge($conditions, array('CategoriesProduct.category_id' => $category_ids));
 		}
-		$limit = 7;
+		$limit = $this->filter_limit;
 		
 		$this->virtualFields['products_count'] = 'COUNT(DISTINCT(Product.id))';
 		
@@ -84,7 +86,7 @@ class Attribute extends AppModel {
 			'fields' => array('Attribute.id', 'Attribute.value', 'Attribute.products_count'),
 			'limit' => $limit,
 			'group' => array('Attribute.id'),
-			'order' => array('Attribute.products_count' => 'desc')
+			'order' => array('Attribute.products_count' => 'desc', 'Attribute.value' => 'asc')
 		));
 		// odnastavim virtualni pole zalozena za behu
 		unset($this->virtualFields['products_count']);

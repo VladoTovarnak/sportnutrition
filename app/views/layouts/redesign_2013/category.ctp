@@ -3,6 +3,8 @@
 	<head>
 		<?php echo $this->element(REDESIGN_PATH . 'default_head')?>
 		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>products_pagination.js"></script>
+		<script type="text/javascript" src="/loadmask/jquery.loadmask.min.js"></script>
+		<link href="/loadmask/jquery.loadmask.css" rel="stylesheet" type="text/css" />
 	</head>
 <body>
 
@@ -50,7 +52,7 @@
 			<h3>Podle značky</h3>
 			<ul>
 				<?php foreach ($filter_manufacturers as $filter_manufacturer) { ?>
-				<li><label><input type="checkbox" /><?php echo $filter_manufacturer['Manufacturer']['name']?>  (<?php echo $filter_manufacturer[0]['Manufacturer__products_count']?>)</label></li>
+				<li><label><input type="checkbox" class="filter_manufacturer" rel="<?php echo $filter_manufacturer['Manufacturer']['id']?>" id="Manufacturer<?php echo $filter_manufacturer['Manufacturer']['id']?>"/><?php echo $filter_manufacturer['Manufacturer']['name']?>  (<?php echo $filter_manufacturer[0]['Manufacturer__products_count']?>)</label></li>
 				<?php } ?>
 			</ul>
 			<?php } ?>
@@ -70,7 +72,7 @@
 			<h3>Podle příchuti</h3>
 			<ul>
 				<?php foreach ($filter_attributes as $filter_attribute) { ?>
-				<li><label><input type="checkbox" /><?php echo $filter_attribute['Attribute']['value']?>  (<?php echo $filter_attribute[0]['Attribute__products_count']?>)</label></li>
+				<li><label><input type="checkbox" class="filter_attribute" rel="<?php echo $filter_attribute['Attribute']['id']?>" id="Attribute<?php echo $filter_attribute['Attribute']['id']?>"/><?php echo $filter_attribute['Attribute']['value']?> (<?php echo $filter_attribute[0]['Attribute__products_count']?>)</label></li>
 				<?php } ?>
 			</ul>
 			<?php }
