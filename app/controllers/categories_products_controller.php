@@ -281,6 +281,9 @@ class CategoriesProductsController extends AppController {
 		$listing_style = 'products_listing_grid';
 		
 		$this->set('listing_style', $listing_style);
+		
+		$action_products = $this->CategoriesProduct->Product->get_action_products($customer_type_id, 4);
+		$this->set('action_products', $action_products);
 	}
 	
 	function cancel_filter($id) {

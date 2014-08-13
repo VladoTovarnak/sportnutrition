@@ -732,5 +732,12 @@ class Product extends AppModel {
 		$this->setDataSource('default');
 		return $products;
 	}
+	
+	function get_action_products($customer_type_id, $limit = 3) {
+		// nejprodavanejsi produkty
+		$category_most_sold = $this->CategoriesProduct->Category->most_sold_products(2, $customer_type_id, $limit);
+
+		return $category_most_sold;
+	}
 }
 ?>
