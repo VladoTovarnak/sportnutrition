@@ -1,0 +1,20 @@
+<br />
+<b>Warning</b>:  getimagesize() [<a href='function.getimagesize'>function.getimagesize</a>]: Unable to access images_eshop/product/3542.jpg in <b>/data/www/virtuals/sportnutrition.cz/www/image.php</b> on line <b>43</b><br />
+<br />
+<b>Warning</b>:  getimagesize(images_eshop/product/3542.jpg) [<a href='function.getimagesize'>function.getimagesize</a>]: failed to open stream: No such file or directory in <b>/data/www/virtuals/sportnutrition.cz/www/image.php</b> on line <b>43</b><br />
+<br />
+<b>Warning</b>:  imagecreate() [<a href='function.imagecreate'>function.imagecreate</a>]: Invalid image dimensions in <b>/data/www/virtuals/sportnutrition.cz/www/image.php</b> on line <b>54</b><br />
+<br />
+<b>Warning</b>:  imagecolorallocate(): supplied argument is not a valid Image resource in <b>/data/www/virtuals/sportnutrition.cz/www/image.php</b> on line <b>55</b><br />
+<br />
+<b>Warning</b>:  imagecolorallocate(): supplied argument is not a valid Image resource in <b>/data/www/virtuals/sportnutrition.cz/www/image.php</b> on line <b>56</b><br />
+<br />
+<b>Warning</b>:  imagefilledrectangle(): supplied argument is not a valid Image resource in <b>/data/www/virtuals/sportnutrition.cz/www/image.php</b> on line <b>57</b><br />
+<br />
+<b>Warning</b>:  imagestring(): supplied argument is not a valid Image resource in <b>/data/www/virtuals/sportnutrition.cz/www/image.php</b> on line <b>58</b><br />
+<br />
+<b>Warning</b>:  imagestring(): supplied argument is not a valid Image resource in <b>/data/www/virtuals/sportnutrition.cz/www/image.php</b> on line <b>59</b><br />
+<br />
+<b>Warning</b>:  imageline(): supplied argument is not a valid Image resource in <b>/data/www/virtuals/sportnutrition.cz/www/image.php</b> on line <b>60</b><br />
+<br />
+<b>Fatal error</b>:  Call to undefined function Destroy() in <b>/data/www/virtuals/sportnutrition.cz/www/image.php</b> on line <b>115</b><br />
