@@ -85,34 +85,22 @@
 			<?php } ?>
 			</ul>
 			<?php } ?>
+			<?php if (!empty($action_products)) { ?>
 			<div>
 				<h2><span>Akční výrobky:</span></h2>
+				<?php foreach ($action_products as $action_product) {?>
 				<div class="product card small">
-					<h3><a href="/super-bcaa-85-000mg-liquid-1l-super-bcaa-85-000mg-liquid-1l-p3252">Super BCAA 85 000mg liquid 1l + Super BCAA 85 000mg liquid 1l</a></h3>
-					<a href="#"><img src="/product-images/small/super-bcaa-85-000-liquid-1l-1l.jpg" alt="Obrázek Super BCAA 85 000mg liquid 1l + Super BCAA 85 000mg liquid 1l" /></a>
-					<div class="rating"></div>
-					<b class="price">478 Kč</b>
+					<h3><a href="/<?php echo $action_product['Product']['url']?>"><?php echo $action_product['Product']['name']?></a></h3>
+					<a href="/<?php echo $action_product['Product']['url']?>">
+						<img src="/product-images/small/<?php echo $action_product['Image']['name']?>" alt="Obrázek <?php $action_product['Product']['name']?>" />
+					</a>
+					<div class="rating" data-average="<?php echo $action_product['Product']['rate']?>" data-id="<?php echo $action_product['Product']['id']?>"></div>
+					<b class="price"><?php echo $action_product['Product']['price']?> Kč</b>
 				</div>
-				<div class="product card small">
-					<h3><a href="/xtreme-bcaa-2000-15tbl-blistr-p3632">Xtreme BCAA 2000 15tbl blistr</a></h3>
-					<a href="#"><img src="/product-images/small/xtreme-bcaa-2000-fitness-authority.jpg" alt="Obrázek Xtreme BCAA 2000 15tbl blistr" /></a>
-					<div class="rating"></div>
-					<b class="price">49 Kč</b>
-				</div>
-				<div class="product card small">
-					<h3><a href="/excelent-protein-bar-85g-p1442">Excelent protein bar 85g</a></h3>
-					<a href="#"><img src="/product-images/small/excelent-protein-bar-85g.jpg" alt="Obrázek Excelent protein bar 85g" /></a>
-					<div class="rating"></div>
-					<b class="price">41 Kč</b>
-				</div>
-				<div class="product card small">
-					<h3><a href="/gela-pure-900-250cps-p1770">GELA Pure 900 250cps</a></h3>
-					<a href="#"><img src="/product-images/small/gela-pure-900-250cps_1.jpg" alt="Obrázek GELA Pure 900 250cps" /></a>
-					<div class="rating"></div>
-					<b class="price">308 Kč</b>
-				</div>
+				<?php } ?>
 				<div style="clear:both"></div>
 			</div>
+			<?php } ?>
 		</div>
 		<hr class="cleaner" />
 	</div>

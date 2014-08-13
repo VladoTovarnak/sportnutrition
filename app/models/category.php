@@ -176,12 +176,11 @@ class Category extends AppModel {
 	/**
 	 * Vrati neprodavanejsi produkty v dane kategorii a jejim podstromu
 	 */
-	function most_sold_products($id = null, $customer_type_id = null) {
+	function most_sold_products($id = null, $customer_type_id = null, $limit = 2) {
 		if (!$id) {
 			return false;
 		}
-		// chci 2 nejprodavanejsi produkty dane kategorie
-		$limit = 2;
+
 		// zjistim idcka kategorii v podstromu
 		$category_ids = $this->subtree_ids($id);
 		

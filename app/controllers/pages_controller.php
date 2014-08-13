@@ -127,6 +127,11 @@ class PagesController extends AppController{
 		$this->MostSoldProduct = new MostSoldProduct;
 		$hp_most_sold = $this->MostSoldProduct->hp_list($customer_type_id);
 		$this->set('hp_most_sold', $hp_most_sold);
+		
+		App::import('Model', 'Product');
+		$this->Product = new Product;
+		$action_products = $this->Product->get_action_products($customer_type_id);
+		$this->set('action_products', $action_products);
 	}
 }
 ?>
