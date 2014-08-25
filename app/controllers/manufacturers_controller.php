@@ -145,9 +145,12 @@ class ManufacturersController extends AppController {
 		$this->set('_title', $_title);
 		$_description = $this->Manufacturer->get_description($id);
 		$this->set('_description', $_description);
+
 		// nastavim zobrazovany banner
-		$category_banner = array('href' => '#', 'src' => '/images/banner2.jpg');
-		$this->set('category_banner', $category_banner);
+		/*$category_banner = array('href' => '#', 'src' => '/images/banner2.jpg');
+		$this->set('category_banner', $category_banner);*/
+		
+		
 		// nejprodavanejsi produkty
 		App::import('Model', 'CustomerType');
 		$this->CustomerType = new CustomerType;

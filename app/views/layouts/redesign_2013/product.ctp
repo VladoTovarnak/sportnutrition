@@ -44,28 +44,43 @@
 				if (isset($similar_products) && !empty($similar_products)) { ?>
 				<div>
 				<h2><span>Lidé co koupili tento <br />produkt koupili také:</span></h2>
-			<?php	foreach ($similar_products as $similar_product) {?>
-				<div class="product card small">
+			<?php
+				foreach ($similar_products as $similar_product) {?>
+				<div class="right_sidebar_product">
 					<h3><a href="/<?php echo $similar_product['Product']['url']?>"><?php echo $similar_product['Product']['name']?></a></h3>
-					<a href="#"><img src="/product-images/small/<?php echo $similar_product['Image']['name']?>" alt="Obrázek <?php echo $similar_product['Product']['name']?>" /></a>
-					<div class="rating"></div>
-					<b class="price"><?php echo $similar_product[0]['price']?> Kč</b>
+					<div class="image_holder">
+						<a href="/<?php echo $similar_product['Product']['url']?>">
+							<img src="/product-images/small/<?php echo $similar_product['Image']['name']?>" alt="Obrázek <?php echo $similar_product['Product']['name']?>" width="45px"/>
+						</a>
+					</div>
+					<div class="prices_holder">
+						běžná cena: <span class="old_price"><?php echo $similar_product['Product']['retail_price_with_dph']?> Kč</span><br />
+						<span class="regular_price">cena: <?php echo $similar_product[0]['price']?> Kč</span>
+						<input class="right_sidebar_cart_add" type="submit" value="Vložit do košíku">
+					</div>
 				</div>
 			<?php	} ?>
 				<div style="clear:both"></div>
 				</div>
 			<?php } ?>
 			
-			<?php 
+			<?php
 				if (isset($right_sidebar_products) && !empty($right_sidebar_products)) { ?>
 				<div>
 				<h2><span>Podobné produkty</span></h2>
 			<?php	foreach ($right_sidebar_products as $right_sidebar_product) {?>
-				<div class="product card small">
+				<div class="right_sidebar_product">
 					<h3><a href="/<?php echo $right_sidebar_product['Product']['url']?>"><?php echo $right_sidebar_product['Product']['name']?></a></h3>
-					<a href="/<?php echo $right_sidebar_product['Product']['url']?>"><img src="/product-images/small/<?php echo $right_sidebar_product['Image']['name']?>" alt="Obrázek <?php echo $right_sidebar_product['Product']['name']?>" /></a>
-					<div class="rating"></div>
-					<b class="price"><?php echo $right_sidebar_product['Product']['price']?> Kč</b>
+					<div class="image_holder">
+						<a href="/<?php echo $right_sidebar_product['Product']['url']?>">
+							<img src="/product-images/small/<?php echo $right_sidebar_product['Image']['name']?>" alt="Obrázek <?php echo $right_sidebar_product['Product']['name']?>" width="45px" />
+						</a>
+					</div>
+					<div class="prices_holder">
+						běžná cena: <span class="old_price"><?php echo $right_sidebar_product['Product']['retail_price_with_dph']?> Kč</span><br />
+						<span class="regular_price">cena: <?php echo $right_sidebar_product['Product']['price']?> Kč</span>
+						<input class="right_sidebar_cart_add" type="submit" value="Vložit do košíku">
+					</div>
 				</div>
 			<?php	} ?>
 				<div style="clear:both"></div>

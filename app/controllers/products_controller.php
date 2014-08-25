@@ -279,6 +279,7 @@ class ProductsController extends AppController {
 					'Product.name',
 					'Product.price',
 					'Product.url',
+					'Product.retail_price_with_dph',
 					'Image.id',
 					'Image.name'
 				),

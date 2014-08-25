@@ -15,15 +15,15 @@ foreach ( $products as $product ){
 			<img src="<?php echo $image?>" alt="Obrázek <?php echo $product['Product']['name'] ?>" width="90" height="170"/>
 		</a>
 		<div class="rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div>
-		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+		<p class="comments"><a href="/products/view_comments/<?php echo $product['Product']['id']?>">Přečíst komentáře</a> | <a href="/comments/add/<?php echo $product['Product']['id']?>">Přidat komentář</a></p>
 		<input class="cart_add" type="submit" value="Vložit do košíku" />
 		<p class="prices">
 			<span class="common">Běžná cena: <?php echo $product['Product']['retail_price_with_dph']?> Kč</span><br />
 			<span class="price">Cena: <?php echo $product['Product']['price']?> Kč</span>
 		</p>
 		<p class="guarantee">
-			<span class="first_line">Garance nejnižší ceny!</span><br />
-			<span class="second_line">Pro více informací pokračujte zde.</span>
+			<a href="/garance-nejnizsi-ceny.htm"><span class="first_line">Garance nejnižší ceny!</span></a><br />
+			<span class="second_line">Pro více informací pokračujte <a href="/garance-nejnizsi-ceny.htm">zde</a>.</span>
 		</p>
 	</div>
 <? } ?>

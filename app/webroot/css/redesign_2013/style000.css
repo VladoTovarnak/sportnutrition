@@ -194,11 +194,11 @@ ul.submenu li a {
 }
 
 #header #login p, #header #basket p, #header #info p {
-    color: white;
+    color: #FFF;
     padding: 0;
 }
 
-#header #login a, #header #basket a, #header #info a {
+#header #login a, #header #basket a, #header #info a, #header #info ul {
     color: #F5F5F5;
 }
 
@@ -271,7 +271,7 @@ form div.pair button {
     font-size: 22px;
     margin: 20px 10px 25px 10px;
 }
-#sidebox h2 b {
+#sidebox h2 strong {
     color: #E10019;
     display: block;
     font-size: 30px;
@@ -280,7 +280,12 @@ form div.pair button {
     list-style: url("/images/redesign_2013/sidebox_li.png");
     line-height: 27px;
 }
-#sidebox ul li b.red {
+
+#sidebox ul li a{
+	text-decoration:none;
+}
+
+#sidebox ul li strong {
     color: #E10019;list-style: url("/images/redesign_2013/sidebox_li.png");
 }
 
@@ -433,8 +438,16 @@ form div.pair button {
 }
 #main div.product.card.small h3 {
     margin: 0;
-    width: 141px;
+    width: auto;
+    background:none;
+    padding:0px;
+    text-align:left;
 }
+
+#main div.product.card.small h3 a{
+	color:#E2001A;
+}
+
 #main div.product.card h3 a {
     color: #2F2F2F;
     text-decoration: none;
@@ -509,6 +522,14 @@ form div.pair button {
 	color: #E2001A;
 }
 
+#main div.product.card p.guarantee span.second_line a{
+	color:#373B3D;
+}
+
+#main div.product.card p.guarantee a{
+	text-decoration:none;
+}
+
 #main div.product.card b.price {
     font-size: 22px;
     color: #E2001A;
@@ -534,34 +555,6 @@ div.product.card.small div.rating {
     float: none;
 }
 
-/* #main div.product span.rating {
-	background: url("/images/redesign_2013/stars_grey.png");
-	width: 89px; height: 17px;
-	display: inline-block;
-	margin: 0 0 0 10px;
-	float: left;
-}
-#main div.product span.rating i {
-	background: url("/images/redesign_2013/stars_red.png");
-	height: 17px;
-	display: block;
-}
-#main div.product span.rating.r5 i {
-	width: 89px;
- }
-#main div.product span.rating.r4 i {
-	width: 71px;
-}
-#main div.product span.rating.r3 i {
-	width: 53px;
-}
-#main div.product span.rating.r2 i {
-	width: 35px;
-}
-#main div.product span.rating.r1 i {
-	width: 18px;
-}
-*/
 ul.breadcrumbs {
     background: url('/images/redesign_2013/icon_home.png') no-repeat 0 3px;
     list-style: none;
@@ -591,6 +584,7 @@ ul.breadcrumbs li:last-child a {
     border: none;
     width: 310px;
     height: auto;
+    font-size:26px;
     margin: 0 20px 0 0;
 }
 
@@ -608,6 +602,19 @@ ul.breadcrumbs li:last-child a {
     padding: 15px 0 0 0;
     width: 310px;
 }
+
+#main div.product p.comments {
+	font-size:15px;
+	border:none;
+	padding:0px;
+	margin:5px 0px 0px 10px;
+}
+
+#main div.product p.comments a{
+	color:#373B3D;
+	text-decoration:none;
+}
+
 #main div.product div.photos {
     float: left;
     width: 225px;
@@ -633,13 +640,13 @@ ul.breadcrumbs li:last-child a {
     width: 48px;
     margin: 0 10px 0 0;
 }
-#main div.product form {
+#main div.product form.on_detail {
     float: right;
     width: 310px;
     margin: 20px 20px 0 0;
     position: relative;
 }
-#main div.product form input {
+#main div.product form.on_detail input {
     border: 1px solid #ccc;
     height: 25px; width: 70px;
     -webkit-border-radius: 3px;
@@ -651,7 +658,7 @@ ul.breadcrumbs li:last-child a {
     font-size: 25px;
     margin: 10px 0 0 0;
 }
-#main div.product form button {
+#main div.product form.on_detail button {
     position: absolute; right: 0; bottom: 0;
     background: #E2001A url("/images/redesign_2013/icon_basket_big.png") no-repeat 31px 5px;
     -webkit-border-radius: 3px;
@@ -780,6 +787,11 @@ ul.breadcrumbs li:last-child a {
     width: 205px;
     margin: 10px 0 0 0;
 }
+
+#main div.right.open{
+	margin-top:28px;
+}
+
 #main div.right.open table {
     width: 100%;
     border-collapse: collapse;
@@ -805,6 +817,11 @@ ul.breadcrumbs li:last-child a {
     font-weight: normal;
     text-align: left;
 }
+
+#main div.right.open p, #main div.right.open p a{
+	color:#000;
+}
+
 #main div.right.news h3 {
     margin: 10px 0 0 0;
 }
@@ -897,7 +914,9 @@ ul.breadcrumbs li:last-child a {
 
 #main div.left div.card.big a.image_holder {
 	width:170px;
-	height:250px;
+	height:170px;
+	border:1px solid #FFF;
+	display:block;
 }
 
 #main div.left div.card.big a img {
@@ -1162,4 +1181,47 @@ div.error-message{
 
 #ManufacturerSelect {
 	width:192px;
+}
+
+div.right_sidebar_product{
+	
+}
+
+div.right_sidebar_product h3 {
+	background:none !important;
+	font-size:15px !important;
+	padding:0px !important;
+}
+
+div.right_sidebar_product h3 a{
+	color:#E2001A !important;
+	text-decoration:none;
+}
+
+div.image_holder{
+	width:45px;
+	float:left;
+}
+
+div.prices_holder{
+	font-size:11px;
+	width:145px;
+	padding:0 0 0 15px;
+	float:right;
+}
+
+input.right_sidebar_cart_add{
+	background:#E2001A;
+	border:none;
+	color:#FFF;
+	font-size:11px;
+	padding:5px 15px;
+	border-radius:3px;
+	margin-top:10px;
+}
+
+div.right_sidebar_product span.regular_price{
+	color:#E2001A;
+	font-size:14px !important;
+	font-weight:bold;
 }

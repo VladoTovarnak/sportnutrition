@@ -20,6 +20,7 @@
 	</div>
 	
 	<div class="rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div>
+	<p class="comments"><a href="/products/view_comments/<?php echo $product['Product']['id']?>">Přečíst komentáře</a> | <a href="/comments/add/<?php echo $product['Product']['id']?>">Přidat komentář</a></p>
 	<p><?php echo $product['Product']['short_description']?></p>
 	
 	<!-- VLOZENI DO KOSIKU, KDYZ PRODUKT NEMA VARIANTY -->
@@ -48,6 +49,9 @@
 	<p>Informaci o dostupnosti Vám rádi sdělíme na telefonu <strong><?php echo CUST_PHONE ?></strong> nebo e-mailu <strong><?php echo CUST_MAIL ?></strong>.</p>
 <?php } ?>
 
+<?php 
+	if ( $_SERVER['DOCUMENT_ROOT'] != 'C:/wamp/www/sportnutrition.cz' ){
+?>
 	<!-- SOCIALNI SITE -->
 	<div class="social">
 		<div class="fb-like" data-href="http://www.<?php echo CUST_ROOT?>/<?php echo $product['Product']['url']?>" data-width="100" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
@@ -55,6 +59,9 @@
 		<!-- Place this tag where you want the +1 button to render. -->
 		<div class="g-plusone" data-href="http://www.<?php echo CUST_ROOT?>/<?php echo $product['Product']['url']?>"></div>
 	</div>
+<?php 
+	}
+?>
 	<hr class="cleaner" />
 	<div class="availability">
 		<b>Dostupnost:</b>&nbsp;<?php echo ucfirst($product['Availability']['name'])?>

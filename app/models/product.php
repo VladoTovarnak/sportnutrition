@@ -436,6 +436,7 @@ class Product extends AppModel {
 				'Product.name',
 				'Product.url',
 				$this->price . ' AS price',
+				'Product.retail_price_with_dph',
 				'SUM(OtherOrderedProduct.product_quantity) AS ordered_quantity',
 				'Image.id',
 				'Image.name'

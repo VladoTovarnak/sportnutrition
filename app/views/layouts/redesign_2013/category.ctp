@@ -89,13 +89,21 @@
 			<div>
 				<h2><span>Akční výrobky:</span></h2>
 				<?php foreach ($action_products as $action_product) {?>
-				<div class="product card small">
+				<div class="right_sidebar_product">
 					<h3><a href="/<?php echo $action_product['Product']['url']?>"><?php echo $action_product['Product']['name']?></a></h3>
-					<a href="/<?php echo $action_product['Product']['url']?>">
-						<img src="/product-images/small/<?php echo $action_product['Image']['name']?>" alt="Obrázek <?php $action_product['Product']['name']?>" />
-					</a>
-					<div class="rating" data-average="<?php echo $action_product['Product']['rate']?>" data-id="<?php echo $action_product['Product']['id']?>"></div>
-					<b class="price"><?php echo $action_product['Product']['price']?> Kč</b>
+					<div class="image_holder">
+						<a href="/<?php echo $action_product['Product']['url']?>">
+							<img src="/product-images/small/<?php echo $action_product['Image']['name']?>" alt="Obrázek <?php $action_product['Product']['name']?>" width="45px" />
+						</a>
+					</div>
+					<div class="prices_holder">
+						běžná cena: <span class="old_price"><?php echo $action_product['Product']['retail_price_with_dph']?> Kč</span><br />
+						<span class="regular_price">cena: <?php echo $action_product['Product']['price']?> Kč</span>
+						<input class="right_sidebar_cart_add" type="submit" value="Vložit do košíku">
+					</div>
+					
+					
+					
 				</div>
 				<?php } ?>
 				<div style="clear:both"></div>

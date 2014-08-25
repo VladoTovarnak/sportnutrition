@@ -26,15 +26,21 @@
 				<img src="/product-images/small/<?php echo $suggested_product['Image']['name']?>" alt="<?php $suggested_product['Product']['title']?>" />
 			</a>
 			<div class="rating" data-average="<?php echo $suggested_product['Product']['rate']?>" data-id="<?php echo $suggested_product['Product']['id']?>"></div>
-			<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
-			<input class="cart_add" type="submit" value="Vložit do košíku" />
+			<p class="comments"><a href="/products/view_comments/<?php echo $suggested_product['Product']['id']?>">Přečíst komentáře</a> | <a href="/comments/add/<?php echo $suggested_product['Product']['id']?>">Přidat komentář</a></p>
+			<?php 
+				echo $this->Form->create('Product', array('url' => '/' . $suggested_product['Product']['url'], 'encoding' => false));
+				echo '<input class="cart_add" type="submit" value="Vložit do košíku" />';
+				echo $form->end();
+			?>
+		
+			
 			<p class="prices">
 				<span class="common">Běžná cena: <?php echo $suggested_product['Product']['retail_price_with_dph']?> Kč</span><br />
 				<span class="price">Cena: <?php echo $suggested_product['Product']['price']?> Kč</span>
 			</p>
 			<p class="guarantee">
-				<span class="first_line">Garance nejnižší ceny!</span><br />
-				<span class="second_line">Pro více informací pokračujte zde.</span>
+				<a href="/garance-nejnizsi-ceny.htm"><span class="first_line">Garance nejnižší ceny!</span></a><br />
+				<span class="second_line">Pro více informací pokračujte <a href="/garance-nejnizsi-ceny.htm">zde</a>.</span>
 			</p>
 		</div>
 		<?php } ?>
@@ -50,7 +56,7 @@
 							<img src="/product-images/small/<?php echo $product['Image']['name']?>" alt="<?php echo $product['Product']['title']?>"/>
 						</a>
 						<div class="g_rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div>
-						<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+						<p class="comments"><a href="/products/view_comments/<?php echo $product['Product']['id']?>">Přečíst komentáře</a> | <a href="/comments/add/<?php echo $product['Product']['id']?>">Přidat komentář</a></p>
 						<input class="cart_add" type="submit" value="Vložit do košíku" />
 						<p class="prices">
 							<span class="common">Běžná cena: <?php echo $suggested_product['Product']['retail_price_with_dph']?> Kč</span><br />
@@ -100,27 +106,27 @@
 				<tr<?php echo ( $weekday == 6 ) ? ' class="active_weekday"' : ''?>><th>Sobota</th><td>Zavřeno</td></tr>
 				<tr<?php echo ( $weekday == 7 ) ? ' class="active_weekday"' : ''?>><th>Neděle</th><td>Zavřeno</td></tr>
 			</table>
-			<p style="color:#000;"><u>Kontakty a další informace o prodejně naleznete <a href="#">zde</a>.</u></a></p>
+			<p><u>Kontakty a další informace o prodejně naleznete <a href="/firma.htm"><strong>zde</strong></a>.</u></p>
 		</div>
 		
 		<div style="clear:both;"></div>
 		
 		<h2><span>Akční zboží</span></h2>
 		
-		<?php foreach ($action_products as $product) {?>
+		<?php foreach ($hp_discounted as $product) {?>
 		<div class="product card">
 			<h3><a href="/<?php echo $product['Product']['url']?>"><?php echo $product['Product']['name']?></a></h3>
 			<a class="image_holder" href="/<?php echo $product['Product']['url']?>"><img src="/product-images/small/<?php echo $product['Image']['name']?>" alt="<?php $product['Product']['title']?>" /></a>
 			<div class="rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div>
-			<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
+			<p class="comments"><a href="/products/view_comments/<?php echo $product['Product']['id']?>">Přečíst komentáře</a> | <a href="/comments/add/<?php echo $product['Product']['id']?>">Přidat komentář</a></p>
 			<input class="cart_add" type="submit" value="Vložit do košíku" />
 			<p class="prices">
 				<span class="common">Běžná cena: <?php echo $product['Product']['retail_price_with_dph']?> Kč</span><br />
 				<span class="price">Cena: <?php echo $product['Product']['price']?> Kč</span>
 			</p>
 			<p class="guarantee">
-				<span class="first_line">Garance nejnižší ceny!</span><br />
-				<span class="second_line">Pro více informací pokračujte zde.</span>
+				<a href="/garance-nejnizsi-ceny.htm"><span class="first_line">Garance nejnižší ceny!</span></a><br />
+				<span class="second_line">Pro více informací pokračujte <a href="/garance-nejnizsi-ceny.htm">zde</a>.</span>
 			</p>
 		</div>
 		<?php } ?>
