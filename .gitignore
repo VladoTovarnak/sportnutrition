@@ -1,0 +1,7 @@
+tmp
+/.settings
+#ignore thumbnails created by windows
+Thumbs.db
+# ignore product images (mam je presmerovane na live v htaccess)
+#product-images/*
+/app/webroot/test/*
