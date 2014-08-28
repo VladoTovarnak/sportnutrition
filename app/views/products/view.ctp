@@ -1,18 +1,59 @@
+<script>
+	$(function() {
+		if (window.location.hash == '#comment_list') {
+			// zjistim id tabu s diskuzi
+			var index = $('.tabs a[href="#tabs-2"]').parent().index();
+			// tab nastavim jako otevreny
+			$(".tabs").tabs("option", "active", index);
+		}
+
+		$('.add_comment_link').click(function(e) {
+			// zjistim id tabu s diskuzi
+			var index = $('.tabs a[href="#tabs-2"]').parent().index();
+			// tab nastavim jako otevreny
+			$(".tabs").tabs("option", "active", index);
+		});
+
+		$('.view_comments_link').click(function(e) {
+			// zjistim id tabu s diskuzi
+			var index = $('.tabs a[href="#tabs-2"]').parent().index();
+			// tab nastavim jako otevreny
+			$(".tabs").tabs("option", "active", index);
+		});
+	});
+</script>
+
 <div class="product">
 	<h2><a href="/<?php echo $product['Product']['url']?>"><?php echo $product['Product']['heading']?></a></h2>
 	
 	<!-- OBRAZKY -->
 	<div class="photos">
 <?php 
+		$image = '/img/na_medium.jpg';
+		if (isset($most_sold_product['Image']) && !empty($most_sold_product['Image'])) {
+			$path = 'product-images/small/' . $most_sold_product['Image']['name'];
+			if (file_exists($path) && is_file($path) && getimagesize($path)) {
+				$image = '/' . $path;
+			}
+		}
+		
 		if (empty($product['Image'])) {
-			echo '<img src="/img/na_medium.jpg" alt="" />';
+			$image = '/img/na_medium.jpg';
 		} else {
 			$class = 'big';
 			$image_type = 'medium';
 
 			foreach ($product['Image'] as $image_item) {
-				$image = 'product-images/' . $image_type . '/' . $image_item['name'];
-				echo '<a href="/product-images/' . $image_item['name'] . '" class="' . $class . ' fancybox"><img src="' . $image . '" alt="" /></a>';
+				$image = '/img/na_' . $image_type . '.jpg';
+				$path = 'product-images/' . $image_type . '/' . $image_item['name'];
+				if (file_exists($path) && is_file($path) && getimagesize($path)) {
+					$image = '/' . $path;
+					echo '<a href="/product-images/' . $image_item['name'] . '" class="' . $class . ' fancybox"><img src="' . $image . '" alt="" /></a>';
+				} else {
+					echo '<img src="' . $image . '" alt="" />';
+					break;
+				}
+				
 				$class = 'min'; 
 				$image_type = 'small';
 			}
@@ -20,7 +61,7 @@
 	</div>
 	
 	<div class="rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div>
-	<p class="comments"><a href="/products/view_comments/<?php echo $product['Product']['id']?>">Přečíst komentáře</a> | <a href="/comments/add/<?php echo $product['Product']['id']?>">Přidat komentář</a></p>
+	<p class="comments"><a href="#comment_list" class="view_comments_link">Přečíst komentáře</a> | <a href="#tabs-2" class="add_comment_link">Přidat komentář</a></p>
 	<p><?php echo $product['Product']['short_description']?></p>
 	
 	<!-- VLOZENI DO KOSIKU, KDYZ PRODUKT NEMA VARIANTY -->
@@ -144,7 +185,7 @@ foreach ($subproducts as $subproduct) {
 			echo $this->Form->submit('Odeslat dotaz');
 			echo $this->Form->end();
 		?>
-		
+		<div id="comment_list"></div>
 		<?php if (empty($product['Comment'])) { ?>
 		<p>Diskuze neobsahuje žádné komentáře pro tento produkt.</p>
 		<?php } else { ?>

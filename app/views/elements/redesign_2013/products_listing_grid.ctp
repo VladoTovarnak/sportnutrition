@@ -15,8 +15,12 @@ foreach ( $products as $product ){
 			<img src="<?php echo $image?>" alt="Obrázek <?php echo $product['Product']['name'] ?>" width="90" height="170"/>
 		</a>
 		<div class="rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div>
-		<p class="comments"><a href="/products/view_comments/<?php echo $product['Product']['id']?>">Přečíst komentáře</a> | <a href="/comments/add/<?php echo $product['Product']['id']?>">Přidat komentář</a></p>
-		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="comments"><a href="<?php echo $product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="<?php echo $product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
+		<?php 
+			echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false));
+			echo '<input class="cart_add" type="submit" value="Vložit do košíku" />';
+			echo $form->end();
+		?>
 		<p class="prices">
 			<span class="common">Běžná cena: <?php echo $product['Product']['retail_price_with_dph']?> Kč</span><br />
 			<span class="price">Cena: <?php echo $product['Product']['price']?> Kč</span>

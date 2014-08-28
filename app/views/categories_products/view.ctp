@@ -3,9 +3,12 @@
 <div class="dark">
 <?php
 	foreach ($category_most_sold as $most_sold_product) {
-		$image = '/images/na.jpg';
+		$image = '/img/na_small.jpg';
 		if (isset($most_sold_product['Image']) && !empty($most_sold_product['Image'])) {
-			$image = '/product-images/small/' . $most_sold_product['Image']['name'];
+			$path = 'product-images/small/' . $most_sold_product['Image']['name'];
+			if (file_exists($path) && is_file($path) && getimagesize($path)) {
+				$image = '/' . $path;
+			}
 		}
 ?>
 
@@ -15,8 +18,12 @@
 			<img src="<?php echo $image?>" alt="Obrázek <?php echo $most_sold_product['Product']['name'] ?>" width="90" height="170"/>
 		</a>
 		<div class="g_rating" data-average="<?php echo $most_sold_product['Product']['rate']?>" data-id="<?php echo $most_sold_product['Product']['id']?>"></div>
-		<p class="comments"><a href="#">Přečíst komentáře</a> | <a href="#">Přidat komentář</a></p>
-		<input class="cart_add" type="submit" value="Vložit do košíku" />
+		<p class="comments"><a href="<?php echo $most_sold_product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="<?php echo $most_sold_product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
+		<?php 
+			echo $this->Form->create('Product', array('url' => '/' . $most_sold_product['Product']['url'], 'encoding' => false));
+			echo '<input class="cart_add" type="submit" value="Vložit do košíku" />';
+			echo $form->end();
+		?>
 		<p class="prices">
 				<span class="common">Běžná cena: <?php echo $most_sold_product['Product']['retail_price_with_dph']?> Kč</span><br />
 				<span class="price">Cena: <?php echo $most_sold_product['Product']['price']?> Kč</span>
@@ -30,19 +37,10 @@
 	<?php } ?>
 	<hr class="cleaner" />
 </div>
-<?php } ?>
-
-<?php // nechci zatim zobrazovat popis kategorie
-if (false) { ?>
-<? if (isset($category['Category']['content']) && !empty($category['Category']['content'])) { ?>
-<div><?php echo $category['Category']['content']?></div>
-<?php } ?>
-<?php } ?>
-
 <?php
-	if (!empty($products) ){
+	}
+	if (!empty($products)) {
 ?>
-
 		<h2><span><?php echo $category['Category']['name']?></span></h2>
 		<div class="paginator">
 			<?php echo $this->Form->create(null, array('url' => '/' . $this->params['url']['url'], 'type' => 'get', 'id' => 'filter_form', 'encoding' => false))?>
@@ -96,4 +94,4 @@ if (false) { ?>
 <?
 	}
 ?>
-<?php echo $category['Category']['content']?>
+<?php //echo $category['Category']['content']?>

@@ -487,6 +487,64 @@ class Product extends AppModel {
 		return $products;
 	}
 	
+	function right_sidebar_products($id, $customer_type_id) {
+		$product = $this->find('first', array(
+			'conditions' => array('Product.id' => $id),
+			'contain' => array('CategoriesProduct'),
+			'fields' => array('Product.id')	
+		));
+		
+		$products = array();
+		if (!empty($product['CategoriesProduct'])) {
+			$products = $this->find('all', array(
+				'conditions' => array(
+					'Product.active' => true,
+					'CategoriesProduct.category_id' => $product['CategoriesProduct'][0]['category_id'],
+					'Availability.cart_allowed' => true,
+					'Product.id !=' => $product['Product']['id']
+				),
+				'contain' => array(),
+				'joins' => array(
+					array(
+						'table' => 'categories_products',
+						'alias' => 'CategoriesProduct',
+						'type' => 'INNER',
+						'conditions' => array('Product.id = CategoriesProduct.product_id')
+					),
+					array(
+						'table' => 'availabilities',
+						'alias' => 'Availability',
+						'type' => 'INNER',
+						'conditions' => array('Product.availability_id = Availability.id')
+					),
+					array(
+						'table' => 'images',
+						'alias' => 'Image',
+						'type' => 'INNER',
+						'conditions' => array('Product.id = Image.product_id AND Image.is_main = 1')
+					),
+					array(
+						'table' => 'customer_type_product_prices',
+						'alias' => 'CustomerTypeProductPrice',
+						'type' => 'LEFT',
+						'conditions' => array('Product.id = CustomerTypeProductPrice.product_id AND CustomerTypeProductPrice.customer_type_id = ' . $customer_type_id)
+					)
+				),
+				'fields' => array(
+					'Product.id',
+					'Product.name',
+					$this->price . ' AS price',
+					'Product.url',
+					'Product.retail_price_with_dph',
+					'Image.id',
+					'Image.name'
+				),
+				'limit' => 3
+			));
+		}
+		return $products;
+	}
+	
 	function paginateCount($conditions, $recursive, $extra) {
 		$parameters = compact('conditions');
 		if ($recursive != $this->recursive) {

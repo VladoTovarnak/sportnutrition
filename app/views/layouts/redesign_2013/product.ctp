@@ -45,18 +45,29 @@
 				<div>
 				<h2><span>Lidé co koupili tento <br />produkt koupili také:</span></h2>
 			<?php
-				foreach ($similar_products as $similar_product) {?>
+				foreach ($similar_products as $similar_product) {
+					$image = '/img/na_small.jpg';
+					if (isset($similar_product['Image']) && !empty($similar_product['Image'])) {
+						$path = 'product-images/small/' . $similar_product['Image']['name'];
+						if (file_exists($path) && is_file($path) && getimagesize($path)) {
+							$image = '/' . $path;
+						}
+					} ?>
 				<div class="right_sidebar_product">
 					<h3><a href="/<?php echo $similar_product['Product']['url']?>"><?php echo $similar_product['Product']['name']?></a></h3>
 					<div class="image_holder">
 						<a href="/<?php echo $similar_product['Product']['url']?>">
-							<img src="/product-images/small/<?php echo $similar_product['Image']['name']?>" alt="Obrázek <?php echo $similar_product['Product']['name']?>" width="45px"/>
+							<img src="<?php echo $image?>" alt="Obrázek <?php echo $similar_product['Product']['name']?>" width="45px"/>
 						</a>
 					</div>
 					<div class="prices_holder">
 						běžná cena: <span class="old_price"><?php echo $similar_product['Product']['retail_price_with_dph']?> Kč</span><br />
 						<span class="regular_price">cena: <?php echo $similar_product[0]['price']?> Kč</span>
-						<input class="right_sidebar_cart_add" type="submit" value="Vložit do košíku">
+						<?php 
+							echo $this->Form->create('Product', array('url' => '/' . $similar_product['Product']['url'], 'encoding' => false));
+							echo '<input class="right_sidebar_cart_add" type="submit" value="Vložit do košíku" />';
+							echo $form->end();
+						?>
 					</div>
 				</div>
 			<?php	} ?>
@@ -68,18 +79,30 @@
 				if (isset($right_sidebar_products) && !empty($right_sidebar_products)) { ?>
 				<div>
 				<h2><span>Podobné produkty</span></h2>
-			<?php	foreach ($right_sidebar_products as $right_sidebar_product) {?>
+			<?php	foreach ($right_sidebar_products as $right_sidebar_product) {
+				$image = '/img/na_small.jpg';
+				if (isset($right_sidebar_product['Image']) && !empty($right_sidebar_product['Image'])) {
+					$path = 'product-images/small/' . $right_sidebar_product['Image']['name'];
+					if (file_exists($path) && is_file($path) && getimagesize($path)) {
+						$image = '/' . $path;
+					}
+				}
+			?>
 				<div class="right_sidebar_product">
 					<h3><a href="/<?php echo $right_sidebar_product['Product']['url']?>"><?php echo $right_sidebar_product['Product']['name']?></a></h3>
 					<div class="image_holder">
 						<a href="/<?php echo $right_sidebar_product['Product']['url']?>">
-							<img src="/product-images/small/<?php echo $right_sidebar_product['Image']['name']?>" alt="Obrázek <?php echo $right_sidebar_product['Product']['name']?>" width="45px" />
+							<img src="<?php echo $image?>" alt="Obrázek <?php echo $right_sidebar_product['Product']['name']?>" width="45px" />
 						</a>
 					</div>
 					<div class="prices_holder">
 						běžná cena: <span class="old_price"><?php echo $right_sidebar_product['Product']['retail_price_with_dph']?> Kč</span><br />
-						<span class="regular_price">cena: <?php echo $right_sidebar_product['Product']['price']?> Kč</span>
-						<input class="right_sidebar_cart_add" type="submit" value="Vložit do košíku">
+						<span class="regular_price">cena: <?php echo $right_sidebar_product[0]['price']?> Kč</span>
+						<?php 
+							echo $this->Form->create('Product', array('url' => '/' . $right_sidebar_product['Product']['url'], 'encoding' => false));
+							echo '<input class="right_sidebar_cart_add" type="submit" value="Vložit do košíku" />';
+							echo $form->end();
+						?>
 					</div>
 				</div>
 			<?php	} ?>
