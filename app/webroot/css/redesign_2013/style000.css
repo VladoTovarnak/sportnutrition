@@ -116,7 +116,7 @@ ul.submenu li a {
 	text-decoration:  none;
 }
 #header ul.accordion {
-    margin: 10px 20px 0 250px;
+    margin: 10px 9px 0 250px;
     list-style: none;
     display: block;
     height: 25px;
@@ -124,7 +124,7 @@ ul.submenu li a {
 }
 #header ul.accordion li {
     float: left;
-    width: 171px;
+    width: 175px;
     line-height: 25px;
 }
 #header ul.accordion li.login {
