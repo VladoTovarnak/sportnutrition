@@ -655,7 +655,19 @@ ul.breadcrumbs li:last-child a {
     height: 25px; width: 70px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
+    float: left;
 }
+
+#main div.product form.on_detail div#QuantityInput {
+	float:left;
+	margin: 3px 10px 0 0;
+	width:100px;
+}
+
+#main div.product form.on_detail div#QuantityInput span {
+	vertical-align: middle;
+}
+
 #main div.product b.price {
     display: block;
     color: #E2001A;
@@ -663,23 +675,34 @@ ul.breadcrumbs li:last-child a {
     margin: 10px 0 0 0;
 }
 #main div.product form.on_detail button {
-    position: absolute; right: 0; bottom: 0;
+/*    position: absolute; right: 0; bottom: 0; */
     background: #E2001A url("/images/redesign_2013/icon_basket_big.png") no-repeat 31px 5px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
     border: none;
     color: #fff;
     padding: 8px 35px 8px 60px;
+    float: left;
 }
 #main div.product div.social {
     border-top: 1px solid #CCCCCC;
     border-bottom: 1px solid #CCCCCC;
-    float: left;
+    float: right;
     width: 310px;
     margin: 20px 20px 0 0;
-    padding: 40px 0;
+    padding: 20px 0;
     text-align: center;
 }
+
+#main div.product div#social_holder {
+	margin:0 0 0 30px;	
+}
+
+#main div.product div#social_holder div {
+	float:left;
+	margin-right: 5px;
+}
+
 #main div.product div.availability {
 	float: right;
 	width: 310px;
@@ -725,7 +748,7 @@ ul.breadcrumbs li:last-child a {
 }
 #main div.left table input {
     border: 1px solid #ccc;
-    height: 25px;
+    height: 25px; width: 70px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
 }

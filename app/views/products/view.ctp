@@ -20,6 +20,18 @@
 			// tab nastavim jako otevreny
 			$(".tabs").tabs("option", "active", index);
 		});
+
+	// pokud ma varianty, skryju pole pro vlozeni ks do kosiku
+	// tlacitko se bude chovat jako odkaz na kotvu, ktera se nachazi u formulare pro vlozeni produktu s variantami
+	<?php if (!empty($subproducts) && $product['Availability']['cart_allowed']) { ?>
+		$('#ProductQuantity').hide();
+		$('#AddToCartButton').click(function(e) {
+			e.preventDefault();
+			$('html, body').animate({
+		        scrollTop: $("#AddProductWithVariantsForm").offset().top
+		    }, 1000);
+		});
+	<?php } ?>
 	});
 </script>
 
@@ -64,45 +76,54 @@
 	<p class="comments"><a href="#comment_list" class="view_comments_link">Přečíst komentáře</a> | <a href="#tabs-2" class="add_comment_link">Přidat komentář</a></p>
 	<p><?php echo $product['Product']['short_description']?></p>
 	
-	<!-- VLOZENI DO KOSIKU, KDYZ PRODUKT NEMA VARIANTY -->
-<?php
-	if (empty($subproducts) && $product['Availability']['cart_allowed']) {
-		echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false));
-		echo $this->Form->input('Product.quantity', array('label' => false, 'div' => false, 'value' => 1, 'after' => '&nbsp;Ks'));
-		echo '<b class="price">' . $product['Product']['price'] . '&nbsp;Kč</b>';
-		echo $this->Form->button('Vložit do košíku');
-		echo $this->Form->hidden('Product.id', array('value' => $product['Product']['id']));
-		echo $this->Form->end();
-	}
-?>
-
-<?php
-	// zvyraznena cena se zobrazuje ve formulari pro objednani produktu bez variant, ale my ji chceme zobrazit i pokud se produkt neda objednat nebo pokud ma produkt varianty
-	if (!$product['Availability']['cart_allowed'] || (!empty($subproducts) && $product['Availability']['cart_allowed'])) { ?>
 	<p class="prices">
 <?php	if (isset($product['Product']['retail_price_with_dph']) && $product['Product']['retail_price_with_dph'] > $product['Product']['price']) { ?>
-	Běžná cena: <?php echo $product['Product']['retail_price_with_dph'] ?>&nbsp;Kč<br/>
+		Běžná cena: <?php echo $product['Product']['retail_price_with_dph'] ?>&nbsp;Kč<br/>
 <?php } ?>
-	<b class="price">Cena: <?php echo $product['Product']['price'] ?>&nbsp;Kč</b></p>
-<?php }
+		<b class="price">Cena: <?php echo $product['Product']['price'] ?>&nbsp;Kč</b>
+	</p>
+<?php 
 	// pokud se produkt neda objednat, zobrazim informaci
 	if (!$product['Availability']['cart_allowed']) { ?>
 	<p>Informaci o dostupnosti Vám rádi sdělíme na telefonu <strong><?php echo CUST_PHONE ?></strong> nebo e-mailu <strong><?php echo CUST_MAIL ?></strong>.</p>
 <?php } ?>
 
+	<!-- VLOZENI DO KOSIKU, KDYZ PRODUKT NEMA VARIANTY -->
+<?php
+	if (empty($subproducts) && $product['Availability']['cart_allowed']) {
+		echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false, 'class' => 'on_detail	'));
+?>
+	<div id="FormElementsHolder">
+		<div id="QuantityInput">
 <?php 
-	if ( $_SERVER['DOCUMENT_ROOT'] != 'C:/wamp/www/sportnutrition.cz' ){
+		echo $this->Form->input('Product.quantity', array('label' => false, 'div' => false, 'value' => 1, 'after' => '<span>&nbsp;Ks</span>'));
+?>
+		</div>
+<?php 
+		echo $this->Form->button('Vložit do košíku', array('id' => 'AddToCartButton'));
+?>
+		<div class="clearer"></div>
+	</div>
+<?php 
+		echo $this->Form->hidden('Product.id', array('value' => $product['Product']['id']));
+		echo $this->Form->end();
+	} elseif (!empty($subproducts) && $product['Availability']['cart_allowed']) {
+		echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false, 'class' => 'on_detail	'));
+		echo $this->Form->button('Vložit do košíku', array('id' => 'AddToCartButton'));
+		echo $this->Form->hidden('Product.id', array('value' => $product['Product']['id']));
+		echo $this->Form->end();
+	}
 ?>
 	<!-- SOCIALNI SITE -->
 	<div class="social">
-		<div class="fb-like" data-href="http://www.<?php echo CUST_ROOT?>/<?php echo $product['Product']['url']?>" data-width="100" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-		<div><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="http://www.<?php echo CUST_ROOT?>/<?php echo $product['Product']['url']?>">Tweet</a></div>
-		<!-- Place this tag where you want the +1 button to render. -->
-		<div class="g-plusone" data-href="http://www.<?php echo CUST_ROOT?>/<?php echo $product['Product']['url']?>"></div>
+		<div id="social_holder">
+			<div class="fb-like" data-href="http://www.<?php echo CUST_ROOT?>/<?php echo $product['Product']['url']?>" data-width="100" data-layout="button" data-action="like" data-show-faces="false" data-share="true"></div>
+			<div><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="http://www.<?php echo CUST_ROOT?>/<?php echo $product['Product']['url']?>" data-count="none">Tweet</a></div>
+			<div style="float:left">
+				<div class="g-plusone" data-href="http://www.<?php echo CUST_ROOT?>/<?php echo $product['Product']['url']?>" data-size="medium" data-annotation="none" style="float:left"></div>
+			</div>
+		</div>
 	</div>
-<?php 
-	}
-?>
 	<hr class="cleaner" />
 	<div class="availability">
 		<b>Dostupnost:</b>&nbsp;<?php echo ucfirst($product['Availability']['name'])?>
@@ -112,7 +133,7 @@
 <!-- VLOZENI DO KOSIKU, KDYZ PRODUKT MA VARIANTY -->
 <?php if (!empty($subproducts) && $product['Availability']['cart_allowed']) { ?>
 <h3>Zvolte si variantu</h3>
-<?php echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false)); ?>
+<?php echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false, 'id' => 'AddProductWithVariantsForm')); ?>
 <table>
 	<tr>
 		<th>Varianta</th>
