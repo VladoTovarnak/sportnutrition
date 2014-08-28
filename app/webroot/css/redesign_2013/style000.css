@@ -20,6 +20,10 @@ hr.cleaner {
     margin:0;
 }
 
+div.clearer {
+	clear: both;
+}
+
 .left {
     float: left;
 }
@@ -856,6 +860,16 @@ ul.breadcrumbs li:last-child a {
 #main div.paginator .on_page{
 	float: right;
 }
+
+#main div.paginator .sorter {
+	width:410px;
+	float:left;
+}
+
+#main div.paginator .numbers {
+	float:right;
+}
+
 #main div.paginator form {
     display: inline-block;
     background: url("/images/redesign_2013/search_li.png") no-repeat 0 13px;
@@ -1110,6 +1124,14 @@ ul.breadcrumbs li:last-child a {
 }
 #best_products .accordion .header.active {
 	font-weight: bold;
+}
+
+#best_products .image_holder {
+	background-color: #FFF;
+}
+
+#best_products .slider .image_holder img {
+	margin: 0 40px;
 }
 
 #footer {

@@ -43,6 +43,7 @@
 ?>
 		<h2><span><?php echo $category['Category']['name']?></span></h2>
 		<div class="paginator">
+			<div class="sorter">
 			<?php echo $this->Form->create(null, array('url' => '/' . $this->params['url']['url'], 'type' => 'get', 'id' => 'filter_form', 'encoding' => false))?>
 			Řadit podle:
 			<?php echo $this->Form->input('sorting', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $sorting_options, 'div' => false, 'class' => 'sorting'))?>
@@ -51,7 +52,8 @@
 			<?php echo $this->Form->hidden('manufacturer_id')?>
 			<?php echo $this->Form->hidden('attribute_id')?>
 			<?php echo $this->Form->end()?>
-	
+			</div>
+			<div class="numbers">
 <?php
 			$url_options = $this->params['url'];
 			$url = '';
@@ -69,6 +71,8 @@
 			echo $this->Paginator->counter(array('format' => '<strong>%count%</strong> položek&nbsp;'));
 			echo $this->Paginator->numbers(array('separator' => '&nbsp;', 'first' => 1, 'last' => 1, 'modulus' => 3));
 ?>
+			</div>
+			<div class="clearer"></div>
 		</div>
 		
 		<?php echo $this->element(REDESIGN_PATH . $listing_style); ?>
