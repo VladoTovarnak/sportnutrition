@@ -77,17 +77,21 @@
 		
 		<?php echo $this->element(REDESIGN_PATH . $listing_style); ?>
 		<div class="paginator">
+			<div class="sorter">
 			<?php echo $this->Form->create(null, array('url' => '/' . $this->params['url']['url'], 'type' => 'get', 'encoding' => false))?>
 			Řadit podle:
 			<?php echo $this->Form->input('sorting', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $sorting_options, 'div' => false, 'class' => 'sorting'))?>
 			Produktů stránku:
 			<?php echo $this->Form->input('paging', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $paging_options, 'div' => false, 'class' => 'paging'))?>
 			<?php echo $this->Form->end()?>
-	
+			</div>
+			<div class="numbers">
 <?php
 			echo $this->Paginator->counter(array('format' => '<strong>%count%</strong> položek&nbsp;'));
 			echo $this->Paginator->numbers(array('separator' => '&nbsp;', 'first' => 1, 'last' => 1, 'modulus' => 3));
 ?>
+			</div>
+			<div class="clearer"></div>
 		</div>
  <?php
 	} else {
@@ -98,4 +102,7 @@
 <?
 	}
 ?>
-<?php //echo $category['Category']['content']?>
+<?php
+	if (Configure::read('debug')) {
+		echo $category['Category']['content'];
+	} ?>
