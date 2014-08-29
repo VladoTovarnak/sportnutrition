@@ -270,6 +270,9 @@ class SearchesController extends AppController {
 		$this->set('breadcrumbs', $breadcrumbs);
 		
 		$this->set('listing_style', 'products_listing_grid');
+		
+		$action_products = $this->Search->Product->get_action_products($customer_type_id, 4);
+		$this->set('action_products', $action_products);
 	}
 }
 ?>

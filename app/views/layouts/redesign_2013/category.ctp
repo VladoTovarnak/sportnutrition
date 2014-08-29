@@ -108,7 +108,7 @@
 						běžná cena: <span class="old_price"><?php echo $action_product['Product']['retail_price_with_dph']?> Kč</span><br />
 						<span class="regular_price">cena: <?php echo $action_product['Product']['price']?> Kč</span>
 						<?php 
-							echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false));
+							echo $this->Form->create('Product', array('url' => '/' . $action_product['Product']['url'], 'encoding' => false));
 							echo '<input class="right_sidebar_cart_add" type="submit" value="Vložit do košíku" />';
 							echo $form->end();
 						?>

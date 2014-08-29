@@ -3,7 +3,7 @@ $(document).ready(function(){
 	$(".rating").jRating({
 		bigStarsPath: '/jRating-master/jquery/icons/stars.png',
 		smallStarsPath: '/jRating-master/jquery/icons/small.png',
-		type: 'small',
+		type: ratingStarType,
 		step: true,
 		rateMax: 5,
     	showRateInfo: false,

@@ -10,6 +10,9 @@ $(function() {
 	});
 
 	selected_man_str = $('#CategoriesProductManufacturerId').val();
+	if (!selected_man_str) {
+		selected_man_str = '';
+	}
 	if (selected_man_str == '') {
 		$('.filter_manufacturer').attr('checked', 'checked');
 	} else {
@@ -21,6 +24,9 @@ $(function() {
 	}
 	
 	selected_att_str = $('#CategoriesProductAttributeId').val();
+	if (!selected_att_str) {
+		selected_att_str = '';
+	}
 	if (selected_att_str == '') {
 		$('.filter_attribute').attr('checked', 'checked');
 	} else {

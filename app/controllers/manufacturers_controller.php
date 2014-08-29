@@ -147,8 +147,8 @@ class ManufacturersController extends AppController {
 		$this->set('_description', $_description);
 
 		// nastavim zobrazovany banner
-		/*$category_banner = array('href' => '#', 'src' => '/images/banner2.jpg');
-		$this->set('category_banner', $category_banner);*/
+		$category_banner = array('href' => '/l-carnitin-100-000-chrom-1000ml-p919', 'src' => '/images/category-banner.jpg');
+		$this->set('category_banner', $category_banner);
 		
 		
 		// nejprodavanejsi produkty
@@ -290,8 +290,10 @@ class ManufacturersController extends AppController {
 		$this->set('products', $products);
 
 		$listing_style = 'products_listing_grid';
-		
 		$this->set('listing_style', $listing_style);
+		
+		$action_products = $this->Manufacturer->Product->get_action_products($customer_type_id, 4);
+		$this->set('action_products', $action_products);
 	}
 	
 	function ajax_get_url() {

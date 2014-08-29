@@ -108,7 +108,7 @@
 				<tr<?php echo ( $weekday == 6 ) ? ' class="active_weekday"' : ''?>><th>Sobota</th><td>Zavřeno</td></tr>
 				<tr<?php echo ( $weekday == 7 ) ? ' class="active_weekday"' : ''?>><th>Neděle</th><td>Zavřeno</td></tr>
 			</table>
-			<p><u>Kontakty a další informace o prodejně naleznete <a href="/firma.htm"><strong>zde</strong></a>.</u></p>
+			<p><a href="/firma.htm">Kontakty a další informace o prodejně naleznete <strong>zde</strong></a>.</p>
 		</div>
 		
 		<div style="clear:both;"></div>

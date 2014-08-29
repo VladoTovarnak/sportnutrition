@@ -71,16 +71,17 @@
 			}
 		} ?>
 	</div>
-	
+	<p class="manufacturer"><?php echo $this->Html->link($product['Manufacturer']['name'], '/' . strip_diacritic($product['Manufacturer']['name'] . '-v' . $product['Manufacturer']['id']))?></p>
 	<div class="rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div>
 	<p class="comments"><a href="#comment_list" class="view_comments_link">Přečíst komentáře</a> | <a href="#tabs-2" class="add_comment_link">Přidat komentář</a></p>
-	<p><?php echo $product['Product']['short_description']?></p>
-	
+<?php if ($product['Product']['name'] != $product['Product']['short_description']) { ?>
+	<p><?php echo $product['Product']['short_description']?> <a href="#tabs-1">Více informací...</a></p>
+<?php } ?>
 	<p class="prices">
 <?php	if (isset($product['Product']['retail_price_with_dph']) && $product['Product']['retail_price_with_dph'] > $product['Product']['price']) { ?>
 		Běžná cena: <?php echo $product['Product']['retail_price_with_dph'] ?>&nbsp;Kč<br/>
 <?php } ?>
-		<b class="price">Cena: <?php echo $product['Product']['price'] ?>&nbsp;Kč</b>
+		<b class="price">Cena: <span id="price_str"><?php echo $product['Product']['price'] ?></span>&nbsp;Kč</b>
 	</p>
 <?php 
 	// pokud se produkt neda objednat, zobrazim informaci
@@ -129,6 +130,8 @@
 		<b>Dostupnost:</b>&nbsp;<?php echo ucfirst($product['Availability']['name'])?>
 	</div>
 </div>
+<h3><a href="/garance-nejnizsi-ceny.htm">Garance nejnižší ceny</a></h3>
+<p>Našli jste jinde lepší cenu ? Napište nám na <a href='info@sportnutrition.cz'>info@sportnutrition.cz</a> (uveďte výrobek, cenu a webovou adresu, kde jste jej našli). Pokud to bude možné, cenu Vám srovnáme či nabídneme nižší.</p>
 
 <!-- VLOZENI DO KOSIKU, KDYZ PRODUKT MA VARIANTY -->
 <?php if (!empty($subproducts) && $product['Availability']['cart_allowed']) { ?>

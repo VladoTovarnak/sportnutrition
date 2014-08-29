@@ -471,6 +471,7 @@ form div.pair button {
 	float:left;
 	width:90px;
 	height:170px;
+	border: 1px solid #E8E8E8;
 }
 
 #main div.product.card input.cart_add{
@@ -485,7 +486,7 @@ form div.pair button {
 	margin-top:5px;
 }
 
-#main div.product.card p.comments {
+#main div.product.card p.comments{
 	font-size:10px;
 	border:none;
 	padding:0px;
@@ -592,7 +593,7 @@ ul.breadcrumbs li:last-child a {
     margin: 0 20px 0 0;
 }
 
-#main div.product h2 a {
+#main div.product h2 a{
     text-decoration: none;
     color: #373B3D;
 }
@@ -607,14 +608,18 @@ ul.breadcrumbs li:last-child a {
     width: 310px;
 }
 
-#main div.product p.comments {
+#main div.product p.comments, #main div.product p.manufacturer {
 	font-size:15px;
 	border:none;
 	padding:0px;
 	margin:5px 0px 0px 10px;
 }
 
-#main div.product p.comments a{
+#main div.product p.manufacturer {
+	margin:5px 0px 10px 10px;
+}
+
+#main div.product p.comments a, #main div.product p.manufacturer a{
 	color:#373B3D;
 	text-decoration:none;
 }
@@ -674,6 +679,11 @@ ul.breadcrumbs li:last-child a {
     font-size: 25px;
     margin: 10px 0 0 0;
 }
+
+#main div.product b.price #price_str {
+	font-size: 32px;
+}
+
 #main div.product form.on_detail button {
 /*    position: absolute; right: 0; bottom: 0; */
     background: #E2001A url("/images/redesign_2013/icon_basket_big.png") no-repeat 31px 5px;
@@ -706,7 +716,7 @@ ul.breadcrumbs li:last-child a {
 #main div.product div.availability {
 	float: right;
 	width: 310px;
-	margin: 10px 30px 0 0;
+	margin: 10px 20px 0 10px;
 	color: #555;
 }
 
@@ -721,6 +731,12 @@ ul.breadcrumbs li:last-child a {
     margin: 10px 0 7px 10px;
     text-transform: uppercase;
 }
+
+#main h3 a {
+	text-decoration: none;
+	color: #E2001A;
+}
+
 #main .tabs h3, #main .tabs h4, #main .tabs h5, #main .tabs h6 {
 	margin: 0;
 }
