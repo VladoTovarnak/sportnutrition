@@ -149,6 +149,15 @@
 					$products_stack = $this->Session->read('ProductStack');
 					$this->set('products_stack', $products_stack);
 				}
+			} elseif ($this->layout == REDESIGN_PATH . 'content') {
+
+				// nejprodavanejsi produkty
+				App::import('Model', 'CustomerType');
+				$this->CustomerType = new CustomerType;
+				$customer_type_id = $this->CustomerType->get_id($this->Session->read());
+
+				$action_products = $this->Product->get_action_products($customer_type_id, 6);
+				$this->set('action_products', $action_products);
 			}
 		} elseif (isset($this->params['admin']) && $this->params['admin'] == 1) {
 			App::import('Model', 'Status');

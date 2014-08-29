@@ -4,11 +4,11 @@
 	<table id="form">
 		<tr>
 			<th>Emailová adresa:</th>
-			<td><?=$form->input('Customer.email', array('label' => false)) ?></td>
+			<td><?=$form->input('Customer.email', array('label' => false, 'class' => 'content')) ?></td>
 		</tr>
 		<tr>
 			<th>&nbsp;</th>
-			<td><?=$form->submit('ODESLAT')?></td>
+			<td><?=$form->submit('ODESLAT', array('class' => 'content'))?></td>
 		</tr>
 	</table>
 <?=$form->end() ?>

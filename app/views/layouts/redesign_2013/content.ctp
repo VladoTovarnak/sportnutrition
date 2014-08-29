@@ -38,6 +38,9 @@
 				echo $content_for_layout;
 			?>
 		</div>
+		<div class="right filter">
+			<?php echo $this->element(REDESIGN_PATH . '/action_products')?>
+		</div>
 		<hr class="cleaner" />
 	</div>
 	<hr class="cleaner" />

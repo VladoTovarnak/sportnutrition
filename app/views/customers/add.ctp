@@ -6,19 +6,19 @@
 		<table id="orderForm">
 			<tr>
 				<th><sup>*</sup>Jméno</th>
-				<td><?=$form->input('Customer.first_name', array('label' => false, 'div' => false))?></td>
+				<td><?=$form->input('Customer.first_name', array('label' => false, 'div' => false, 'class' => 'content'))?></td>
 			</tr>
 			<tr>
 				<th><sup>*</sup>Příjmení</th>
-				<td><?=$form->input('Customer.last_name', array('label' => false, 'div' => false))?></td>
+				<td><?=$form->input('Customer.last_name', array('label' => false, 'div' => false, 'class' => 'content'))?></td>
 			</tr>	
 			<tr>
 				<th><sup>*</sup>Kontaktní telefon</th>
-				<td><?=$form->input('Customer.phone', array('label' => false, 'div' => false))?></td>
+				<td><?=$form->input('Customer.phone', array('label' => false, 'div' => false, 'class' => 'content'))?></td>
 			</tr>
 			<tr>
 				<th><sup>*</sup>Emailová adresa</th>
-				<td><?=$form->input('Customer.email', array('label' => false, 'div' => false))?></td>
+				<td><?=$form->input('Customer.email', array('label' => false, 'div' => false, 'class' => 'content'))?></td>
 			</tr>
 		</table>
 	</fieldset>
@@ -28,7 +28,7 @@
 		<table id="orderForm">
 			<tr>
 				<th>Ulice</th>
-				<td><?=$form->input('Address.0.street', array('label' => false))?></td>
+				<td><?=$form->input('Address.0.street', array('label' => false, 'class' => 'content'))?></td>
 			</tr>	
 			<tr>
 				<th>Číslo popisné</th>
@@ -40,7 +40,7 @@
 			</tr>	
 			<tr>
 				<th>Město</th>
-				<td><?=$form->input('Address.0.city', array('label' => false))?></td>
+				<td><?=$form->input('Address.0.city', array('label' => false, 'class' => 'content'))?></td>
 			</tr>
 			<tr>
 				<th>Stát</th>
@@ -57,7 +57,7 @@
 			<th>&nbsp;</th>
 			<td>
 				<?php echo $this->Form->hidden('Customer.customer_type_id', array('value' => 1))?>
-				<?=$form->Submit('zaregistrovat');?>
+				<?=$form->Submit('zaregistrovat', array('class' => 'content'));?>
 			</td>
 		</tr>
 	</table>

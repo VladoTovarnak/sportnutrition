@@ -9,7 +9,7 @@
 					jméno a příjmení <br /> / název společnosti
 				</th>
 				<td>
-					<?=$form->input('Address.name', array('label' => false)) ?>
+					<?=$form->input('Address.name', array('label' => false, 'class' => 'content')) ?>
 				</td>
 			</tr>
 			<tr>
@@ -17,7 +17,7 @@
 					ulice
 				</th>
 				<td>
-					<?=$form->input('Address.street', array('label' => false)) ?>
+					<?=$form->input('Address.street', array('label' => false, 'class' => 'content')) ?>
 				</td>
 			</tr>
 			<tr>
@@ -33,7 +33,7 @@
 					město / obec
 				</th>
 				<td>
-					<?=$form->input('Address.city', array('label' => false)) ?>
+					<?=$form->input('Address.city', array('label' => false, 'class' => 'content')) ?>
 				</td>
 			</tr>
 			<tr>
@@ -49,7 +49,7 @@
 					stát
 				</th>
 				<td>
-					<input type="text" name="fakeState" value="Česká Republika" disabled />
+					<input type="text" name="fakeState" value="Česká Republika" disabled class="content"/>
 					<?=$form->hidden('Address.state', array('value' => 'Česká Republika'))?>
 				</td>
 			</tr>
@@ -59,5 +59,5 @@
 	</tr>
 </table>
 <?=$form->hidden('Address.type') ?>
-<?=$form->end('uložit adresu') ?>
-</div>
+<?php echo $this->Form->submit('Uložit', array('class' => 'content'))?>
+<?=$form->end() ?>

@@ -20,38 +20,38 @@
 <table>
 	<tr>
 		<th>Křestní jméno<sup>*</sup></th>
-		<td><?php echo $this->Form->input('Customer.first_name', array('label' => false))?></td>
+		<td><?php echo $this->Form->input('Customer.first_name', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 	<tr>
 		<th>Příjmení<sup>*</sup></th>
-		<td><?php echo $this->Form->input('Customer.last_name', array('label' => false))?></td>
+		<td><?php echo $this->Form->input('Customer.last_name', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 	<tr>
 		<th>Telefon<sup>*</sup></th>
-		<td><?php echo $this->Form->input('Customer.phone', array('label' => false))?></td>
+		<td><?php echo $this->Form->input('Customer.phone', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 	<tr>
 		<th>Email<sup>*</sup></th>
-		<td><?php echo $this->Form->input('Customer.email', array('label' => false))?></td>
+		<td><?php echo $this->Form->input('Customer.email', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 	<tr>
 		<th>Firma</th>
-		<td><?php echo $this->Form->input('Customer.company_name', array('label' => false))?></td>
+		<td><?php echo $this->Form->input('Customer.company_name', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 	<tr>
 		<th>IČ</th>
-		<td><?php echo $this->Form->input('Customer.ico', array('label' => false))?></td>
+		<td><?php echo $this->Form->input('Customer.ico', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 	<tr>
 		<th>DIČ</th>
-		<td><?php echo $this->Form->input('Customer.dic', array('label' => false))?></td>
+		<td><?php echo $this->Form->input('Customer.dic', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 </table>
 <h3>Fakturační adresa</h3>
 <table>
 	<tr>
 		<th>Ulice</th>
-		<td><?php echo $this->Form->input('Address.0.street', array('label' => false))?></td>
+		<td><?php echo $this->Form->input('Address.0.street', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 	<tr>
 		<th>Číslo popisné</th>
@@ -59,7 +59,7 @@
 	</tr>
 	<tr>
 		<th>Město</th>
-		<td><?php echo $this->Form->input('Address.0.city', array('label' => false))?></td>
+		<td><?php echo $this->Form->input('Address.0.city', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 	<tr>
 		<th>PSČ</th>
@@ -76,7 +76,7 @@
 <table>
 	<tr>
 		<th>Ulice</th>
-		<td><?php echo $this->Form->input('Address.1.street', array('label' => false))?></td>
+		<td><?php echo $this->Form->input('Address.1.street', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 	<tr>
 		<th>Číslo popisné</th>
@@ -84,7 +84,7 @@
 	</tr>
 	<tr>
 		<th>Město</th>
-		<td><?php echo $this->Form->input('Address.1.city', array('label' => false))?></td>
+		<td><?php echo $this->Form->input('Address.1.city', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 	<tr>
 		<th>PSČ</th>

@@ -769,6 +769,14 @@ ul.breadcrumbs li:last-child a {
     -webkit-border-radius: 3px;
     border-radius: 3px;
 }
+
+#main div.left table input.content {
+    border: 1px solid #ccc;
+    height: 25px; width: 170px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
 #main div.left table button {
     background: #E2001A;
     -webkit-border-radius: 3px;
@@ -1287,4 +1295,20 @@ div.right_sidebar_product span.regular_price{
 	color:#E2001A;
 	font-size:14px !important;
 	font-weight:bold;
+}
+
+#cartContents {
+	font-size: 12px;
+}
+
+#main div.left table input.small{
+	width: 50px;
+}
+
+#main div.left table input.changeAmount{
+	margin-left: 5px;
+}
+
+#cartContents .price {
+	font-size: 14px;
 }

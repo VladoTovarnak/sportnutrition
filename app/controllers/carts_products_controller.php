@@ -40,8 +40,21 @@ class CartsProductsController extends AppController {
 		// vytahnu si vsechny produkty, ktere patri
 		// do zakaznikova kose
 		$cart_products = $this->CartsProduct->find('all', array(
-			'conditions' => array('CartsProduct.cart_id' => $this->CartsProduct->cart_id)
+			'conditions' => array('CartsProduct.cart_id' => $this->CartsProduct->cart_id),
+			'contain' => array(
+				'Product' => array(
+					'Image' => array(
+						'conditions' => array('Image.is_main' => true)
+					),
+					'fields' => array(
+						'Product.id',
+						'Product.name',
+						'Product.url'
+					)
+				)
+			)
 		));
+
 		foreach ( $cart_products as $index => $cart_product ){
 			// u produktu si pridam jmenne atributy
 			// chci tam dostat pole napr (barva -> bila, velikost -> S) ... takze (option_name -> value)
@@ -63,12 +76,12 @@ class CartsProductsController extends AppController {
 				}
 				$cart_products[$index]['CartsProduct']['product_attributes'] = $product_attributes;
 			}
-			//$cart_products[$index]['CartsProduct']['product_attributes'] = $this->requestAction('subproducts/to_names', array('attributes' => $cart_product['CartsProduct']['product_attributes']));
 		}
 
 		$this->set('cart_products', $cart_products);
 		$this->set('sess', $this->Session->read());
 	}
+	
 	function add() {
 		$this->data['CartsProduct'] = $this->params['CartsProduct'];
 		

@@ -12,15 +12,15 @@ nebo použijte <a href="/customers/login">příhlašovací formulář</a>.</p>
 		<table id="orderForm">
 			<tr>
 				<th><sup>*</sup>Jméno</th>
-				<td><?=$form->input('Customer.first_name', array('label' => false, 'div' => false))?></td>
+				<td><?=$form->input('Customer.first_name', array('label' => false, 'div' => false, 'class' => 'content'))?></td>
 			</tr>
 			<tr>
 				<th><sup>*</sup>Příjmení</th>
-				<td><?=$form->input('Customer.last_name', array('label' => false, 'div' => false))?></td>
+				<td><?=$form->input('Customer.last_name', array('label' => false, 'div' => false, 'class' => 'content'))?></td>
 			</tr>	
 			<tr>
 				<th><sup>*</sup>Ulice</th>
-				<td><?=$form->input('Address.street', array('label' => false))?></td>
+				<td><?=$form->input('Address.street', array('label' => false, 'class' => 'content'))?></td>
 			</tr>	
 			<tr>
 				<th><sup>*</sup>Číslo popisné</th>
@@ -32,7 +32,7 @@ nebo použijte <a href="/customers/login">příhlašovací formulář</a>.</p>
 			</tr>	
 			<tr>
 				<th><sup>*</sup>Město</th>
-				<td><?=$form->input('Address.city', array('label' => false))?></td>
+				<td><?=$form->input('Address.city', array('label' => false, 'class' => 'content'))?></td>
 			</tr>
 			<tr>
 				<th><sup>*</sup>Stát</th>
@@ -48,11 +48,11 @@ nebo použijte <a href="/customers/login">příhlašovací formulář</a>.</p>
 			</tr>
 			<tr>
 				<th><sup>*</sup>Kontaktní telefon</th>
-				<td><?=$form->input('Customer.phone', array('label' => false, 'div' => false))?></td>
+				<td><?=$form->input('Customer.phone', array('label' => false, 'div' => false, 'class' => 'content'))?></td>
 			</tr>
 			<tr>
 				<th><sup>*</sup>Emailová adresa</th>
-				<td><?=$form->input('Customer.email', array('label' => false, 'div' => false))?></td>
+				<td><?=$form->input('Customer.email', array('label' => false, 'div' => false, 'class' => 'content'))?></td>
 			</tr>
 
 		</table>
@@ -68,15 +68,15 @@ nebo použijte <a href="/customers/login">příhlašovací formulář</a>.</p>
 			</tr>
 			<tr>
 				<th>Název společnosti</th>
-				<td><?=$form->input('Customer.company_name', array('label' => false))?></td>
+				<td><?=$form->input('Customer.company_name', array('label' => false, 'class' => 'content'))?></td>
 			</tr>
 			<tr>
 				<th>IČO</th>
-				<td><?=$form->input('Customer.company_ico', array('label' => false))?></td>
+				<td><?=$form->input('Customer.company_ico', array('label' => false, 'class' => 'content'))?></td>
 			</tr>	
 			<tr>
 				<th>DIČ</th>
-				<td><?=$form->input('Customer.company_dic', array('label' => false))?></td>
+				<td><?=$form->input('Customer.company_dic', array('label' => false, 'class' => 'content'))?></td>
 			</tr>
 		</table>
 	</fieldset>
@@ -123,7 +123,7 @@ nebo použijte <a href="/customers/login">příhlašovací formulář</a>.</p>
 		<table id="orderForm">
 			<tr>
 				<th>&nbsp;</th>
-				<td><?=$form->Submit('Rekapitulace objednávky');?></td>
+				<td><?=$form->Submit('Rekapitulace objednávky', array('class' => 'content'));?></td>
 			</tr>
 		</table>
 <?=$form->end()?>

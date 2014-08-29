@@ -39,25 +39,24 @@
 		<td><?=($order['Order']['subtotal_with_dph'] + $order['Order']['shipping_cost'])?>&nbsp;Kč</td>
 	</tr>
 </table>
-	<table>
-		</tr>
-		<tr>
-			<th>Fakturační adresa</th>
-			<th>Doručovací adresa</th>
-		</tr>
-		<tr>
-			<td>
-				<?=$order['Order']['customer_name']?><br />
-				<?=$order['Order']['customer_street']?><br />
-				<?=$order['Order']['customer_zip'] . ' ' . $order['Order']['customer_city']?><br />
-				<?=$order['Order']['customer_state']?><br />
-			</td>
-			<td>
-				<?=$order['Order']['delivery_name']?><br />
-				<?=$order['Order']['delivery_street']?><br />
-				<?=$order['Order']['delivery_zip'] . ' ' . $order['Order']['delivery_city']?><br />
-				<?=$order['Order']['delivery_state']?><br />
-			</td>
-		</tr>
-	</table>
-</div>
+
+<table>
+	<tr>
+		<th>Fakturační adresa</th>
+		<th>Doručovací adresa</th>
+	</tr>
+	<tr>
+		<td>
+			<?=$order['Order']['customer_name']?><br />
+			<?=$order['Order']['customer_street']?><br />
+			<?=$order['Order']['customer_zip'] . ' ' . $order['Order']['customer_city']?><br />
+			<?=$order['Order']['customer_state']?><br />
+		</td>
+		<td>
+			<?=$order['Order']['delivery_name']?><br />
+			<?=$order['Order']['delivery_street']?><br />
+			<?=$order['Order']['delivery_zip'] . ' ' . $order['Order']['delivery_city']?><br />
+			<?=$order['Order']['delivery_state']?><br />
+		</td>
+	</tr>
+</table>

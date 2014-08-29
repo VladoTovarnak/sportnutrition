@@ -6,7 +6,7 @@
 				<tr>
 					<th><sup>*</sup>Jméno</th>
 					<td>
-						<?=$form->input('Address.name', array('label' => false, 'div' => false))?>
+						<?=$form->input('Address.name', array('label' => false, 'div' => false, 'class' => 'content'))?>
 					</td>
 				</tr>
 				<tr>
@@ -14,7 +14,7 @@
 						<sup>*</sup>Ulice
 					</th>
 					<td>
-						<?=$form->input('Address.street', array('label' => false))?>
+						<?=$form->input('Address.street', array('label' => false, 'class' => 'content'))?>
 					</td>
 				</tr>	
 				<tr>
@@ -38,7 +38,7 @@
 						<sup>*</sup>Město
 					</th>
 					<td>
-						<?=$form->input('Address.city', array('label' => false))?>
+						<?=$form->input('Address.city', array('label' => false, 'class' => 'content'))?>
 					</td>
 				</tr>
 				<tr>
@@ -51,7 +51,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<?=$form->submit('Upravit')?>
+						<?=$form->submit('Upravit', array('class' => 'content'))?>
 					</td>
 				</tr>
 			</table>
