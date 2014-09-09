@@ -79,9 +79,9 @@
 <?php } ?>
 	<p class="prices">
 <?php	if (isset($product['Product']['retail_price_with_dph']) && $product['Product']['retail_price_with_dph'] > $product['Product']['price']) { ?>
-		Běžná cena: <?php echo $product['Product']['retail_price_with_dph'] ?>&nbsp;Kč<br/>
+		Běžná cena: <?php echo number_format($product['Product']['retail_price_with_dph'], 0, ',', ' ') ?>&nbsp;Kč<br/>
 <?php } ?>
-		<b class="price">Cena: <span id="price_str"><?php echo $product['Product']['price'] ?></span>&nbsp;Kč</b>
+		<b class="price">Cena: <span id="price_str"><?php echo number_format($product['Product']['price'], 0, ',', ' ') ?></span>&nbsp;Kč</b>
 	</p>
 <?php 
 	// pokud se produkt neda objednat, zobrazim informaci
@@ -180,21 +180,25 @@ foreach ($subproducts as $subproduct) {
 		if (!empty($product['Product']['video'])) {
 			echo $product['Product']['video'];
 		} ?>
+		<?php if (isset($product['ProductType']['text']) && !empty($product['ProductType']['text'])) { ?>
+		<h3>Upozornění</h3>
+		<p><?php echo $product['ProductType']['text']?></p>
+		<?php } ?>
 	</div>
 	<div id="tabs-2">
 		<?php echo $this->Form->create('Comment', array('url' => array('controller' => 'comments', 'action' => 'add'), 'id' => 'CommentAddForm', 'encoding' => false))?>
 		<table>
 			<tr>
 				<th>Jméno:</th>
-				<td><?php echo $this->Form->input('Comment.author', array('label' => false, 'size' => 50))?><div class="formErrors"></div></td>
+				<td><?php echo $this->Form->input('Comment.author', array('label' => false, 'class' => 'content'))?><div class="formErrors"></div></td>
 			</tr>
 			<tr>
 				<th>Email:</th>
-				<td><?php echo $this->Form->input('Comment.email', array('label' => false, 'size' => 50))?><div class="formErrors"></div></td>
+				<td><?php echo $this->Form->input('Comment.email', array('label' => false, 'class' => 'content'))?><div class="formErrors"></div></td>
 			</tr>
 			<tr>
 				<th>Předmět:</th>
-				<td><?php echo $this->Form->input('Comment.subject', array('label' => false, 'size' => 50))?><div class="formErrors"></div></td>
+				<td><?php echo $this->Form->input('Comment.subject', array('label' => false, 'class' => 'content'))?><div class="formErrors"></div></td>
 			</tr>
 			<tr>
 				<th>Dotaz</th>

@@ -9,7 +9,7 @@
 					Login:
 				</th>
 				<td>
-					<?=$form->text('Customer.login')?>
+					<?=$form->text('Customer.login', array('class' => 'content'))?>
 				</td>
 			</tr>
 			<tr>
@@ -17,7 +17,7 @@
 					Heslo:
 				</th>
 				<td>
-					<?=$form->password('Customer.password')?>
+					<?=$form->password('Customer.password', array('class' => 'content'))?>
 				</td>
 			</tr>
 			<tr>

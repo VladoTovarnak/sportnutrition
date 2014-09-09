@@ -600,8 +600,7 @@ class Order extends AppModel {
 			$cp_count++;
 		}
 		
-		// dopocitavam si cenu dopravneho pro objednavku
-		// predpokladam nulovou cenu
+		// dopocitavam si cenu dopravneho pro objednavku predpokladam nulovou cenu
 		$shipping_cost = 0;
 		if ( !$free_shipping ){
 			// objednavka neobsahuje produkt s dopravou zdarma,
@@ -637,7 +636,7 @@ class Order extends AppModel {
 			$mail_c->CharSet = 'utf-8';
 			$mail_c->Hostname = CUST_ROOT;
 			$mail_c->Sender = CUST_MAIL;
-			$mail->IsHtml(true);
+			$mail_c->IsHtml(true);
 	
 			// nastavim adresu, od koho se poslal email
 			$mail_c->From     = CUST_MAIL;

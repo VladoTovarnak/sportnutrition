@@ -612,7 +612,8 @@ class Product extends AppModel {
 	function import() {
 		// vyprazdnim tabulku
 		if ($this->truncate()) {
-			// jeden produkt muze mit v selectu vice radku (protoze je tam LEFT JOIN productparams, tzn pokud je vice productparams navazanych na jeden produkt, v selectu je pro produkt vice radku)
+			// jeden produkt muze mit v selectu vice radku (protoze je tam LEFT JOIN productparams, tzn pokud je vice productparams navazanych na jeden produkt,
+			// v selectu je pro produkt vice radku)
 			$snProducts = $this->findAllSn();
 			foreach ($snProducts as $snProduct) {
 				$product = $this->transformSn($snProduct);
@@ -696,7 +697,7 @@ class Product extends AppModel {
 				'related_name' => $snProduct['SnProduct']['nazev_cz'],
 				'zbozi_name' => $snProduct['SnProduct']['nazev_cz'],
 				'title' => $snProduct['SnProduct']['title_cz'],
-				'short_description' => (!empty($snProduct['SnProduct']['description_cz']) ? $snProduct['SnProduct']['description_cz'] : $snProduct['SnProduct']['nazev_cz']),
+				'short_description' => (!empty($snProduct['SnProduct']['popisek_cz']) ? $snProduct['SnProduct']['popisek_cz'] : $snProduct['SnProduct']['nazev_cz']),
 				'description' => $snProduct['SnProduct']['popis_cz'],
 				'retail_price_with_dph' => (!empty($snProduct['SnProductPricing']['cenapuvodni']) ? $snProduct['SnProductPricing']['cenapuvodni'] : 55555),
 				'discount_common' => $snProduct['SnProductPricing']['cena2'],

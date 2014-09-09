@@ -70,7 +70,10 @@ class Shipping extends AppModel {
 		
 		$price = $shipping['Shipping']['price'];
 		
-		if (intval($shipping['Shipping']['free'] > 0) && $order_total > intval($shipping['Shipping']['free'])) {
+		// u sobotniho doruceni (id = 20) neni doprava zdarma, pouze u objednavky nad 2000 se odecte 80,-
+		if ($shipping['Shipping']['id'] == 20 && $order_total >= 2000) {
+			$price = 50;
+		} elseif (intval($shipping['Shipping']['free'] > 0) && $order_total > intval($shipping['Shipping']['free'])) {
 			$price = 0;
 		}
 		return $price;
