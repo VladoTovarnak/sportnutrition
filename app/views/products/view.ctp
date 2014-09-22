@@ -226,7 +226,14 @@ foreach ($subproducts as $subproduct) {
 			<?php if (!empty($comment['reply'])) { ?>
 				<div style="margin-top:5px;padding-left:5px;margin-left:15px;border-left:1px solid black;">
 					<p><?php echo $comment['reply']?></p>
-					<p>za <em><?php echo CUST_NAME?></em><br /><?php echo $comment['Administrator']['first_name']?> <?php echo $comment['Administrator']['last_name']?></p>
+					<p>za <em><?php echo CUST_NAME?></em><br />
+					<?php
+						$answerer_string = $comment['Administrator']['first_name'] . ' ' . $comment['Administrator']['last_name'];
+						if (isset($comment['Administrator']['comment_string']) && !empty($comment['Administrator']['comment_string'])) {
+							$answerer_string = $comment['Administrator']['comment_string'];
+						}
+						echo $answerer_string;
+					?></p>
 				</div>
 			<?php } ?>
 		<?php } ?>
