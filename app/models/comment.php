@@ -75,14 +75,16 @@ class Comment extends AppModel {
 	 *
 	 * @return unknown
 	 */
-	function notify_new_comment(){
+	function notify_new_comment($id){
+		// nactu si comment
+		$comment = $this->find('first', array(
+			'conditions' => array('Comment.id' => $id),
+			'contain' => array()
+		));
 		// natahnu si mailovaci skript
-		include 'class.phpmailer.php';
+		App::import('Vendor', 'PHPMailer', array('file' => 'class.phpmailer.php'));
+		$mail = new PHPMailer();
 		
-		// notifikacni email prodejci
-		// vytvorim tridu pro mailer
-		$mail = new phpmailer();
-
 		// uvodni nastaveni
 		$mail->CharSet = 'utf-8';
 		$mail->Hostname = CUST_ROOT;
@@ -98,8 +100,11 @@ class Comment extends AppModel {
 //		$mail->AddBCC("vlado@tovarnak.com", "Vlado Tovarnak");
 		
 		$mail->Subject = 'E-SHOP (' . CUST_ROOT . ') - NOVÝ DOTAZ';
-		$mail->Body = 'Právě byl položen nový dotaz.' . "\n";
-		$mail->Body .= 'Spravovat jej můžete zde: http://www.' . CUST_ROOT . '/admin/comments/edit/' . $this->id . "\n";
+		$mail->Body = 'Právě byl položen nový dotaz.' . "\n\n";
+		$mail->Body .= $comment['Comment']['subject'] . "\n";
+		$mail->Body .= $comment['Comment']['author'] . ' - ' . $comment['Comment']['email'] . "\n";
+		$mail->Body .= $comment['Comment']['body'] . "\n\n";
+		$mail->Body .= 'Spravovat jej můžete zde: http://www.' . CUST_ROOT . '/admin/comments/edit/' . $id . "\n";
 
 		return $mail->Send();
 	}

@@ -180,7 +180,7 @@ class CommentsController extends AppController {
 					$this->Comment->create();
 					if ($this->Comment->save($comment, false)) {
 						// komentar byl vlozen, notifikace adminu o novem dotazu
-						$this->Comment->notify_new_comment();
+						$this->Comment->notify_new_comment($this->id);
 						
 						$result['message'] = 'Váš kometář byl uložen ke zpracování. Po schválení se bude zobrazovat.';
 						$result['success'] = true;
