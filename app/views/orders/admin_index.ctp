@@ -99,9 +99,9 @@ $(function() {
 		<td><?php 
 			echo $order['Order']['customer_name'] . ' <strong>(' . $order['Customer']['orders_count'] . ')</strong>';
 			echo '<br/>';
-			$address_info = '';
-			
-			$address_info = $order['Order']['delivery_street'];
+			// dorucovaci adresa
+			$address_info = '<strong>DA:</strong> ';
+			$address_info .= $order['Order']['delivery_street'];
 			if (!empty($order['Order']['delivery_street'])) {
 				$address_info .= ', ';
 			}
@@ -113,8 +113,23 @@ $(function() {
 			if (!empty($address_info)) {
 				$address_info .= '<br/>';
 			}
-
 			echo $address_info;
+			
+			// fakturacni adresa
+			$delivery_address_info = '<strong>FA:</strong> ';
+			$delivery_address_info .= $order['Order']['customer_street'];
+			if (!empty($order['Order']['customer_street'])) {
+				$delivery_address_info .= ', ';
+			}
+			$delivery_address_info .= $order['Order']['customer_zip'];
+			if (!empty($order['Order']['customer_zip'])) {
+				$delivery_address_info .= ' ';
+			}
+			$delivery_address_info .= $order['Order']['customer_city'];
+			if (!empty($address_info)) {
+				$delivery_address_info .= '<br/>';
+			}
+			echo $delivery_address_info;
 			
 			$contact_info = '';
 			if (!empty($order['Order']['customer_phone'])) {

@@ -567,6 +567,7 @@ class Order extends AppModel {
 			$order['Order']['shipping_cost'] = $this->Shipping->get_cost($order['Order']['shipping_id'], $order_total_with_dph);
 		}
 
+		$order['Order']['shipping_tax_class'] = $this->Shipping->get_tax_class_description($order['Order']['shipping_id']);
 		// cena produktu v kosiku, bez dopravneho
 		$order['Order']['subtotal_with_dph'] = $order_total_with_dph;
 		$order['Order']['subtotal_wout_dph'] = $order_total_wout_dph;
@@ -809,6 +810,10 @@ class Order extends AppModel {
 				'Order.customer_zip',
 				'Order.customer_phone',
 				'Order.customer_email',
+				'Order.delivery_name',
+				'Order.delivery_city',
+				'Order.delivery_street',
+				'Order.delivery_zip',
 				'Order.shipping_cost',
 				'Order.shipping_tax_class',
 				'Order.comments',
@@ -842,21 +847,21 @@ class Order extends AppModel {
 				<ord:text>' . $order['Order']['comments'] . '</ord:text>
 				<ord:partnerIdentity>
 					<typ:address>
-						<typ:company>' . $order['Order']['customer_name'] . '</typ:company>
-						<typ:name>' . $order['Order']['customer_name'] . '</typ:name>
-						<typ:city>'. $order['Order']['customer_city'] . '</typ:city>
-						<typ:street>' . $order['Order']['customer_street'] . '</typ:street>
-						<typ:zip>' . $order['Order']['customer_zip'] . '</typ:zip>
-						<typ:ico>' . $order['Order']['customer_ico'] . '</typ:ico>
-						<typ:dic>'. $order['Order']['customer_dic'] . '</typ:dic>
-						<typ:phone>' . $order['Order']['customer_phone'] . '</typ:phone>
-						<typ:email>' . $order['Order']['customer_email'] . '</typ:email>
+						<typ:company><![CDATA["' . $order['Order']['customer_name'] . '"]]></typ:company>
+						<typ:name><![CDATA["' . $order['Order']['customer_name'] . '"]]></typ:name>
+						<typ:city><![CDATA["'. $order['Order']['customer_city'] . '"]]></typ:city>
+						<typ:street><![CDATA["' . $order['Order']['customer_street'] . '"]]></typ:street>
+						<typ:zip><![CDATA["' . $order['Order']['customer_zip'] . '"]]></typ:zip>
+						<typ:ico><![CDATA["' . $order['Order']['customer_ico'] . '"]]></typ:ico>
+						<typ:dic><![CDATA["'. $order['Order']['customer_dic'] . '"]]></typ:dic>
+						<typ:phone><![CDATA["' . $order['Order']['customer_phone'] . '"]]></typ:phone>
+						<typ:email><![CDATA["' . $order['Order']['customer_email'] . '"]]></typ:email>
 					</typ:address>
 					<typ:shipToAddress>
-			            <typ:name></typ:name>
-			            <typ:city></typ:city>
-			            <typ:street></typ:street>
-			            <typ:zip></typ:zip>
+			            <typ:name><![CDATA["' . $order['Order']['delivery_name'] . '"]]></typ:name>
+			            <typ:city><![CDATA["' . $order['Order']['delivery_city'] . '"]]></typ:city>
+			            <typ:street><![CDATA["' . $order['Order']['delivery_street'] . '"]]></typ:street>
+			            <typ:zip><![CDATA["' . $order['Order']['delivery_zip'] . '"]]></typ:zip>
 					</typ:shipToAddress>
 				</ord:partnerIdentity>
 				<ord:paymentType>
@@ -868,7 +873,7 @@ class Order extends AppModel {
 			foreach ($order['OrderedProduct'] as $ordered_product) {
 				$output .= '
 				<ord:orderItem>
-					<ord:text>' . $ordered_product['product_name'] . '</ord:text> 
+					<ord:text><![CDATA["' . $ordered_product['product_name'] . '"]]></ord:text> 
 					<ord:quantity>' . $ordered_product['product_quantity'] . '</ord:quantity> 
 					<ord:payVAT>true</ord:payVAT> 
 					<ord:rateVAT>' . ($ordered_product['Product']['tax_class_id'] == 1 ? 'high' : 'low') . '</ord:rateVAT> 
@@ -885,7 +890,7 @@ class Order extends AppModel {
 
 			$output .= '
 				<ord:orderItem>
-					<ord:text>' . $order['Shipping']['name'] . '</ord:text> 
+					<ord:text><![CDATA["' . $order['Shipping']['name'] . '"]]></ord:text> 
 					<ord:quantity>1</ord:quantity>
 					<ord:payVAT>true</ord:payVAT> 
 					<ord:rateVAT>' . $order['Order']['shipping_tax_class'] . '</ord:rateVAT> 
@@ -899,7 +904,7 @@ class Order extends AppModel {
 					</ord:stockItem>
 				</ord:orderItem>
 				<ord:orderItem>
-					<ord:text>' . $order['Payment']['name'] . '</ord:text> 
+					<ord:text><![CDATA["' . $order['Payment']['name'] . '"]]></ord:text> 
 					<ord:quantity>1</ord:quantity> 
 					<ord:payVAT>true</ord:payVAT> 
 					<ord:rateVAT>none</ord:rateVAT> 

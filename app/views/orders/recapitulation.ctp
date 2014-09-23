@@ -50,7 +50,7 @@
 						<th colspan="2" align="right">cena za zboží celkem:</td>
 						<td colspan="2" align="right">
 							<strong><?php echo intval($final_price) ?> Kč</strong><br />
-							<span style="font-size:10px">(<?php echo round($final_price_wout, 2) ?> Kč<br />bez DPH)</span>
+							<span style="font-size:10px">(<?php echo round($final_price_wout, 2) ?> Kč bez DPH)</span>
 						</td>
 					</tr>
 					<tr>
@@ -73,6 +73,12 @@
 						<th colspan="2" class="totalPrice">celková cena objednávky:</td>
 						<td colspan="2" class="totalPrice"><?php echo intval($final_price + $order['shipping_cost'])?> Kč</td>
 					</tr>
+					<?php if (isset($order['comments']) && !empty($order['comments'])) { ?>
+					<tr>
+						<th>Váš komentář</th>
+						<td colspan="3"><?php echo $order['comments']?></td>
+					</tr>
+					<?php } ?>
 					<tr>
 						<td colspan="4" align="right">
 							<?php echo $this->Html->link('>> Krok 4/4: Dokončit objednávku', array('controller' => 'orders', 'action' => 'finalize'), array('id' => 'finalLink'))?>

@@ -14,6 +14,10 @@
 				<span class="formNote">např. http://www.mte.cz/</span>
 			</td>
 		</tr>
+		<tr>
+			<th>Popis</th>
+			<td><?php echo $this->Form->input('Manufacturer.text', array('label' => false, 'rows' => 15))?></td>
+		</tr>
 	</table>
 </fieldset>
 <?=$form->end('Vložit');?>

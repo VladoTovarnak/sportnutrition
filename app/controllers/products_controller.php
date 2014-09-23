@@ -125,7 +125,8 @@ class ProductsController extends AppController {
 				'Product.note',
 				'Product.price',
 				'Product.rate',
-				'Product.video'
+				'Product.video',
+				'Product.note'
 			),
 			'joins' => array(
 				array(
@@ -428,6 +429,7 @@ class ProductsController extends AppController {
 				'Product.short_description',
 				'Product.description',
 				'Product.active',
+				'Product.note',
 				'Product.manufacturer_id',
 				'Product.availability_id',
 				'Product.product_type_id',

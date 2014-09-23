@@ -79,6 +79,19 @@ class Shipping extends AppModel {
 		return $price;
 	}
 	
+	function get_tax_class_description($id) {
+		$shipping = $this->find('first', array(
+			'conditions' => array('Shipping.id' => $id),
+			'contain' => array('TaxClass'),
+			'fields' => array('Shipping.id', 'TaxClass.id', 'TaxClass.description')	
+		));
+		
+		if (!isset($shipping['TaxClass']['description'])) {
+			return 'none';
+		}
+		return $shipping['TaxClass']['description'];
+	}
+	
 	function findBySnName($snName) {
 		$shipping = $this->find('first', array(
 			'conditions' => array('Shipping.sn_name' => $snName),

@@ -836,7 +836,7 @@ class OrdersController extends AppController {
 			$this->Session->setFlash('Není zvolena doprava pro Vaši objednávku', REDESIGN_PATH . 'flash_failure');
 			$this->redirect(array('controller' => 'carts_products', 'action' => 'index'));
 		}
-		
+
 		$order = $this->Session->read('Order');
 		$customer = $this->Session->read('Customer');
 		$address = $this->Session->read('Address');

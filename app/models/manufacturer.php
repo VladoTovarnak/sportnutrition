@@ -260,7 +260,8 @@ class Manufacturer extends AppModel {
 				'name' => $snManufacturer['SnManufacturer']['nazev'],
 				'www_address' => $snManufacturer['SnManufacturer']['web'],
 				'active' => $snManufacturer['SnManufacturer']['active'],
-				'sportnutrition_id' => $snManufacturer['SnManufacturer']['id']
+				'sportnutrition_id' => $snManufacturer['SnManufacturer']['id'],
+				'text' => $snManufacturer['SnManufacturer']['text_cz']
 			)
 		);
 		return $manufacturer;

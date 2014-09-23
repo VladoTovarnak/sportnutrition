@@ -88,13 +88,13 @@ class Comment extends AppModel {
 		// uvodni nastaveni
 		$mail->CharSet = 'utf-8';
 		$mail->Hostname = CUST_ROOT;
-		$mail->Sender = CUST_MAIL;
+		$mail->Sender = 'no-reply@sportnutrition.cz';
 		
 		// nastavim adresu, od koho se poslal email
-		$mail->From     = CUST_MAIL;
-		$mail->FromName = "Automatické potvrzení";
+		$mail->From     = 'no-reply@sportnutrition.cz';
+		$mail->FromName = "sportnutrition.cz";
 		
-		$mail->AddReplyTo(CUST_MAIL, CUST_NAME);
+//		$mail->AddReplyTo(CUST_MAIL, CUST_NAME);
 
 		$mail->AddAddress(CUST_MAIL, CUST_NAME);
 //		$mail->AddBCC("vlado@tovarnak.com", "Vlado Tovarnak");

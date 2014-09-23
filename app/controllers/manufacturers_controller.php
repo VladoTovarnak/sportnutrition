@@ -20,6 +20,7 @@ class ManufacturersController extends AppController {
 	}
 	
 	function admin_add() {
+		$this->set('tiny_mce_elements', 'ManufacturerText');
 		if (!empty($this->data)) {
 			$this->Manufacturer->create();
 	
@@ -54,6 +55,8 @@ class ManufacturersController extends AppController {
 			$this->Session->setFlash('Neznámý výrobce.', REDESIGN_PATH . 'flash_failure');
 			$this->redirect(array('action'=>'index'));
 		}
+		
+		$this->set('tiny_mce_elements', 'ManufacturerText');
 		
 		if (!empty($this->data)) {
 			if ($this->Manufacturer->save($this->data)) {
@@ -205,7 +208,7 @@ class ManufacturersController extends AppController {
 				'table' => 'availabilities',
 				'alias' => 'Availability',
 				'type' => 'INNER',
-				'conditions' => array('Availability.id = Product.availability_id AND Availability.cart_allowed = 1')
+				'conditions' => array('Availability.id = Product.availability_id')
 			)
 		);
 		

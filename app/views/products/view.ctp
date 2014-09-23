@@ -78,11 +78,14 @@
 	<p><?php echo $product['Product']['short_description']?> <a href="#tabs-1">Více informací...</a></p>
 <?php } ?>
 	<p class="prices">
-<?php	if (isset($product['Product']['retail_price_with_dph']) && $product['Product']['retail_price_with_dph'] > $product['Product']['price']) { ?>
+<?php if (isset($product['Product']['retail_price_with_dph']) && $product['Product']['retail_price_with_dph'] > $product['Product']['price']) { ?>
 		Běžná cena: <?php echo number_format($product['Product']['retail_price_with_dph'], 0, ',', ' ') ?>&nbsp;Kč<br/>
 <?php } ?>
 		<b class="price">Cena: <span id="price_str"><?php echo number_format($product['Product']['price'], 0, ',', ' ') ?></span>&nbsp;Kč</b>
 	</p>
+<?php if (isset($product['Product']['note']) && !empty($product['Product']['note'])) { ?>
+	<p><b>Poznámka:</b> <?php echo $product['Product']['note']?></p>
+<?php } ?>
 <?php 
 	// pokud se produkt neda objednat, zobrazim informaci
 	if (!$product['Availability']['cart_allowed']) { ?>
@@ -127,7 +130,7 @@
 	</div>
 	<hr class="cleaner" />
 	<div class="availability">
-		<b>Dostupnost:</b>&nbsp;<?php echo ucfirst($product['Availability']['name'])?>
+		<b>Dostupnost:</b>&nbsp;<?php echo ucfirst($product['Availability']['name'])?><br/>
 	</div>
 </div>
 <h3><a href="/garance-nejnizsi-ceny.htm">Garance nejnižší ceny</a></h3>
