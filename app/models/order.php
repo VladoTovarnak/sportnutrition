@@ -963,19 +963,20 @@ class Order extends AppModel {
 		return $file_name;
 	}
 	
-	function set_invoice($order_ids, $value) {
+	function set_attribute($order_ids, $name, $value) {
 		if (is_int($order_ids)) {
 			$order_ids = array(0 => $order_ids);
 		}
 		if (!is_array($order_ids)) {
 			return false;
 		}
+
 		$success = true;
 		foreach ($order_ids as $order_id) {
 			$order = array(
 				'Order' => array(
 					'id' => $order_id,
-					'invoice' => true
+					$name => $value
 				)	
 			);
 			$success = $success && $this->save($order);

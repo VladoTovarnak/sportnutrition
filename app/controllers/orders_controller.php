@@ -514,26 +514,31 @@ class OrdersController extends AppController {
 			if (empty($orders)) {
 				$flash_messages[] = 'Žádná objednávka není k fakturaci, export nebyl vytvořen.';
 			} else {
+
 				$file_name = $this->Order->create_pohoda_file($orders);
-				
+
 				if ($file_name !== false) {
-					if (!$this->Order->set_invoice($orders, true)) {
+					if (!$this->Order->set_attribute($orders, 'invoice', true)) {
 						$flash_messages[] = 'Nepodařilo se uložit informaci o tom, že objednávky byly vyfakturovány.';
 					}
 				}
+
 				// objednavky, ktere jsem vyexportoval do xml a byly neprijate, dam do stavu prijate
 				$unreceived_orders = $this->Order->find('all', array(
-					'conditions' => array('Order.id IN (' . implode(',', $orders) . ')', 'Order.status_id' => 1),
+					'conditions' => array('Order.id' => $orders, 'Order.status_id' => 1),
 					'contain' => array(),
-					'fields' => array('Order.id')	
+					'fields' => array('Order.id', 'Order.comments')	
 				));
-				foreach ($unreceived_orders as $unreceived_order) {
-					$unreceived_order['Order']['status_id'] = 2;
-					if ($this->Order->save($unreceived_order)) {
-						$this->Order->Status->change_notification($unreceived_order['Order']['id'], 2);
+				$unreceived_orders = Set::extract('/Order/id', $unreceived_orders);
+
+				if (!$this->Order->set_attribute($orders, 'status_id', 2)) {
+					$flash_messages[] = 'Nepodařilo se uložit informaci o tom, že objednávky byly vyfakturovány.';
+				} else {
+					foreach ($unreceived_orders as $unreceived_order) {
+						$this->Order->Status->change_notification($unreceived_order, 2);
 					}
 				}
-				
+
 				$flash_messages[] = 'Export objednávek do účetního systému Pohoda naleznete <a href="/admin/orders/pohoda_download/' . urlencode($file_name) . '">zde</a>.';
 			}
 		} else {
