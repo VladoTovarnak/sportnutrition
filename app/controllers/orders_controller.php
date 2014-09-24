@@ -521,7 +521,6 @@ class OrdersController extends AppController {
 						$flash_messages[] = 'Nepodařilo se uložit informaci o tom, že objednávky byly vyfakturovány.';
 					}
 				}
-				
 				// objednavky, ktere jsem vyexportoval do xml a byly neprijate, dam do stavu prijate
 				$unreceived_orders = $this->Order->find('all', array(
 					'conditions' => array('Order.id IN (' . implode(',', $orders) . ')', 'Order.status_id' => 1),
@@ -942,7 +941,7 @@ class OrdersController extends AppController {
 		$customer['Address'][] = $this->Session->read('Address');
 		$customer['Address'][] = $this->Session->read('Address_payment');
 		
-		if ( !$this->Session->check('Customer.id') ){
+		if (!isset($customer['Customer']['id']) || empty($customer['Customer']['id'])){
 			// jedna se o neprihlaseneho a nezaregistrovaneho zakaznika
 			// musim vytvorit novy zakaznicky ucet,
 			// takze vygeneruju login a heslo

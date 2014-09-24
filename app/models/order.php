@@ -847,21 +847,21 @@ class Order extends AppModel {
 				<ord:text>' . $order['Order']['comments'] . '</ord:text>
 				<ord:partnerIdentity>
 					<typ:address>
-						<typ:company><![CDATA["' . $order['Order']['customer_name'] . '"]]></typ:company>
-						<typ:name><![CDATA["' . $order['Order']['customer_name'] . '"]]></typ:name>
-						<typ:city><![CDATA["'. $order['Order']['customer_city'] . '"]]></typ:city>
-						<typ:street><![CDATA["' . $order['Order']['customer_street'] . '"]]></typ:street>
-						<typ:zip><![CDATA["' . $order['Order']['customer_zip'] . '"]]></typ:zip>
-						<typ:ico><![CDATA["' . $order['Order']['customer_ico'] . '"]]></typ:ico>
-						<typ:dic><![CDATA["'. $order['Order']['customer_dic'] . '"]]></typ:dic>
-						<typ:phone><![CDATA["' . $order['Order']['customer_phone'] . '"]]></typ:phone>
-						<typ:email><![CDATA["' . $order['Order']['customer_email'] . '"]]></typ:email>
+						<typ:company><![CDATA[' . $order['Order']['customer_name'] . ']]></typ:company>
+						<typ:name><![CDATA[' . $order['Order']['customer_name'] . ']]></typ:name>
+						<typ:city><![CDATA['. $order['Order']['customer_city'] . ']]></typ:city>
+						<typ:street><![CDATA[' . $order['Order']['customer_street'] . ']]></typ:street>
+						<typ:zip><![CDATA[' . $order['Order']['customer_zip'] . ']]></typ:zip>
+						<typ:ico><![CDATA[' . $order['Order']['customer_ico'] . ']]></typ:ico>
+						<typ:dic><![CDATA['. $order['Order']['customer_dic'] . ']]></typ:dic>
+						<typ:phone><![CDATA[' . $order['Order']['customer_phone'] . ']]></typ:phone>
+						<typ:email><![CDATA[' . $order['Order']['customer_email'] . ']]></typ:email>
 					</typ:address>
 					<typ:shipToAddress>
-			            <typ:name><![CDATA["' . $order['Order']['delivery_name'] . '"]]></typ:name>
-			            <typ:city><![CDATA["' . $order['Order']['delivery_city'] . '"]]></typ:city>
-			            <typ:street><![CDATA["' . $order['Order']['delivery_street'] . '"]]></typ:street>
-			            <typ:zip><![CDATA["' . $order['Order']['delivery_zip'] . '"]]></typ:zip>
+			            <typ:name><![CDATA[' . $order['Order']['delivery_name'] . ']]></typ:name>
+			            <typ:city><![CDATA[' . $order['Order']['delivery_city'] . ']]></typ:city>
+			            <typ:street><![CDATA[' . $order['Order']['delivery_street'] . ']]></typ:street>
+			            <typ:zip><![CDATA[' . $order['Order']['delivery_zip'] . ']]></typ:zip>
 					</typ:shipToAddress>
 				</ord:partnerIdentity>
 				<ord:paymentType>
@@ -873,7 +873,7 @@ class Order extends AppModel {
 			foreach ($order['OrderedProduct'] as $ordered_product) {
 				$output .= '
 				<ord:orderItem>
-					<ord:text><![CDATA["' . $ordered_product['product_name'] . '"]]></ord:text> 
+					<ord:text><![CDATA[' . $ordered_product['product_name'] . ']]></ord:text> 
 					<ord:quantity>' . $ordered_product['product_quantity'] . '</ord:quantity> 
 					<ord:payVAT>true</ord:payVAT> 
 					<ord:rateVAT>' . ($ordered_product['Product']['tax_class_id'] == 1 ? 'high' : 'low') . '</ord:rateVAT> 
@@ -890,7 +890,7 @@ class Order extends AppModel {
 
 			$output .= '
 				<ord:orderItem>
-					<ord:text><![CDATA["' . $order['Shipping']['name'] . '"]]></ord:text> 
+					<ord:text><![CDATA[' . $order['Shipping']['name'] . ']]></ord:text> 
 					<ord:quantity>1</ord:quantity>
 					<ord:payVAT>true</ord:payVAT> 
 					<ord:rateVAT>' . $order['Order']['shipping_tax_class'] . '</ord:rateVAT> 
@@ -904,7 +904,7 @@ class Order extends AppModel {
 					</ord:stockItem>
 				</ord:orderItem>
 				<ord:orderItem>
-					<ord:text><![CDATA["' . $order['Payment']['name'] . '"]]></ord:text> 
+					<ord:text><![CDATA[' . $order['Payment']['name'] . ']]></ord:text> 
 					<ord:quantity>1</ord:quantity> 
 					<ord:payVAT>true</ord:payVAT> 
 					<ord:rateVAT>none</ord:rateVAT> 
@@ -970,10 +970,17 @@ class Order extends AppModel {
 		if (!is_array($order_ids)) {
 			return false;
 		}
-		return $this->updateAll(
-			array('Order.invoice' => $value),
-			array('Order.id' => $order_ids)
-		);
+		$success = true;
+		foreach ($order_ids as $order_id) {
+			$order = array(
+				'Order' => array(
+					'id' => $order_id,
+					'invoice' => true
+				)	
+			);
+			$success = $success && $this->save($order);
+		}
+		return $success;
 	}
 
 	// updatuje polozky zpetne - mohl se zmenit napr stav objednavky atd.
@@ -1064,6 +1071,7 @@ class Order extends AppModel {
 //		$this->truncate();
 //		$this->OrderedProduct->truncate();
 //		$this->OrderedProduct->OrderedProductsAttribute->truncate();
+// 		$this->Ordernote->truncate();
 		
 		$last_order = $this->find('first', array(
 			'contain' => array(),
