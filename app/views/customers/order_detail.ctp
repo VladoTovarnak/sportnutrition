@@ -18,17 +18,17 @@
 				echo '</div>';
 			}
 		?></td>
-		<td><?php echo $product['product_price_with_dph'] ?>&nbsp;Kč</td>
-		<td><?php echo ($product['product_price_with_dph'] * $product['product_quantity']) ?>&nbsp;Kč</td>
+		<td><?php echo number_format($product['product_price_with_dph'], 0, ',', ' ') ?>&nbsp;Kč</td>
+		<td><?php echo number_format($product['product_price_with_dph'] * $product['product_quantity'], 0, ',', ' ') ?>&nbsp;Kč</td>
 	</tr>
 	<?php } ?>
 	<tr>
 		<th colspan="2">objednané zboží celkem:</th>
-		<td><?=$order['Order']['subtotal_with_dph']?> Kč</td>
+		<td><?=number_format($order['Order']['subtotal_with_dph'], 0, ',', ' ')?> Kč</td>
 	</tr>
 	<tr>
 		<th colspan="2">způsob dopravy:</th>
-		<td><?=$order['Shipping']['name']?> (<?=$order['Order']['shipping_cost']?>&nbsp;Kč)</td>
+		<td><?=$order['Shipping']['name']?> (<?=number_format($order['Order']['shipping_cost'], 0, ',', ' ')?>&nbsp;Kč)</td>
 	</tr>
 	<tr>
 		<th colspan="2">způsob platby:</th>
@@ -36,8 +36,14 @@
 	</tr>
 	<tr>
 		<th colspan="2">celková cena objednávky:</th>
-		<td><?=($order['Order']['subtotal_with_dph'] + $order['Order']['shipping_cost'])?>&nbsp;Kč</td>
+		<td><?=number_format($order['Order']['subtotal_with_dph'] + $order['Order']['shipping_cost'], 0, ',', ' ')?>&nbsp;Kč</td>
 	</tr>
+	<?php if (isset($order['Order']['comments']) && !empty($order['Order']['comments'])) { ?>
+	<tr>
+		<th>Váš komentář</th>
+		<td colspan="2"><?php echo $order['Order']['comments']?></td>
+	</tr>
+	<?php } ?>
 </table>
 
 <table>

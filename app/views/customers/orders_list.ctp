@@ -10,8 +10,8 @@
 <? foreach ( $orders as $order ){ ?>
 	<tr>
 		<td><?=$order['Order']['id']?></td>
-		<td><?=$order['Order']['created']?></td>
-		<td><?=($order['Order']['subtotal_with_dph'] + $order['Order']['shipping_cost']) . '&nbsp;Kč' ?></td>
+		<td><?=cz_date_time($order['Order']['created'])?></td>
+		<td><?=number_format($order['Order']['subtotal_with_dph'] + $order['Order']['shipping_cost'], 0, ',', ' ') . '&nbsp;Kč' ?></td>
 		<td><?
 				$color = '';
 				if ( !empty($order['Status']['color']) ){

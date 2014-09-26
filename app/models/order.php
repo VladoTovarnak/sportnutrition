@@ -661,6 +661,9 @@ class Order extends AppModel {
 	}
 	
 	function notifyAdmin($id = null) {
+		App::import('Model', 'Setting');
+		$this->Setting = &new Setting;
+		
 		if (isset($id) && (!isset($this->id) || (isset($this->id) && empty($this->id)))) {
 			$this->id = $id;
 		}
@@ -672,22 +675,22 @@ class Order extends AppModel {
 
 		// uvodni nastaveni
 		$mail->CharSet = 'utf-8';
-		$mail->Hostname = CUST_ROOT;
-		$mail->Sender = CUST_MAIL;
+		$mail->Hostname = $this->Setting->findValue('CUST_ROOT');
+		$mail->Sender = $this->Setting->findValue('CUST_MAIL');
 		$mail->IsHtml(true);
 
 		// nastavim adresu, od koho se poslal email
-		$mail->From     = CUST_MAIL;
+		$mail->From     = $this->Setting->findValue('CUST_MAIL');
 		$mail->FromName = "Automatické potvrzení";
 
-		$mail->AddReplyTo(CUST_MAIL, CUST_NAME);
+		$mail->AddReplyTo($this->Setting->findValue('CUST_MAIL'), $this->Setting->findValue('CUST_NAME'));
 
 //		$mail->AddAddress("vlado@tovarnak.com", "Vlado Tovarnak");
-		$mail->AddAddress(CUST_MAIL, CUST_NAME);
+		$mail->AddAddress($this->Setting->findValue('CUST_MAIL'), $this->Setting->findValue('CUST_NAME'));
 
 		$mail->Subject = 'E-SHOP OBJEDNÁVKA (č. ' . $this->id . ')';
 		$mail->Body = 'Právě byla přijata nová objednávka pod číslem ' . $this->id . '.' . "\n";
-		$mail->Body .= 'Pro její zobrazení se přihlašte v administraci obchodu: http://www.' . CUST_ROOT . '/admin/' . "\n\n";
+		$mail->Body .= 'Pro její zobrazení se přihlašte v administraci obchodu: http://www.' . $this->Setting->findValue('CUST_ROOT') . '/admin/' . "\n\n";
 		
 		$customer_mail = $this->order_mail($this->id);
 		
@@ -733,6 +736,7 @@ class Order extends AppModel {
 		$customer_mail .= '<tr><td>Email: <a href="mailto:' . $this->Setting->findValue('CUST_MAIL') . '">' . $this->Setting->findValue('CUST_MAIL') . '</a></td><td>Email: <a href="mailto:' . $order['Order']['customer_email'] . '">'. $order['Order']['customer_email'] . '</a></td></tr>';
 		$customer_mail .= '<tr><td>Telefon: ' . $this->Setting->findValue('CUST_PHONE') . '</td><td>Telefon: ' . $order['Order']['customer_phone'] . '</td></tr>';
 		$customer_mail .= '<tr><td>Web: <a href="http://www.' . $this->Setting->findValue('CUST_ROOT') . '">http://www.' . $this->Setting->findValue('CUST_ROOT') . '</a></td><td>Dodací adresa: ' . $order['Order']['delivery_name'] . ', ' . $order['Order']['delivery_street'] . ', ' . $order['Order']['delivery_zip'] . ' ' . $order['Order']['delivery_city'] . ', ' . $order['Order']['delivery_state'] . '</td></tr>';
+		$customer_mail .= '<tr><td>Poznámka: ' . $order['Order']['comments'] . '</td></tr>';
 		$customer_mail .= '</table><br/>';
 
 		// telo emailu s obsahem objednavky

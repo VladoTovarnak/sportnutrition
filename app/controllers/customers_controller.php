@@ -441,9 +441,25 @@ class CustomersController extends AppController {
 				)
 			));
 		}
+		
 		// data ukladam do sesny, po potvrzeni rekapitulace ukladam k objednavce		
 		if (isset($this->data)) {
+			// nechci kontrolovat, jestli je zakaznikuv email unikatni (aby i zakaznik, ktery neni prihlaseny, ale jeho email
+			// je v systemu, mohl dokoncit objednavku
+			unset($this->Customer->validate['email']['isUnique']);		
 			if ($this->Customer->saveAll($this->data, array('validate' => 'only'))) {
+				// podivam se, jestli neexistuje zakaznik se zadanou emailovou adresou
+				$customer = $this->Customer->find('first', array(
+					'conditions' => array('Customer.email' => $this->data['Customer']['email']),
+					'contain' => array(),
+					'fields' => array('Customer.id')
+				));
+				// pokud existuje, priradim k objednavce zakaznikovo idcko (at nezakladam noveho a nevznikaji mi ucty
+				// s duplicitnim emailem
+				if (!empty($customer)) {
+					$this->Session->setFlash('Váš email je již v systému zaregistrován. Prosím příště se přihlašte, abychom Vám mohli nabídnout zboží za akční ceny.', REDESIGN_PATH . 'flash_failure');
+					$this->data['Customer']['id'] = $customer['Customer']['id'];
+				}
 				$this->data['Address'][0]['name'] = $this->data['Customer']['first_name'] . ' ' . $this->data['Customer']['last_name'];
 				$this->data['Address'][1]['name'] = $this->data['Customer']['first_name'] . ' ' . $this->data['Customer']['last_name'];
 				
@@ -765,7 +781,22 @@ class CustomersController extends AppController {
 					'fields' => array('Payment.id', 'Payment.name')
 				)
 			),
-			'fields' => array('Order.id', 'Order.subtotal_with_dph', 'Order.shipping_cost', 'Order.customer_name', 'Order.customer_street', 'Order.customer_zip', 'Order.customer_city', 'Order.customer_state', 'Order.delivery_name', 'Order.delivery_street', 'Order.delivery_zip', 'Order.delivery_city', 'Order.delivery_state')
+			'fields' => array(
+				'Order.id',
+				'Order.subtotal_with_dph',
+				'Order.shipping_cost',
+				'Order.customer_name',
+				'Order.customer_street',
+				'Order.customer_zip',
+				'Order.customer_city',
+				'Order.customer_state',
+				'Order.delivery_name',
+				'Order.delivery_street',
+				'Order.delivery_zip',
+				'Order.delivery_city',
+				'Order.delivery_state',
+				'Order.comments'
+			)
 		));
 
 		if ( empty($order) ){

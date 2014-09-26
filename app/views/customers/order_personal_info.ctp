@@ -50,7 +50,7 @@
 <h3>Fakturační adresa</h3>
 <table>
 	<tr>
-		<th>Ulice</th>
+		<th>Ulice<sup>*</sup></th>
 		<td><?php echo $this->Form->input('Address.0.street', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 	<tr>
@@ -58,11 +58,11 @@
 		<td><?php echo $this->Form->input('Address.0.street_no', array('label' => false))?></td>
 	</tr>
 	<tr>
-		<th>Město</th>
+		<th>Město<sup>*</sup></th>
 		<td><?php echo $this->Form->input('Address.0.city', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 	<tr>
-		<th>PSČ</th>
+		<th>PSČ<sup>*</sup></th>
 		<td><?php echo $this->Form->input('Address.0.zip', array('label' => false))?></td>
 	</tr>
 	<tr>
@@ -75,7 +75,7 @@
 <p><a href="#" id="copyAddressLink">Klikněte zde, pokud je stejná jako fakturační.</a>
 <table>
 	<tr>
-		<th>Ulice</th>
+		<th>Ulice<sup>*</sup></th>
 		<td><?php echo $this->Form->input('Address.1.street', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 	<tr>
@@ -83,11 +83,11 @@
 		<td><?php echo $this->Form->input('Address.1.street_no', array('label' => false))?></td>
 	</tr>
 	<tr>
-		<th>Město</th>
+		<th>Město<sup>*</sup></th>
 		<td><?php echo $this->Form->input('Address.1.city', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 	<tr>
-		<th>PSČ</th>
+		<th>PSČ<sup>*</sup></th>
 		<td><?php echo $this->Form->input('Address.1.zip', array('label' => false))?></td>
 	</tr>
 	<tr>
