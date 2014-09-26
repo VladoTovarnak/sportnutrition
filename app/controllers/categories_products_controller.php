@@ -122,6 +122,13 @@ class CategoriesProductsController extends AppController {
 		if (empty($category)) {
 			$this->cakeError('error404');
 		}
+		
+		// k informaci o kategorii pridam text o sleve pro registrovane
+		App::import('Model', 'Setting');
+		$this->Setting = &new Setting;
+		$category_text = $this->Setting->findValue('CATEGORYTEXT');
+		
+		$category['Category']['content'] = $category['Category']['content'] . ($category_text ? $category_text : '');
 
 		$this->set('category', $category);
 		// nastavim head tagy
