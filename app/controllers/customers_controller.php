@@ -386,7 +386,8 @@ class CustomersController extends AppController {
 			// do databaze musi jit heslo kryptovane
 			$this->data['CustomerLogin'][0]['password'] = md5($password_not_md5); 
 
-			$this->data['Customer']['confirmed'] = 1;
+			$this->data['Customer']['confirmed'] = true;
+			$this->data['Customer']['active'] = true;
 			$this->data['Customer']['registration_source'] = 'eshop - registrace';
 			
 			if (
