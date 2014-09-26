@@ -1312,3 +1312,10 @@ div.right_sidebar_product span.regular_price{
 #cartContents .price {
 	font-size: 14px;
 }
+
+#category-desc {
+    border: 1px solid #DDD;
+    padding: 10px 30px;
+    background-color: #F5F5F5;
+    font-size: 14px;
+}

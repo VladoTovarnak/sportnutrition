@@ -81,7 +81,7 @@
 			<?php echo $this->Form->create(null, array('url' => '/' . $this->params['url']['url'], 'type' => 'get', 'encoding' => false))?>
 			Řadit podle:
 			<?php echo $this->Form->input('sorting', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $sorting_options, 'div' => false, 'class' => 'sorting'))?>
-			Produktů stránku:
+			Na stránku:
 			<?php echo $this->Form->input('paging', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $paging_options, 'div' => false, 'class' => 'paging'))?>
 			<?php echo $this->Form->end()?>
 			</div>
@@ -99,10 +99,9 @@
 		<div id="mainContentWrapper">
 			<p>Tato kategorie neobsahuje žádné produkty ani podkategorie.</p>
 		</div>
-<?
-	}
-?>
-<?php
-	if (Configure::read('debug')) {
-		echo $category['Category']['content'];
-	} ?>
+<? } ?>
+<?php if (Configure::read('debug')) { ?>
+	<div id="category-desc">
+<?php 		echo $category['Category']['content']; ?>
+	</div>
+<?php } ?>
