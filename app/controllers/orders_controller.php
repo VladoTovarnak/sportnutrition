@@ -1025,7 +1025,7 @@ class OrdersController extends AppController {
 			$this->redirect(array('controller' => 'carts_products', 'action' => 'index'), null, true);
 		}
 		
-		if ( !$this->Session->check('Customer.id') ){
+		if ( !$this->Session->check('Customer.id') || ($this->Session->check('Customer.id') && $this->Session->check('Customer.noreg'))){
 			// tenhle zaznam mazu jen kdyz se jedna o neprihlaseneho
 			$this->Session->delete('Customer');
 		}

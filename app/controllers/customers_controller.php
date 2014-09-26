@@ -459,6 +459,7 @@ class CustomersController extends AppController {
 				if (!empty($customer)) {
 					$this->Session->setFlash('Váš email je již v systému zaregistrován. Prosím příště se přihlašte, abychom Vám mohli nabídnout zboží za akční ceny.', REDESIGN_PATH . 'flash_failure');
 					$this->data['Customer']['id'] = $customer['Customer']['id'];
+					$this->data['Customer']['noreg'] = true;
 				}
 				$this->data['Address'][0]['name'] = $this->data['Customer']['first_name'] . ' ' . $this->data['Customer']['last_name'];
 				$this->data['Address'][1]['name'] = $this->data['Customer']['first_name'] . ' ' . $this->data['Customer']['last_name'];
