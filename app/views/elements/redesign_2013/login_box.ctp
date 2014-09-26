@@ -9,7 +9,7 @@
 	$is_logged_in = false;
 	if ($this->Session->check('Customer')) {
 		$customer = $this->Session->read('Customer');
-		if (isset($customer['id']) && !empty($customer['id'])) {
+		if (isset($customer['id']) && !empty($customer['id']) && !isset($customer['noreg'])) {
 			$is_logged_in = true;
 		}
 	}
