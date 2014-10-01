@@ -371,7 +371,7 @@ class Order extends AppModel {
 
 				for ( $i = 0; $i < count($contents[1]); $i++) {
 					$rows[$i] = trim($contents[1][$i]);
-					if ( iconv('utf-8', 'cp1250', $rows[$i]) == 'Doručen&#237;' ){
+					if ($rows[$i] == 'Doručen&#237;' ){
 						// musim zmenit objednavku na doruceno a zapsat poznamku o tom, kdy byla dorucena
 						$this->id = $id;
 						$this->save(array('status_id' => '4'), false, array('status_id', 'modified'));
