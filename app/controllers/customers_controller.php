@@ -441,29 +441,36 @@ class CustomersController extends AppController {
 				)
 			));
 		}
-		
+
 		// data ukladam do sesny, po potvrzeni rekapitulace ukladam k objednavce		
 		if (isset($this->data)) {
 			// nechci kontrolovat, jestli je zakaznikuv email unikatni (aby i zakaznik, ktery neni prihlaseny, ale jeho email
 			// je v systemu, mohl dokoncit objednavku
+			if (isset($this->data['Customer']['id']) && empty($this->data['Customer']['id'])) {
+				unset($this->data['Customer']['id']);
+			}
 			unset($this->Customer->validate['email']['isUnique']);		
 			if ($this->Customer->saveAll($this->data, array('validate' => 'only'))) {
-				// podivam se, jestli neexistuje zakaznik se zadanou emailovou adresou
-				$customer = $this->Customer->find('first', array(
-					'conditions' => array('Customer.email' => $this->data['Customer']['email']),
-					'contain' => array(),
-					'fields' => array('Customer.id')
-				));
-				// pokud existuje, priradim k objednavce zakaznikovo idcko (at nezakladam noveho a nevznikaji mi ucty
-				// s duplicitnim emailem
-				if (!empty($customer)) {
-					$this->Session->setFlash('Váš email je již v systému zaregistrován. Prosím příště se přihlašte, abychom Vám mohli nabídnout zboží za akční ceny.', REDESIGN_PATH . 'flash_failure');
-					$this->data['Customer']['id'] = $customer['Customer']['id'];
+				// jestli neni zakaznik prihlaseny a zaroven existuje zakaznik se zadanou emailovou adresou
+				if (!$this->Session->check('Customer.id')) {
+					$customer = $this->Customer->find('first', array(
+						'conditions' => array('Customer.email' => $this->data['Customer']['email']),
+						'contain' => array(),
+						'fields' => array('Customer.id')
+					));
+					// pokud existuje, priradim k objednavce zakaznikovo idcko (at nezakladam noveho a nevznikaji mi ucty
+					// s duplicitnim emailem
+					if (!empty($customer)) {
+						$this->Session->setFlash('Váš email je již v systému zaregistrován. Prosím příště se přihlašte, abychom Vám mohli nabídnout zboží za akční ceny.', REDESIGN_PATH . 'flash_failure');
+						$this->data['Customer']['id'] = $customer['Customer']['id'];
+					}
+					// pamatuju si, ze zakaznik neni prihlaseny v objednavce (protoze to vsude testuju z historickych duvodu
+					// pres customer id v sesne a to je mi ted na nic
 					$this->data['Customer']['noreg'] = true;
 				}
 				$this->data['Address'][0]['name'] = $this->data['Customer']['first_name'] . ' ' . $this->data['Customer']['last_name'];
 				$this->data['Address'][1]['name'] = $this->data['Customer']['first_name'] . ' ' . $this->data['Customer']['last_name'];
-				
+
 				$this->Session->write('Customer', $this->data['Customer']);
 				$this->Session->write('Address', $this->data['Address'][1]);
 				$this->Session->write('Address_payment', $this->data['Address'][0]);

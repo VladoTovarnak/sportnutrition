@@ -117,8 +117,7 @@ class Customer extends AppModel {
 	function generateLogin($customer){
 		// vygeneruje nahodne login
 		do{
-			// vytahnu si osm znaku z md5ky,
-			// s nahodnym startem
+			// vytahnu si osm znaku z md5ky s nahodnym startem
 			$start = rand(0, 23);
 			$login = md5($customer['last_name'] . date("Y-m-d"));
 			$login = substr($login, $start, 8);

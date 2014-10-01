@@ -946,10 +946,9 @@ class OrdersController extends AppController {
 		$customer['Address'][] = $this->Session->read('Address');
 		$customer['Address'][] = $this->Session->read('Address_payment');
 		
-		if (!isset($customer['Customer']['id']) || empty($customer['Customer']['id'])){
-			// jedna se o neprihlaseneho a nezaregistrovaneho zakaznika
-			// musim vytvorit novy zakaznicky ucet,
-			// takze vygeneruju login a heslo
+		// jedna se o neprihlaseneho a nezaregistrovaneho zakaznika
+		if (!isset($customer['Customer']['id']) || empty($customer['Customer']['id'])) {
+			// musim vytvorit novy zakaznicky ucet, takze vygeneruju login a heslo
 			$customer['CustomerLogin'][0]['login'] = $this->Order->Customer->generateLogin($sess_customer);
 			$customer_password = $this->Order->Customer->generatePassword($sess_customer['last_name']);
 			$customer['CustomerLogin'][0]['password'] = md5($customer_password);
@@ -968,13 +967,15 @@ class OrdersController extends AppController {
 			}
 			$c_dataSource->commit($this->Order->Customer);
 			
-			// jedna se o nove zalozeny zakaznicky ucet,
-			// takze mu poslu notifikaci, pokud pri registraci
-			// uvedl svou emailovou adresu
+			// jedna se o nove zalozeny zakaznicky ucet, takze mu poslu notifikaci, pokud pri registraci uvedl svou emailovou adresu
 			$customer['CustomerLogin'][0]['password'] = $customer_password;
+			$this->Session->write('cpass', $customer_password);
+			$this->Session->write('login', $customer['CustomerLogin'][0]['login']);
 			$this->Order->Customer->notify_account_created($customer);
 			$customer['Customer']['id'] = $this->Order->Customer->id;
-			$this->Session->write('Customer.id', $customer['Customer']['id']);
+//			$this->Session->write('Customer.id', $customer['Customer']['id']);
+			$this->Session->delete('Customer.noreg');
+			
 		}
 
 		//data pro objednavku
@@ -1019,23 +1020,24 @@ class OrdersController extends AppController {
 		$this->redirect(array('action' => 'finished'), null, true);
 	} // konec funkce
 	
-	function finished(){
+	function finished() {
 		$id = $this->Session->read('Order.id');
 		if ( empty($id) ){
 			$this->redirect(array('controller' => 'carts_products', 'action' => 'index'), null, true);
 		}
-		
-		if ( !$this->Session->check('Customer.id') || ($this->Session->check('Customer.id') && $this->Session->check('Customer.noreg'))){
+
+		if (!$this->Session->check('Customer.id') || ($this->Session->check('Customer.id') && $this->Session->check('Customer.noreg'))) {
 			// tenhle zaznam mazu jen kdyz se jedna o neprihlaseneho
 			$this->Session->delete('Customer');
 		}
-
 		// smazu zaznamy o objednavce ze session
 		$pass = $this->Session->read('cpass');
+		$login = $this->Session->read('login');
 		$this->Session->delete('Order');
 		$this->Session->delete('Address');
 		$this->Session->delete('Address_payment');
 		$this->Session->delete('cpass');
+		$this->Session->delete('login');
 				
 		// navolim si layout, ktery se pouzije
 		$this->layout = REDESIGN_PATH . 'content';
@@ -1145,6 +1147,8 @@ class OrdersController extends AppController {
 		$this->set('jscript_code', $jscript_code);
 
 		$order['Customer']['password'] = $pass;
+		$order['Customer']['login'] = $login;
+		
 		$this->set('order', $order);
 
 	}
