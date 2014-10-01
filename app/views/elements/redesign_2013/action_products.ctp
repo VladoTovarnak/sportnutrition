@@ -18,8 +18,8 @@
 			</a>
 		</div>
 		<div class="prices_holder">
-			běžná cena: <span class="old_price"><?php echo number_format($action_product['Product']['retail_price_with_dph'], 0, ',', ' ')?> Kč</span><br />
-			<span class="regular_price">cena: <?php echo number_format($action_product['Product']['price'], 0, ',', ' ')?> Kč</span>
+			běžná cena: <span class="old_price"><?php echo front_end_display_price($action_product['Product']['retail_price_with_dph'])?> Kč</span><br />
+			<span class="regular_price">cena: <?php echo front_end_display_price($action_product['Product']['price'])?> Kč</span>
 			<?php 
 				echo $this->Form->create('Product', array('url' => '/' . $action_product['Product']['url'], 'encoding' => false));
 				echo '<input class="right_sidebar_cart_add" type="submit" value="Vložit do košíku" />';

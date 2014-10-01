@@ -33,8 +33,8 @@
 				echo $form->end();
 			?>
 			<p class="prices">
-				<span class="common">Běžná cena: <?php echo number_format($suggested_product['Product']['retail_price_with_dph'], 0, ',', ' ')?> Kč</span><br />
-				<span class="price">Cena: <?php echo number_format($suggested_product['Product']['price'], 0, ',', ' ')?> Kč</span>
+				<span class="common">Běžná cena: <?php echo front_end_display_price($suggested_product['Product']['retail_price_with_dph'])?> Kč</span><br />
+				<span class="price">Cena: <?php echo front_end_display_price($suggested_product['Product']['price'])?> Kč</span>
 			</p>
 			<p class="guarantee">
 				<a href="/garance-nejnizsi-ceny.htm"><span class="first_line">Garance nejnižší ceny!</span></a><br />
@@ -61,8 +61,8 @@
 							echo $form->end();
 						?>
 						<p class="prices">
-							<span class="common">Běžná cena: <?php echo number_format($suggested_product['Product']['retail_price_with_dph'], 0, ',', ' ')?> Kč</span><br />
-							<span class="price">Cena: <?php echo number_format($suggested_product['Product']['price'], 0, ',', ' ')?> Kč</span>
+							<span class="common">Běžná cena: <?php echo front_end_display_price($suggested_product['Product']['retail_price_with_dph'])?> Kč</span><br />
+							<span class="price">Cena: <?php echo front_end_display_price($suggested_product['Product']['price'])?> Kč</span>
 						</p>
 					</div>
 <?php			} ?>
@@ -127,8 +127,8 @@
 				echo $form->end();
 			?>
 			<p class="prices">
-				<span class="common">Běžná cena: <?php echo number_format($product['Product']['retail_price_with_dph'], 0, ',', ' ')?> Kč</span><br />
-				<span class="price">Cena: <?php echo number_format($product['Product']['price'], 0, ',', ' ')?> Kč</span>
+				<span class="common">Běžná cena: <?php echo front_end_display_price($product['Product']['retail_price_with_dph'])?> Kč</span><br />
+				<span class="price">Cena: <?php echo front_end_display_price($product['Product']['price'])?> Kč</span>
 			</p>
 			<p class="guarantee">
 				<a href="/garance-nejnizsi-ceny.htm"><span class="first_line">Garance nejnižší ceny!</span></a><br />

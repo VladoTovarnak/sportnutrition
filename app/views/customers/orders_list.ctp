@@ -11,7 +11,7 @@
 	<tr>
 		<td><?=$order['Order']['id']?></td>
 		<td><?=cz_date_time($order['Order']['created'])?></td>
-		<td><?=number_format($order['Order']['subtotal_with_dph'] + $order['Order']['shipping_cost'], 0, ',', ' ') . '&nbsp;Kč' ?></td>
+		<td><?=front_end_display_price($order['Order']['subtotal_with_dph'] + $order['Order']['shipping_cost']) . '&nbsp;Kč' ?></td>
 		<td><?
 				$color = '';
 				if ( !empty($order['Status']['color']) ){

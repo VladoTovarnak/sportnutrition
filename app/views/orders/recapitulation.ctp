@@ -41,16 +41,16 @@
 					<?php 	} ?>
 						</td>
 						<td><?php echo $cart_product['CartsProduct']['quantity'] ?>&nbsp;ks</td>
-						<td align="right"><?php echo number_format($cart_product['CartsProduct']['price_with_dph'], 0, ',', ' ') ?>&nbsp;Kč</td>
-						<td align="right"><?php echo number_format($cart_product['CartsProduct']['price_with_dph'] * $cart_product['CartsProduct']['quantity'], 0, ',', ' ') ?>&nbsp;Kč</td>
+						<td align="right"><?php echo front_end_display_price($cart_product['CartsProduct']['price_with_dph']) ?>&nbsp;Kč</td>
+						<td align="right"><?php echo front_end_display_price($cart_product['CartsProduct']['price_with_dph'] * $cart_product['CartsProduct']['quantity']) ?>&nbsp;Kč</td>
 					</tr>
 					<?php } ?>
 					
 					<tr>
 						<th colspan="2" align="right">cena za zboží celkem:</td>
 						<td colspan="2" align="right">
-							<strong><?php echo number_format($final_price, 0, ',', ' ') ?> Kč</strong><br />
-							<span style="font-size:10px">(<?php echo number_format($final_price_wout, 2, ',', ' ') ?> Kč bez DPH)</span>
+							<strong><?php echo front_end_display_price($final_price) ?> Kč</strong><br />
+							<span style="font-size:10px">(<?php echo front_end_display_price($final_price_wout, 2) ?> Kč bez DPH)</span>
 						</td>
 					</tr>
 					<tr>
@@ -58,8 +58,8 @@
 							způsob doručení: <strong><?=$shipping['Shipping']['name']?></strong><br />
 							<?=$html->link('upravit', array('controller' => 'orders', 'action' => 'set_payment_and_shipping'), array('class' => 'smallLinkEdit')) ?>
 						</td>
-						<td align="right"><?=number_format($order['shipping_cost'], 0, ',', ' ')?>&nbsp;Kč</td>
-						<td align="right"><?=number_format($order['shipping_cost'], 0, ',', ' ')?>&nbsp;Kč</td>
+						<td align="right"><?=front_end_display_price($order['shipping_cost'])?>&nbsp;Kč</td>
+						<td align="right"><?=front_end_display_price($order['shipping_cost'])?>&nbsp;Kč</td>
 					</tr>
 					<tr>
 						<td colspan="2">
@@ -71,7 +71,7 @@
 					</tr>
 					<tr>
 						<th colspan="2" class="totalPrice">celková cena objednávky:</td>
-						<td colspan="2" class="totalPrice"><?php echo number_format($final_price + $order['shipping_cost'], 0, ',', ' ')?> Kč</td>
+						<td colspan="2" class="totalPrice"><?php echo front_end_display_price($final_price + $order['shipping_cost'])?> Kč</td>
 					</tr>
 					<?php if (isset($order['comments']) && !empty($order['comments'])) { ?>
 					<tr>

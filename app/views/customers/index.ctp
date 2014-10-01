@@ -62,7 +62,7 @@
 						<tr>
 							<td><?=$customer['Order'][$i]['id']?></td>
 							<td><?=cz_date_time($customer['Order'][$i]['created'])?></td>
-							<td><?=number_format($customer['Order'][$i]['subtotal_with_dph'] + $customer['Order'][$i]['shipping_cost'], 0, ',', ' ') . '&nbsp;Kč' ?></td>
+							<td><?=front_end_display_price($customer['Order'][$i]['subtotal_with_dph'] + $customer['Order'][$i]['shipping_cost']) . '&nbsp;Kč' ?></td>
 							<td><?
 									$color = '';
 									if ( !empty($customer['Order'][$i]['Status']['color']) ){

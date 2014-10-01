@@ -22,8 +22,8 @@ foreach ( $products as $product ){
 			echo $form->end();
 		?>
 		<p class="prices">
-			<span class="common">Běžná cena: <?php echo number_format($product['Product']['retail_price_with_dph'], 0, ',', ' ')?> Kč</span><br />
-			<span class="price">Cena: <?php echo number_format($product['Product']['price'], 0, ',', ' ')?> Kč</span>
+			<span class="common">Běžná cena: <?php echo front_end_display_price($product['Product']['retail_price_with_dph'])?>&nbsp;Kč</span><br />
+			<span class="price">Cena: <?php echo front_end_display_price($product['Product']['price'])?>&nbsp;Kč</span>
 		</p>
 		<p class="guarantee">
 			<a href="/garance-nejnizsi-ceny.htm"><span class="first_line">Garance nejnižší ceny!</span></a><br />

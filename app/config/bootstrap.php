@@ -175,6 +175,10 @@ function format_price($price) {
 	return number_format($price, 0, ',', '.') . ' CZK';
 }
 
+function front_end_display_price($price, $decimals = 0) {
+	return number_format($price, $decimals, ',', '&nbsp;');
+}
+
 define('SN_USERNAME', 'admin');
 define('SN_PASSWORD', 'e7j3w9');
 

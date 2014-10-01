@@ -32,7 +32,7 @@
 
 <div id="basket"<?php echo ($login_box_tab != 'basket') ? ' style="display:none"' : ''?>>
 <?php if ($carts_stats['products_count']) { ?>
-<p>Máte <strong><?=$carts_stats['products_count']?></strong> produktů v košíku. Celková cena je <span class="price"><?php echo $carts_stats['total_price']?> Kč</span></p>
+<p>Máte <strong><?=$carts_stats['products_count']?></strong> produktů v košíku. Celková cena je <span class="price"><?php echo front_end_display_price($carts_stats['total_price'])?> Kč</span></p>
 <p><?php echo $this->Html->link('Zobrazit košík', array('controller' => 'carts_products', 'action' => 'index'), array('class' => 'to_cart'))?> | <?php echo $this->Html->link('Objednat', array('controller' => 'customers', 'action' => 'order_personal_info'), array('class' => 'to_order'))?></p>
 <?php } else { ?>
 <p>Košík je prázdný.</p>
