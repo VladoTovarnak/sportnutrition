@@ -128,7 +128,7 @@ class Order extends AppModel {
 		$tracker_url = $shipping['Shipping']['tracker_prefix'] . trim($order['Order']['shipping_number']) . $shipping['Shipping']['tracker_postfix'];
 		// nactu si obsah trackovaci stranky
 		$contents = @file_get_contents($tracker_url);
-		if ( $contents !== false ){
+		if ($contents !== false){
 			$contents = eregi_replace("\r\n", "", $contents);
 			$contents = eregi_replace("\t", "", $contents);
 			
@@ -149,7 +149,7 @@ class Order extends AppModel {
 			// stavy si rozhodim do jednotlivych prvku pole
 			$pattern = '|<tr>(.*)</tr>|U';
 			preg_match_all($pattern, $table_contents[1][0], $rows);
-			if (isset($rows[1])) {
+			if (!isset($rows[1])) {
 				return $id;
 				die('nesedi pattern pri zjisteni dorucenosti baliku u CP - radek tabulky');
 			}

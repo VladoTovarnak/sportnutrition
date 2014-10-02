@@ -73,7 +73,7 @@ class Status extends AppModel {
 			foreach ( $objects as $object ){
 				if ( $object == 'Shipping' ){
 					App::import('Model', 'Shipping');
-					$this->Status->Shipping = new Shipping;
+					$this->Status->Shipping = &new Shipping;
 					
 					$this->Status->Shipping->recursive = -1;
 					$shipping = $this->Status->Shipping->read(null, $order['Order']['shipping_id']);
