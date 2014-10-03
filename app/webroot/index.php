@@ -22,7 +22,7 @@
 /**
  * Pokud nekdo chce jit na '/admin' nebo '/admin/', presmeruju na log in
  */
-
+date_default_timezone_set('Europe/Prague');
 if ($_SERVER['REQUEST_URI'] == '/admin' || $_SERVER['REQUEST_URI'] == '/admin/') {
 	header("HTTP/1.1 301 Moved Permanently");
 	header("Location: http://" . $_SERVER['HTTP_HOST'] . "/admin/administrators/login");
