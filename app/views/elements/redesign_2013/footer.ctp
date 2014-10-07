@@ -53,4 +53,7 @@
 		<a href="http://www.youtube.com/channel/UCheMzjYoHUiq-9I5OH3DdKA" target="_blank"><img src="/images/<?php echo REDESIGN_PATH ?>logo_youtube.png" alt="YouTube" /></a>
 	</div>
 </div>
+<?php if ($this->params['controller'] != 'orders' && $this->params['action'] != 'finished') { ?>
+ 		<script type="text/javascript" src="/js/ga-add.js"></script>
+<?php } ?>
 <?php echo $this->element('sql_dump')?>

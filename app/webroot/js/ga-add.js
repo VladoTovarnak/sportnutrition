@@ -1,5 +1,5 @@
 	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-294748-9']);
+	_gaq.push(['_setAccount', 'UA-2497074-16']);
 
 	_gaq.push(['_addOrganic', 'zbozi.cz', 'q']);
 	_gaq.push(['_addOrganic', 'centrum.cz', 'q']);
