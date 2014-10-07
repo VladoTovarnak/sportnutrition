@@ -38,6 +38,7 @@ class MostSoldProduct extends AppModel {
 				'Product.price',
 				'Product.url',
 				'Product.rate',
+				'Product.retail_price_with_dph',
 					
 				'Image.id',
 				'Image.name'

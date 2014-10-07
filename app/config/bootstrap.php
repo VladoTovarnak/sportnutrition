@@ -176,7 +176,7 @@ function format_price($price) {
 }
 
 function front_end_display_price($price, $decimals = 0) {
-	return number_format($price, $decimals, ',', '&nbsp;');
+	return number_format($price, $decimals, ',', ' ');
 }
 
 define('SN_USERNAME', 'admin');

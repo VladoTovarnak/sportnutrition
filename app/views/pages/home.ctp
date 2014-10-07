@@ -61,8 +61,8 @@
 							echo $form->end();
 						?>
 						<p class="prices">
-							<span class="common">Běžná cena: <?php echo front_end_display_price($suggested_product['Product']['retail_price_with_dph'])?> Kč</span><br />
-							<span class="price">Cena: <?php echo front_end_display_price($suggested_product['Product']['price'])?> Kč</span>
+							<span class="common">Běžná cena: <?php echo front_end_display_price($product['Product']['retail_price_with_dph'])?> Kč</span><br />
+							<span class="price">Cena: <?php echo front_end_display_price($product['Product']['price'])?> Kč</span>
 						</p>
 					</div>
 <?php			} ?>
