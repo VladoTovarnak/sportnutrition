@@ -1080,7 +1080,7 @@ class OrdersController extends AppController {
 			'Payment'
 		);
 		
-		$fields = array('id', 'subtotal_with_dph', 'shipping_cost', 'customer_city', 'customer_state');
+		$fields = array('id', 'subtotal_with_dph', 'shipping_cost', 'customer_city', 'customer_state', 'customer_email');
 		
 		$order = $this->Order->find('first', array(
 			'conditions' => $conditions,
@@ -1091,6 +1091,19 @@ class OrdersController extends AppController {
 		$jscript_code = '';
 		// celkova dan vsech produktu v objednavce
 		$tax_value = 0;
+		
+		// heureka overeno zakazniky
+		App::import('Vendor', 'HeurekaOvereno', array('file' => 'HeurekaOvereno.php'));
+		try {
+			$overeno = new HeurekaOvereno('5c898f377be0c776bcfb82767b52fba2');
+			$overeno->setEmail($order['Order']['customer_email']);
+			foreach ($order['OrderedProduct'] as $op) {
+				$overeno->addProductItemId($op['Product']['id']);
+				$overeno->addProduct($op['Product']['name']);
+			}
+			$overeno->addOrderId($order['Order']['id']);
+			$overeno->send();
+		} catch (Exception $e) {}
 
 		foreach ( $order['OrderedProduct'] as $op ){
 			$sku = $op['Product']['id'];
