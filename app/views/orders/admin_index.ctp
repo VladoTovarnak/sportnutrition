@@ -101,7 +101,7 @@ $(function() {
 			echo '<br/>';
 			// dorucovaci adresa
 			$address_info = '<strong>DA:</strong> ';
-			$address_info .= $order['Order']['delivery_street'];
+			$address_info .= $order['Order']['delivery_name'] . ', ' . $order['Order']['delivery_street'];
 			if (!empty($order['Order']['delivery_street'])) {
 				$address_info .= ', ';
 			}
@@ -117,7 +117,7 @@ $(function() {
 			
 			// fakturacni adresa
 			$delivery_address_info = '<strong>FA:</strong> ';
-			$delivery_address_info .= $order['Order']['customer_street'];
+			$delivery_address_info .= $order['Order']['customer_name'] . ', ' . $order['Order']['customer_street'];
 			if (!empty($order['Order']['customer_street'])) {
 				$delivery_address_info .= ', ';
 			}
