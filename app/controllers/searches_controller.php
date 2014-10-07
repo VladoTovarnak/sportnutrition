@@ -136,6 +136,7 @@ class SearchesController extends AppController {
 			foreach ( $queries as $key => $value ){
 				$or[] = array(
 					'OR' => array(
+						'Product.id' => $value,
 						"Product.name LIKE '%%" . $value . "%%'",
 						"Product.title LIKE '%%" . $value . "%%'",
 						"Product.heading LIKE '%%" . $value . "%%'",
@@ -143,7 +144,7 @@ class SearchesController extends AppController {
 						"Product.zbozi_name LIKE '%%" . $value . "%%'",
 						"Product.short_description LIKE '%%" . $value . "%%'",
 						"Product.description  LIKE '%%" . $value . "%%'",
-						"Manufacturer.name  LIKE '%%" . $value . "%%'"
+						"Manufacturer.name  LIKE '%%" . $value . "%%'",
 					)
 				);
 			}
