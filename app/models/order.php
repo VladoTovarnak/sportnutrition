@@ -749,7 +749,7 @@ class Order extends AppModel {
 		$customer_mail .= '<tr><td>Email: <a href="mailto:' . $this->Setting->findValue('CUST_MAIL') . '">' . $this->Setting->findValue('CUST_MAIL') . '</a></td><td>Email: <a href="mailto:' . $order['Order']['customer_email'] . '">'. $order['Order']['customer_email'] . '</a></td></tr>';
 		$customer_mail .= '<tr><td>Telefon: ' . $this->Setting->findValue('CUST_PHONE') . '</td><td>Telefon: ' . $order['Order']['customer_phone'] . '</td></tr>';
 		$customer_mail .= '<tr><td>Web: <a href="http://www.' . $this->Setting->findValue('CUST_ROOT') . '">http://www.' . $this->Setting->findValue('CUST_ROOT') . '</a></td><td>Dodací adresa: ' . $order['Order']['delivery_name'] . ', ' . $order['Order']['delivery_street'] . ', ' . $order['Order']['delivery_zip'] . ' ' . $order['Order']['delivery_city'] . ', ' . $order['Order']['delivery_state'] . '</td></tr>';
-		$customer_mail .= '<tr><td>Poznámka: ' . $order['Order']['comments'] . '</td></tr>';
+		$customer_mail .= '<tr><td colspan="2">Poznámka: ' . $order['Order']['comments'] . '</td><td>&nbsp;</td></tr>';
 		$customer_mail .= '</table><br/>';
 
 		// telo emailu s obsahem objednavky

@@ -1,7 +1,7 @@
 <h1>Vložit nový produkt</h1>
 
 <a href='/administrace/help.php?width=500&id=13' class='jTip' id='13' name='Produkty (13)'>
-	<img src='http://server.sportnutrition.cz/images/ikony/help.png' width='16' height='16' />
+	<img src='/img/help.png' width='16' height='16' />
 </a>
 
 <?php echo $form->create('Product', array('url' => array($opened_category_id)));?>

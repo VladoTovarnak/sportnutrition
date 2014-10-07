@@ -503,7 +503,8 @@ class ProductsController extends AppController {
 			'conditions' => array('Availability.active' => true),
 			'order' => array('Availability.order' => 'asc')
 		));
-		$this->set(compact('productTypes', 'manufacturers', 'taxClasses', 'availabilities', 'opened_category_id'));
+		$tiny_mce_elements = 'ProductDescription';
+		$this->set(compact('productTypes', 'manufacturers', 'taxClasses', 'availabilities', 'opened_category_id', 'tiny_mce_elements'));
 		
 		$this->layout = REDESIGN_PATH . 'admin';
 	}
