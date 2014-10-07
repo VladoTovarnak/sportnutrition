@@ -12,7 +12,7 @@ class ExportsController extends AppController{
 		$customer_type_id = $this->CustomerType->get_id($this->Session->read());
 		
 		// idcka kategorii s darky
-		$present_category_ids = array(54, 67, 68);
+		$present_category_ids = array(4, 52, 53, 54, 55, 56);
 		// samostatne neprodejne darky
 		$presents = $this->Product->find('all', array(
 			'conditions' => array('CategoriesProduct.category_id IN (' . implode(',', $present_category_ids) . ')'),
@@ -81,10 +81,10 @@ class ExportsController extends AppController{
 					'alias' => 'Category',
 					'type' => 'INNER',
 					'conditions' => array('Category.id = CategoriesProduct.category_id')
-				)
+				),
 			),
 			'fields' => array(
-				'DISTINCT Product.id',
+				'Product.id',
 				'Product.name',
 				'Product.short_description',
 				'Product.url',
@@ -109,16 +109,30 @@ class ExportsController extends AppController{
 					
 				'Manufacturer.id',
 				'Manufacturer.name'
-			)
+			),
+//			'limit' => 10
 		));
 		unset($this->Product->virtualFields['price']);
-		
-		foreach ($products as $i => $product) {
-			$products[$i]['Product']['name'] = str_replace('&times;', 'x', $products[$i]['Product']['name']);
-			$products[$i]['Product']['short_description'] = str_replace('&times;', 'x', $products[$i]['Product']['short_description']);
+
+		$res = array();
+		foreach ($products as $i => &$product) {
+			// kazdy produkt chci ve vystupu pouze jednou
+			$to_res = true;
+			foreach ($res as $r) {
+				if ($r['Product']['id'] == $product['Product']['id']) {
+					$to_res = false;
+					break;
+				}
+			}
+			if ($to_res) {
+				$product['Product']['name'] = str_replace('&times;', 'x', $product['Product']['name']);
+				$product['Product']['short_description'] = str_replace('&times;', 'x', $product['Product']['short_description']);
+				$res[] = $product;				
+			}
+
 		}
 
-		return $products;
+		return $res;
 	}
 	
 	function seznam_cz(){
@@ -136,28 +150,42 @@ class ExportsController extends AppController{
 		$this->layout = 'xml/heureka';
 		
 		$products = $this->get_products();
-		
+ 		
 		// sparovani kategorii na heurece s kategoriemi u nas v obchode
 		$pairs = array(
-			'Aminokyseliny' => array(7, 21, 22, 23, 24),
-			'Anabolizéry a NO doplňky' => array(12),
-			'Gely' => array(),
-			'Iontové nápoje' => array(),
-			'Kloubní výživa' => array(9),
-			'Kreatin' => array(10, 32, 33, 34),
-			'Nutriční doplňky' => array(58),
-			'Proteiny' => array(13, 40, 41, 42),
-			'Sacharidy a gainery' => array(16, 43, 44, 45),
-			'Stimulanty a energizéry' => array(),
-			'Tyčinky' => array(),
-			'Vitamíny a minerály' => array(20)
+			'Sport | Sportovní výživa | Aminokyseliny' => array(15, 57, 58, 59, 60, 87, 88, 89, 61, 62),
+			'Sport | Sportovní výživa | Proteiny' => array(16, 67, 68, 69, 70),
+			'Sport | Sportovní výživa | Sacharidy a gainery' => array(17, 71, 72, 73),
+			'Sport | Sportovní výživa | Kreatin' => array(18, 63, 64),
+			'Sport | Sportovní výživa | Anabolizéry a NO doplňky' => array(78, 20),
+			'Sport | Sportovní výživa | Spalovače tuků' => array(21, 74, 75, 76),
+			'Sport | Sportovní výživa | Kloubní výživa' => array(22, 65, 66),
+			'Sport | Sportovní výživa | Vitamíny a minerály' => array(23, 81, 82),
+			'Sport | Sportovní výživa | Ostatní sportovní výživa' => array(19, 77, 80, 28),
+			'Sport | Sportovní výživa | Stimulanty a energizéry' => array(79),
+			'Sport | Sportovní výživa | Iontové nápoje' => array(24, 83, 84, 85, 86),
+			'Sport | Sportovní výživa' => array(6, 7, 9),
+			'Sport | Fitness | Opasky, háky a fitness rukavice' => array(40, 41),
+			'Dům a zahrada | Bydlení a doplňky | Kuchyně | Kuchyňské náčiní | Shakery' => array(42),
+			'Sport | Fitness' => array(43, 44, 13),
+			'Sport | Fitness | Oblečení' => array(11, 45, 46, 47, 48, 49, 50, 51),
+			'Sport | Fitness | Činky a příslušenství' => array(29),
+			'Sport | Fitness | Rotopedy' => array(30),
+			'Sport | Fitness | Eliptické trenažéry' => array(31),
+			'Sport | Fitness | Steppery' => array(32),
+			'Sport | Fitness | Ostatní fitness nářadí' => array(33),
+			'Sport | Fitness | Běžecké pásy' => array(34),
+			'Sport | Fitness | Veslovací trenažéry' => array(35),
+			'Sport | Fitness | Cyklotrenažéry' => array(36),
+			'Sport | Fitness | Posilovací lavice' => array(37),
+			'Sport | Fitness | Posilovací věže' => array(38)
 		);
 
 		foreach ($products as $index => $product) {
 			// pokud je kategorie produktu sparovana s heurekou, nastavi se rovnou jako 'Sportovni vyziva | *odpovidajici nazev kategorie*
 			foreach ($pairs as $name => $array) {
 				if (in_array($product['CategoriesProduct']['category_id'], $array)) {
-					$products[$index]['CATEGORYTEXT'] = 'Sportovní výživa | ' . $name;
+					$products[$index]['CATEGORYTEXT'] = $name;
 					break;
 				}
 			}
@@ -178,7 +206,8 @@ class ExportsController extends AppController{
 		$this->Shipping = new Shipping;
 		// vytahnu si vsechny zpusoby dopravy
 		$shippings = $this->Shipping->find('all', array(
-			'conditions' => array('NOT' => array('Shipping.heureka_id' => null)),
+			// do exportu budu davat jen PPL, GP a CP do ruky
+			'conditions' => array('Shipping.id' => array(2,3,7)),
 			'contain' => array(),
 			'fields' => array('Shipping.id', 'Shipping.name', 'Shipping.price', 'Shipping.free', 'Shipping.heureka_id')
 		));
