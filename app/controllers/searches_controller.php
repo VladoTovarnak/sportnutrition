@@ -198,7 +198,7 @@ class SearchesController extends AppController {
 					'table' => 'availabilities',
 					'alias' => 'Availability',
 					'type' => 'INNER',
-					'conditions' => array('Availability.id = Product.availability_id AND Availability.cart_allowed = 1')
+					'conditions' => array('Availability.id = Product.availability_id')
 				),
 				array(
 					'table' => 'manufacturers',
@@ -259,6 +259,7 @@ class SearchesController extends AppController {
 			// cenu produktu urcim jako cenu podle typu zakaznika, pokud je nastavena, pokud neni nastavena cena podle typu zakaznika, vezmu za cenu beznou slevu, pokud ani ta neni nastavena
 			// vezmu jako cenu produktu obycejnou cenu
 			$this->Search->Product->virtualFields['price'] = $this->Search->Product->price;
+
 			$products = $this->paginate('Product');
 
 			// opetovne vypnuti virtualnich poli, nastavenych za behu
