@@ -213,6 +213,7 @@ foreach ($subproducts as $subproduct) {
 			</tr>
 		</table>
 		<?php 
+			echo $this->Form->input('Comment.check', array('label' => false, 'type' => 'text', 'style' => 'display:none', 'value' => ''));
 			echo $this->Form->submit('Odeslat dotaz');
 			echo $this->Form->end();
 		?>

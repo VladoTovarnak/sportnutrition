@@ -24,6 +24,9 @@ class Comment extends AppModel {
 		'body' => array(
 			'rule' => array('minLength', 1),
 			'message' => 'Zadejte tělo komentáře / dotazu.'
+		),
+		'check' => array(
+			'rule' => array('inList', array(''))
 		)
 	);
 
