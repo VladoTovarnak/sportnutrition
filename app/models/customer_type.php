@@ -31,7 +31,7 @@ class CustomerType extends AppModel {
 	// zjisti id typu uzivatele
 	function get_id($session) {
 		// defaultne neni uzivatel zadneho typu
-		$customer_type_id = 0;
+		$customer_type_id = 2;
 		// pokud je uzivatel prihlaseny
 		if (isset($session['Customer']['customer_type_id'])) {
 			// nastavim si id typu ze sesny
