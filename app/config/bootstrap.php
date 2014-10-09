@@ -196,4 +196,6 @@ if ( $_SERVER['HTTP_HOST'] == 'localhost' ){
 	$host = 'localhost';
 }
 define('__DB_HOST__', $host);
+//define('IMAGE_IP', '78.80.90.21');
+define('IMAGE_IP', '127.0.0.1');
 ?>

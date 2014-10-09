@@ -49,6 +49,9 @@
 					$image = '/img/na_small.jpg';
 					if (isset($similar_product['Image']) && !empty($similar_product['Image'])) {
 						$path = 'product-images/small/' . $similar_product['Image']['name'];
+						if ($_SERVER['REMOTE_ADDR'] == IMAGE_IP) {
+							$path = 'product-images-new/small/' . $similar_product['Image']['name'];
+						}
 						if (file_exists($path) && is_file($path) && getimagesize($path)) {
 							$image = '/' . $path;
 						}
@@ -83,6 +86,9 @@
 				$image = '/img/na_small.jpg';
 				if (isset($right_sidebar_product['Image']) && !empty($right_sidebar_product['Image'])) {
 					$path = 'product-images/small/' . $right_sidebar_product['Image']['name'];
+					if ($_SERVER['REMOTE_ADDR'] == IMAGE_IP) {
+						$path = 'product-images-new/small/' . $right_sidebar_product['Image']['name'];
+					}
 					if (file_exists($path) && is_file($path) && getimagesize($path)) {
 						$image = '/' . $path;
 					}

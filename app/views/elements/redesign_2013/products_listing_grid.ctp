@@ -4,6 +4,9 @@ foreach ( $products as $product ){
 	$image = '/img/na_small.jpg';
 	if (isset($product['Image']) && !empty($product['Image'])) {
 		$path = 'product-images/small/' . $product['Image']['name'];
+		if ($_SERVER['REMOTE_ADDR'] == IMAGE_IP) {
+			$path = 'product-images-new/small/' . $product['Image']['name'];
+		}
 		if (file_exists($path) && is_file($path) && getimagesize($path)) {
 			$image = '/' . $path;
 		}

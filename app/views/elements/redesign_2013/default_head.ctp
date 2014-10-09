@@ -9,7 +9,7 @@
 		<meta charset="utf-8" />
 		<meta HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
 		<meta HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
-		<link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH?>style000.css?<?php echo str_replace(' ', '%20', date('l jS \of F Y h:i:s A'))?>" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH?><?php echo ($_SERVER['REMOTE_ADDR'] == IMAGE_IP ? 'style000-new.css' : 'style000.css') ?>" type="text/css" media="screen" />
 		<script charset="utf-8" src="/js/<?php echo REDESIGN_PATH?>jquery.js" type="text/javascript"></script>
 		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
 		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.js"></script>

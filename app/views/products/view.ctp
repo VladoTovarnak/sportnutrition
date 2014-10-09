@@ -41,14 +41,6 @@
 	<!-- OBRAZKY -->
 	<div class="photos">
 <?php 
-		$image = '/img/na_medium.jpg';
-		if (isset($most_sold_product['Image']) && !empty($most_sold_product['Image'])) {
-			$path = 'product-images/small/' . $most_sold_product['Image']['name'];
-			if (file_exists($path) && is_file($path) && getimagesize($path)) {
-				$image = '/' . $path;
-			}
-		}
-		
 		if (empty($product['Image'])) {
 			$image = '/img/na_medium.jpg';
 		} else {
@@ -58,6 +50,9 @@
 			foreach ($product['Image'] as $image_item) {
 				$image = '/img/na_' . $image_type . '.jpg';
 				$path = 'product-images/' . $image_type . '/' . $image_item['name'];
+				if ($_SERVER['REMOTE_ADDR'] == IMAGE_IP) {
+					$path = 'product-images-new/' . $image_type . '/' . $image_item['name'];
+				}
 				if (file_exists($path) && is_file($path) && getimagesize($path)) {
 					$image = '/' . $path;
 					echo '<a href="/product-images/' . $image_item['name'] . '" class="' . $class . ' fancybox"><img src="' . $image . '" alt="" /></a>';

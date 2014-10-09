@@ -5,6 +5,9 @@
 		$image = '/img/na_small.jpg';
 		if (isset($action_product['Image']) && !empty($action_product['Image'])) {
 			$path = 'product-images/small/' . $action_product['Image']['name'];
+			if ($_SERVER['REMOTE_ADDR'] == IMAGE_IP) {
+				$path = 'product-images-new/small/' . $action_product['Image']['name'];
+			}
 			if (file_exists($path) && is_file($path) && getimagesize($path)) {
 				$image = '/' . $path;
 			}
