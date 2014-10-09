@@ -451,7 +451,8 @@ class ProductsController extends AppController {
 				'Product.is_slide_akce',
 				'Product.feed',
 				'Product.title',
-				'Product.keywords'
+				'Product.keywords',
+				'Product.pohoda_id'
 			)	
 		));
 		
