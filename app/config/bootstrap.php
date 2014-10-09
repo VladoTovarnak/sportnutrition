@@ -61,6 +61,7 @@ function strip_diacritic($text, $strip_dot = true) {
 	$text = str_replace("/", "", $text); // lomitko
 	$text = str_replace("+", "-", $text); // plus
 	$text = str_replace('!', '', $text); // vykricnik
+	$text = str_replace('™', '', $text); // trademark
 	
 	if ($strip_dot) {
 		$text = str_replace(".", "", $text); // tecka
@@ -197,5 +198,5 @@ if ( $_SERVER['HTTP_HOST'] == 'localhost' ){
 }
 define('__DB_HOST__', $host);
 //define('IMAGE_IP', '78.80.90.21');
-define('IMAGE_IP', '127.0.0.1');
+define('IMAGE_IP', 'odstranit');
 ?>
