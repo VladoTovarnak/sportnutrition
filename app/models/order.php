@@ -865,10 +865,10 @@ class Order extends AppModel {
 	<dat:dataPackItem id="' . $order['Order']['id'] . '" version="2.0">
 		<ord:order version="2.0">
 			<ord:orderHeader>
-				<ord:orderType>receivedOrder</ord:orderType>
-				<ord:numberOrder>' . $order['Order']['id'] . '</ord:numberOrder>
-				<ord:date>' . $order_date . '</ord:date>
-				<ord:text>' . $order['Order']['comments'] . '</ord:text>
+				<ord:orderType><![CDATA[receivedOrder]]></ord:orderType>
+				<ord:numberOrder><![CDATA[' . $order['Order']['id'] . ']]></ord:numberOrder>
+				<ord:date><![CDATA[' . $order_date . ']]></ord:date>
+				<ord:text><![CDATA[' . $order['Order']['comments'] . ']]></ord:text>
 				<ord:partnerIdentity>
 					<typ:address>
 						<typ:company><![CDATA[' . $order['Order']['customer_name'] . ']]></typ:company>
