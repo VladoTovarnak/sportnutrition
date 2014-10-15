@@ -452,7 +452,8 @@ class ProductsController extends AppController {
 				'Product.feed',
 				'Product.title',
 				'Product.keywords',
-				'Product.pohoda_id'
+				'Product.pohoda_id',
+				'Product.ean'
 			)	
 		));
 		

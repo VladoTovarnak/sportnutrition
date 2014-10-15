@@ -98,6 +98,10 @@ echo $this->Html->link('ZPĚT NA SEZNAM PRODUKTŮ', $back_link)?>
 		<td>Pohoda ID</td>
 		<td><?php echo $this->Form->input('Product.pohoda_id', array('label' => false, 'type' => 'text'))?></td>
 	</tr>
+	<tr>
+		<td>EAN</td>
+		<td><?php echo $this->Form->input('Product.ean', array('label' => false))?></td>
+	</tr>
 	<tr valign="top" class='nutne'>
 		<td>Daňová skupina
 			<a href='/administrace/help.php?width=500&id=24' class='jTip' id='24' name='DPH (24)'>

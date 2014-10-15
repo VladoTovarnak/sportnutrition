@@ -88,6 +88,10 @@
 		<td>Pohoda ID</td>
 		<td><?php echo $this->Form->input('Product.pohoda_id', array('label' => false, 'type' => 'text'))?></td>
 	</tr>
+	<tr>
+		<td>EAN</td>
+		<td><?php echo $this->Form->input('Product.ean', array('label' => false))?></td>
+	</tr>
 	<tr class="nutne" valign="top">
 		<td>Základní cena:</td>
 		<td><?php echo $this->Form->input('Product.retail_price_with_dph', array('label' => false, 'after' => '&nbspKč'))?></td>
