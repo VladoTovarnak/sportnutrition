@@ -17,3 +17,6 @@
 <script type="text/javascript">
 	<?php echo $jscript_code ?>
 </script>
+	
+<!-- Měřicí kód Sklik.cz -->
+<iframe width="119" height="22" frameborder="0" scrolling="no" src="http://c.imedia.cz/checkConversion?c=100007593&color=ffffff&v=<?php echo $order['Order']['orderfinaltotal']?>"></iframe>
