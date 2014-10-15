@@ -21,8 +21,15 @@
 		App::import('Model', 'Tool');
 		$this->Tool = &new Tool;
 		if ($redirect_url = $this->Tool->redirect_old_sn()) {
+			$query_string = $_SERVER['QUERY_STRING'];
+			$pattern = '/^url=[^&]*&/U';
+			if (preg_match($pattern, $query_string)) {
+				$query_string = preg_replace($pattern, '', $query_string);
+			} else {
+				$query_string = '';
+			}
 			header("HTTP/1.1 301 Moved Permanently");
-			header("Location: /" . $redirect_url);
+			header("Location: /" . $redirect_url . (!empty($query_string)?'?'.$query_string:''));
 			exit();
 		}
 		
