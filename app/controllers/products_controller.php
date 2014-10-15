@@ -298,7 +298,9 @@ class ProductsController extends AppController {
 		
 		if (isset($this->data['Category']['id']) && !empty($this->data['Category']['id'])) {
 			if ($this->data['Category']['id'] == 'noEan') {
-				$conditions[] = 'Product.ean IS NULL OR Product.ean = ""';
+				$conditions[] = '(Product.ean IS NULL OR Product.ean = "")';
+				$conditions['Product.active'] = true;
+				$conditions['Availability.cart_allowed'] = true;
 			} else {
 				$conditions['CategoriesProduct.category_id'] = $this->data['Category']['id'];
 			}
@@ -326,6 +328,15 @@ class ProductsController extends AppController {
 				)
 			);
 			
+			if (isset($this->data['Category']['id']) && !empty($this->data['Category']['id']) && $this->data['Category']['id'] == 'noEan') {
+				$joins[] = array(
+					'table' => 'availabilities',
+					'alias' => 'Availability',
+					'type' => 'INNER',
+					'conditions' => array('Product.availability_id = Availability.id')
+				);
+			}
+
 			$products_count = $this->Product->find('count', array(
 				'conditions' => $conditions,
 				'contain' => array(),
