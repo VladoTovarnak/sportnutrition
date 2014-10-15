@@ -16,7 +16,7 @@ class CustomersController extends AppController {
 			'login',
 			'password',
 			'import',
-			'test'
+			'repair'
 		);
 		
 		if ( !$this->Session->check('Customer') && !in_array($this->params['action'], $allowed_actions) && !eregi("admin_", $this->params['action'])  ){
@@ -868,28 +868,39 @@ class CustomersController extends AppController {
 		die('here');
 	}
 	
-	function test() {
-		$wout_login = $this->Customer->find('all', array(
-			'conditions' => array('Customer.active IS NULL'),
+	function repair() {
+		$customers = $this->Customer->find('all', array(
+			'conditions' => array('CustomerLogin.id IS NULL'),
 			'contain' => array(),
-			'fields' => array('Customer.id')
+			'joins' => array(
+				array(
+					'table' => 'customer_logins',
+					'alias' => 'CustomerLogin',
+					'type' => 'LEFT',
+					'conditions' => array('Customer.id = CustomerLogin.customer_id')
+				)
+			),
+			'fields' => array('Customer.id', 'Customer.last_name')
 		));
-		
-		foreach ($wout_login as $customer) {
-			$sn_customer = $this->Customer->findSn($customer['Customer']['id']);
-			if (!empty($sn_customer)) {
-				$sn_customer = $sn_customer[0];
-				$customer = $this->Customer->transformSn($sn_customer);
-				unset($customer['Address']);
-				unset($customer['CustomerLogin']);
-				if (!$this->Customer->save($customer, false)) {
-					debug($customer);
-					debug($this->Customer->validationErrors);
-					$this->Customer->save($customer, false);
-				}
+
+		foreach ($customers as $customer) {
+			$login = $this->Customer->generateLogin($customer['Customer']);
+			$password = $this->Customer->generatePassword($customer['Customer']);
+			
+			$login = array(
+				'CustomerLogin' => array(
+					'customer_id' => $customer['Customer']['id'],
+					'login' => $login,
+					'password' => md5($password)
+				)	
+			);
+			
+			$this->Customer->CustomerLogin->create();
+			if (!$this->Customer->CustomerLogin->save($login)) {
+				debug($login);
 			}
 		}
-		die('konec');
+		die('hotovo');
 	}
 }
 ?>
