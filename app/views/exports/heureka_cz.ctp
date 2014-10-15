@@ -11,6 +11,9 @@
 		<ITEM_TYPE><![CDATA[new]]></ITEM_TYPE>
 		<CATEGORYTEXT><![CDATA[<?php echo $product['CATEGORYTEXT'] ?>]]></CATEGORYTEXT>
 		<DELIVERY_DATE><![CDATA[0]]></DELIVERY_DATE>
+<?php if (isset($product['Product']['ean']) && !empty($product['Product']['ean'])) { ?>
+		<EAN><![CDATA[<?php echo $product['Product']['ean']?>]]></EAN>
+<?php } ?>
 <?php foreach ($shippings as $shipping) { ?>
 		<DELIVERY>
 			<DELIVERY_ID><![CDATA[<?php echo $shipping['Shipping']['heureka_id']?>]]></DELIVERY_ID>

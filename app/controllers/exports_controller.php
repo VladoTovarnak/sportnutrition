@@ -90,6 +90,7 @@ class ExportsController extends AppController{
 				'Product.url',
 				'Product.zbozi_name',
 				'Product.price',
+				'Product.ean',
 				
 				'Image.id',
 				'Image.name',
