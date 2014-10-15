@@ -1222,7 +1222,7 @@ class OrdersController extends AppController {
 	}
 	
 	function test() {
-		$this->Order->notifyAdmin(31700);
+		$this->Order->Status->change_notification(35861, 3);
 		die('hotovo');
 	}
 } // konec tridy

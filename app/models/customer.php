@@ -79,7 +79,7 @@ class Customer extends AppModel {
 	}
 	
 	
-	function changePassword($customer){
+	function changePassword($customer) {
 		include 'class.phpmailer.php';
 
 		$mail = &new phpmailer;
