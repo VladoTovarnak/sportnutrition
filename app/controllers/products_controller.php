@@ -297,7 +297,11 @@ class ProductsController extends AppController {
 		}
 		
 		if (isset($this->data['Category']['id']) && !empty($this->data['Category']['id'])) {
-			$conditions['CategoriesProduct.category_id'] = $this->data['Category']['id'];
+			if ($this->data['Category']['id'] == 'noEan') {
+				$conditions[] = 'Product.ean IS NULL OR Product.ean = ""';
+			} else {
+				$conditions['CategoriesProduct.category_id'] = $this->data['Category']['id'];
+			}
 			$this->set('category_id', $this->data['Category']['id']);
 		} elseif (isset($this->data['Product']['name']) && !empty($this->data['Product']['name'])) {
 			$conditions['OR'] =  array(
@@ -345,6 +349,8 @@ class ProductsController extends AppController {
 		$this->set('products', $products);
 		
 		$categories = $this->Product->CategoriesProduct->Category->generateTreeList(null, null, '{n}.Category.name', ' - ', -1);
+		// pridam polozku pro zobrazeni produktu bez EANu
+		$categories = array_merge(array('noEan' => 'Bez EANu'), $categories);
 		$this->set('categories', $categories);
 		
 		$this->layout = REDESIGN_PATH . 'admin';

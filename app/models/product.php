@@ -77,6 +77,13 @@ class Product extends AppModel {
 			'rule' => array('minLength', 1),
 			'message' => 'Není vybrána žádná daňová třída!'
 		),
+		'ean' => array(
+			'length13' => array(
+				'rule' => array('between', 13, 13),
+				'message' => 'EAN musí mít 13 znaků',
+				'allowEmpty' => true
+			)
+		)
 	);
 	
 	var $price = 'FLOOR(IF(CustomerTypeProductPrice.price, CustomerTypeProductPrice.price, IF(Product.discount_common, Product.discount_common, Product.retail_price_with_dph)))';
