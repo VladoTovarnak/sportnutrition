@@ -755,8 +755,7 @@ class Order extends AppModel {
 		$customer_mail .= '<tr><td>Adresa: ' . $this->Setting->findValue('CUST_STREET') . ', ' . $this->Setting->findValue('CUST_ZIP') . ' ' . $this->Setting->findValue('CUST_CITY') . '</td><td>Fakturační adresa: ' . $order['Order']['customer_street'] . ', ' . $order['Order']['customer_zip'] . ' ' . $order['Order']['customer_city'] . ' ' . $order['Order']['delivery_state'] . '</td></tr>' . "\n";
 		$customer_mail .= '<tr><td>Email: <a href="mailto:' . $this->Setting->findValue('CUST_MAIL') . '">' . $this->Setting->findValue('CUST_MAIL') . '</a></td><td>Email: <a href="mailto:' . $order['Order']['customer_email'] . '">'. $order['Order']['customer_email'] . '</a></td></tr>' . "\n";
 		$customer_mail .= '<tr><td>Telefon: ' . $this->Setting->findValue('CUST_PHONE') . '</td><td>Telefon: ' . $order['Order']['customer_phone'] . '</td></tr>' . "\n";
-		$customer_mail .= '<tr><td>Web: <a href="http://www.' . $this->Setting->findValue('CUST_ROOT') . '">http://www.' . $this->Setting->findValue('CUST_ROOT') . '</a></td><td>Dodací adresa: ' . $order['Order']['delivery_name'] . ', ' . $order['Order']['delivery_street'] . ', ' . $order['Order']['delivery_zip'] . ' ' . $order['Order']['delivery_city'] . ', ' . $order['Order']['delivery_state'] . '</td></tr>' . "\n";
-		$customer_mail .= '<tr><td colspan="2">Poznámka: ' . $order['Order']['comments'] . '</td></tr>' . "\n";
+		$customer_mail .= '<tr><td>Web: <a href="http://www.' . $this->Setting->findValue('CUST_ROOT') . '">http://www.' . $this->Setting->findValue('CUST_ROOT') . '</a></td><td><strong>Dodací adresa: ' . $order['Order']['delivery_name'] . ', ' . $order['Order']['delivery_street'] . ', ' . $order['Order']['delivery_zip'] . ' ' . $order['Order']['delivery_city'] . ', ' . $order['Order']['delivery_state'] . '</strong></td></tr>' . "\n";
 		$customer_mail .= '</table><br/>' . "\n";
 
 		// telo emailu s obsahem objednavky
@@ -777,7 +776,11 @@ class Order extends AppModel {
 		$customer_mail .= '<tr><td>1</td><td>' . $order['Payment']['name'] . '</td><td>0&nbsp;Kč</td><td>0&nbsp;Kč</td></tr>' . "\n";
 		$customer_mail .= '</table>' . "\n";
 		
-		$customer_mail .= '<h2>Celkem k úhradě: ' . ($order['Order']['subtotal_with_dph'] + $order['Order']['shipping_cost']) . '&nbsp;Kč</h2>';
+		$customer_mail .= '<h2>Celkem k úhradě: ' . ($order['Order']['subtotal_with_dph'] + $order['Order']['shipping_cost']) . '&nbsp;Kč</h2>' . "\n";
+		
+		if (!empty($order['Order']['comments'])) {
+			$customer_mail .= '<p><strong>Poznámka: ' . $order['Order']['comments'] . '</strong></p>' . "\n";
+		}
 
 		return $customer_mail; 
 	}

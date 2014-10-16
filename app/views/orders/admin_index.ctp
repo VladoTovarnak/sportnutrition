@@ -100,7 +100,7 @@ $(function() {
 			echo $order['Order']['customer_name'] . ' <strong>(' . $order['Customer']['orders_count'] . ')</strong>';
 			echo '<br/>';
 			// dorucovaci adresa
-			$address_info = '<strong>DA:</strong> ';
+			$address_info = 'DA: ';
 			$address_info .= $order['Order']['delivery_name'] . ', ' . $order['Order']['delivery_street'];
 			if (!empty($order['Order']['delivery_street'])) {
 				$address_info .= ', ';
@@ -113,6 +113,7 @@ $(function() {
 			if (!empty($address_info)) {
 				$address_info .= '<br/>';
 			}
+			$address_info = '<strong>' . $address_info . '</strong>';
 			echo $address_info;
 			
 			// fakturacni adresa
