@@ -719,8 +719,14 @@ class CustomersController extends AppController {
 					$this->Session->delete('Order');
 					
 					// na pocitadle si inkrementuju pocet prihlaseni
-					$customer['Customer']['login_count']++;
-					$customer['Customer']['login_date'] = date('Y-m-d H:i:s');
+					$customer_update = array(
+						'Customer' => array(
+							'id' => $customer['Customer']['id'],
+							'login_count' => $customer['Customer']['login_count'] + 1,
+							'login_date' => date('Y-m-d H:i:s')
+						)
+					);
+					$this->Customer->save($customer_update);
 					
 					// presmeruju
 					$this->Session->setFlash('Jste přihlášen(a) jako ' . $customer['Customer']['first_name'] . ' ' . $customer['Customer']['last_name'] . '.', REDESIGN_PATH . 'flash_success');
@@ -882,7 +888,7 @@ class CustomersController extends AppController {
 			),
 			'fields' => array('Customer.id', 'Customer.last_name')
 		));
-
+debug(count($customers)); die();
 		foreach ($customers as $customer) {
 			$login = $this->Customer->generateLogin($customer['Customer']);
 			$password = $this->Customer->generatePassword($customer['Customer']);
