@@ -41,3 +41,4 @@
 			<?php } ?> 
 		</script>
 		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>/product_rating_management.js"></script>
+		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>/nutrishop_banner.js"></script>

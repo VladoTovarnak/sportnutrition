@@ -9,6 +9,11 @@
 <body>
 
 <div id="body">
+	<div id="banner">
+		<div title="kliknutím zavřete okno" id="banner_vypln" onclick="return close_baner();">
+			<h2>Nutrishop.cz se mění na SportNutrition.cz</h2>
+		</div>
+	</div>
 	<div id="header">
 		<a id="logo" href="/"><img src="/images/redesign_2013/logo_snv.png" width="240px" height="125px" alt="SNV - sportovní výživa pro Vás" /></a>
 		<?php

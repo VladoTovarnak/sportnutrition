@@ -1328,3 +1328,33 @@ div.right_sidebar_product span.regular_price{
     background-color: #F5F5F5;
     font-size: 14px;
 }
+
+div#banner{
+	width:600px;
+	position:absolute;
+	top:20px;
+	left:-500px;
+	z-index:2;
+	display:none;
+}
+
+div#banner_vypln{
+	height:600px;
+	background-color:#DFDFDF;
+	padding: 30px 20px 0 20px;
+	cursor: pointer;
+}
+
+div#close_banner{
+	text-align:right;
+	padding-right:10px;
+	font-family:Arial;
+	background: none;
+}
+
+div#close_banner a{
+	color:white;
+	font-size:23px;
+	font-weight:bold;
+	text-decoration:none;
+}
