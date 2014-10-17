@@ -266,7 +266,7 @@ class Order extends AppModel {
 		return $id;
 	}
 	
-	function track_ppl($id = null){
+	function track_ppl($id = null) {
 		// nactu si objednavku, protoze potrebuju vedet
 		// cislo baliku v kterem byla objednavka expedovana
 		$this->contain('Shipping');
@@ -276,7 +276,11 @@ class Order extends AppModel {
 		$tracker_url = $order['Shipping']['tracker_prefix'] . $order['Order']['shipping_number'] . $order['Shipping']['tracker_postfix'];
 	
 		// nactu si obsah trackovaci stranky
-		$contents = @file_get_contents($tracker_url);
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $tracker_url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$contents = curl_exec($ch);
+		curl_close($ch);
 		if ( $contents !== false ){
 			if ( eregi('Zásilka nenalezena', $contents) ){
 				return $id;
@@ -301,7 +305,7 @@ class Order extends AppModel {
 					$date = '';
 	
 					if (!empty($contents[1][$i])) {
-						$pattern = '/([0-9]{1,2}\.[0-9]{1,2}\.[0-9]{4} [0-9]{2}:[0-9]{2})/';
+						$pattern = '/([0-9]{1,2}\.[0-9]{1,2}\.[0-9]{4} [0-9]{1,2}:[0-9]{2})/';
 						if (preg_match($pattern, $contents[1][$i], $date)) {
 							// potrebuju si nacits admina ze session,
 							// takze si pripojim helper pro session
