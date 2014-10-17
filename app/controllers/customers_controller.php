@@ -696,42 +696,175 @@ class CustomersController extends AppController {
 
 			$conditions = array(
 				'CustomerLogin.login' => $this->data['Customer']['login'],
+				'CustomerLogin.password' => md5($this->data['Customer']['password']),
 				'Customer.active' => true
 			);
 			
+			// pokus o zalogivani podle SNV - existuje v SNV pro dane prihlasovaci udaje zakaznik?
 			$customer = $this->Customer->CustomerLogin->find('first', array(
 				'conditions' => $conditions,
 				'contain' => array('Customer'),
 			));
 
 			if (empty($customer)){
-				$this->Session->setFlash('Neplatný login!', REDESIGN_PATH . 'flash_failure');
-			} else {
-				if ($this->data['Customer']['password'] != $customer['CustomerLogin']['password'] && md5($this->data['Customer']['password']) != $customer['CustomerLogin']['password']) {
-					$this->Session->setFlash('Neplatné heslo!', REDESIGN_PATH . 'flash_failure');
+				// podivam se, jestli nejde zalogovat podle dat z nutrishopu
+				$ns_customer = $this->Customer->query('
+					SELECT *
+					FROM ns_customers AS NsCustomer
+					WHERE NsCustomer.login="' . $this->data['Customer']['login'] . '" AND NsCustomer.password="' . md5($this->data['Customer']['password']) . '"
+				');
+
+				// mam zakaznika z nutrishopu s danymi prihlasovacimi udaji?
+				if (!empty($ns_customer)) {
+					// podivam se, jestli pro dany email uz zakaznik neexistuje
+					$snv_customer = $this->Customer->find('first', array(
+						'conditions' => array('Customer.email' => $ns_customer[0]['NsCustomer']['email']),
+						'contain' => array(),
+						'fields' => array('Customer.id')
+					));
+					// pokud neexistuje s danym emailem snv uzivatel
+					if (empty($snv_customer)) {
+						// natahnu ho jako zcela noveho do SNV DB
+						$customer = array(
+							'Customer' => array(
+								'first_name' => $ns_customer[0]['NsCustomer']['first_name'],
+								'last_name' => $ns_customer[0]['NsCustomer']['last_name'],
+								'phone' => $ns_customer[0]['NsCustomer']['phone'],
+								'email' => $ns_customer[0]['NsCustomer']['email'],
+								'company_name' => $ns_customer[0]['NsCustomer']['company_name'],
+								'company_ico' => $ns_customer[0]['NsCustomer']['company_ico'],
+								'company_dic' => $ns_customer[0]['NsCustomer']['company_dic'],
+								'registration_source' => 'nutrishop - ' . $ns_customer[0]['NsCustomer']['registration_source'],
+								'confirmed' => $ns_customer[0]['NsCustomer']['confirmed'],
+								'newsletter' => $ns_customer[0]['NsCustomer']['newsletter'],
+								'customer_type_id' => 1,
+								'login_count' => 1,
+								'login_date' => date('Y-m-d H:i:s'),
+								'active' => true
+							),
+							'CustomerLogin' => array(
+								array(
+									'login' => $ns_customer[0]['NsCustomer']['login'],
+									'password' => $ns_customer[0]['NsCustomer']['password'],
+								)		
+							)
+						);
+						$ns_addresses = $this->Customer->query('
+							SELECT *
+							FROM ns_addresses AS NsAddress
+							WHERE NsAddress.customer_id = ' . $ns_customer[0]['NsCustomer']['id'] . '
+						');
+						if (!empty($ns_addresses)) {
+							$customer['Address'] = array();
+							foreach ($ns_addresses as $ns_address) {
+								$customer['Address'][] = array(
+									'name' => $ns_address['NsAddress']['name'],
+									'street' => $ns_address['NsAddress']['street'],
+									'street_no' => $ns_address['NsAddress']['street_no'],
+									'zip' => $ns_address['NsAddress']['zip'],
+									'city' => $ns_address['NsAddress']['city'],
+									'state' => $ns_address['NsAddress']['state'],
+									'is_main' => $ns_address['NsAddress']['is_main'],
+									'type' => $ns_address['NsAddress']['type']
+								);
+							}
+						}
+						$this->create('Customer');
+						if ($this->Customer->saveAll($customer)) {
+							// stahnu potrebna data z db
+							$customer = $this->Customer->CustomerLogin->find('first', array(
+								'conditions' => $conditions,
+								'contain' => array('Customer'),
+							));
+							
+							// ulozim si info o zakaznikovi do session
+							$this->Session->write('Customer', $customer['Customer']);
+							
+							// ze session odstranim data o objednavce,
+							// pokud se snazil zakaznik pred prihlasenim neco
+							// vyplnovat v objednavce, delalo by mi to bordel
+							$this->Session->delete('Order');
+							
+							// presmeruju
+							$this->Session->setFlash('Jste přihlášen(a) jako ' . $customer['Customer']['first_name'] . ' ' . $customer['Customer']['last_name'] . '.', REDESIGN_PATH . 'flash_success');
+							$this->redirect($backtrace_url, null, true);
+							
+						} else {
+							$headers .= "Content-Type: text/plain; charset = \"UTF-8\";\n";
+							$headers .= "Content-Transfer-Encoding: 8bit\n";
+							$headers .= "From: " . '"' . mb_encode_mimeheader('SportNutrition Alert System') . '" <no-reply@sportnutrition.cz>';
+							$headers .= "\n";
+							$st = 'Nepodail se přenos zákazníka č. ' . $ns_customer[0]['NsCustomer']['id'] . ' - zákazníka se nepodařilo uložit';
+							mail('brko11@gmail.com', 'Nepodařilo se uložit zákazníka', $st, $headers);
+							
+							$this->Session->setFlash('Nepodařilo se přenést uživatelský účet z Nutrishop.cz. Prosím kontaktujte nás na emailové adrese info@sportnutrition.cz, nebo si založte nový účet. Děkujeme.', REDESIGN_PATH . 'flash_failure');
+						}
+					} else {
+						// k uzivatelskemu uctu s touto emailovou adresou vytvorim dalsi pristup
+						$customer_login = array(
+							'CustomerLogin' => array(
+								'customer_id' => $snv_customer['Customer']['id'],
+								'login' => $ns_customer[0]['NsCustomer']['login'],
+								'password' => $ns_customer[0]['NsCustomer']['password']
+							)	
+						);
+						if ($this->Customer->CustomerLogin->save($customer_login)) {
+							// stahnu potrebna data z db
+							$customer = $this->Customer->CustomerLogin->find('first', array(
+								'conditions' => $conditions,
+								'contain' => array('Customer'),
+							));
+							
+							// ulozim si info o zakaznikovi do session
+							$this->Session->write('Customer', $customer['Customer']);
+							
+							// ze session odstranim data o objednavce,
+							// pokud se snazil zakaznik pred prihlasenim neco
+							// vyplnovat v objednavce, delalo by mi to bordel
+							$this->Session->delete('Order');
+							
+							// presmeruju
+							$this->Session->setFlash('Jste přihlášen(a) jako ' . $customer['Customer']['first_name'] . ' ' . $customer['Customer']['last_name'] . '.', REDESIGN_PATH . 'flash_success');
+							$this->redirect($backtrace_url, null, true);
+							
+						} else {
+							$headers .= "Content-Type: text/plain; charset = \"UTF-8\";\n";
+							$headers .= "Content-Transfer-Encoding: 8bit\n";
+							$headers .= "From: " . '"' . mb_encode_mimeheader('SportNutrition Alert System') . '" <no-reply@sportnutrition.cz>';
+							$headers .= "\n";
+							$st = 'Nepodařil se přenos zákazníka č. ' . $ns_customer[0]['NsCustomer']['id'] . ' - nepodařilo se přidat přihlašovací údaje zákazníkovi';
+							mail('brko11@gmail.com', 'Nepodařilo se uložit zákazníka', $st, $headers);
+							
+							$this->Session->setFlash('Nepodařilo se přenést uživatelský účet z Nutrishop.cz. Prosím kontaktujte nás na emailové adrese info@sportnutrition.cz, nebo si založte nový účet. Děkujeme.', REDESIGN_PATH . 'flash_failure');
+						}
+					}
+					// prihlasim
+					
 				} else {
-					// ulozim si info o zakaznikovi do session
-					$this->Session->write('Customer', $customer['Customer']);
-					
-					// ze session odstranim data o objednavce,
-					// pokud se snazil zakaznik pred prihlasenim neco
-					// vyplnovat v objednavce, delalo by mi to bordel
-					$this->Session->delete('Order');
-					
-					// na pocitadle si inkrementuju pocet prihlaseni
-					$customer_update = array(
-						'Customer' => array(
-							'id' => $customer['Customer']['id'],
-							'login_count' => $customer['Customer']['login_count'] + 1,
-							'login_date' => date('Y-m-d H:i:s')
-						)
-					);
-					$this->Customer->save($customer_update);
-					
-					// presmeruju
-					$this->Session->setFlash('Jste přihlášen(a) jako ' . $customer['Customer']['first_name'] . ' ' . $customer['Customer']['last_name'] . '.', REDESIGN_PATH . 'flash_success');
-					$this->redirect($backtrace_url, null, true);
+					$this->Session->setFlash('Neplatný login nebo heslo!', REDESIGN_PATH . 'flash_failure');
 				}
+			} else {
+				// ulozim si info o zakaznikovi do session
+				$this->Session->write('Customer', $customer['Customer']);
+				
+				// ze session odstranim data o objednavce,
+				// pokud se snazil zakaznik pred prihlasenim neco
+				// vyplnovat v objednavce, delalo by mi to bordel
+				$this->Session->delete('Order');
+				
+				// na pocitadle si inkrementuju pocet prihlaseni
+				$customer_update = array(
+					'Customer' => array(
+						'id' => $customer['Customer']['id'],
+						'login_count' => $customer['Customer']['login_count'] + 1,
+						'login_date' => date('Y-m-d H:i:s')
+					)
+				);
+				$this->Customer->save($customer_update);
+				
+				// presmeruju
+				$this->Session->setFlash('Jste přihlášen(a) jako ' . $customer['Customer']['first_name'] . ' ' . $customer['Customer']['last_name'] . '.', REDESIGN_PATH . 'flash_success');
+				$this->redirect($backtrace_url, null, true);
 			}
 		}
 	}
@@ -744,7 +877,7 @@ class CustomersController extends AppController {
 		if (isset($_SERVER['HTTP_REFERER'])) {
 			$backtrace_url = $_SERVER['HTTP_REFERER'];
 		}
-		$this->redirect($backtrace_url, null, true);
+		$this->redirect($backtrace_url, null, true); 
 	}
 	
 	function orders_list(){
