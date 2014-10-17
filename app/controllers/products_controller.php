@@ -1425,5 +1425,22 @@ class ProductsController extends AppController {
 		$this->Product->update();
 		die('here');
 	}
+	
+	function ns2sn($sportnutrition_id) {
+		$url = '/';
+		
+		$product = $this->Product->find('first', array(
+			'conditions' => array('Product.sportnutrition_id' => $sportnutrition_id),
+			'contain' => array(),
+			'fields' => array('Product.url')
+		));
+		
+		if (!empty($product) && isset($product['Product']['url']) && !empty($product['Product']['url'])) {
+			$url = '/' . $product['Product']['url'];
+		}
+		$url = 'http://' . $_SERVER['HTTP_HOST'] . $url . '#nutrishop_redirect';
+		header("HTTP/1.1 301 Moved Permanently");
+		header("Location: " . $url);
+	}
 } // konec tridy
 ?>

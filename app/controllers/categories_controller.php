@@ -310,5 +310,23 @@ class CategoriesController extends AppController {
 		die('here');
 	}
 	
+	function ns2sn($sportnutrition_id) {
+		$url = '/';
+	
+		$category = $this->Category->find('first', array(
+			'conditions' => array('Category.sportnutrition_id' => $sportnutrition_id),
+			'contain' => array(),
+			'fields' => array('Category.id', 'Category.name')
+		));
+	
+		if (!empty($category)) {
+			$url = '/' . strip_diacritic($category['Category']['name']) . '-c' . $category['Category']['id'];
+		}
+		$url = 'http://' . $_SERVER['HTTP_HOST'] . $url . '#nutrishop_redirect';
+		header("HTTP/1.1 301 Moved Permanently");
+		header("Location: " . $url);
+		exit();
+	}
+	
 } // konec definice tridy
 ?>
