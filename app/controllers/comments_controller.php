@@ -128,7 +128,7 @@ class CommentsController extends AppController {
 		$this->redirect(array('controller' => 'comments', 'action' => 'index'));
 	}
 
-	function add() {
+	function add() { die('pro vlozeni komentare musite mit zapnuty javascript');
 		if (isset($this->data)) {
 			if ($this->Comment->is_spam($this->data['Comment']['body'])) {
 				$this->Session->setFlash('Váš komentář obsahuje zakázaná slova a je proto považován za SPAM. Kometář nebyl uložen.');
