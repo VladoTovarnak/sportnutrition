@@ -704,7 +704,7 @@ class Order extends AppModel {
 
 //		$mail->AddAddress("vlado@tovarnak.com", "Vlado Tovarnak");
 		$mail->AddAddress($this->Setting->findValue('CUST_MAIL'), $this->Setting->findValue('CUST_NAME'));
-		$mail->AddBCC('brko11@gmail.com');
+//		$mail->AddBCC('brko11@gmail.com');
 
 		$mail->Subject = 'E-SHOP OBJEDNÁVKA (č. ' . $this->id . ')';
 		$mail->Body = 'Právě byla přijata nová objednávka pod číslem ' . $this->id . '.' . "\n";
