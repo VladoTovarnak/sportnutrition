@@ -128,7 +128,7 @@ class CommentsController extends AppController {
 		$this->redirect(array('controller' => 'comments', 'action' => 'index'));
 	}
 
-	function add() { die('pro vlozeni komentare musite mit zapnuty javascript');
+	function add() {
 		if (isset($this->data)) {
 			if ($this->Comment->is_spam($this->data['Comment']['body'])) {
 				$this->Session->setFlash('Váš komentář obsahuje zakázaná slova a je proto považován za SPAM. Kometář nebyl uložen.');
@@ -157,14 +157,14 @@ class CommentsController extends AppController {
 		);
 		
 		if (isset($_POST)) {
-			if (isset($_POST['author']) && isset($_POST['email']) && isset($_POST['subject']) && isset($_POST['body']) && isset($_POST['productId']) && isset($_POST['check']) && isset($_POST['noChange'])) {
+			if (isset($_POST['author']) && isset($_POST['email']) && isset($_POST['subject']) && isset($_POST['body']) && isset($_POST['productId']) && isset($_POST['personalEmail']) && isset($_POST['workEmail'])) {
 				$author = $_POST['author'];
 				$email = $_POST['email'];
 				$subject = $_POST['subject'];
 				$body = $_POST['body'];
 				$product_id = $_POST['productId'];
-				$check = $_POST['check'];
-				$no_change = $_POST['noChange'];
+				$personal_email = $_POST['personalEmail'];
+				$work_email = $_POST['workEmail'];
 				
 
 				if ($this->Comment->is_spam($body)) {
@@ -178,8 +178,8 @@ class CommentsController extends AppController {
 							'body' => $body,
 							'product_id' => $product_id,
 							'created' => date('Y-m-d H:i:s'),
-							'check' => $check,
-							'no_change' => $no_change
+							'personal_email' => $personal_email,
+							'work_email' => $work_email
 						)
 					);
 					$this->Comment->create();

@@ -14,19 +14,19 @@ $(document).ready(function() {
 		var subjectId = '#CommentSubject';
 		var bodyId = '#CommentBody';
 		var productIdId = '#CommentProductId';
-		var checkId = '#CommentCheck';
-		var noChangeId = '#CommentNoChange';
+		var personalEmailId = '#CommentPersonalEmail';
+		var workEmailId = '#CommentWorkEmail';
 
 		var author = $(authorId).val();
 		var email = $(emailId).val();
 		var subject = $(subjectId).val();
 		var body = $(bodyId).val();
 		var productId = $(productIdId).val();
-		var check = $(checkId).val();
-		var noChange = $(noChangeId).val();
+		var personalEmail = $(personalEmailId).val();
+		var workEmail = $(workEmailId).val();
 
 		// testovaci pole musi byt prazdne
-		if (check == '' && noChange == 'nechat text') {
+		if (personalEmail == '' && workEmail == 'jan.novak@necoxyz.com') {
 			var validAuthor = true;
 			var validEmail = true;
 			var validSubject = true;
@@ -99,8 +99,8 @@ $(document).ready(function() {
 						subject: subject,
 						body: body,
 						productId: productId,
-						check: check,
-						noChange: noChange
+						personalEmail: personalEmail,
+						workEmail: workEmail
 					},
 					success: function(data) {
 						if (data.success) {

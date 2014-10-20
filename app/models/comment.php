@@ -25,11 +25,11 @@ class Comment extends AppModel {
 			'rule' => array('minLength', 1),
 			'message' => 'Zadejte tělo komentáře / dotazu.'
 		),
-		'check' => array(
+		'personal_email' => array(
 			'rule' => array('inList', array(''))
 		),
-		'no_change' => array(
-			'rule' => array('inList', array('nechat text'))
+		'work_email' => array(
+			'rule' => array('inList', array('jan.novak@necoxyz.com'))
 		)
 	);
 

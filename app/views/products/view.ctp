@@ -208,8 +208,8 @@ foreach ($subproducts as $subproduct) {
 			</tr>
 		</table>
 		<?php 
-			echo $this->Form->input('Comment.check', array('label' => false, 'type' => 'text', 'class' => 'neukazovat', 'value' => ''));
-			echo $this->Form->input('Comment.no_change', array('label' => false, 'type' => 'text', 'class' => 'neukazovat', 'value' => 'nechat text'));
+			echo $this->Form->input('Comment.personal_email', array('label' => false, 'type' => 'text', 'class' => 'neukazovat', 'value' => ''));
+			echo $this->Form->input('Comment.work_email', array('label' => false, 'type' => 'text', 'class' => 'neukazovat', 'value' => 'jan.novak@necoxyz.com'));
 			echo $this->Form->submit('Odeslat dotaz');
 			echo $this->Form->end();
 		?>
