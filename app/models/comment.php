@@ -27,6 +27,9 @@ class Comment extends AppModel {
 		),
 		'check' => array(
 			'rule' => array('inList', array(''))
+		),
+		'no_change' => array(
+			'rule' => array('inList', array('nechat text'))
 		)
 	);
 

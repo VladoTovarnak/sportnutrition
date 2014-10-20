@@ -157,12 +157,15 @@ class CommentsController extends AppController {
 		);
 		
 		if (isset($_POST)) {
-			if (isset($_POST['author']) && isset($_POST['email']) && isset($_POST['subject']) && isset($_POST['body']) && isset($_POST['productId'])) {
+			if (isset($_POST['author']) && isset($_POST['email']) && isset($_POST['subject']) && isset($_POST['body']) && isset($_POST['productId']) && isset($_POST['check']) && isset($_POST['noChange'])) {
 				$author = $_POST['author'];
 				$email = $_POST['email'];
 				$subject = $_POST['subject'];
 				$body = $_POST['body'];
 				$product_id = $_POST['productId'];
+				$check = $_POST['check'];
+				$no_change = $_POST['noChange'];
+				
 
 				if ($this->Comment->is_spam($body)) {
 					$result['message'] = 'Váš komentář obsahuje zakázaná slova a je proto považován za SPAM. Kometář nebyl uložen.';
@@ -174,11 +177,13 @@ class CommentsController extends AppController {
 							'subject' => $subject,
 							'body' => $body,
 							'product_id' => $product_id,
-							'created' => date('Y-m-d H:i:s')
+							'created' => date('Y-m-d H:i:s'),
+							'check' => $check,
+							'no_change' => $no_change
 						)
 					);
 					$this->Comment->create();
-					if ($this->Comment->save($comment, false)) {
+					if ($this->Comment->save($comment)) {
 						// komentar byl vlozen, notifikace adminu o novem dotazu
 						$this->Comment->notify_new_comment($this->Comment->id);
 						

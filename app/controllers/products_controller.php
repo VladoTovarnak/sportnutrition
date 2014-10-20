@@ -99,6 +99,7 @@ class ProductsController extends AppController {
 					'fields' => array('id', 'value')
 				),
 				'Comment' => array(
+					'conditions' => array('Comment.confirmed' => true),
 					'fields' => array('Comment.id', 'Comment.subject', 'Comment.body', 'Comment.author', 'Comment.created', 'Comment.reply'),
 					'order' => array('Comment.created' => 'desc'),
 					'Administrator'

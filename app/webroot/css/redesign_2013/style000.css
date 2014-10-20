@@ -1358,3 +1358,7 @@ div#close_banner a{
 	font-weight:bold;
 	text-decoration:none;
 }
+
+.neukazovat {
+	display:none;
+}

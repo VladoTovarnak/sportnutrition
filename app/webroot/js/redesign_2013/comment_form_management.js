@@ -15,6 +15,7 @@ $(document).ready(function() {
 		var bodyId = '#CommentBody';
 		var productIdId = '#CommentProductId';
 		var checkId = '#CommentCheck';
+		var noChangeId = '#CommentNoChange';
 
 		var author = $(authorId).val();
 		var email = $(emailId).val();
@@ -22,9 +23,10 @@ $(document).ready(function() {
 		var body = $(bodyId).val();
 		var productId = $(productIdId).val();
 		var check = $(checkId).val();
+		var noChange = $(noChangeId).val();
 
 		// testovaci pole musi byt prazdne
-		if (check == '') {
+		if (check == '' && noChange == 'nechat text') {
 			var validAuthor = true;
 			var validEmail = true;
 			var validSubject = true;
@@ -96,7 +98,9 @@ $(document).ready(function() {
 						email: email,
 						subject: subject,
 						body: body,
-						productId: productId
+						productId: productId,
+						check: check,
+						noChange: noChange
 					},
 					success: function(data) {
 						if (data.success) {
