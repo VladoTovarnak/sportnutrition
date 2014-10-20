@@ -57,14 +57,14 @@ class Order extends AppModel {
 		));
 	
 		
-		// nathnu si detaily o postovnem,
+/*		// natahnu si detaily o postovnem,
 		// na ktere chceme menit
 		$this->Shipping->recursive = -1;
 		$shipping = $this->Shipping->read(null, $products['Order']['shipping_id']);
 		
 		// pokud je postovne pro normalni zakazniky
 		// a pro firemni zakazniky zdarma, nemusim kontrolovat cenu postovneho
-		if ( $shipping['Shipping']['price'] != '0' ){
+		if ( $shipping['Shipping']['price'] != 0 ){
 			// po nacteni zkontroluju celkovou cenu objednavky v zavislosti
 			// na tom, zda se jedna o koncaka, nebo o firmu
 			if ( ( empty($products['Order']['customer_ico']) && $products['Order']['subtotal_with_dph'] <= $shipping['Shipping']['free'] )){
@@ -94,15 +94,15 @@ class Order extends AppModel {
 					}
 				}
 			}
-		}
-		
+		} */
+
 		$order_total = 0;
 		$free_shipping = false;
 		foreach ( $products['OrderedProduct'] as $product ){
 			$order_total = $order_total + $product['product_price_with_dph'] * $product['product_quantity'];
 		}
-
 		$order['Order']['subtotal_with_dph'] = $order_total;
+		$order['Order']['shipping_cost'] = $this->Shipping->get_cost($products['Order']['shipping_id'], $order_total);
 		$this->id = $id;
 		$this->save($order, false, array('subtotal_with_dph', 'shipping_cost'));
 	}
@@ -602,7 +602,7 @@ class Order extends AppModel {
 		$order_total_wout_dph = 0;
 		
 		$free_shipping = false;
-		
+
 		$cp_count = 0;
 		foreach ( $cart_products as $cart_product ){
 			// projdu vsechny priznaky

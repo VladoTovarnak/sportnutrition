@@ -336,6 +336,7 @@ class OrdersController extends AppController {
 	function admin_edit_shipping($id = null){
 		$this->Order->id = $id;
 		$this->Order->save($this->data, false, array('shipping_id'));
+		$this->Order->reCount($id);
 		$this->Session->setFlash('Způsob dopravy byl změněn.');
 		$this->redirect(array('controller' => 'ordered_products', 'action' => 'edit', $id));
 	}
