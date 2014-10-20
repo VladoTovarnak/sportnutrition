@@ -128,8 +128,9 @@ class CommentsController extends AppController {
 		$this->redirect(array('controller' => 'comments', 'action' => 'index'));
 	}
 
-	function add() {
+	function add() { 
 		if (isset($this->data)) {
+/*
 			if ($this->Comment->is_spam($this->data['Comment']['body'])) {
 				$this->Session->setFlash('Váš komentář obsahuje zakázaná slova a je proto považován za SPAM. Kometář nebyl uložen.');
 			} else {
@@ -141,7 +142,8 @@ class CommentsController extends AppController {
 					$this->_persistValidation('Comment');
 					$this->Session->setFlash('Chyba při ukládání, zkontrolujte formulář a zkuste to prosím znovu.');
 				}
-			}
+			} */
+			$this->Session->setFlash('Pro vložení komentáře do diskuze prosím zapněte funkci javascript ve Vašem prohlížeči');
 			$this->redirect($this->data['Comment']['request_uri']);
 		}
 		$this->redirect('/');
