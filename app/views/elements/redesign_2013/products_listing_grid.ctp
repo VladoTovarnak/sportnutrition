@@ -18,7 +18,7 @@ foreach ( $products as $product ){
 			<img src="<?php echo $image?>" alt="Obrázek <?php echo $product['Product']['name'] ?>" width="90" height="170"/>
 		</a>
 		<div class="rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div>
-		<p class="comments"><a href="<?php echo $product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="<?php echo $product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
+		<p class="comments"><a href="/<?php echo $product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="/<?php echo $product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
 		<?php 
 			echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false));
 			echo '<input class="cart_add" type="submit" value="Vložit do košíku" />';
