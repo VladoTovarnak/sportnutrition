@@ -5,7 +5,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta http-equiv="content-language" content="cs" />
-	<title>Administrace NutriShop.cz</title>
+	<title>Administrace</title>
 	<style type="text/css">
 		body{
 			font-family:Arial, Helvetica, sans-serif;

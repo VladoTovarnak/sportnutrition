@@ -214,5 +214,52 @@ class ExportsController extends AppController{
 		));
 		$this->set('shippings', $shippings);
 	}
+	
+	function google_merchant() {
+		// bez layoutu
+		$this->autoLayout = false;
+		
+		// sparovani kategorii na heurece s kategoriemi u nas v obchode
+		$pairs = array(
+			'Zdraví a krása > Zdravotní péče > Fitness a výživa' => array(1, 2, 6, 7, 9, 25, 26, 28, 14),	
+			'Zdraví a krása > Zdravotní péče > Fitness a výživa > Doplňky na zvýšení růstu svalové hmoty' => array(15, 57, 58, 59, 60, 87, 88, 89, 61, 62, 16, 67, 68, 69, 70, 17, 71, 72, 73, 18, 63, 64, 19, 77, 78, 79, 80, 20),
+			'Zdraví a krása > Zdravotní péče > Fitness a výživa > Vitamíny a výživové doplňky' => array(21, 74, 75, 76, 22, 65, 66, 23, 81, 82, 24, 83, 84, 85, 86),
+			'Média > Knihy > Naučná a odborná literatura > Knihy o zdraví a fitness' => array(12),
+			'Sportovní potřeby > Cvičení a fitness' => array(10, 40, 41, 42, 43, 44, 13, 33, 38),
+			'Oblečení a doplňky > Oblečení > Sportovní oblečení' => array(11, 50, 51),
+			'Oblečení a doplňky > Oblečení > Sportovní oblečení > Sportovní kalhoty' => array(45, 49),
+			'Oblečení a doplňky > Oblečení > Sportovní oblečení > Sportovní šortky' => array(46),
+			'Oblečení a doplňky > Oblečení > Sportovní oblečení > Sportovní trika' => array(47),
+			'Oblečení a doplňky > Oblečení > Sportovní oblečení > Mikiny' => array(48),
+			'Sportovní potřeby > Cvičení a fitness > Činky' => array(29),
+			'Sportovní potřeby > Cvičení a fitness > Trenažéry > Spinningová kola' => array(30, 36),
+			'Sportovní potřeby > Cvičení a fitness > Trenažéry > Šlapací trenažéry' => array(31),
+			'Sportovní potřeby > Cvičení a fitness > Trenažéry > Běžecké trenažéry' => array(34),
+			'Sportovní potřeby > Cvičení a fitness > Trenažéry > Veslařské trenažéry' => array(35),
+			'Sportovní potřeby > Cvičení a fitness > Vzpěračské lavice' => array(37),
+		);
+		
+		$products = $this->get_products();
+		
+		App::import('Model', 'Category');
+		$this->Category = &new Category;
+		
+		foreach ($products as $index => &$product) {
+			$product['Product']['category_text'] = '';
+			// pokud je kategorie produktu sparovana , nastavi se rovnou jako 'Sportovni vyziva | *odpovidajici nazev kategorie*
+			foreach ($pairs as $name => $array) {
+				if (in_array($product['CategoriesProduct']['category_id'], $array)) {
+					$product['Product']['category_text'] = $name;
+					break;
+				}
+			}
+
+			$product['Product']['type_text'] = $this->Category->getPath($product['CategoriesProduct']['category_id']);
+			$product['Product']['type_text'] = Set::extract('/Category/name', $product['Product']['type_text']);
+			$product['Product']['type_text'] = implode(' | ', $product['Product']['type_text']);
+		}
+		
+		$this->set('products', $products);
+	}
 }
 ?>
