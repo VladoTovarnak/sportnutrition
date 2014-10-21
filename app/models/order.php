@@ -591,7 +591,7 @@ class Order extends AppModel {
 			// cene objednaneho zbozi
 			// musim zjistit, jestli zakaznik, ktery sestavil objednavku, byl voc, protoze podle toho se pocita cena dopravy
 			$is_voc = $this->Customer->is_voc($customer['Customer']['id']);
-			$order['Order']['shipping_cost'] = $this->Shipping->get_cost($order['Order']['shipping_id'], $order_total_with_dph);
+			$order['Order']['shipping_cost'] = $this->Shipping->get_cost($order['Order']['shipping_id'], $order_total_with_dph, $is_voc);
 		}
 
 		$order['Order']['shipping_tax_class'] = $this->Shipping->get_tax_class_description($order['Order']['shipping_id']);
