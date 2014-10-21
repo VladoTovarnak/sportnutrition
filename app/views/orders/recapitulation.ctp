@@ -10,9 +10,9 @@
 				<table id="recapProducts" cellpadding="5" cellspacing="0">
 					<tr>
 						<th style="width:50%">Název produktu</th>
-						<th style="width:30%">Množství</th>
-						<th>Cena za kus</th>
-						<th>Cena celkem</th>
+						<th style="width:20%">Množství</th>
+						<th style="width:15%">Cena za kus</th>
+						<th style="width:15%">Cena celkem</th>
 					</tr>
 					<?
 						$final_price = 0;
@@ -41,8 +41,8 @@
 					<?php 	} ?>
 						</td>
 						<td><?php echo $cart_product['CartsProduct']['quantity'] ?>&nbsp;ks</td>
-						<td align="right"><?php echo front_end_display_price($cart_product['CartsProduct']['price_with_dph']) ?>&nbsp;Kč</td>
-						<td align="right"><?php echo front_end_display_price($cart_product['CartsProduct']['price_with_dph'] * $cart_product['CartsProduct']['quantity']) ?>&nbsp;Kč</td>
+						<td align="right" nowrap><?php echo front_end_display_price($cart_product['CartsProduct']['price_with_dph']) ?>&nbsp;Kč</td>
+						<td align="right" nowrap><?php echo front_end_display_price($cart_product['CartsProduct']['price_with_dph'] * $cart_product['CartsProduct']['quantity']) ?>&nbsp;Kč</td>
 					</tr>
 					<?php } ?>
 					
@@ -71,7 +71,7 @@
 					</tr>
 					<tr>
 						<th colspan="2" class="totalPrice">celková cena objednávky:</td>
-						<td colspan="2" class="totalPrice"><?php echo front_end_display_price($final_price + $order['shipping_cost'])?> Kč</td>
+						<td colspan="2" class="totalPrice" align="right"><?php echo front_end_display_price($final_price + $order['shipping_cost'])?> Kč</td>
 					</tr>
 					<?php if (isset($order['comments']) && !empty($order['comments'])) { ?>
 					<tr>
