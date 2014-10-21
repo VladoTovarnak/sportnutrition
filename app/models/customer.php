@@ -202,6 +202,16 @@ class Customer extends AppModel {
 		return (empty($amount) ? 0 : $amount[0]['Order']['amount']);
 	}
 	
+	// je uzivatel typu VOC? (customer_type_id == 6)
+	function is_voc($id) {
+		$customer = $this->find('first', array(
+			'conditions' => array('Customer.id' => $id, 'Customer.customer_type_id' => 6),
+			'contain' => array()
+		));
+		
+		return !empty($customer);
+	}
+	
 	function import() {
 //		$this->truncate();
 //		$this->Address->truncate();

@@ -102,7 +102,15 @@ class Order extends AppModel {
 			$order_total = $order_total + $product['product_price_with_dph'] * $product['product_quantity'];
 		}
 		$order['Order']['subtotal_with_dph'] = $order_total;
-		$order['Order']['shipping_cost'] = $this->Shipping->get_cost($products['Order']['shipping_id'], $order_total);
+		
+		// musim zjistit, jestli zakaznik, ktery sestavil objednavku, byl voc, protoze podle toho se pocita cena dopravy
+		$customer = $this->find('first', array(
+			'conditions' => array('Order.id' => $id),
+			'contain' => array('Customer'),
+			'fields' => array('Customer.id')
+		));
+		$is_voc = $this->Customer->is_voc($customer['Customer']['id']);
+		$order['Order']['shipping_cost'] = $this->Shipping->get_cost($products['Order']['shipping_id'], $order_total, $is_voc);
 		$this->id = $id;
 		$this->save($order, false, array('subtotal_with_dph', 'shipping_cost'));
 	}
@@ -581,6 +589,8 @@ class Order extends AppModel {
 			// objednavka neobsahuje produkt s dopravou zdarma,
 			// cenu dopravy si proto dopocitam v zavislosti na
 			// cene objednaneho zbozi
+			// musim zjistit, jestli zakaznik, ktery sestavil objednavku, byl voc, protoze podle toho se pocita cena dopravy
+			$is_voc = $this->Customer->is_voc($customer['Customer']['id']);
 			$order['Order']['shipping_cost'] = $this->Shipping->get_cost($order['Order']['shipping_id'], $order_total_with_dph);
 		}
 
@@ -624,8 +634,15 @@ class Order extends AppModel {
 			// objednavka neobsahuje produkt s dopravou zdarma,
 			// cenu dopravy si proto dopocitam v zavislosti na
 			// cene objednaneho zbozi
-
-			$shipping_cost = $this->Shipping->get_cost($shipping_id, $order_total_with_dph);
+			$is_voc = false;
+			App::import('model', 'CakeSession');
+			$this->Session = &new CakeSession;
+			// ze sesny vytahnu data o objednavce a doplnim potrebna data
+			$customer = $this->Session->read('Customer');
+			if (isset($customer['id'])) {
+				$is_voc = $this->Customer->is_voc($customer['id']);
+			}
+			$shipping_cost = $this->Shipping->get_cost($shipping_id, $order_total_with_dph, $is_voc);
 		}
 		return $shipping_cost;
 	}
