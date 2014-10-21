@@ -564,14 +564,21 @@ class Product extends AppModel {
 	}
 	
 	function redirect_url($url) {
-		$redirect_url = null;
+		$redirect_url = '/';
 		// zjistim na co chci presmerovat
 		// odstranim cast adresy, ktera mi urcuje, ze se jedna o produkt
-		$pattern = preg_replace('/^\/product\//', '', $url);
-		
-		// vytahnu si id produktu na sportnutritionu
-		if (preg_match('/^[^:]+:(\d+)/', $pattern, $matches)) {
+		if (preg_match('/^\/product\//', $url)) {
+			$pattern = preg_replace('/^\/product\//', '', $url);
+			
+			// vytahnu si id produktu na sportnutritionu
+			if (preg_match('/^[^:]+:(\d+)/', $pattern, $matches)) {
+				$sn_id = $matches[1];
+			}
+		} elseif (preg_match('/^\/produkty-id\/(\d+)/', $url, $matches)) {
 			$sn_id = $matches[1];
+		}
+
+		if (isset($sn_id) && !empty($sn_id)) {
 			// najdu nas produkt odpovidajici sn adrese
 			$product = $this->find('first', array(
 				'conditions' => array('Product.sportnutrition_id' => $sn_id),

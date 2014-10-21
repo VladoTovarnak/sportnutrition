@@ -42,7 +42,7 @@ class Content extends AppModel {
 	}
 	
 	function redirect_url($url) {
-		$redirect_url = null;
+		$redirect_url = '/';
 		$old2new = array(
 			'/website/kontakt/' => 'firma.htm',
 			'/website/clanky/' => null,

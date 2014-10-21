@@ -172,7 +172,7 @@ class Manufacturer extends AppModel {
 	}
 	
 	function redirect_url($url) {
-		$redirect_url = null;
+		$redirect_url = '/';
 		// zjistim na co chci presmerovat
 		// odstranim cast adresy, ktera mi urcuje, ze se jedna o produkt
 		$pattern = preg_replace('/^\/manufacturer\//', '', $url);

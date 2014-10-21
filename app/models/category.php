@@ -249,7 +249,7 @@ class Category extends AppModel {
 	}
 	
 	function redirect_url($url) {
-		$redirect_url = null;
+		$redirect_url = '/';
 		// zjistim na co chci presmerovat
 		// odstranim cast adresy, ktera mi urcuje, ze se jedna o produkt
 		$pattern = preg_replace('/^\/category\//', '', $url);
@@ -260,9 +260,9 @@ class Category extends AppModel {
 	
 			// najdu nas kategorii odpovidajici sn adrese
 			$category = $this->find('first', array(
-					'conditions' => array('Category.sportnutrition_id' => $sn_id),
-					'contain' => array(),
-					'fields' => array('Category.id', 'Category.url')
+				'conditions' => array('Category.sportnutrition_id' => $sn_id),
+				'contain' => array(),
+				'fields' => array('Category.id', 'Category.url')
 			));
 	
 			if (!empty($category)) {

@@ -28,6 +28,9 @@
 			} else {
 				$query_string = '';
 			}
+			if ($redirect_url == '/') {
+				$redirect_url = '';
+			}
 			header("HTTP/1.1 301 Moved Permanently");
 			header("Location: /" . $redirect_url . (!empty($query_string)?'?'.$query_string:''));
 			exit();
