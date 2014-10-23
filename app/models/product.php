@@ -581,7 +581,7 @@ class Product extends AppModel {
 		if (isset($sn_id) && !empty($sn_id)) {
 			// najdu nas produkt odpovidajici sn adrese
 			$product = $this->find('first', array(
-				'conditions' => array('Product.sportnutrition_id' => $sn_id),
+				'conditions' => array('Product.id' => $sn_id),
 				'contain' => array(),
 				'fields' => array('Product.id', 'Product.url')
 			));
