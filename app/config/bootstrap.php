@@ -42,8 +42,6 @@
  * $controllerPaths = array('this path to controllers', 'second full path to controllers', 'etc...');
  *
  */
-//EOF
-
 function strip_diacritic($text, $strip_dot = true) {
 	$text = trim($text);
 	
@@ -199,4 +197,14 @@ if ( $_SERVER['HTTP_HOST'] == 'localhost' ){
 define('__DB_HOST__', $host);
 //define('IMAGE_IP', '78.80.90.21');
 define('IMAGE_IP', 'odstranit');
+
+// kontrola, zda nezadame URI ktere ma byt presmerovano
+App::import('Model', 'Redirect');
+$this->Redirect = &new Redirect;
+if ($r = $this->Redirect->check($_SERVER['REQUEST_URI'])) {
+	header("HTTP/1.1 301 Moved Permanently");
+	header("Location: " . $r['Redirect']['target_uri']);
+	exit();
+}
+
 ?>

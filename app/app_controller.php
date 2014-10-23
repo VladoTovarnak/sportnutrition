@@ -7,7 +7,7 @@
 	);
 
 	// beforeFilter se provede pri uplne kazde akci, ktera se vykona
-	function beforeFilter(){
+	function beforeFilter() {
 		Controller::disableCache();
 		
 /*		// kontrola, jestli jedeme pres spravny host name
@@ -34,17 +34,6 @@
 			header("HTTP/1.1 301 Moved Permanently");
 			header("Location: /" . $redirect_url . (!empty($query_string)?'?'.$query_string:''));
 			exit();
-		}
-		
-		if (!isset($this->params['admin'])) {
-			// kontrola, zda nezadame URI ktere ma byt presmerovano
-			App::import('Model', 'Redirect');
-			$this->Redirect = &new Redirect;
-			if ( $r = $this->Redirect->check($_SERVER['REQUEST_URI']) ){
-				header("HTTP/1.1 301 Moved Permanently");
-				header("Location: " . $r['Redirect']['target_uri']);
-				exit();
-			}
 		}
 		
 		// osetruju pristup na /admin/ a na /admin
