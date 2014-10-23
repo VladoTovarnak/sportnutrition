@@ -118,6 +118,7 @@ class SearchesController extends AppController {
 		}
 		
 		$products = array();
+		$customer_type_id = 2;
 
 		if (!empty($this->data) && isset($this->data['Search']['q'])){
 			// hledany vyraz musim ocistit
@@ -275,6 +276,8 @@ class SearchesController extends AppController {
 		
 		$this->set('listing_style', 'products_listing_grid');
 		
+		App::import('Model', 'Product');
+		$this->Search->Product = &new Product;
 		$action_products = $this->Search->Product->get_action_products($customer_type_id, 4);
 		$this->set('action_products', $action_products);
 	}

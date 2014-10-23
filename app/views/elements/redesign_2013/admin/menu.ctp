@@ -42,6 +42,7 @@
 				<li><?php echo $this->Html->link('Typy produktů', array('controller' => 'product_types', 'action' => 'index'))?></li>
 				<li><?php echo $this->Html->link('Dostupnosti produktů', array('controller' => 'availabilities', 'action' => 'index'))?></li>
 				<li><?php echo $this->Html->link('Stavy objednávek', array('controller' => 'statuses', 'action' => 'index'))?></li>
+				<li><?php echo $this->Html->link('Přesměrování', array('controller' => 'redirects', 'action' => 'index'))?></li>
 			</ul>
 		</li>
 		<li>

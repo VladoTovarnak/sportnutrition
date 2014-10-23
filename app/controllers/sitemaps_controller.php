@@ -45,17 +45,13 @@ class SitemapsController extends AppController{
 		App::import('Model', 'Category');
 		$this->Sitemap->Category = new Category;
 
-		$skip = array(0 => '5', '25', '26', '53'); 
 		$categories = $this->Sitemap->Category->find('all', array(
-			'conditions' => array('Category.id NOT IN (' . implode(',', $skip) . ')'),
+			'conditions' => array('Category.active' => true, 'Category.public' => true),
 			'contain' => array(),
 			'fields' => array('Category.id', 'Category.url')
 		));
 
 		foreach ( $categories as $category ){
-			if ( in_array($category['Category']['id'], $skip) ){
-				continue;
-			}
 			$mod = date('Y-m-d');
 
 			// pripnout k sitemape

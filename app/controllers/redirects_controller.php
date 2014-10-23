@@ -6,13 +6,15 @@ class RedirectsController extends AppController {
 	function admin_index(){
 		$redirects = $this->Redirect->find('all');
 		$this->set('redirects', $redirects);
+		
+		$this->layout = REDESIGN_PATH . 'admin';
 	}
 	
 	function admin_add(){
 		if ( isset($this->data) ){
 			// ostripuju si http www
-			$this->data['Redirect']['request_uri'] = str_replace('http://www.e-kola.cz', '', $this->data['Redirect']['request_uri']);
-			$this->data['Redirect']['target_uri'] = str_replace('http://www.e-kola.cz', '', $this->data['Redirect']['target_uri']);
+			$this->data['Redirect']['request_uri'] = str_replace('http://www.' . CUST_ROOT, '', $this->data['Redirect']['request_uri']);
+			$this->data['Redirect']['target_uri'] = str_replace('http://www.' . CUST_ROOT, '', $this->data['Redirect']['target_uri']);
 			
 			if ($this->data['Redirect']['request_uri'] == $this->data['Redirect']['target_uri']) {
 				$this->Session->setFlash('Zdrojová a cílová adresa přesměrování jsou stejné, přesměrování nelze uložit');
@@ -64,19 +66,22 @@ class RedirectsController extends AppController {
 				$this->redirect(array('controller' => 'redirects', 'action' => 'index', 'admin' => true), null, true);
 			}
 		}
+		$this->layout = REDESIGN_PATH . 'admin';
 	}
 	
 	function admin_edit($id){
 		if ( isset($this->data) ){
 			// ostripuju si http www
-			$this->data['Redirect']['request_uri'] = str_replace('http://www.e-kola.cz', '', $this->data['Redirect']['request_uri']);
-			$this->data['Redirect']['target_uri'] = str_replace('http://www.e-kola.cz', '', $this->data['Redirect']['target_uri']);
+			$this->data['Redirect']['request_uri'] = str_replace('http://www.' . CUST_ROOT, '', $this->data['Redirect']['request_uri']);
+			$this->data['Redirect']['target_uri'] = str_replace('http://www.' . CUST_ROOT, '', $this->data['Redirect']['target_uri']);
 			if ( $this->Redirect->save($this->data) ){
 				$this->Session->setFlash('Přesměrování bylo upraveno.');
 				$this->redirect(array('controller' => 'redirects', 'action' => 'index', 'admin' => true), null, true);
 			}
 		}
 		$this->data = $this->Redirect->find('first', array('conditions' => array('id' => $id)));
+		
+		$this->layout = REDESIGN_PATH . 'admin';
 	}
 	
 	function admin_delete($id){
