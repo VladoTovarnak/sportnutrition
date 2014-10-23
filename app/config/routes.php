@@ -53,7 +53,7 @@
 	
 	// routovani url ze stareho nutrishopu. v AppController/beforeFilter presmerovavam stare urls na nove. akce 'tools/asd', na kterou je to routovany, je tam uplne zbytecne, protoze
 	// stara url se presmeruje stejne a do te akce se to vubec nedostane
-	Router::connect('/:old_sn_key/:sth', array('controller' => 'tools', 'action' => 'asd'), array('old_sn_key' => 'website|category|product|manufacturer|produkty-id|rubriky', 'sth' => '.*'));
+	Router::connect('/:old_sn_key/:sth', array('controller' => 'tools', 'action' => 'asd'), array('old_sn_key' => 'website|category|product|manufacturer|produkty-id', 'sth' => '.*'));
 	
 /**
  * ...and connect the rest of 'Pages' controller's urls.

@@ -23,7 +23,6 @@ class Tool extends AppModel {
 				$redirect_url = $this->Product->redirect_url($url);
 				break;
 			case 'category':
-			case 'rubriky':
 				// presmeruju kategorii
 				App::import('Model', 'Category');
 				$this->Category = &new Category;
