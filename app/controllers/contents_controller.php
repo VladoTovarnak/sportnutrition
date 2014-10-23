@@ -101,7 +101,7 @@ class ContentsController extends AppController{
 			die('404 nenalezeno');
 		}
 		
-		$breadcrumbs = array(array('anchor' => $page['Content']['title'], 'href' => $page['Content']['path']));
+		$breadcrumbs = array(array('anchor' => $page['Content']['title'], 'href' => $page['Content']['path'] . '.htm'));
 		$this->set('breadcrumbs', $breadcrumbs);
 	}
 
