@@ -207,4 +207,11 @@ if ($r = $this->Redirect->check($_SERVER['REQUEST_URI'])) {
 	exit();
 }
 
+// presmerovani adres, kde se vlozil email do URL
+if (preg_match('/\/.*(?:\/info@sportnutrition.cz)+\/(.+-p\d+)/', $_SERVER['REQUEST_URI'], $matches)) {
+	header("HTTP/1.1 301 Moved Permanently");
+	header("Location: /" . $matches[1]);
+	exit();
+}
+
 ?>
