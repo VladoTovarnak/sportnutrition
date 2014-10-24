@@ -41,4 +41,16 @@
 			<?php } ?> 
 		</script>
 		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>/product_rating_management.js"></script>
-		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>/nutrishop_banner.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			var url = document.URL;
+			var a = $('<a>', { href:url } )[0];
+			if (a.hash == '#nutrishop_redirect') {
+				$('#banner').fancybox({
+					width: 600,
+					height: 450,
+					autoSize: false,
+				}).trigger('click');
+			}
+		});
+		</script>

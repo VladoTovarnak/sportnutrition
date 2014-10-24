@@ -1330,11 +1330,6 @@ div.right_sidebar_product span.regular_price{
 }
 
 div#banner{
-	width:600px;
-	position:absolute;
-	top:20px;
-	left:-500px;
-	z-index:2;
 	display:none;
 }
 

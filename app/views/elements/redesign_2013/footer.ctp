@@ -71,4 +71,5 @@ if ($this->params['controller'] == 'orders' && $this->params['action'] == 'finis
  		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	  	})();
 </script>
+<?php echo $this->element(REDESIGN_PATH . 'nutrishop_banner')?>
 <?php echo $this->element('sql_dump')?>
