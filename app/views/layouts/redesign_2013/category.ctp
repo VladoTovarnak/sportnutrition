@@ -5,15 +5,12 @@
 		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>products_pagination.js"></script>
 		<script type="text/javascript" src="/loadmask/jquery.loadmask.min.js"></script>
 		<link href="/loadmask/jquery.loadmask.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATB?>nutrishop_banner.js"></script>
 	</head>
 <body>
 
 <div id="body">
-	<div id="banner">
-		<div title="kliknutím zavřete okno" id="banner_vypln" onclick="return close_baner();">
-			<h2>Nutrishop.cz se mění na SportNutrition.cz</h2>
-		</div>
-	</div>
+	<?php echo $this->element(REDESIGN_PATH . 'nutrishop_banner')?>
 	<div id="header">
 		<a id="logo" href="/"><img src="/images/redesign_2013/logo_snv.png" width="240px" height="125px" alt="SNV - sportovní výživa pro Vás" /></a>
 		<?php
