@@ -5,7 +5,6 @@
 		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>products_pagination.js"></script>
 		<script type="text/javascript" src="/loadmask/jquery.loadmask.min.js"></script>
 		<link href="/loadmask/jquery.loadmask.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATB?>nutrishop_banner.js"></script>
 	</head>
 <body>
 
