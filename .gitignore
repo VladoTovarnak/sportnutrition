@@ -4,5 +4,6 @@ tmp
 Thumbs.db
 /app/webroot/test
 /app/webroot/product-images
+/app/tmp
 /.project
 /.buildpath
