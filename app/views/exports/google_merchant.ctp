@@ -11,7 +11,7 @@
 			<g:condition>new</g:condition>
 			<g:identifier_exists>false</g:identifier_exists>
 			<g:availability>in stock</g:availability>
-			<g:price><![CDATA[<?php echo $product['Product']['price']?>]]> CZK</g:price>
+			<g:price><?php echo $product['Product']['price']?> CZK</g:price>
 			<g:brand><![CDATA[<?php echo $product['Manufacturer']['name']?>]]></g:brand>
 			<g:product_type><![CDATA[<?php echo $product['Product']['type_text']?>]]></g:product_type>
 		</item>
