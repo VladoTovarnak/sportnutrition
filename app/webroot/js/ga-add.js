@@ -1,6 +1,3 @@
-	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-55908391-1']);
-
 	_gaq.push(['_addOrganic', 'zbozi.cz', 'q']);
 	_gaq.push(['_addOrganic', 'centrum.cz', 'q']);
 	_gaq.push(['_addOrganic', 'atlas.cz', 'q']);
@@ -39,7 +36,3 @@
 	_gaq.push(['_addOrganic', 'toplist.sk', 'search']);
 	_gaq.push(['_addOrganic', 'webstranka.sk', 'kword']);
 	_gaq.push(['_addOrganic', 'images.google.sk', 'q']);
-	
-	_gaq.push(['_trackPageview']);
-	
-	//GA DATA

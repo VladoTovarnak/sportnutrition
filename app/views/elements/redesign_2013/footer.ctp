@@ -53,14 +53,22 @@
 		<a href="http://www.youtube.com/channel/UCheMzjYoHUiq-9I5OH3DdKA" target="_blank"><img src="/images/<?php echo REDESIGN_PATH ?>logo_youtube.png" alt="YouTube" /></a>
 	</div>
 </div>
-<?php if ($this->params['controller'] != 'orders' && $this->params['action'] != 'finished') { ?>
-<script type="text/javascript" src="/js/ga-add.js"></script>
-<?php } ?>
+
 <script type="text/javascript">
- 	  (function() {
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-55908391-1']);
+</script>
+<script type="text/javascript" src="/js/ga-add.js"></script>
+<script type="text/javscript">
+	_gaq.push(['_trackPageview']);
+<?php // data do GA o objednavce na dekovaci strance
+if ($this->params['controller'] == 'orders' && $this->params['action'] == 'finished' && isset($jscript_code)) {
+	echo $jscript_code;
+} ?>
+ 	  	(function() {
  		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
  		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
  		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
+	  	})();
 </script>
 <?php echo $this->element('sql_dump')?>

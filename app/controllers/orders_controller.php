@@ -1154,9 +1154,9 @@ class OrdersController extends AppController {
 		
 		$jscript_code .= "\n\n" . "_gaq.push(['_trackTrans']);"; //submits transaction to the Analytics servers
 
-		$contents = file_get_contents('js/ga-add.js');
+//		$contents = file_get_contents('js/ga-add.js');
 
-		$jscript_code = str_replace('//GA DATA', $jscript_code, $contents);
+//		$jscript_code = str_replace('//GA DATA', $jscript_code, $contents);
 
 		$this->set('jscript_code', $jscript_code);
 
