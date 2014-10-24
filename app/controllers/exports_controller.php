@@ -258,7 +258,6 @@ class ExportsController extends AppController{
 			$product['Product']['type_text'] = Set::extract('/Category/name', $product['Product']['type_text']);
 			$product['Product']['type_text'] = implode(' | ', $product['Product']['type_text']);
 		}
-		
 		$this->set('products', $products);
 	}
 }
