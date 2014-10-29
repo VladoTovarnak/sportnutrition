@@ -330,5 +330,16 @@ class ManufacturersController extends AppController {
 		$this->Manufacturer->update();
 		die('here');
 	}
+	
+	function ns2sn($id) {
+		$url = '/' . $this->Manufacturer->get_url($id);
+		if (empty($url)) {
+			$url = '/';
+		}
+//debug($url); die();	
+		$url = 'http://' . $_SERVER['HTTP_HOST'] . $url . '#nutrishop_redirect';
+		header("HTTP/1.1 301 Moved Permanently");
+		header("Location: " . $url);
+	}
 }
 ?>
