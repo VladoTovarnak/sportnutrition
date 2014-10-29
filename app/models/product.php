@@ -82,7 +82,7 @@ class Product extends AppModel {
 		),
 		'ean' => array(
 			'length13' => array(
-				'rule' => array('between', 13, 13),
+				'rule' => array('between', 12, 13),
 				'message' => 'EAN musí mít 13 znaků',
 				'allowEmpty' => true
 			)

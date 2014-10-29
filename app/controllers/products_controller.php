@@ -1512,5 +1512,40 @@ class ProductsController extends AppController {
 		header("HTTP/1.1 301 Moved Permanently");
 		header("Location: " . $url);
 	}
+	
+	function load_eans() {
+		$file_name = 'ean.csv';
+		$file_dir = 'files';
+		$file_path = $file_dir . DS . $file_name;
+		
+		$row = 1;
+		$errors = 0;
+		if (($handle = fopen($file_path, "r")) !== FALSE) {
+			while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+				if ($row == 1) {
+					$row++;
+					continue;
+				}
+				if (isset($data[1]) && !empty($data[1]) && isset($data[2]) && !empty($data[2]) && $data[2] != 'neni' && $data[2] != 'není') {
+					if ($this->Product->hasAny(array('id' => $data[1]))) {
+						$product = array(
+							'Product' => array(
+								'id' => $data[1],
+								'ean' => $data[2]
+							)	
+						);
+						if (!$this->Product->save($product)) {
+							debug($data);
+							debug($product);
+							$errors++;
+						}
+					}
+				}
+			}
+			fclose($handle);
+		}
+		debug($errors);
+		die();
+	}
 } // konec tridy
 ?>
