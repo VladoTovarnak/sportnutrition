@@ -48,7 +48,7 @@
 			if (a.hash == '#nutrishop_redirect') {
 				$('#banner').fancybox({
 					width: 600,
-					height: 450,
+					height: 420,
 					autoSize: false,
 				}).trigger('click');
 			}
