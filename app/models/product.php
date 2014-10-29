@@ -38,7 +38,10 @@ class Product extends AppModel {
 		'RecommendedProduct' => array(
 			'dependent' => true
 		),
-		'OrderedProduct'
+		'OrderedProduct',
+		'ComparatorProductClickPrice' => array(
+			'dependent' => true
+		)
 	);
 
 	var $belongsTo = array(

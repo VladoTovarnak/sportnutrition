@@ -119,6 +119,11 @@ $(function() {
 			echo $this->Html->link($icon, array('controller' => 'products', 'action' => 'attributes_list', $product['Product']['id'], (isset($category_id) ? $category_id : null)), array('escape' => false));
 		?></td>
 		<td><?php 
+			$icon = '<img src="/images/' . REDESIGN_PATH . 'icons/flag_red.png" alt="" />';
+			echo $this->Html->link($icon, array('controller' => 'products', 'action' => 'comparator_click_prices', $product['Product']['id'], (isset($category_id) ? $category_id : null)), array('escape' => false));
+		?></td>
+		
+		<td><?php 
 			$icon = '<img src="/images/' . REDESIGN_PATH . 'icons/page_white_code_red.png" alt="" />';
 			echo $this->Html->link($icon, array('controller' => 'products', 'action' => 'duplicate', $product['Product']['id'], (isset($category_id) ? $category_id : null)), array('escape' => false));
 		?></td>
@@ -143,9 +148,9 @@ $(function() {
 	<tr>
 		<td><img src="/images/<?php echo REDESIGN_PATH ?>icons/money.png" width='16' height='16' /> ... ceník produktu</td>
 	</tr>
-	<tr>
+<!--	<tr>
 		<td><img src="/images/<?php echo REDESIGN_PATH ?>icons/alias.gif" width='16' height='16' /> ... parametry produktu</td>
-	</tr>
+	</tr> -->
 	<tr>
 		<td><img src="/images/<?php echo REDESIGN_PATH ?>icons/image_add.png" width='16' height='16' /> ... fotogalerie produktu</td>
 	</tr>
@@ -158,14 +163,14 @@ $(function() {
 	<tr>
 		<td><img src="/images/<?php echo REDESIGN_PATH ?>icons/book.png" width='16' height='16' /> ... přiřazení ke kategoriím</td>
 	</tr>
-	<tr>
+<!--	<tr>
 		<td>
 			<img src="/images/<?php echo REDESIGN_PATH ?>icons/flag_yellow.png" width='16' height='16' /> ... povinný text
 			<a href='/administrace/help.php?width=500&id=51' class='jTip' id='51' name='Povinný text (51)'>
 				<img src="/images/<?php echo REDESIGN_PATH ?>icons/help.png" width='16' height='16' />
 			</a>
 		</td>
-	</tr>
+	</tr> -->
 	<tr>
 		<td>
 			<img src="/images/<?php echo REDESIGN_PATH ?>icons/flag_blue.png" width='16' height='16' /> ... povinný výběr
@@ -176,18 +181,15 @@ $(function() {
 	</tr>
 	<tr>
 		<td>
-			<img src="/images/<?php echo REDESIGN_PATH ?>icons/flag_red.png" width='16' height='16' /> ... povinné soubory
-			<a href='/administrace/help.php?width=500&id=53' class='jTip' id='53' name='Povinné soubory (53)'>
-				<img src="/images/<?php echo REDESIGN_PATH ?>icons/help.png" width='16' height='16' />
-			</a>
+			<img src="/images/<?php echo REDESIGN_PATH ?>icons/flag_red.png" width='16' height='16' /> ... ceny za proklik
 		</td>
 	</tr>
 	<tr>
 		<td><img src="/images/<?php echo REDESIGN_PATH ?>icons/page_white_code_red.png" width='16' height='16' /> ... duplikace produktu</td>
 	</tr>
-	<tr>
+<!-- 	<tr>
 		<td><img src="/images/<?php echo REDESIGN_PATH ?>icons/user_comment.png" width='16' height='16' /> ... komentáře produktu</td>
-	</tr>
+	</tr> -->
 </table>
 <?php } ?>
 <div class="prazdny"></div>

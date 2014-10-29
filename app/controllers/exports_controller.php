@@ -2,7 +2,7 @@
 class ExportsController extends AppController{
 	var $name = 'Exports';
 	
-	function get_products() {
+	function get_products($comparator_name) {
 		// natahnu si model Product
 		App::Import('model', 'Product');
 		$this->Product = &new Product;
@@ -82,6 +82,18 @@ class ExportsController extends AppController{
 					'type' => 'INNER',
 					'conditions' => array('Category.id = CategoriesProduct.category_id')
 				),
+				array(
+					'table' => 'comparator_product_click_prices',
+					'alias' => 'ComparatorProductClickPrice',
+					'type' => 'LEFT',
+					'conditions' => array('Product.id = ComparatorProductClickPrice.product_id')
+				),
+				array(
+					'table' => 'comparators',
+					'alias' => 'Comparator',
+					'type' => 'LEFT',
+					'conditions' => array('Comparator.id = ComparatorProductClickPrice.comparator_id AND Comparator.name="' . $comparator_name . '"')
+				)
 			),
 			'fields' => array(
 				'Product.id',
@@ -109,7 +121,10 @@ class ExportsController extends AppController{
 				'TaxClass.value',
 					
 				'Manufacturer.id',
-				'Manufacturer.name'
+				'Manufacturer.name',
+					
+				'ComparatorProductClickPrice.id',
+				'ComparatorProductClickPrice.click_price'
 			),
 //			'limit' => 10
 		));
@@ -140,7 +155,7 @@ class ExportsController extends AppController{
 		// nastavim si layout do ktereho budu cpat data v XML
 		$this->layout = 'xml/heureka';
 		
-		$products = $this->get_products();
+		$products = $this->get_products('zbozi.cz');
 		$this->set('products', $products);
 		
 		// produkty zobrazovane na detailu na firmy.cz
@@ -150,7 +165,7 @@ class ExportsController extends AppController{
 	function heureka_cz() {
 		$this->layout = 'xml/heureka';
 		
-		$products = $this->get_products();
+		$products = $this->get_products('heureka.cz');
  		
 		// sparovani kategorii na heurece s kategoriemi u nas v obchode
 		$pairs = array(
@@ -239,7 +254,7 @@ class ExportsController extends AppController{
 			'Sportovní potřeby > Cvičení a fitness > Vzpěračské lavice' => array(37),
 		);
 		
-		$products = $this->get_products();
+		$products = $this->get_products('google merchant center');
 		
 		App::import('Model', 'Category');
 		$this->Category = &new Category;

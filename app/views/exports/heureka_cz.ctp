@@ -14,6 +14,9 @@
 <?php if (isset($product['Product']['ean']) && !empty($product['Product']['ean'])) { ?>
 		<EAN><![CDATA[<?php echo $product['Product']['ean']?>]]></EAN>
 <?php } ?>
+<?php if (isset($product['ComparatorProductClickPrice']['click_price']) && !empty($product['ComparatorProductClickPrice']['click_price'])) { ?>
+		<HEUREKA_CPC><?php echo number_format($product['ComparatorProductClickPrice']['click_price'], 2, ',', '')?></HEUREKA_CPC>
+<?php } ?>
 <?php foreach ($shippings as $shipping) { ?>
 		<DELIVERY>
 			<DELIVERY_ID><![CDATA[<?php echo $shipping['Shipping']['heureka_id']?>]]></DELIVERY_ID>

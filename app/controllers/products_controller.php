@@ -24,7 +24,7 @@ class ProductsController extends AppController {
 			$this->Session->setFlash('Neexistující produkt.', REDESIGN_PATH . 'flash_failure');
 			$this->redirect('/', null, true);
 		}
-		
+
 		// osetruju pokus o vlozeni do kosiku
 		if ( isset($this->data['Product']) ){
 			// vkladam vyberem z vypisu vsech moznosti
@@ -969,6 +969,72 @@ class ProductsController extends AppController {
 				$this->data['Attributes'][$option['Option']['id']] = trim($this->data['Attributes'][$option['Option']['id']]);
 			}
 		}
+		
+		$this->layout = REDESIGN_PATH . 'admin';
+	}
+	
+	function admin_comparator_click_prices($id = null, $opened_category_id = null) {
+		if (!$id) {
+			$this->Session->setFlash('Neznámý produkt.', REDESIGN_PATH . 'flash_failure');
+			$this->redirect(array('controller' => 'products', 'action' => 'index'));
+		}
+		
+		// nactu si produkt se zadanym idckem
+		$product = $this->Product->find('first', array(
+			'conditions' => array('Product.id' => $id),
+			'contain' => array(),
+			'fields' => array('Product.id', 'Product.name')
+		));
+		
+		if (empty($product)) {
+			$this->Session->setFlash('Neexistující produkt.', REDESIGN_PATH . 'flash_failure');
+			$this->redirect(array('controller' => 'products', 'action' => 'index'));
+		}
+		
+		$this->set('product', $product);
+		
+		if (isset($opened_category_id)) {
+			$category = $this->Product->CategoriesProduct->Category->find('first', array(
+				'conditions' => array('Category.id' => $opened_category_id),
+				'contain' => array(),
+				'fields' => array('Category.id')
+			));
+			$this->set('opened_category_id', $category['Category']['id']);
+		}
+		
+		$comparators = $this->Product->ComparatorProductClickPrice->Comparator->find('all', array(
+			'conditions' => array('Comparator.active' => true),
+			'contain' => array(),
+			'order' => array('Comparator.order' => 'asc'),
+			'fields' => array('Comparator.id', 'Comparator.name')
+		));
+		
+		$comparator_product_click_prices = $this->Product->ComparatorProductClickPrice->find('all', array(
+			'conditions' => array(
+				'ComparatorProductClickPrice.product_id' => $product['Product']['id']
+			),
+			'contain' => array(),
+		));
+		
+		
+		if (isset($this->data)) {
+			foreach ($this->data['ComparatorProductClickPrice'] as &$cpcp) {
+				if ($cpcp_id = $this->Product->ComparatorProductClickPrice->get_id($cpcp['product_id'], $cpcp['comparator_id'])) {
+					$cpcp['id'] = $cpcp_id;
+				}
+			}
+
+			if ($this->Product->ComparatorProductClickPrice->saveAll($this->data['ComparatorProductClickPrice'])) {
+				$this->Session->setFlash('Ceny za proklik byly uloženy.', REDESIGN_PATH . 'flash_success');
+				$this->redirect($_SERVER['REQUEST_URI']);
+			} else {
+				$this->Session->setFlash('Ceny za proklik se nepodařilo uložit.', REDESIGN_PATH . 'flash_failure');
+			}
+		}	
+		
+		$this->set('comparators', $comparators);
+		$this->set('comparator_product_click_prices', $comparator_product_click_prices);
+		$this->set('id', $id);
 		
 		$this->layout = REDESIGN_PATH . 'admin';
 	}
