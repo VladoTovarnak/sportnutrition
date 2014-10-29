@@ -14,6 +14,9 @@
 			<g:price><?php echo $product['Product']['price']?> CZK</g:price>
 			<g:brand><![CDATA[<?php echo $product['Manufacturer']['name']?>]]></g:brand>
 			<g:product_type><![CDATA[<?php echo $product['Product']['type_text']?>]]></g:product_type>
+<?php if (isset($product['Product']['ean']) && !empty($product['Product']['ean'])) { ?>
+			<g:gtin><![CDATA[<?php echo $product['Product']['ean']?>]]></g:gtin>
+<?php } ?>
 		</item>
 	<? } ?>
 	</channel>
