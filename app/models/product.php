@@ -61,7 +61,7 @@ class Product extends AppModel {
 		'ProductType'
 	);
 	
-	var $order = array('Product.priority' => 'asc', 'Product.active' => 'desc');
+	var $order = array('Product.active' => 'desc', 'Product.priority' => 'asc');
 	
 	var $validate = array(
 		'name' => array(

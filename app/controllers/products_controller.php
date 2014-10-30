@@ -345,17 +345,14 @@ class ProductsController extends AppController {
 					'alias' => 'Manufacturer',
 					'type' => 'LEFT',
 					'conditions' => array('Manufacturer.id = Product.manufacturer_id')
-				)
-			);
-			
-			if (isset($this->data['Category']['id']) && !empty($this->data['Category']['id']) && $this->data['Category']['id'] == 'noEan') {
-				$joins[] = array(
+				),
+				array(
 					'table' => 'availabilities',
 					'alias' => 'Availability',
 					'type' => 'INNER',
 					'conditions' => array('Product.availability_id = Availability.id')
-				);
-			}
+				)
+			);
 
 			$products_count = $this->Product->find('count', array(
 				'conditions' => $conditions,
@@ -372,7 +369,8 @@ class ProductsController extends AppController {
 				'Product.name',
 				'Product.active',
 				'Product.priority',
-				'Manufacturer.name'
+				'Manufacturer.name',
+				'Availability.cart_allowed'
 			);
 			
 			$products = $this->paginate();

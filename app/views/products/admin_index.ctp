@@ -86,6 +86,8 @@ $(function() {
 			$style = '';
 			if (!$product['Product']['active']) {
 				$style = 'color:grey;font-style:italic';
+			} elseif (!$product['Availability']['cart_allowed']) {
+				$style = 'color:red';
 			}
 			echo $this->Html->link($product['Product']['name'], array('controller' => 'products', 'action' => 'edit_detail', $product['Product']['id'], (isset($category_id) ? $category_id : null)), array('style' => $style));
 		?></td>
