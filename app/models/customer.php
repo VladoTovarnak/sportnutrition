@@ -107,6 +107,49 @@ class Customer extends AppModel {
 		$mail->Send();
 	}
 	
+	function changeNSPassword($customer) {
+		$customer_login = $customer['NSCustomer']['login'];
+		$start = rand(0, 23);
+		$customer_password = md5($customer['NSCustomer']['email'] . Configure::read('Security.salt'));
+		$customer_password = substr($customer_password, $start, 8);
+		$customer_password = strtolower($customer_password);
+		
+		$customer['NSCustomer']['password'] = md5($customer_password);
+
+		// updatuju hodnoty v tabulce ns_customers
+		$this->query('
+			UPDATE ns_customers
+			SET password="' . $customer['NSCustomer']['password'] . '"
+			WHERE id=' . $customer['NSCustomer']['id'] . '
+		');
+		
+		include 'class.phpmailer.php';
+		
+		$mail = &new phpmailer;
+		
+		$mail->CharSet = $this->CharSet = 'utf-8';
+		$mail->Hostname = $this->Hostname = CUST_ROOT;
+		$mail->Sender = $this->Sender = CUST_MAIL;
+		$mail->From = $this->From = CUST_MAIL;
+		$mail->FromName = $this->FromName = CUST_NAME;
+		$mail->ReplyTo = $this->ReplyTo = CUST_MAIL;
+		
+		$mail->AddAddress($customer['NSCustomer']['email'], $customer['NSCustomer']['first_name'] . " " . $customer['NSCustomer']['last_name']);
+		$mail->Subject = 'změna hesla pro přístup do www.' . CUST_ROOT;
+		$mail->Body = "Dobrý den,\n\n";
+		$mail->Body .= "Váš požadavek na změnu hesla byl vykonán, pro přihlášení k účtu,
+		použijte následující údaje: \n";
+		$mail->Body .= "login: " . $customer_login . "\n";
+		$mail->Body .= "heslo: " . $customer_password . "\n";
+		$mail->Body .= "team " . CUST_NAME . "\n";
+		$mail->Body .= "--\n";
+		$mail->Body .= "emailová adresa " . $customer['NSCustomer']['email'] . " byla použita pro vyžádání změny hesla pro přístup\n";
+		$mail->Body .= "na " . CUST_ROOT . " Jste-li majitelem emailové schránky a neprováděl(a) jste žádnou žádost o změnu,\n";
+		$mail->Body .= "upozorněte nás prosím na tuto skutečnost na adrese webmaster@" . CUST_ROOT;
+
+		$mail->Send();
+	}
+	
 	
 	function loginExists($login){
 		$condition = array('CustomerLogin.login' => $login);

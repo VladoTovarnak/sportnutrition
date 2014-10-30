@@ -992,8 +992,20 @@ class CustomersController extends AppController {
 				'fields' => array('Customer.id', 'Customer.email', 'Customer.first_name', 'Customer.last_name')
 			));
 
-			if ( empty($customer) ){
-				$this->Session->setFlash('Účet s takovou emailovou adresou neexistuje.', REDESIGN_PATH . 'flash_failure');
+			if (empty($customer)) {
+				// podivam se, jestli si neposila heslo zakaznik z NS
+				$ns_customer = $this->Customer->query('
+					SELECT *
+					FROM ns_customers AS NSCustomer
+					WHERE NSCustomer.email="' . 	$this->data['Customer']['email'] . '"
+				');
+				if (empty($ns_customer)) { 
+					$this->Session->setFlash('Účet s takovou emailovou adresou neexistuje.', REDESIGN_PATH . 'flash_failure');
+				} else {
+					$this->Customer->changeNSPassword($ns_customer[0]);
+					$this->Session->setFlash('Email o změně hesla byl odeslán.', REDESIGN_PATH . 'flash_success');
+					$this->redirect(array('controller' => 'customers', 'action' => 'login'));
+				}
 			} else {
 				$this->Customer->changePassword($customer);
 				$this->Session->setFlash('Email o změně hesla byl odeslán.', REDESIGN_PATH . 'flash_success');
