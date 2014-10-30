@@ -700,7 +700,7 @@ class CustomersController extends AppController {
 				'Customer.active' => true
 			);
 			
-			// pokus o zalogivani podle SNV - existuje v SNV pro dane prihlasovaci udaje zakaznik?
+			// pokus o zalogovani podle SNV - existuje v SNV pro dane prihlasovaci udaje zakaznik?
 			$customer = $this->Customer->CustomerLogin->find('first', array(
 				'conditions' => $conditions,
 				'contain' => array('Customer'),
@@ -769,7 +769,7 @@ class CustomersController extends AppController {
 								);
 							}
 						}
-						$this->create('Customer');
+						$this->Customer->create();
 						if ($this->Customer->saveAll($customer)) {
 							// stahnu potrebna data z db
 							$customer = $this->Customer->CustomerLogin->find('first', array(
