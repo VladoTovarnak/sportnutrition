@@ -86,7 +86,11 @@ class Category extends AppModel {
 		return $result;
 	}
 	
-	function getSubcategoriesMenuList($opened_category_id = null, $logged = false, $order_by_opened = true, $show_all = false){
+	function getSubcategoriesMenuList($opened_category_id = null, $logged = false, $order_by_opened = true, $show_all = false) {
+		$horizontal_categories_tree_ids = $this->get_horizontal_categories_tree_ids();
+		if (in_array($opened_category_id, $horizontal_categories_tree_ids)) {
+			$opened_category_id = 0;
+		}
 		$fields = array('id', 'name'); // seznam poli, ktera potrebuji z databaze ohledne kategorii
 		// zjistim cestu k otevrene kategorii
 		$path = $this->getPath($opened_category_id, $fields, -1);
