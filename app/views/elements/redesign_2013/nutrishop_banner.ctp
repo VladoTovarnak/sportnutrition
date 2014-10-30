@@ -4,6 +4,7 @@
 	<p>Vážení zákazníci,</p>
 	<p>v důsledku <strong>zkvalitňování služeb</strong> jsme přistoupili ke sdružení obou našich internetových obchodů do jednoho. Pro vás jako stávajícího zákazníka se nic nemění, 
 	<strong>přihlašovací údaje</strong>, které jste používal(a) na www.NutriShop.cz jsme přenesli do <strong>nového obchodu</strong>.</p>
+	<p>Pokud si přihlašovací údaje nepamatujete, požádejte nás o jejich opětovné zaslání pomocí <a href="#" onclick="window.location='/obnova-hesla';return false;">tohoto formuláře</a>.</p>
 	<p><strong>Nabídka obchodu se nezměnila</strong>, v novém rozhraní naleznete všechno zboží, které bylo nabízeno na www.NutriShop.cz</p>
 	<p>Přejeme vám příjemné nakupování</p>
 	<p>Stanislav Vávra</p>
