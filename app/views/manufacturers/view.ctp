@@ -10,7 +10,7 @@
 	<div class="product card">
 		<h3><a href="/<?php echo $most_sold_product['Product']['url']?>"><?php echo $most_sold_product['Product']['name']?></a></h3>
 		<a href="/<?php echo $most_sold_product['Product']['url']?>"><img src="<?php echo $image?>" alt="Obrázek <?php echo $most_sold_product['Product']['name'] ?>" /></a>
-		<div class="rating" data-average="<?php echo $most_sold_product['Product']['rate']?>" data-id="<?php echo $most_sold_product['Product']['id']?>"></div>
+		<div class="g_rating" data-average="<?php echo $most_sold_product['Product']['rate']?>" data-id="<?php echo $most_sold_product['Product']['id']?>"></div>
 		<p><?php echo $most_sold_product['Product']['short_description']?></p>
 		<b class="price"><?php echo $most_sold_product['Product']['price']?> Kč</b>
 	</div>

@@ -19,11 +19,13 @@ foreach ( $products as $product ){
 		</a>
 		<div class="rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div>
 		<p class="comments"><a href="/<?php echo $product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="/<?php echo $product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
-		<?php 
+		<?php if (isset($product['Availability']['cart_allowed']) && $product['Availability']['cart_allowed']) { 
 			echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false));
 			echo '<input class="cart_add" type="submit" value="Vložit do košíku" />';
 			echo $form->end();
-		?>
+		} else { ?>
+		<p>Produkt nyní nelze objednat.</p>
+		<?php } ?>
 		<p class="prices">
 			<span class="common">Běžná cena: <?php echo front_end_display_price($product['Product']['retail_price_with_dph'])?>&nbsp;Kč</span><br />
 			<span class="price">Cena: <?php echo front_end_display_price($product['Product']['price'])?>&nbsp;Kč</span>

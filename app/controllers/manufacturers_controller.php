@@ -266,15 +266,18 @@ class ManufacturersController extends AppController {
 		}
 		
 		// sestavim podminku pro razeni podle toho, co je vybrano
+		$order = array('Availability.cart_allowed' => 'desc');
 		if (isset($this->data['Manufacturer']['sorting'])) {
 			switch ($this->data['Manufacturer']['sorting']) {
+				// vychozi razeni podle priority
+				case 0: $order = array_merge($order, array('Product.priority' => 'asc')); break;
 				// nastavim razeni podle prodejnosti
-				case 0: $order = array('Product.sold' => 'desc'); break;
+				case 1: $order = array_merge($order, array('Product.sold' => 'desc')); break;
 				// nastavim razeni podle ceny
-				case 1: $order = array('Product.price' => 'asc'); break;
-				case 2: $order = array('Product.price' => 'desc'); break;
+				case 2: $order = array_merge($order, array('Product.price' => 'asc')); break;
+				case 3: $order = array_merge($order, array('Product.price' => 'desc')); break;
 				// nastavim razeni podle nazvu
-				case 3: $order = array('Product.name' => 'asc'); break;
+				case 4: $order = array_merge($order, array('Product.name' => 'asc')); break;
 				default: $order = array();
 			}
 		}
