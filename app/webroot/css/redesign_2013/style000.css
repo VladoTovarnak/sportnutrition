@@ -918,7 +918,7 @@ ul.breadcrumbs li:last-child a {
 }
 
 #main div.paginator .sorter {
-	width:410px;
+	width:365px;
 	float:left;
 }
 
@@ -938,17 +938,30 @@ ul.breadcrumbs li:last-child a {
     -webkit-border-radius: 3px;
     border-radius: 3px;
     font-style: italic;
-    padding: 0 0 0 10px;
+    padding: 0 0 0 5px;
     vertical-align: middle;
 }
 
 #main div.paginator form select.sorting {
-    width:165px;
+    width:145px;
 }
 
 #main div.paginator a {
-    color: #E2001A;
+    color: #FFF;
+    text-decoration: none;
 }
+
+#main div.paginator .numbers span {
+	border: 1px solid #E2001A;
+	padding: 0 3px;
+	background-color: #E2001A;
+	border-radius: 4px;
+}
+
+#main div.paginator .numbers span.current {
+	background-color: #FFF;
+}
+
 #main div.products {
     border-top: 3px solid #CCCCCC;
     border-bottom: 4px solid #CCCCCC;
