@@ -70,7 +70,6 @@ class ProductsController extends AppController {
 		$customer_type_id = $this->CustomerType->get_id($this->Session->read());
 		
 		$this->Product->virtualFields['price'] = $this->Product->price;
-
 		// vyhledam si info o produktu
 		$product = $this->Product->find('first', array(
 			'conditions' => array(
@@ -139,9 +138,8 @@ class ProductsController extends AppController {
 			),
 			'group' => array('Product.id')
 		));
-
 		unset($this->Product->virtualFields['price']);
-
+//
 		if (empty($product)) {
 			$this->cakeError('error404');
 		}
@@ -212,8 +210,29 @@ class ProductsController extends AppController {
 	
 		$this->set('_title', $product['Product']['title']);
 		$this->set('_description', $product['Product']['short_description']);
+
 		// z infa o produktu si vytahnu ID otevrene kategorie
-		$opened_category_id = $product['CategoriesProduct'][0]['category_id'];
+		$opened_category_id = 0;
+		if (!empty($product['CategoriesProduct'])) {
+			// idcka kategorii, do kterych je produkt zarazen
+			$category_ids = Set::extract('/category_id', $product['CategoriesProduct']);
+			// idcka kategorii, ktere jsou ve stromu horizontalniho menu
+			$horizontal_categories_tree_ids = $this->Product->CategoriesProduct->Category->get_horizontal_categories_tree_ids();
+			// aktualne otevrenou kategorii chci vybrat pouze z aktivnich, verejnych kategorii, ktere nejsou ve stromu horizontalniho menu
+			$opened_category_id = $this->Product->CategoriesProduct->Category->find('first', array(
+				'conditions' => array(
+					'Category.id NOT IN (' . implode(',', $horizontal_categories_tree_ids) . ')',
+					'Category.active' => true,
+					'Category.public' => true,
+					'Category.id IN (' . implode(',', $category_ids) . ')'
+				),
+				'contain' => array(),
+				'fields' => array('Category.id')
+			));
+			if (!empty($opened_category_id)) {
+				$opened_category_id = $opened_category_id['Category']['id'];
+			}
+		}
 		$this->set('opened_category_id', $opened_category_id);
 		
 		$breadcrumbs = $this->Product->CategoriesProduct->Category->getPath($opened_category_id);

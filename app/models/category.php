@@ -248,6 +248,18 @@ class Category extends AppModel {
 		return $products;
 	}
 	
+	function get_horizontal_categories_tree_ids() {
+		$horizontal_categories_ids = array(2, 4, 5, 6, 7);
+		$horizontal_categories_tree_ids = array();
+		foreach ($horizontal_categories_ids as $hci) {
+			$children = $this->children($hci);
+			$children = Set::extract('/Category/id', $children);
+			$horizontal_categories_tree_ids[] = $hci;
+			$horizontal_categories_tree_ids = array_merge($children, $horizontal_categories_tree_ids);
+		}
+		return $horizontal_categories_tree_ids;
+	}
+	
 	function redirect_url($url) {
 		$redirect_url = '/';
 		// zjistim na co chci presmerovat
