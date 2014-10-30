@@ -1547,5 +1547,104 @@ class ProductsController extends AppController {
 		debug($errors);
 		die();
 	}
+	
+	function sold_out_urls() {
+		$removes = array(
+			array('-docasne-vyprodano', 'dočasně vyprodáno'),
+			array('docasne-vyprodano', 'dočasně vyprodáno'),
+			array('-vyprodano', 'vyprodáno'),
+			array('vyprodano', 'vyprodáno'),
+			array('-doprodano', 'doprodáno'),
+			array('doprodano', 'doprodáno'),
+			array('-novinka', 'novinka'),
+			array('novinka', 'novinka')
+		);
+		
+		App::import('Model', 'Redirect');
+		$this->Redirect = &new Redirect;
+		
+		$data_source = $this->Product->getDataSource();
+				
+		// pro kazdy retezec, ktereho se chci zbavit
+		foreach ($removes as $remove) {
+			// najdu produkty, ktere ho maji v url
+			$products = $this->Product->find('all', array(
+				'conditions' => array('Product.url LIKE "%%' . $remove[0] . '%%"'),
+				'contain' => array('Availability'),
+				'fields' => array(
+					'Product.id',
+					'Product.name',
+					'Product.breadcrumb',
+					'Product.heading',
+					'Product.title',
+					'Product.zbozi_name',
+					'Product.url',
+					'Availability.cart_allowed'
+				),
+				'order' => array('Product.active' => 'desc', 'Availability.cart_allowed' => 'desc'),
+				'limit' => 1
+			));
+			
+			foreach ($products as $product) {
+				$data_source->begin($this->Product);
+				$old_url = '/' . $product['Product']['url'];
+				$new_url = '/' . str_replace($remove[0], '', $product['Product']['url']);
+				// nachystam si presmerovani
+				$new_redirect = array(
+					'Redirect' => array(
+						'request_uri' => $old_url,
+						'target_uri' => $new_url
+					)
+				);
+				$this->Redirect->create();
+debug($new_redirect);
+				if (!$this->Redirect->save($new_redirect)) {
+					$data_source->rollback($this->Product);
+					debug($new_redirect);
+					debug($this->Redirect->validationErrors);
+					die('nepodarilo se ulozit NOVY redirect');
+				}
+				
+				// existuje presmerovani s upravovanou adresu?
+				$old_redirects = $this->Redirect->find('all', array(
+					'conditions' => array('Redirect.target_uri' => $old_url),
+					'contain' => array(),
+					'fields' => array('Redirect.id')
+				));
+debug($old_redirects);
+				// upravim stavajici presmerovani, aby smerovala na novou adresu
+				foreach ($old_redirects as $old_redirect) {
+					$old_redirect['Redirect']['target_uri'] = $new_url;
+					if (!$this->Redirect->save($old_redirect)) {
+						$data_source->rollback($this->Product);
+						debug($old_redirect);
+						debug($this->Redirect->validationErrors);
+						die('nepodarilo se ulozit UPRAVENY redirect');
+					}
+				}
+				// pokud je produkt "prodejny", nahradim retezce i v textovych polich
+				if ($product['Availability']['cart_allowed']) {
+debug($product);
+					$product['Product']['breadcrumb'] = str_replace($remove[1], '', $product['Product']['breadcrumb']);
+					$product['Product']['heading'] = str_replace($remove[1], '', $product['Product']['heading']);
+					$product['Product']['title'] = str_replace($remove[1], '', $product['Product']['title']);
+					$product['Product']['zbozi_name'] = str_replace($remove[1], '', $product['Product']['zbozi_name']);
+				}
+				$product['Product']['name'] = preg_replace('/' . $remove[1] . '/i', '', $product['Product']['name']);
+				$product['Product']['url'] = $new_url;
+				$product['Product']['url'] = preg_replace('/^\//', '', $product['Product']['url']);
+debug($product);
+				if (!$this->Product->save($product)) {
+					$data_source->rollback($this->Product);
+					debug($product);
+					debug($this->Product->validationErrors);
+					die('nepodarilo se ulozit upraveny produkt');
+				}
+				$data_source->commit($this->Product);
+die();
+			}
+		}
+		die('asd');
+	}
 } // konec tridy
 ?>
