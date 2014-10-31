@@ -197,6 +197,36 @@ class CustomersController extends AppController {
 	}
 	
 	function admin_newsletter_emails() {
+		// mam zadany soubor s blacklistem?
+		if (isset($this->data)) {
+			// nahraju a zpracuju soubor s blacklistem
+			if (is_uploaded_file($this->data['Customer']['newsletter_file']['tmp_name'])) {
+				$content = file_get_contents($this->data['Customer']['newsletter_file']['tmp_name']);
+				$emails = explode("\n", $content);
+				// na prvni radku je nejakej text, kterej neni emailova adresa
+				unset($emails[0]);
+				$emails = array_map(function($item) {return trim($item);}, $emails);
+				$customers = $this->Customer->find('all', array(
+					'conditions' => array('Customer.email' => $emails, 'Customer.newsletter' => true),
+					'contain' => array(),
+					'fields' => array('Customer.id')
+				));
+
+				$customer_save = array();
+				foreach ($customers as $customer) {
+					$customer['Customer']['newsletter'] = false;
+					$customer_save[] = $customer['Customer'];
+				}
+				if ($this->Customer->saveAll($customer_save)) {
+					$this->Session->setFlash('Soubor s blacklistem byl zpracován', REDESIGN_PATH . 'flash_success');
+				} else {
+					$this->Session->setFlash('Soubor s blacklistem se nepodařilo zpracovat', REDESIGN_PATH . 'flash_failure');
+				}
+			} else {
+				$this->Session->setFlash('Soubor s blacklistem se nepodařilo nahrát', REDESIGN_PATH . 'flash_failure');
+			}
+		}
+		
 		$emails = $this->Customer->find('all', array(
 			'conditions' => array('Customer.newsletter' => true, 'Customer.active' => true),
 			'contain' => array(),
@@ -355,7 +385,7 @@ class CustomersController extends AppController {
 		$this->set('id', $id);
 		$this->set('alphabet', array(0 => 'a', 'á', 'b', 'c', 'č', 'd', 'ď', 'e', 'é', 'f', 'g', 'h', 'i', 'í', 'j', 'k', 'l', 'm', 'n', 'ň', 'o', 'ó', 'p', 'q', 'r', 'ř', 's', 'š', 't', 'ť', 'u', 'ú', 'v', 'w', 'x', 'y', 'z', 'ž'));
 	}
-
+	
 	/*
 	 * @description			Registrace noveho uzivatele do systemu.
 	 */
@@ -1017,41 +1047,6 @@ class CustomersController extends AppController {
 	function import() {
 		$this->Customer->import();
 		die('here');
-	}
-	
-	function repair() {
-		$customers = $this->Customer->find('all', array(
-			'conditions' => array('CustomerLogin.id IS NULL'),
-			'contain' => array(),
-			'joins' => array(
-				array(
-					'table' => 'customer_logins',
-					'alias' => 'CustomerLogin',
-					'type' => 'LEFT',
-					'conditions' => array('Customer.id = CustomerLogin.customer_id')
-				)
-			),
-			'fields' => array('Customer.id', 'Customer.last_name')
-		));
-debug(count($customers)); die();
-		foreach ($customers as $customer) {
-			$login = $this->Customer->generateLogin($customer['Customer']);
-			$password = $this->Customer->generatePassword($customer['Customer']);
-			
-			$login = array(
-				'CustomerLogin' => array(
-					'customer_id' => $customer['Customer']['id'],
-					'login' => $login,
-					'password' => md5($password)
-				)	
-			);
-			
-			$this->Customer->CustomerLogin->create();
-			if (!$this->Customer->CustomerLogin->save($login)) {
-				debug($login);
-			}
-		}
-		die('hotovo');
 	}
 }
 ?>
