@@ -38,12 +38,17 @@
 <?php 	echo $this->element(REDESIGN_PATH . $listing_style); ?>
 <div class="paginator">
 	<div class="sorter">
-	<?php echo $this->Form->create(null, array('url' => '/' . $this->params['url']['url'], 'type' => 'get'))?>
+	<?php echo $this->Form->create(null, array('url' => '/' . $this->params['url']['url'], 'type' => 'get', 'id' => 'filter_form'))?>
 	Řadit podle:
 	<?php echo $this->Form->input('sorting', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $sorting_options, 'div' => false, 'class' => 'sorting'))?>
 	Na stránku:
-	<?php echo $this->Form->input('paging', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $paging_options, 'div' => false, 'class' => 'paging'))?>
-	<?php echo $this->Form->end()?>
+<?php 
+	echo $this->Form->input('paging', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $paging_options, 'div' => false, 'class' => 'paging'));
+	if (isset($this->data['Search']['q'])) {
+		echo $this->Form->hidden('q', array('value' => $this->data['Search']['q']));
+	}
+	echo $this->Form->end();
+?>
 	</div>
 	<div class="numbers">
 <?php

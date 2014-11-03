@@ -343,6 +343,7 @@ class ManufacturersController extends AppController {
 		$url = 'http://' . $_SERVER['HTTP_HOST'] . $url . '#nutrishop_redirect';
 		header("HTTP/1.1 301 Moved Permanently");
 		header("Location: " . $url);
+		exit;
 	}
 }
 ?>
