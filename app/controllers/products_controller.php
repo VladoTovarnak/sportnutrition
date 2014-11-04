@@ -1573,14 +1573,29 @@ class ProductsController extends AppController {
 	
 	function sold_out_urls() {
 		$removes = array(
-			array('-docasne-vyprodano', 'dočasně vyprodáno'),
-			array('docasne-vyprodano', 'dočasně vyprodáno'),
-			array('-vyprodano', 'vyprodáno'),
-			array('vyprodano', 'vyprodáno'),
-			array('-doprodano', 'doprodáno'),
-			array('doprodano', 'doprodáno'),
-			array('-novinka', 'novinka'),
+//			array('-docasne-vyprodano', 'dočasně vyprodáno'),
+//			array('docasne-vyprodano', 'dočasně vyprodáno'),
+//			array('-vyprodano', 'vyprodáno'),
+//			array('vyprodano', 'vyprodáno'),
+//			array('-doprodano', 'doprodáno'),
+//			array('doprodano', 'doprodáno'),
+//			array('-novinka', 'novinka'),
 			array('novinka', 'novinka')
+		);
+		
+		$remove_strings = array(
+			0 => 'dočasně vyprodáno!',
+			'dočasně vyprodáno',
+			'- vyprodáno!',
+			'- VYPRODÁNO!',
+			'- vyprodáno',
+			'- VYPRODÁNO',
+			'vyprodáno!',
+			'VYPRODÁNO!',
+			'vyprodáno',
+			'VYPRODÁNO',
+			'doprodáno!',
+			'doprodáno'
 		);
 		
 		App::import('Model', 'Redirect');
@@ -1592,12 +1607,17 @@ class ProductsController extends AppController {
 		foreach ($removes as $remove) {
 			// najdu produkty, ktere ho maji v url
 			$products = $this->Product->find('all', array(
-				'conditions' => array('Product.url LIKE "%%' . $remove[0] . '%%"'),
+				'conditions' => array(
+					'Product.url LIKE "%%' . $remove[0] . '%%"',
+					'Product.active' => true,
+					'Availability.cart_allowed' => true
+				),
 				'contain' => array('Availability'),
 				'fields' => array(
 					'Product.id',
 					'Product.name',
 					'Product.breadcrumb',
+					'Product.related_name',
 					'Product.heading',
 					'Product.title',
 					'Product.zbozi_name',
@@ -1605,7 +1625,7 @@ class ProductsController extends AppController {
 					'Availability.cart_allowed'
 				),
 				'order' => array('Product.active' => 'desc', 'Availability.cart_allowed' => 'desc'),
-				'limit' => 1
+				'limit' => 5
 			));
 			
 			foreach ($products as $product) {
@@ -1645,15 +1665,17 @@ debug($old_redirects);
 						die('nepodarilo se ulozit UPRAVENY redirect');
 					}
 				}
-				// pokud je produkt "prodejny", nahradim retezce i v textovych polich
-				if ($product['Availability']['cart_allowed']) {
+				// nahradim retezce i v textovych polich
 debug($product);
-					$product['Product']['breadcrumb'] = str_replace($remove[1], '', $product['Product']['breadcrumb']);
-					$product['Product']['heading'] = str_replace($remove[1], '', $product['Product']['heading']);
-					$product['Product']['title'] = str_replace($remove[1], '', $product['Product']['title']);
-					$product['Product']['zbozi_name'] = str_replace($remove[1], '', $product['Product']['zbozi_name']);
+				foreach ($remove_strings as $remove_string) {
+					$product['Product']['name'] = trim(preg_replace('/' . $remove_string . '/i', '', $product['Product']['name']));
+					$product['Product']['breadcrumb'] = trim(preg_replace('/' . $remove_string . '/i', '', $product['Product']['breadcrumb']));
+					$product['Product']['related_name'] = trim(preg_replace('/' . $remove_string . '/i', '', $product['Product']['related_name']));
+					$product['Product']['heading'] = trim(preg_replace('/' . $remove_string . '/i', '', $product['Product']['heading']));
+					$product['Product']['title'] = trim(preg_replace('/' . $remove_string . '/i', '', $product['Product']['title']));
+					$product['Product']['zbozi_name'] = trim(preg_replace('/' . $remove_string . '/i', '', $product['Product']['zbozi_name']));
 				}
-				$product['Product']['name'] = preg_replace('/' . $remove[1] . '/i', '', $product['Product']['name']);
+				
 				$product['Product']['url'] = $new_url;
 				$product['Product']['url'] = preg_replace('/^\//', '', $product['Product']['url']);
 debug($product);
@@ -1664,8 +1686,9 @@ debug($product);
 					die('nepodarilo se ulozit upraveny produkt');
 				}
 				$data_source->commit($this->Product);
-die();
+//die();
 			}
+			die('jeden remove');
 		}
 		die('asd');
 	}
