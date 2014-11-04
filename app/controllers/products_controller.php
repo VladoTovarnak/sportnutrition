@@ -19,10 +19,15 @@ class ProductsController extends AppController {
 	}
 
 	function view($id = null) {
-		// kontrola, zda ctu produkt, ktery je aktivni
-		if (!$this->Product->hasAny(array('Product.id' => $id, 'Product.active' => true))) {
+		// kontrola, zda ctu produkt, ktery vubec existuje
+		if (!$this->Product->hasAny(array('Product.id' => $id))) {
 			$this->Session->setFlash('Neexistující produkt.', REDESIGN_PATH . 'flash_failure');
 			$this->redirect('/', null, true);
+		}
+		
+		// kontrola, za ctu aktivni produkt
+		if ($this->Product->hasAny(array('Product.id' => $id, 'Product.active' => false))) {
+			$this->cakeError('error404');
 		}
 
 		// osetruju pokus o vlozeni do kosiku
