@@ -268,11 +268,13 @@ class ExportsController extends AppController{
 			));
 			$categories = Set::extract('/CategoriesProduct/category_id', $categories);
 			if (in_array(77, $categories)) {
+				unset($products[$index]);
 				continue;
 			}
 			// chci odchytit produkty, ktere maji v nekde textu "tribulus"
-			if (preg_match('/tribulus/', $product['Product']['name']) || preg_match('/tribulus/', $product['Product']['short_description'])) {
-				debug($product); die();
+			if (preg_match('/tribulus/i', $product['Product']['name']) || preg_match('/tribulus/i', $product['Product']['short_description'])) {
+				unset($products[$index]);
+				continue;
 			}
 			
 			$product['Product']['category_text'] = '';
