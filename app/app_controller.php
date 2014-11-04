@@ -125,7 +125,7 @@
 			$this->set('manufacturers_list', $manufacturers_list);
 			
 			// nastaveni aktivniho tabu v login boxu, defaultne prihlaseni
-			$login_box_tab = 'login';
+			$login_box_tab = 'basket';
 			if ($this->Session->check('login_box_tab')) {
 				// jinak nactu ze sesny
 				$login_box_tab = $this->Session->read('login_box_tab');

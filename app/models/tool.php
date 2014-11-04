@@ -4,6 +4,8 @@ class Tool extends AppModel {
 	
 	var $useTable = false;
 	
+	var $present_category_ids = array(4, 52, 53, 54, 55, 56);
+	
 	function redirect_old_sn() {
 		$url = $_SERVER['REQUEST_URI'];
 

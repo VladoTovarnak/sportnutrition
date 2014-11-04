@@ -439,7 +439,10 @@ class Product extends AppModel {
 		$present_category_ids = $this->CategoriesProduct->Category->subtree_ids(54);
 		
 		$products = $this->OrderedProduct->find('all', array(
-			'conditions' => array('OrderedProduct.product_id' => $id),
+			'conditions' => array(
+				'OrderedProduct.product_id' => $id,
+				'CategoriesProduct.category_id NOT IN (' . implode(',', $present_category_ids) . ')'
+			),
 			'contain' => array(),
 			'fields' => array(
 				'Product.id',

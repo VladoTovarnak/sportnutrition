@@ -12,7 +12,7 @@ class ExportsController extends AppController{
 		$customer_type_id = $this->CustomerType->get_id($this->Session->read());
 		
 		// idcka kategorii s darky
-		$present_category_ids = array(4, 52, 53, 54, 55, 56);
+		$present_category_ids = $this->Tool->present_category_ids;
 		// samostatne neprodejne darky
 		$presents = $this->Product->find('all', array(
 			'conditions' => array('CategoriesProduct.category_id IN (' . implode(',', $present_category_ids) . ')'),
@@ -260,6 +260,21 @@ class ExportsController extends AppController{
 		$this->Category = &new Category;
 		
 		foreach ($products as $index => &$product) {
+			// pokud je produkt v kategorii 77 - pripravky s tribulusem - nechci ho do feedu
+			$categories = $this->Category->CategoriesProduct->find('all', array(
+				'conditions' => array('CategoriesProduct.product_id' => $product['Product']['id']),
+				'contain' => array(),
+				'fields' => array('CategoriesProduct.category_id')
+			));
+			$categories = Set::extract('/CategoriesProduct/category_id', $categories);
+			if (in_array(77, $categories)) {
+				continue;
+			}
+			// chci odchytit produkty, ktere maji v nekde textu "tribulus"
+			if (preg_match('/tribulus/', $product['Product']['name']) || preg_match('/tribulus/', $product['Product']['short_description'])) {
+				debug($product); die();
+			}
+			
 			$product['Product']['category_text'] = '';
 			// pokud je kategorie produktu sparovana , nastavi se rovnou jako 'Sportovni vyziva | *odpovidajici nazev kategorie*
 			foreach ($pairs as $name => $array) {

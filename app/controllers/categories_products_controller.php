@@ -133,11 +133,15 @@ class CategoriesProductsController extends AppController {
 		$this->set('category', $category);
 		// nastavim head tagy
 		$_title = $category['Category']['title'];
-		$this->set('_title', $_title);
 		$_description = $category['Category']['description'];
+/*		if (isset($this->params['named']['page']) && $this->params['named']['page'] > 1) {
+			$_title .= ' - stránka ' . $this->params['named']['page'];
+			$_description .= ' - stránka ' . $this->params['named']['page'];
+		}*/
+		$this->set('_title', $_title);
 		$this->set('_description', $_description);
 		// nastavim zobrazovany banner
-		$category_banner = array('href' => '/l-carnitin-100-000-chrom-1000ml-p919', 'src' => '/images/category-banner.jpg');
+		$category_banner = array('href' => '/l-carnitin-100-000-s-chromem-1l-1l-p2892', 'src' => '/images/category-banner.jpg');
 		$this->set('category_banner', $category_banner);
 		// nejprodavanejsi produkty
 		App::import('Model', 'CustomerType');
