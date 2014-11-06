@@ -436,7 +436,7 @@ class Product extends AppModel {
 	 * @param int $id
 	 */
 	function similar_products($id, $customer_type_id) {
-		$present_category_ids = $this->CategoriesProduct->Category->subtree_ids(54);
+		$present_category_ids = $this->CategoriesProduct->Category->subtree_ids(4);
 		
 		$products = $this->OrderedProduct->find('all', array(
 			'conditions' => array(
@@ -452,7 +452,8 @@ class Product extends AppModel {
 				'Product.retail_price_with_dph',
 				'SUM(OtherOrderedProduct.product_quantity) AS ordered_quantity',
 				'Image.id',
-				'Image.name'
+				'Image.name',
+				'CategoriesProduct.*'
 			),
 			'joins' => array(
 				array(
