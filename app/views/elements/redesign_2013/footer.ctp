@@ -75,5 +75,6 @@ if ($this->params['controller'] == 'orders' && $this->params['action'] == 'finis
  	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	})();
 </script>
+<a href="http://www.toplist.cz/" target="_top"><img src="http://toplist.cz/dot.asp?id=116188" border="0" alt="TOPlist" width="1" height="1"/></a>
 <?php echo $this->element(REDESIGN_PATH . 'nutrishop_banner')?>
 <?php echo $this->element('sql_dump')?>
