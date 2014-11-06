@@ -279,10 +279,10 @@ class Order extends AppModel {
 		// cislo baliku v kterem byla objednavka expedovana
 		$this->contain('Shipping');
 		$order = $this->read(null, $id);
-	
+
 		// sestavim si URL, kde jsou informace o zasilce
-		$tracker_url = $order['Shipping']['tracker_prefix'] . $order['Order']['shipping_number'] . $order['Shipping']['tracker_postfix'];
-	
+		$tracker_url = $order['Shipping']['tracker_prefix'] . trim($order['Order']['shipping_number']) . $order['Shipping']['tracker_postfix'];
+
 		// nactu si obsah trackovaci stranky
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $tracker_url);
@@ -389,6 +389,11 @@ class Order extends AppModel {
 //			debug($contents);die();
 			
 			$pattern = '|<td>(.*)</td>|U';
+			
+			if (!isset($contents[0]) || !isset($contents[0][0])) {
+				return false;
+			}
+			
 			preg_match_all($pattern, $contents[0][0], $contents);
 
 			if ( isset($contents[1]) ){
