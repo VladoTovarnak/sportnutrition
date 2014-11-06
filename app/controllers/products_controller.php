@@ -25,11 +25,6 @@ class ProductsController extends AppController {
 			$this->redirect('/', null, true);
 		}
 		
-		// kontrola, za ctu aktivni produkt
-		if ($this->Product->hasAny(array('Product.id' => $id, 'Product.active' => false))) {
-			$this->cakeError('error404');
-		}
-
 		// osetruju pokus o vlozeni do kosiku
 		if ( isset($this->data['Product']) ){
 			// vkladam vyberem z vypisu vsech moznosti
@@ -131,7 +126,9 @@ class ProductsController extends AppController {
 				'Product.price',
 				'Product.rate',
 				'Product.video',
-				'Product.note'
+				'Product.note',
+				'Product.active'
+				
 			),
 			'joins' => array(
 				array(

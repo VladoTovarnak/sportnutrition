@@ -82,14 +82,17 @@
 	<p><b>Poznámka:</b> <?php echo $product['Product']['note']?></p>
 <?php } ?>
 <?php 
-	// pokud se produkt neda objednat, zobrazim informaci
-	if (!$product['Availability']['cart_allowed']) { ?>
+	// pokud neni produkt aktivni, vypisu informaci
+	if (!$product['Product']['active']) { ?>
+	<p>Omlouváme se, ale produkt je v současné době vyprodaný a nelze jej objednat.</p>
+<?php // pokud se produkt neda objednat, zobrazim informaci
+	} elseif (!$product['Availability']['cart_allowed']) { ?>
 	<p>Informaci o dostupnosti Vám rádi sdělíme na telefonu <strong><?php echo CUST_PHONE ?></strong> nebo e-mailu <strong><?php echo CUST_MAIL ?></strong>.</p>
 <?php } ?>
 
 	<!-- VLOZENI DO KOSIKU, KDYZ PRODUKT NEMA VARIANTY -->
 <?php
-	if (empty($subproducts) && $product['Availability']['cart_allowed']) {
+	if (empty($subproducts) && $product['Availability']['cart_allowed'] && $product['Product']['active']) {
 		echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false, 'class' => 'on_detail	'));
 ?>
 	<div id="FormElementsHolder">
@@ -125,14 +128,20 @@
 	</div>
 	<hr class="cleaner" />
 	<div class="availability">
-		<b>Dostupnost:</b>&nbsp;<?php echo ucfirst($product['Availability']['name'])?><br/>
+		<?php
+			$availability = 'Vyprodáno';
+			if ($product['Product']['active']) {
+				$availability = ucfirst($product['Availability']['name']);
+			}
+		?>
+		<b>Dostupnost:</b>&nbsp;<?php echo $availability?><br/>
 	</div>
 </div>
 <h3><a href="/garance-nejnizsi-ceny.htm">Garance nejnižší ceny</a></h3>
 <p>Našli jste jinde lepší cenu ? Napište nám na <a href='mailto:info@sportnutrition.cz'>info@sportnutrition.cz</a> (uveďte výrobek, cenu a webovou adresu, kde jste jej našli). Pokud to bude možné, cenu Vám srovnáme či nabídneme nižší.</p>
 
 <!-- VLOZENI DO KOSIKU, KDYZ PRODUKT MA VARIANTY -->
-<?php if (!empty($subproducts) && $product['Availability']['cart_allowed']) { ?>
+<?php if (!empty($subproducts) && $product['Availability']['cart_allowed'] && $product['Product']['active']) { ?>
 <h3>Zvolte si variantu</h3>
 <?php echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false, 'id' => 'AddProductWithVariantsForm')); ?>
 <table>
