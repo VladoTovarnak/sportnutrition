@@ -199,7 +199,7 @@ class Order extends AppModel {
 			// doruceno nemam, hledam, jestli se zasilka nevratila zpet odesilateli
 			if ( !$found ){
 				foreach ($rows[1] as $os){
-					if ( eregi('Item was returned to sender', $os) ){
+					if ( eregi('Vrácení zásilky odesílateli', $os) ){
 						$found = true;
 						
 						// pokud byla vracena, najdu si datum vraceni
@@ -215,7 +215,7 @@ class Order extends AppModel {
 						
 						// musim zmenit objednavku na vraceno a zapsat poznamku o tom, kdy byla vracena
 						$this->id = $id;
-						$this->save(array('status_id' => '4'), false, array('status_id', 'modified'));
+						$this->save(array('status_id' => '8'), false, array('status_id', 'modified'));
 						
 						// zapisu poznamku o tom, kdy byla vracena
 						$note = array('order_id' => $id,
