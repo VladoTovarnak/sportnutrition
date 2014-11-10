@@ -21,7 +21,7 @@
 			<img src="<?php echo $image?>" alt="Obrázek <?php echo $most_sold_product['Product']['name'] ?>" width="90" height="170"/>
 		</a>
 		<div class="g_rating" data-average="<?php echo $most_sold_product['Product']['rate']?>" data-id="<?php echo $most_sold_product['Product']['id']?>"></div>
-		<p class="comments"><a href="<?php echo $most_sold_product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="<?php echo $most_sold_product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
+		<p class="comments"><a href="/<?php echo $most_sold_product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="/<?php echo $most_sold_product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
 		<?php 
 			echo $this->Form->create('Product', array('url' => '/' . $most_sold_product['Product']['url'], 'encoding' => false));
 			echo '<input class="cart_add" type="submit" value="Vložit do košíku" />';
