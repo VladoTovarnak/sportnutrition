@@ -7,6 +7,7 @@
 	}
 ?>
 		<meta charset="utf-8" />
+		<meta http-equiv="content-language" content="cs" />
 		<meta HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
 		<meta HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 		<link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH?><?php echo ($_SERVER['REMOTE_ADDR'] == IMAGE_IP ? 'style000-new.css' : 'style000.css') ?>" type="text/css" media="screen" />
