@@ -1,18 +1,18 @@
 		<div id="slides" class="slidorion">
 			<div class="accordion">
-				<div class="header red"><div style="padding-top: 10px">L-Carnitin již od <strong>18 Kč</strong></div></div>
+				<div class="header red"><div style="padding-top: 10px"><b>LeanWorks</b><br/>bojujte s tukem</div></div>
 				<div class="content"></div>
 				<div class="header"><div style="padding-top: 10px"><b>MusclePharm</b><br/>za super ceny</div></div>
 				<div class="content"></div>
-				<div class="header"><div style="padding-top: 10px">Sportovní výživa<br/><b>MuscleTech</b></div></div>
+				<div class="header"><div style="padding-top: 10px"><b>PreCre</b><br/>pro větší růst</div></div>
 				<div class="content"></div>
 				<div class="header"><div style="padding-top: 10px">Předtréninkové formule<br/><b>Cellucor</b></div></div>
 				<div class="content"></div>
 			</div>
 			<div class="slider">
-				<div class="slide"><a href="/category/tekute:60/"><img src="/images/hp-banner/carnitin.jpg" alt=""></a></div>
+				<div class="slide"><a href="/leanworks-90caps-30davek-p4201"><img src="/images/hp-banner/LEAN_snvweb.jpg" alt=""></a></div>
 				<div class="slide"><a href="/manufacturer/muscle-pharm-usa:94/"><img src="/images/hp-banner/musclepharm.jpg" alt=""></a></div>
-				<div class="slide"><a href="/manufacturer/muscletech:12/"><img src="/images/hp-banner/muscletech.jpg" alt=""></a></div>
+				<div class="slide"><a href="/precre-720g-30-davek-p4202"><img src="/images/hp-banner/PreCre_AmiNo_websnvjpg.jpg" alt=""></a></div>
 				<div class="slide"><a href="/manufacturer/cellucor:119/"><img src="/images/hp-banner/cellucor.jpg" alt=""></a></div>
 			</div>
 		</div>
