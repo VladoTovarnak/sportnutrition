@@ -17,3 +17,5 @@
 	
 <!-- Měřicí kód Sklik.cz -->
 <iframe width="119" height="22" frameborder="0" scrolling="no" src="http://c.imedia.cz/checkConversion?c=100007593&color=ffffff&v=<?php echo $order['Order']['orderfinaltotal']?>"></iframe>
+<!-- Měřicí kód Zbozi.cz -->
+<iframe src="http://www.zbozi.cz/action/22378/conversion?chsum=o1dc7jMOpOK4TvZaW5rfwA==&price=<?php echo $order['Order']['orderfinaltotal']?>&uniqueId=<?php echo $order['Order']['id']?>" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="position:absolute; top:-3000px; left:-3000px; width:1px; height:1px; overflow:hidden;"></iframe>
