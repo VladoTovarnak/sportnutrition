@@ -70,7 +70,7 @@
 						<td align="right">0&nbsp;Kč</td>
 					</tr>
 					<tr>
-						<th colspan="2" class="totalPrice">celková cena objednávky:</td>
+						<th colspan="2" class="totalPrice">celková cena objednávky:</th>
 						<td colspan="2" class="totalPrice" align="right"><?php echo front_end_display_price($final_price + $order['shipping_cost'])?> Kč</td>
 					</tr>
 					<?php if (isset($order['comments']) && !empty($order['comments'])) { ?>
@@ -90,7 +90,7 @@
 	</table>
 	<table>
 		<tr>
-			<td valign="top">
+			<td valign="top" style="width:50%">
 				<h3>Adresa doručení</h3>
 				<? echo $address['name']?><br />
 				<? echo $address['street'] . ' ' . $address['street_no']?><br />
