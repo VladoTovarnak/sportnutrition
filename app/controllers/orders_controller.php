@@ -668,6 +668,19 @@ class OrdersController extends AppController {
 				switch ( $this->params['named']['type'] ){
 					case "d":
 						$this->Session->write('Address', $this->data['Address']);
+						// pokud mam jako zpusob doruceni geis point (vydejni misto), musim po zmene adresy poslat zakaznika znova na plugin, kterym
+						// si zvoli vydejni misto
+						// to udelam tak, ze priznak v sesne, ktery mi rika, ze adresa byla vybrana pomoci pluginu, nastavim na false
+						if ($this->Session->check('Order.shipping_id')) {
+							$shipping_id = $this->Session->read('Order.shipping_id');
+							if ($shipping_id == $this->Order->Shipping->GP_shipping_id) {
+								$this->Session->write('Address.plugin_check', false);
+							// pokud mam jiny zpusob dopravy nez GP a mam priznak								
+							} elseif ($this->Session->check('Address.plugin_check')) {
+								// tak ho zahodim
+								$this->Session->delete('Address.plugin_check');
+							}
+						}
 					break;
 					case "f":
 						$this->Session->write('Address_payment', $this->data['Address']);
@@ -801,6 +814,17 @@ class OrdersController extends AppController {
 	function set_payment_and_shipping() {
 		if (isset($this->data)) {
 			$this->Session->write('Order', $this->data['Order']);
+			// pokud je jako zpusob dopravy vybrano Geis Point (doruceni na odberne misto), presmeruju na plugin pro vyber odberneho
+			// mista s tim, aby se po navratu presmeroval na ulozeni informaci o vyberu odberneho mista
+			// zpusob dopravy GEIS POINT ma id = 21
+			if ($this->data['Order']['shipping_id'] == $this->Order->Shipping->GP_shipping_id) {
+				if ($service_url = $this->Order->Shipping->geis_point_url($this->Session)) {
+					$this->redirect($service_url);
+				} else {
+					$this->Session->setFlash('Zadejte prosím Vaši doručovací adresu');
+					$this->redirect(array('controller' => 'customers', 'action' => 'order_personal_info'));
+				}
+			}
 			$this->redirect(array('controller' => 'orders', 'action' => 'recapitulation'));
 		}
 		
@@ -841,12 +865,54 @@ class OrdersController extends AppController {
 			$this->Session->setFlash('Není zvolena doprava pro Vaši objednávku', REDESIGN_PATH . 'flash_failure');
 			$this->redirect(array('controller' => 'carts_products', 'action' => 'index'));
 		}
-
+		
 		$order = $this->Session->read('Order');
 		$customer = $this->Session->read('Customer');
+		
+		$shipping_id = $order['shipping_id'];
+		// pokud mam zvoleno dodani na vydejni misto geis point, nactu parametry pro doruceni (z GET nebo sesny)
+		if ($shipping_id == $this->Order->Shipping->GP_shipping_id) {
+			// parametry jsou v GET
+			if (isset($this->params['url']['GPName']) && isset($this->params['url']['GPAddress']) && isset($this->params['url']['GPID'])) {
+				$gp_name = urldecode($this->params['url']['GPName']);
+				$gp_address = urldecode($this->params['url']['GPAddress']);
+				$gp_address = explode(';', $gp_address);
+				$gp_street = '';
+				if (isset($gp_address[0])) {
+					$gp_street = $gp_address[0];
+				}
+				$gp_city = '';
+				if (isset($gp_address[1])) {
+					$gp_city = $gp_address[1];
+				}
+				$gp_zip = '';
+				if (isset($gp_address[2])) {
+					$gp_zip = $gp_address[2];
+				}
+				$gp_id = urldecode($this->params['url']['GPID']);
+				// ulozim do sesny jako dorucovaci adresu
+				$this->Session->write('Address.name', $gp_name . ', ' . $gp_id);
+				$this->Session->write('Address.street', $gp_street);
+				$this->Session->write('Address.street_no', '');
+				$this->Session->write('Address.city', $gp_city);
+				$this->Session->write('Address.zip', $gp_zip);
+				// poznacim si, ze adresa je vybrana pomoci pluginu
+				$this->Session->write('Address.plugin_check', true);
+			} elseif (!$this->Session->check('Address') || !$this->Session->check('Address.plugin_check') || !$this->Session->read('Address.plugin_check')) {
+				// nemam data pro vydejni misto ani v sesne ani v GET, ale potrebuju je, takze presmeruju znova na plugin
+				// pro vyber vydejniho mista a z nej se sem vratim
+				if ($service_url = $this->Order->Shipping->geis_point_url($this->Session)) {
+					$this->redirect($service_url);
+				} else {
+					$this->Session->setFlash('Zadejte prosím Vaši doručovací adresu.');
+					$this->redirect(array('controller' => 'customers', 'action' => 'order_personal_info'));
+				}
+			}
+		}
+		
 		$address = $this->Session->read('Address');
 
-		if ( !$this->Session->check('Address_payment') ){
+		if (!$this->Session->check('Address_payment')) {
 			$address_payment = $this->Session->read('Address');
 			$address_payment['type'] = 'f';
 			$this->Session->write('Address_payment', $address_payment);
@@ -1223,7 +1289,7 @@ class OrdersController extends AppController {
 	}
 	
 	function test() {
-		$this->Order->Status->change_notification(35861, 3);
+		$this->Order->notifyAdmin(36293);
 		die('hotovo');
 	}
 } // konec tridy
