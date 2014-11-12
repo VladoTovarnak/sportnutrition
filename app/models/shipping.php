@@ -36,7 +36,7 @@ class Shipping extends AppModel {
 	    )
 	);
 	
-	var $GP_shipping_id = 21;
+	var $GP_shipping_id = 28;
 	
 	function delete($id) {
 		// pred "smazanim" (deaktivaci) musim dopravu presunout na konec seznamu aktivnich doprav
