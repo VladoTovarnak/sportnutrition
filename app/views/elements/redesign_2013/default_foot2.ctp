@@ -99,7 +99,28 @@
 	
 		$(".tabs").tabs();
 		$(".fancybox").fancybox();
-		
+
+		// z detailu produktu
+		if (window.location.hash == '#comment_list') {
+			// zjistim id tabu s diskuzi
+			var index = $('.tabs a[href="#tabs-2"]').parent().index();
+			// tab nastavim jako otevreny
+			$(".tabs").tabs("option", "active", index);
+		}
+
+		$('.add_comment_link').click(function(e) {
+			// zjistim id tabu s diskuzi
+			var index = $('.tabs a[href="#tabs-2"]').parent().index();
+			// tab nastavim jako otevreny
+			$(".tabs").tabs("option", "active", index);
+		});
+
+		$('.view_comments_link').click(function(e) {
+			// zjistim id tabu s diskuzi
+			var index = $('.tabs a[href="#tabs-2"]').parent().index();
+			// tab nastavim jako otevreny
+			$(".tabs").tabs("option", "active", index);
+		});
 	}); // document.ready
 	</script>
 	<link rel="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.css" media="screen" />

@@ -1,26 +1,5 @@
 <script>
-	$(function() {
-		if (window.location.hash == '#comment_list') {
-			// zjistim id tabu s diskuzi
-			var index = $('.tabs a[href="#tabs-2"]').parent().index();
-			// tab nastavim jako otevreny
-			$(".tabs").tabs("option", "active", index);
-		}
-
-		$('.add_comment_link').click(function(e) {
-			// zjistim id tabu s diskuzi
-			var index = $('.tabs a[href="#tabs-2"]').parent().index();
-			// tab nastavim jako otevreny
-			$(".tabs").tabs("option", "active", index);
-		});
-
-		$('.view_comments_link').click(function(e) {
-			// zjistim id tabu s diskuzi
-			var index = $('.tabs a[href="#tabs-2"]').parent().index();
-			// tab nastavim jako otevreny
-			$(".tabs").tabs("option", "active", index);
-		});
-
+	$(document).ready(function() {
 	// pokud ma varianty, skryju pole pro vlozeni ks do kosiku
 	// tlacitko se bude chovat jako odkaz na kotvu, ktera se nachazi u formulare pro vlozeni produktu s variantami
 	<?php if (!empty($subproducts) && $product['Availability']['cart_allowed']) { ?>
