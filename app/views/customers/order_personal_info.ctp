@@ -1,5 +1,5 @@
 <script type="text/javascript">
-	$(document).ready(function() {
+	window.onload = function(){
 		$('#copyAddressLink').click(function(e) {
 			e.preventDefault();
 			$('#Address1Street').val($('#Address0Street').val());
@@ -8,7 +8,7 @@
 			$('#Address1Zip').val($('#Address0Zip').val());
 			$('#Address1State').val($('#Address0State option:selected').val());
 		});
-	});
+	};
 </script>
 
 <h2><span>Osobní údaje</span></h2>

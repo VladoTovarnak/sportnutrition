@@ -11,7 +11,7 @@
 		    }, 1000);
 		});
 	<?php } ?>
-	});
+	};
 </script>
 
 <div class="product">
