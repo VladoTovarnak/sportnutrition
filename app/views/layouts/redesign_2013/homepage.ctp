@@ -54,6 +54,12 @@ function initialize() {
 
 	  var map = new google.maps.Map(document.getElementById('map'),
 	      mapOptions);
+
+	  var marker = new google.maps.Marker({
+			position: point,
+			map: map,
+			title: 'SportNutrition Vávra'
+      });
 	}
 
 	function loadScript() {
