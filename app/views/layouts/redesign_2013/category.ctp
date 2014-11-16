@@ -2,9 +2,6 @@
 <html>
 	<head>
 		<?php echo $this->element(REDESIGN_PATH . 'default_head2')?>
-		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>products_pagination.js"></script>
-		<script type="text/javascript" src="/loadmask/jquery.loadmask.min.js"></script>
-		<link href="/loadmask/jquery.loadmask.css" rel="stylesheet" type="text/css" />
 	</head>
 <body>
 
