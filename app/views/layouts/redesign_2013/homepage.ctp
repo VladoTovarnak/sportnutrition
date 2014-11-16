@@ -44,7 +44,30 @@
 	echo $this->element(REDESIGN_PATH . 'facebook_prava');
 ?>
 
-	    <script type="text/javascript">
+<script type="text/javascript">
+function initialize() {
+	  var mapOptions = {
+	    zoom: 14,
+	    center: new google.maps.LatLng(49.580042, 17.289001),
+	    mapTypeId: google.maps.MapTypeId.ROADMAP
+	  };
+
+	  var map = new google.maps.Map(document.getElementById('map'),
+	      mapOptions);
+	}
+
+	function loadScript() {
+	  var script = document.createElement('script');
+	  script.type = 'text/javascript';
+	  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&' +
+	      'callback=initialize';
+	  document.body.appendChild(script);
+	}
+
+	window.onload = loadScript;
+
+
+/*	    
 			var map;
 		    function initialize() {
 				var point = new google.maps.LatLng(49.580042, 17.289001)
@@ -63,7 +86,7 @@
 		        });
 			}
 		
-		    /*google.maps.event.addDomListener(window, 'load', initialize);*/
+		    google.maps.event.addDomListener(window, 'load', initialize);
 
 		    function loadScript() {
 	    	  var script = document.createElement('script');
@@ -73,7 +96,7 @@
 	    	  document.body.appendChild(script);
 	    	}
 
-	    	window.onload = loadScript;
+	    	window.onload = loadScript;*/
 	    </script>
 
 </body>
