@@ -1,5 +1,5 @@
 <script>
-	$(document).ready(function() {
+	window.onload = function(){
 	// pokud ma varianty, skryju pole pro vlozeni ks do kosiku
 	// tlacitko se bude chovat jako odkaz na kotvu, ktera se nachazi u formulare pro vlozeni produktu s variantami
 	<?php if (!empty($subproducts) && $product['Availability']['cart_allowed']) { ?>
