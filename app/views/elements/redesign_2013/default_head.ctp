@@ -11,7 +11,7 @@
 		<meta HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
 		<meta HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 		<link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH?><?php echo ($_SERVER['REMOTE_ADDR'] == IMAGE_IP ? 'style000-new.css' : 'style000.css') ?>" type="text/css" media="screen" />
-		<script charset="utf-8" src="/js/<?php echo REDESIGN_PATH?>jquery.js" type="text/javascript" async></script>
+		<script charset="utf-8" src="/js/<?php echo REDESIGN_PATH?>jquery.js" type="text/javascript"></script>
 		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
 		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.js"></script>
 		<link rel="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.css" media="screen" />
