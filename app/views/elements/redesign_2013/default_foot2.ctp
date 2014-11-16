@@ -44,7 +44,6 @@
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.js"></script>
 	<script charset="utf-8" src="/js/<?php echo REDESIGN_PATH?>jquery.easing.js" type="text/javascript"></script>
 	<script charset="utf-8" src="/js/<?php echo REDESIGN_PATH?>jquery.slidorion.js" type="text/javascript"></script>
-	<script charset="utf-8" src="/js/<?php echo REDESIGN_PATH?>main.js" type="text/javascript"></script>
 <?php 
 	if ($this->params['controller'] == 'searches' && $this->params['action'] == 'do_search') {
 ?>
@@ -101,7 +100,35 @@
 				 }
 			});
 		});
-	});
+
+		// z main.js
+		$("#header ul.accordion li a").click(function(){
+			if($(this).attr('href')[0] == "#"){
+				$("#basket").hide();
+				$("#login").hide();
+				$("#info").hide();
+				$($(this).attr('href')).show();
+				$(this).parent().parent().find('li').removeClass('active');
+				var tab = $(this).parent().attr('class');
+				$(this).parent().addClass("active");
+				
+				$.ajax({
+					url: '/tools/login_box_tab',
+					dataType: 'json',
+					type: 'post',
+					data: {tab: tab}
+				});
+				return false;
+			}
+		});
+	
+		$("#slides").slidorion();
+		$("#best_products").slidorion();
+	
+		$(".tabs").tabs();
+		$(".fancybox").fancybox();
+		
+	}); // document.ready
 	</script>
 	<link rel="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.css" media="screen" />
 	<link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH ?>jqueryui/style.css" />
