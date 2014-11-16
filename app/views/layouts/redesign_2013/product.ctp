@@ -2,9 +2,8 @@
 <html>
 	<head>
 		<?php echo $this->element(REDESIGN_PATH . 'default_head2')?>
-		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>comment_form_management.js"></script>
 		<?php if (!$product['Product']['active']) { ?>
-		<meta name="robots" content="noindex">
+			<meta name="robots" content="noindex" />
 		<?php } ?>
 	</head>
 <body>

@@ -52,6 +52,13 @@
 <?php
 	}
 ?>
+	<!-- veci pro vypis kategorie -->
+	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>products_pagination.js"></script>
+	<script type="text/javascript" src="/loadmask/jquery.loadmask.min.js"></script>
+
+	<!-- veci pro vypis detailu produktu -->
+	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>comment_form_management.js"></script>
+
 	<script charset="utf-8" src="/js/<?php echo REDESIGN_PATH?>jquery-ui.js" type="text/javascript"></script>
 	<script type="text/javascript" src="/jRating-master/jquery/jRating.jquery.js"></script>
 	<script type="text/javascript">
@@ -99,3 +106,4 @@
 	<link rel="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.css" media="screen" />
 	<link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH ?>jqueryui/style.css" />
 	<link rel="stylesheet" type="text/css" href="/jRating-master/jquery/jRating.jquery.css" media="screen" />
+	<link href="/loadmask/jquery.loadmask.css" rel="stylesheet" type="text/css" />
