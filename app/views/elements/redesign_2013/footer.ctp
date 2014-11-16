@@ -63,6 +63,7 @@
 		echo $searchers;
 	}
 ?>
+	_gaq.push(['_setSiteSpeedSampleRate', 90]);
 	_gaq.push(['_trackPageview']);
 <?php // data do GA o objednavce na dekovaci strance
 if ($this->params['controller'] == 'orders' && $this->params['action'] == 'finished' && isset($jscript_code)) {
