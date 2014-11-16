@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<?php echo $this->element(REDESIGN_PATH . 'default_head')?>
+		<?php echo $this->element(REDESIGN_PATH . 'default_head2')?>
 		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>comment_form_management.js"></script>
 		<?php if (!$product['Product']['active']) { ?>
 		<meta name="robots" content="noindex">
@@ -127,32 +127,8 @@
 <?php
 	echo $this->element(REDESIGN_PATH . 'heureka_overeno');
 	echo $this->element(REDESIGN_PATH . 'facebook_prava');
+	echo $this->element(REDESIGN_PATH . 'default_foot2');
 ?>
-<script type="text/javascript">
-$(document).ready(function() {
-	$('#ManufacturerSelect').change(function() {
-		 $("#ManufacturerSelect option:selected").each(function() {
-			 manufacturerId = $(this).attr('value');
-			 if (manufacturerId) {
-				// natahnu vyrobce a presmeruju
-				$.ajax({
-					type: 'POST',
-					url: '/manufacturers/ajax_get_url',
-					dataType: 'json',
-					data: {
-						id: manufacturerId
-					},
-					success: function(data) {
-						if (data.success) {
-							window.location.href = data.message;
-						}
-					}
-				});
-			 }
-		});
-	});
-});
-</script>
 </body>
 </html>
 <?php echo $this->element('sql_dump')?>
