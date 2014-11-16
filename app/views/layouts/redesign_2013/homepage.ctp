@@ -43,27 +43,37 @@
 	echo $this->element(REDESIGN_PATH . 'heureka_overeno');
 	echo $this->element(REDESIGN_PATH . 'facebook_prava');
 ?>
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBWrprssVtJkxVzAoaJJZgMRJmWjOJSlGc&amp;sensor=false" async></script>
+
 	    <script type="text/javascript">
-		var map;
-	    function initialize() {
-			var point = new google.maps.LatLng(49.580042, 17.289001)
-	          
-	        var mapOptions = {
-				zoom: 14,
-				center: point,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-	        };
-	        map = new google.maps.Map(document.getElementById('map'), mapOptions);
-	
-			var marker = new google.maps.Marker({
-				position: point,
-				map: map,
-				title: 'SportNutrition Vávra'
-	        });
-		}
-	
-	    google.maps.event.addDomListener(window, 'load', initialize);
+			var map;
+		    function initialize() {
+				var point = new google.maps.LatLng(49.580042, 17.289001)
+		          
+		        var mapOptions = {
+					zoom: 14,
+					center: point,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+		        };
+		        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+		
+				var marker = new google.maps.Marker({
+					position: point,
+					map: map,
+					title: 'SportNutrition Vávra'
+		        });
+			}
+		
+		    /*google.maps.event.addDomListener(window, 'load', initialize);*/
+
+		    function loadScript() {
+	    	  var script = document.createElement('script');
+	    	  script.type = 'text/javascript';
+	    	  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBWrprssVtJkxVzAoaJJZgMRJmWjOJSlGc&amp;sensor=false';
+	    	  
+	    	  document.body.appendChild(script);
+	    	}
+
+	    	window.onload = loadScript;
 	    </script>
 
 </body>
