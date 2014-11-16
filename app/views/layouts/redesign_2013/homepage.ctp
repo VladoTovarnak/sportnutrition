@@ -118,6 +118,31 @@
 				autoSize: false,
 			}).trigger('click');
 		}
+		// select box s vyrobci
+		$('#ManufacturerSelect').change(function() {
+			 $("#ManufacturerSelect option:selected").each(function() {
+				 manufacturerId = $(this).attr('value');
+				 if (manufacturerId) {
+					// natahnu vyrobce a presmeruju
+					$.ajax({
+						type: 'POST',
+						url: '/manufacturers/ajax_get_url',
+						dataType: 'json',
+						data: {
+							id: manufacturerId
+						},
+						success: function(data) {
+							if (data.success) {
+								window.location.href = data.message;
+							}
+						}
+					});
+				 }
+			});
+		});
+
+
+		
 	});
 	</script>
 </body>
