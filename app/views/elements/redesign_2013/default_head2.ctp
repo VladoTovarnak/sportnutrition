@@ -11,7 +11,6 @@
 		<meta HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
 		<meta HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 		<link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH?><?php echo ($_SERVER['REMOTE_ADDR'] == IMAGE_IP ? 'style000-new.css' : 'style000.css') ?>" type="text/css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.css" media="screen" />
 		<title><?php echo $_title?> : Sportnutrition</title>
 		<meta name="description" content="<?php echo $_description?>" />
 <?php
@@ -21,5 +20,3 @@
 <?php
 	}
 ?>
-		<link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH ?>jqueryui/style.css" />
-		<link rel="stylesheet" type="text/css" href="/jRating-master/jquery/jRating.jquery.css" media="screen" />
