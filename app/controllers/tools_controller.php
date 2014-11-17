@@ -7,6 +7,7 @@ class ToolsController extends AppController {
 		if (isset($_POST['tab'])) {
 			$this->Session->write('login_box_tab', $_POST['tab']);
 		}
+		die();
 	}
 	
 	function phpinfo() {
