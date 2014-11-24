@@ -54,13 +54,15 @@ class OrdersController extends AppController {
 			'Status',
 			'Shipping',
 			'Payment',
-			'Customer'
+			'Customer' => array(
+				'CustomerType'
+			)
 		);
 
 		$this->Order->virtualFields['date'] = 'CONCAT(DATE_FORMAT(DATE(Order.created), "%d.%m.%Y"), " ", TIME(Order.created))';
 		$orders = $this->paginate('Order', $conditions);
 		unset($this->Order->virtualFields['date']);
-		
+
 		foreach ($orders as &$order) {
 			$order['Customer']['orders_count'] = $this->Order->Customer->orders_count($order['Customer']['id']);
 			foreach ($order['OrderedProduct'] as &$ordered_product) {

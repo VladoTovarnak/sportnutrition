@@ -97,7 +97,7 @@ $(function() {
 			<img src="/images/<?php echo REDESIGN_PATH?>icons/cz.gif" width="18" height="12" alt="" />
 		</td>
 		<td><?php 
-			echo $order['Order']['customer_name'] . ' <strong>(' . $order['Customer']['orders_count'] . ')</strong>';
+			echo $order['Order']['customer_name'] . ' <strong>(' . $order['Customer']['orders_count'] . ')</strong> - ' . $order['Customer']['CustomerType']['name'] . '';
 			echo '<br/>';
 			// dorucovaci adresa
 			$address_info = 'DA: ';
