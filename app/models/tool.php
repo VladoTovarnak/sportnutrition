@@ -49,5 +49,11 @@ class Tool extends AppModel {
 
 		return $redirect_url;
 	}
+	
+	function log_notification($order_id, $notification_type) {
+		$file = 'files/notification_log.log';
+		$data = $order_id . "\t" . $notification_type . "\n";
+		file_put_contents($file, $data, FILE_APPEND);
+	}
 }
 ?>

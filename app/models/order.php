@@ -668,7 +668,11 @@ class Order extends AppModel {
 		}
 	}
 	
-	function notifyCustomer($customer) {
+	function notifyCustomer($customer, $id = null) {
+		if (isset($id) && (!isset($this->id) || (isset($this->id) && empty($this->id)))) {
+			$this->id = $id;
+		}
+		
 		App::import('Vendor', 'phpmailer', array('file' => 'phpmailer/class.phpmailer.php'));
 		if ( isset($customer['email']) && !empty($customer['email']) ){
 			$mail_c = new phpmailer();
@@ -695,7 +699,11 @@ class Order extends AppModel {
 			$customer_mail .= $this->order_mail($this->id);
 			
 			$mail_c->Body = $customer_mail;
-			$mail_c->Send();
+			if (!$mail_c->Send()) {
+				App::import('Model', 'Tool');
+				$this->Tool = &new Tool;
+				$this->Tool->log_notification($this->id, 'customer');
+			}
 		}
 	}
 	
@@ -736,7 +744,11 @@ class Order extends AppModel {
 		
 		$mail->Body .= $customer_mail;
 
-		$mail->Send();
+		if (!$mail->Send()) {
+			App::import('Model', 'Tool');
+			$this->Tool = &new Tool;
+			$this->Tool->log_notification($this->id, 'admin');
+		}
 	}
 	
 	function order_mail($id) {
