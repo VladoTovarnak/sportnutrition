@@ -81,7 +81,10 @@ $(function() {
 		?></td>
 		<td><?php 
 			$icon = '<img src="/images/' . REDESIGN_PATH . 'icons/pencil.png" alt="" />';
-			echo $this->Html->link($icon, array('controller' => 'orders', 'action' => 'view', $order['Order']['id']), array('escape' => false))
+			echo $this->Html->link($icon, array('controller' => 'orders', 'action' => 'view', $order['Order']['id']), array('escape' => false));
+			echo '<br/>';
+			$icon = '<img src="/images/' . REDESIGN_PATH . 'icons/email.png" alt="" />';
+			echo $this->Html->link($icon, array('controller' => 'orders', 'action' => 'notify_admin', $order['Order']['id']), array('escape' => false));
 		?></td>
 		<td id="orderId"><?php 
 				echo $this->Html->link($order['Order']['id'], array('action' => 'view', $order['Order']['id']));

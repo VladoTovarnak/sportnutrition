@@ -578,8 +578,24 @@ class OrdersController extends AppController {
 		header('Content-Type: text/xml');
 		header('Content-Transfer-Encoding: Binary');
 		header('Content-disposition: attachment; filename="' . basename('pohodaorder.xph') . '"');
-		readfile('http://64454.w54.wedos.ws/orders/eform/' . $id); // do the double-download-dance (dirty but worky)
+		readfile('http://www/sportnutrition.cz/orders/eform/' . $id); // do the double-download-dance (dirty but worky)
 		die();
+	}
+	
+	function admin_notify_admin($id = null) {
+		if (!$id) {
+			$this->Session->setFlash('Není zadáno ID objednávky, u které chcete odeslat email.', REDESIGN_PATH . 'flash_failure');
+			$this->redirect(array('action' => 'index'));
+		}
+		
+		if (!$this->Order->hasAny(array('Order.id' => $id))) {
+			$this->Session->setFlash('Objednávka, ke které chcete odeslat email, neexistuje.', REDESIGN_PATH . 'flash_failure');
+			$this->redirect(array('action' => 'index'));
+		}
+		
+		$this->Order->notifyAdmin($id);
+		$this->Session->setFlash('Informace o nové objednávce byla odeslána', REDESIGN_PATH . 'flash_success');
+		$this->redirect(array('action' => 'index'));
 	}
 	
 	function eform($id = null) {
