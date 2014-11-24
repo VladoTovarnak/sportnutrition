@@ -733,7 +733,7 @@ class Order extends AppModel {
 		$mail->AddReplyTo($this->Setting->findValue('CUST_MAIL'), $this->Setting->findValue('CUST_NAME'));
 
 		$mail->AddAddress($this->Setting->findValue('CUST_MAIL'), $this->Setting->findValue('CUST_NAME'));
-		$mail->AddAddress("vlado.tovarnak@gmail.com", "Vlado Tovarnak");
+//		$mail->AddAddress("vlado.tovarnak@gmail.com", "Vlado Tovarnak");
 		$mail->AddAddress('brko11@gmail.com', 'Martin Polák');
 
 		$mail->Subject = 'E-SHOP OBJEDNÁVKA (č. ' . $this->id . ')';
