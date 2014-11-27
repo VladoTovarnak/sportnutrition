@@ -94,8 +94,12 @@
 			}
 		});
 	
-		$("#slides").slidorion();
-		$("#best_products").slidorion();
+		$("#slides").slidorion({
+			interval: 10000
+		});
+		$("#best_products").slidorion({
+			effect: 'slideLeft'
+		});
 	
 		$(".tabs").tabs();
 		$(".fancybox").fancybox();
