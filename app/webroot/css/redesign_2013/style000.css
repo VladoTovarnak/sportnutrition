@@ -808,30 +808,30 @@ ul.breadcrumbs li:last-child a {
 	display: none;
 	font-size: 15px;
 	position: absolute;
-	right: -290px;
+	right: -292px;
 	width: 247px;
 	top: -8px;
 	text-align: left;
-	border: 1px solid #ddd;
+	border: 1px solid #222;
 	border-left: none;
 	padding: 22px;
 	z-index: 1000;
 /*	color: #484b50; */
-	background-color: #fcfcfc
+	background-color: #F5F5F5;
 }
 
 #main div.left div.product.card .desc.right {
 	right: 291px;
 	width: 247px;
-	border-left: 1px solid #ddd;
+	border-left: 1px solid #222;
 	border-right: none;
 }
 
 #main div.left .products div.product.card:hover {
 	border-color: #d6d8da;
-	border: 1px solid #ddd;
+	border: 1px solid #222;
 	margin-bottom: 19px;
-	background-color: #fcfcfc
+	background-color: #F5F5F5;
 }
 #main div.left div.product.card:hover .desc, #main div.left div.product.card:hover .desc-right {
 	display: block
