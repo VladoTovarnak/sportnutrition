@@ -150,9 +150,7 @@ class ManufacturersController extends AppController {
 		$this->set('_description', $_description);
 
 		// nastavim zobrazovany banner
-		$category_banner = array('href' => '/l-carnitin-100-000-chrom-1000ml-p919', 'src' => '/images/category-banner.jpg');
-		$this->set('category_banner', $category_banner);
-		
+		$this->set('category_banner', unserialize(CATEGORY_BANNER));
 		
 		// nejprodavanejsi produkty
 		App::import('Model', 'CustomerType');

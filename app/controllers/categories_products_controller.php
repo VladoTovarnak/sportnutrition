@@ -141,8 +141,7 @@ class CategoriesProductsController extends AppController {
 		$this->set('_title', $_title);
 		$this->set('_description', $_description);
 		// nastavim zobrazovany banner
-		$category_banner = array('href' => '/l-carnitin-100-000-s-chromem-1l-1l-p2892', 'src' => '/images/category-banner.jpg');
-		$this->set('category_banner', $category_banner);
+		$this->set('category_banner', unserialize(CATEGORY_BANNER));
 		// nejprodavanejsi produkty
 		App::import('Model', 'CustomerType');
 		$this->CustomerType = new CustomerType;

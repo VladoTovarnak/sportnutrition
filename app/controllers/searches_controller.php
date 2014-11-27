@@ -281,6 +281,9 @@ class SearchesController extends AppController {
 		$this->Search->Product = &new Product;
 		$action_products = $this->Search->Product->get_action_products($customer_type_id, 4);
 		$this->set('action_products', $action_products);
+		
+		// nastavim zobrazovany banner
+		$this->set('category_banner', unserialize(CATEGORY_BANNER));
 	}
 }
 ?>

@@ -214,4 +214,6 @@ if (preg_match('/\/.*(?:\/info@sportnutrition.cz)+\/(.+-p\d+)/', $_SERVER['REQUE
 	exit();
 }
 
+$category_banner = array('href' => '/l-carnitin-100-000-s-chromem-1l-1l-p2892', 'src' => '/images/category-banner.jpg');
+define('CATEGORY_BANNER', serialize($category_banner));
 ?>
