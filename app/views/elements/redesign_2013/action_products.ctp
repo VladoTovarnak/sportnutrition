@@ -29,6 +29,7 @@
 				echo $form->end();
 			?>
 		</div>
+		<div style="clear:both"></div>
 	</div>
 	<?php } ?>
 	<div style="clear:both"></div>

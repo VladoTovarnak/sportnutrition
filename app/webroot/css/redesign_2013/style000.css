@@ -1175,7 +1175,6 @@ ul.breadcrumbs li:last-child a {
 	width: 385px;
 	height: 180px;
 	float: none;
-
 }
 
 #best_products .accordion {
@@ -1289,10 +1288,14 @@ div.right_sidebar_product h3 a{
 	text-decoration:none;
 }
 
+div.right_sidebar_product img {
+	border: 1px solid #E8E8E8;
+}
+
 div.image_holder{
 	width:45px;
 	float:left;
-	border: 1px solid #E8E8E8;
+/*	border: 1px solid #E8E8E8; */
 }
 
 div.prices_holder{
