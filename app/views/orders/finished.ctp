@@ -40,3 +40,21 @@ var google_remarketing_only = false;
 <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/960445286/?value=1.00&amp;currency_code=CZK&amp;label=WRBaCOj6vlcQ5vb8yQM&amp;guid=ON&amp;script=0"/>
 </div>
 </noscript>
+
+<!-- Merici kod pro Heureka.cz -->
+<script type="text/javascript">
+var _hrq = _hrq || [];
+    _hrq.push(['setKey', '2CE1ECA351EBBD47F06DF24414582CA0']);
+    _hrq.push(['setOrderId', '<?php echo $order['Order']['id'] ?>']);
+
+<?php foreach ($order['OrderedProduct'] as $op) {?>
+    _hrq.push(['addProduct', '<?php echo $op['Product']['name'] ?>', '<?php echo $op['product_price_with_dph'] ?>', '<?php echo $op['product_quantity'] ?>']);
+<?php } ?>
+    _hrq.push(['trackOrder']);
+
+(function() {
+    var ho = document.createElement('script'); ho.type = 'text/javascript'; ho.async = true;
+    ho.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.heureka.cz/direct/js/cache/1-roi-async.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ho, s);
+})();
+</script>
