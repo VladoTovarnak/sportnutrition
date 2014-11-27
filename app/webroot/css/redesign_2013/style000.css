@@ -418,11 +418,11 @@ form div.pair button {
 
 #main div.product.card {
     float: left;
-    width: 256px;
-    height: 175px;
+    width: 254px;
+    height: 177px;
     margin: 10px 10px 0px 0px;
     position: relative;
-    overflow: hidden;
+/*    overflow: hidden; */
 }
 #main div.product.card.small {
     width: 205px; height: 135px;
@@ -544,9 +544,11 @@ form div.pair button {
     position: absolute; bottom: 0; left: 100px;
     width: 150px;
 }
+
 #main .dark div.product.card b.price {
     background: #E8E8E8;
 }
+
 #main div.product.card.small b.price {
     width: 135px;
     border-top: 1px solid #ccc;
@@ -801,6 +803,40 @@ ul.breadcrumbs li:last-child a {
 #main div.left div.product.card {
     margin-right: 30px;
 }
+
+#main div.left div.product.card .desc {
+	display: none;
+	font-size: 15px;
+	position: absolute;
+	right: -290px;
+	width: 247px;
+	top: -8px;
+	text-align: left;
+	border: 1px solid #ddd;
+	border-left: none;
+	padding: 22px;
+	z-index: 1000;
+/*	color: #484b50; */
+	background-color: #fcfcfc
+}
+
+#main div.left div.product.card .desc.right {
+	right: 291px;
+	width: 247px;
+	border-left: 1px solid #ddd;
+	border-right: none;
+}
+
+#main div.left .products div.product.card:hover {
+	border-color: #d6d8da;
+	border: 1px solid #ddd;
+	margin-bottom: 19px;
+	background-color: #fcfcfc
+}
+#main div.left div.product.card:hover .desc, #main div.left div.product.card:hover .desc-right {
+	display: block
+}
+
 #main div.left div.product.card:nth-child(2n) {
     margin-right: 0;
 }

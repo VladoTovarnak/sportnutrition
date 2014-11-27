@@ -1,5 +1,6 @@
 <div class="products">
 <?
+$odd = true;
 foreach ( $products as $product ){
 	$image = '/img/na_small.jpg';
 	if (isset($product['Image']) && !empty($product['Image'])) {
@@ -34,7 +35,11 @@ foreach ( $products as $product ){
 			<a href="/garance-nejnizsi-ceny.htm"><span class="first_line">Garance nejnižší ceny!</span></a><br />
 			<span class="second_line">Pro více informací pokračujte <a href="/garance-nejnizsi-ceny.htm">zde</a>.</span>
 		</p>
+		<?php if (isset($product['Product']['short_description']) && !empty($product['Product']['short_description'])) { ?>
+		<p class="desc<?php echo ($odd ? '' : ' right')?>"><?php echo $product['Product']['short_description']?></p>
+		<?php } ?>
 	</div>
-<? } ?>
+<? $odd = !$odd; 
+} ?>
 	<hr class="cleaner" />
 </div>
