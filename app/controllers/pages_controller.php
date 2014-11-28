@@ -104,6 +104,10 @@ class PagesController extends AppController{
 		$description = 'Sportovní výživa a doplňky stravy pro fitness a kulturistiku levně. Kvalitní výživové poradenství od opravdových odborníků.';
 		$keywords = 'Sportovní výživa, fitness výživa, doplňky stravy, výživa pro kulturisty, potřeby pro kulturisty';
 		
+		$this->set('_title', $title);
+		$this->set('_description', $description);
+		$this->set('_keywords', $keywords);
+		
 		App::import('Model', 'News');
 		$this->News = new News;
 		$hp_news = $this->News->hp_list();
