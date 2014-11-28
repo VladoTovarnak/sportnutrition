@@ -100,9 +100,9 @@ class PagesController extends AppController{
 	
 	function home() {
 		$this->layout = REDESIGN_PATH . 'homepage';
-		$title = 'Sportovní výživa, doplňky stravy, kloubní výživa, vitamíny';
-		$description = 'Sportovní výživa od Sport Nutrition. Proteinové a sacharidové přípravky (proteiny, sacharidy, gainery), vitamíny a aminokyseliny.';
-		$keywords = 'Proteinové a sacharidové přípravky (proteiny, sacharidy, gainery), aminokyseliny, přípravky pro podporu růstu a udržení svalové hmoty (NO přípravky, kreatiny), spalovače tuků, náhrada stravy, vitamíny a minerály';
+		$title = 'Sportovní výživa, potřeby pro kulturisty a fitness';
+		$description = 'Sportovní výživa a doplňky stravy pro fitness a kulturistiku levně. Kvalitní výživové poradenství od opravdových odborníků.';
+		$keywords = 'Sportovní výživa, fitness výživa, doplňky stravy, výživa pro kulturisty, potřeby pro kulturisty';
 		
 		App::import('Model', 'News');
 		$this->News = new News;
