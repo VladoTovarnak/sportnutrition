@@ -1,20 +1,11 @@
 <?php if (isset($manufacturer_most_sold) && !empty($manufacturer_most_sold)) { ?>
 <h2><span>Nejprodávanější v této kategorii</span></h2>
 <div class="dark">
-<?php 	foreach ($manufacturer_most_sold as $most_sold_product) {
-			$image = '/images/na.jpg';
-			if (isset($most_sold_product['Image']) && !empty($most_sold_product['Image'])) {
-				$image = '/product-images/small/' . $most_sold_product['Image']['name'];
-			}
+<?php 
+	foreach ($manufacturer_most_sold as $most_sold_product) {
+		echo $this->element(REDESIGN_PATH . 'most_sold_product_card', array('most_sold_product' => $most_sold_product));
+	}
 ?>
-	<div class="product card">
-		<h3><a href="/<?php echo $most_sold_product['Product']['url']?>"><?php echo $most_sold_product['Product']['name']?></a></h3>
-		<a href="/<?php echo $most_sold_product['Product']['url']?>"><img src="<?php echo $image?>" alt="Obrázek <?php echo $most_sold_product['Product']['name'] ?>" /></a>
-		<div class="g_rating" data-average="<?php echo $most_sold_product['Product']['rate']?>" data-id="<?php echo $most_sold_product['Product']['id']?>"></div>
-		<p><?php echo $most_sold_product['Product']['short_description']?></p>
-		<b class="price"><?php echo $most_sold_product['Product']['price']?> Kč</b>
-	</div>
-	<?php } ?>
 	<hr class="cleaner" />
 </div>
 <?php } ?>
