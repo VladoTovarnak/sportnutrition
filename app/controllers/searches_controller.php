@@ -84,7 +84,10 @@ class SearchesController extends AppController {
 	 *
 	 * @param string $id
 	 */
-	function do_search(){
+	function do_search() {
+		App::import('Model', 'Product');
+		$this->Search->Product = new Product;
+		
 		$this->layout = REDESIGN_PATH . 'category';
 		$this->set('_title', 'Vyhledávání produktů');
 		$this->set('_description', 'Vyhledávač produktů v obchodě ' . CUST_NAME);
@@ -94,7 +97,7 @@ class SearchesController extends AppController {
 		$paging_options = array(0 => 16, 24, 32, ALL_STRING);
 		$this->set('paging_options', $paging_options);
 		
-		$sorting_options = array(0 => 'Doporučujeme', 'Nejprodávánější', 'Nejlevnější', 'Nejdražší', 'Abecedy');
+		$sorting_options = $this->Search->Product->sorting_options;
 		$this->set('sorting_options', $sorting_options);
 		
 		if (isset($_GET['q'])) {
@@ -151,8 +154,6 @@ class SearchesController extends AppController {
 			}
 			
 			// idcka kategorii ze stromu s kategoriemi pro darky - root podstromu ma id 54
-			App::import('Model', 'Product');
-			$this->Search->Product = new Product;
 			$present_category_ids = $this->Search->Product->CategoriesProduct->Category->subtree_ids(54);
 			
 			$conditions = array(

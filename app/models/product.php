@@ -97,6 +97,8 @@ class Product extends AppModel {
 	
 	var $product_types = null;
 	
+	var $sorting_options = array(0 => 'Doporučujeme', 'Nejprodávánější', 'Nejlevnější', 'Nejdražší', 'Abecedy');
+	
 	function __construct() {
 		parent::__construct();
 		$this->product_types = $this->ProductType->find('list', array(

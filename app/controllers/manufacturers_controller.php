@@ -108,7 +108,7 @@ class ManufacturersController extends AppController {
 		$paging_options = array(0 => 16, 24, 32, ALL_STRING);
 		$this->set('paging_options', $paging_options);
 		
-		$sorting_options = array(0 => 'Nejprodávánější', 'Nejlevnější', 'Nejdražší', 'Abecedy');
+		$sorting_options = $this->Manufacturer->Product->sorting_options;
 		$this->set('sorting_options', $sorting_options);
 		
 		$sorting = 0;

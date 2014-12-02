@@ -87,7 +87,7 @@ class CategoriesProductsController extends AppController {
 		$paging_options = array(0 => 16, 24, 32, ALL_STRING);
 		$this->set('paging_options', $paging_options);
 		
-		$sorting_options = array(0 => 'Doporučujeme', 'Nejprodávánější', 'Nejlevnější', 'Nejdražší', 'Abecedy');
+		$sorting_options = $this->CategoriesProduct->Product->sorting_options;
 		$this->set('sorting_options', $sorting_options);
 		
 		$sorting = 0;
