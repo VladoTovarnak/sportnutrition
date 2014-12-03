@@ -936,8 +936,12 @@ class OrdersController extends AppController {
 			$this->Session->write('Address_payment', $address_payment);
 		}
 		$address_payment = $this->Session->read('Address_payment');
-		
+
 		$order['shipping_cost'] = $this->Order->get_shipping_cost($order['shipping_id']);
+		// pokud je zvolena doprava na slovensko (id = 6) a platba prevodem (id = 2), je sleva z dopravy 70,-
+		if ($order['shipping_id'] == 16 && $order['payment_id'] == 2) {
+			$order['shipping_cost'] -= 70;
+		}
 
 		// data o objednavce
 		$this->set('order', $order);
