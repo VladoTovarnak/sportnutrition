@@ -110,16 +110,29 @@ class Category extends AppModel {
 		}
 		$order['Category.lft'] = 'asc';
 		$path_ids[] = ROOT_CATEGORY_ID;
+		
 		// je mozne, ze uz jsem v podstromu sportovni vyzivy, proto mozne duplicity smazu
 		$path_ids = array_unique($path_ids);
 		
-		$conditions = array(
-			"parent_id IN ('" . implode("', '", $path_ids) . "')",
-		);
+		$conditions = array();
+		
+		$path_condition = "parent_id IN ('" . implode("', '", $path_ids) . "')";
+		
+		// pokud jsem v podkategorii "sportovni obleceni", chci vykreslit cely jeji podstrom
+		$fitness_clothes_cat_ids = $this->subtree_ids(11);
+		if (in_array($opened_category_id, $fitness_clothes_cat_ids)) {
+			$conditions[] = array(
+				'OR' => array(
+					$path_condition,
+					'id IN (' . implode(',', $fitness_clothes_cat_ids) . ')'
+				)
+			);
+		} else {
+			$conditions[] = $path_condition;
+		}
 		
 		// idcka kategorii, ktere nechci ve vertikalnim menu zobrazit
 		$unwanted_category_ids = array(2, 4, 5, 6, 7);
-		
 		if (!empty($unwanted_category_ids)) {
 			$conditions[] = 'Category.id NOT IN (' . implode(',', $unwanted_category_ids) . ')';
 		}
