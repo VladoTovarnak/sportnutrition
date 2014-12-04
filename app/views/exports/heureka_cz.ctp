@@ -6,7 +6,8 @@ foreach ($products as $product) {
 	}
 ?>
 	<SHOPITEM>
-		<PRODUCT><![CDATA[<?php echo $zbozi_name ?>]]></PRODUCT>
+		<PRODUCTNAME><![CDATA[<?php echo $zbozi_name ?>]]></PRODUCTNAME>
+		<PRODUCT><![CDATA[<?php echo $product['Product']['name'] ?>]]></PRODUCT>
 		<DESCRIPTION><![CDATA[<?php echo $product['Product']['short_description']?>]]></DESCRIPTION>
 		<URL><![CDATA[http://www.<?php echo CUST_ROOT?>/<?=$product['Product']['url']?>]]></URL>
 		<IMGURL><![CDATA[http://www.<?php echo CUST_ROOT ?>/product-images/<?=(empty($product['Image']['name']) ? '' : str_replace(" ", "%20", $product['Image']['name']))?>]]></IMGURL>
