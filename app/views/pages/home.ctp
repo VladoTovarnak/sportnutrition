@@ -1,6 +1,6 @@
 		<div id="slides" class="slidorion">
 			<div class="accordion">
-				<div class="header"><div style="padding-top: 10px"><b>Kalendář zdarma</b><br/>do vyprodání</div></div>
+				<div class="header"><div style="padding-top: 10px"><b>Kalendář</b><br/>ke každé objednávce</div></div>
 				<div class="content"></div>
 				<div class="header"><div style="padding-top: 10px"><b>MusclePharm</b><br/>za super ceny</div></div>
 				<div class="content"></div>
