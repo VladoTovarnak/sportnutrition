@@ -56,46 +56,6 @@ class Order extends AppModel {
 			'fields' => $fields
 		));
 	
-		
-/*		// natahnu si detaily o postovnem,
-		// na ktere chceme menit
-		$this->Shipping->recursive = -1;
-		$shipping = $this->Shipping->read(null, $products['Order']['shipping_id']);
-		
-		// pokud je postovne pro normalni zakazniky
-		// a pro firemni zakazniky zdarma, nemusim kontrolovat cenu postovneho
-		if ( $shipping['Shipping']['price'] != 0 ){
-			// po nacteni zkontroluju celkovou cenu objednavky v zavislosti
-			// na tom, zda se jedna o koncaka, nebo o firmu
-			if ( ( empty($products['Order']['customer_ico']) && $products['Order']['subtotal_with_dph'] <= $shipping['Shipping']['free'] )){
-				// predpoklad, ze se za postovne platit bude
-				// zavisi to na tom, jestli tolik co koncak,
-				// nebo tolik co zakaznik s icem
-				
-				// prepoklad ze je to koncovy zakaznik
-//				$order['Order']['shipping_cost'] = $shipping['Shipping']['ico_price'];
-				if ( empty($products['Order']['customer_ico']) ){
-					// je to koncak, dam tam cenu pro koncaky
-					$order['Order']['shipping_cost'] = $shipping['Shipping']['price'];
-				}
-
-				// musim zjistit, jestli neni v objednavce produkt,
-				// ktery ma flag s dopravou zdarma
-				foreach ( $products['OrderedProduct'] as $op ){
-					if ( !empty($op['Product']['FlagsProduct']) ){
-						foreach ( $op['Product']['FlagsProduct'] as $pf ){
-							// pokud se jedna o flag s dopravou zdarma a pocet produktu
-							// splnuje podminku pro dopravu zdarma
-							if ( $pf['flag_id'] == 1 && $pf['quantity'] <= $op['product_quantity'] ){
-								// indukuje dopravu zdarma
-								$order['Order']['shipping_cost'] = 0;
-							}
-						}
-					}
-				}
-			}
-		} */
-
 		$order_total = 0;
 		$free_shipping = false;
 		foreach ( $products['OrderedProduct'] as $product ){
