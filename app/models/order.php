@@ -490,7 +490,7 @@ class Order extends AppModel {
 		$this->Session = &new CakeSession;
 		// ze sesny vytahnu data o objednavce a doplnim potrebna data
 		$order['Order'] = $this->Session->read('Order');
-		
+
 		$order['Order']['customer_first_name'] = $customer['Customer']['first_name'];
 		$order['Order']['customer_last_name'] = $customer['Customer']['last_name'];
 		$order['Order']['customer_phone'] = $customer['Customer']['phone'];
@@ -540,18 +540,10 @@ class Order extends AppModel {
 		$mail_products = array();
 		$order_total_with_dph = 0;
 		$order_total_wout_dph = 0;
-		$free_shipping = false;
 		$ordered_products = array();
 
 		$cp_count = 0;
 		foreach ( $cart_products as $cart_product ){
-			// projdu vsechny priznaky
-			foreach ( $cart_product['Product']['Flag'] as $flags_product ){
-				// priznak pro dopravu zdarma je "1"
-				if ( $flags_product['FlagsProduct']['flag_id'] == 1 && $cart_product['CartsProduct']['quantity'] >= $flags_product['FlagsProduct']['quantity'] ){
-					$free_shipping = true;
-				}
-			}
 			// nactu produkt, abych si zapamatoval jeho jmeno
 			$product = $this->OrderedProduct->Product->find('first', array(
 				'conditions' => array('Product.id' => $cart_product['CartsProduct']['product_id']),
@@ -585,18 +577,6 @@ class Order extends AppModel {
 				}
 			}
 			$cp_count++;
-		}
-		
-		// dopocitavam si cenu dopravneho pro objednavku
-		// predpokladam nulovou cenu
-		$order['Order']['shipping_cost'] = 0;
-		if ( !$free_shipping ){
-			// objednavka neobsahuje produkt s dopravou zdarma,
-			// cenu dopravy si proto dopocitam v zavislosti na
-			// cene objednaneho zbozi
-			// musim zjistit, jestli zakaznik, ktery sestavil objednavku, byl voc, protoze podle toho se pocita cena dopravy
-			$is_voc = $this->Customer->is_voc($customer['Customer']['id']);
-			$order['Order']['shipping_cost'] = $this->Shipping->get_cost($order['Order']['shipping_id'], $order_total_with_dph, $is_voc);
 		}
 
 		$order['Order']['shipping_tax_class'] = $this->Shipping->get_tax_class_description($order['Order']['shipping_id']);
@@ -635,7 +615,7 @@ class Order extends AppModel {
 		
 		// dopocitavam si cenu dopravneho pro objednavku predpokladam nulovou cenu
 		$shipping_cost = 0;
-		if ( !$free_shipping ){
+		if (!$free_shipping) {
 			// objednavka neobsahuje produkt s dopravou zdarma,
 			// cenu dopravy si proto dopocitam v zavislosti na
 			// cene objednaneho zbozi

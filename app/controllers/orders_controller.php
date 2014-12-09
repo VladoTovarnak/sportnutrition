@@ -936,12 +936,17 @@ class OrdersController extends AppController {
 			$this->Session->write('Address_payment', $address_payment);
 		}
 		$address_payment = $this->Session->read('Address_payment');
-
+		
+		// produkty ktere jsou v kosiku
+		$cart_products = $this->requestAction('/carts_products/getProducts/');
+		$this->set('cart_products', $cart_products);
+		
 		$order['shipping_cost'] = $this->Order->get_shipping_cost($order['shipping_id']);
 		// pokud je zvolena doprava na slovensko (id = 6) a platba prevodem (id = 2), je sleva z dopravy 70,-
 		if ($order['shipping_id'] == 16 && $order['payment_id'] == 2) {
 			$order['shipping_cost'] -= 70;
 		}
+		$this->Session->write('Order.shipping_cost', $order['shipping_cost']);
 
 		// data o objednavce
 		$this->set('order', $order);
@@ -961,28 +966,6 @@ class OrdersController extends AppController {
 		$this->set('_description', 'Kontrola údajů před odesláním objednávky.');
 		$breadcrumbs = array(array('anchor' => 'Rekapitulace objednávky', 'href' => '/rekapitulace-objednavky'));
 		$this->set('breadcrumbs', $breadcrumbs);
-
-		// produkty ktere jsou v kosiku
-		$cart_products = $this->requestAction('/carts_products/getProducts/');
-		$this->set('cart_products', $cart_products);
-
-		// potrebuju si projit produkty z kosiku,
-		// pokud alespon jeden ma akci s dopravou zdarma,
-		// cela objednavka je s dopravou zdarma
-		$free_shipping = false; // prepoklad, ze doprava zdarma nebude
-		foreach ( $cart_products as $cart_product ){
-			// produkt nejaky priznak ma prirazen
-			if ( !empty($cart_product['Product']['Flag']) ){
-				// projdu vsechny priznaky
-				foreach ( $cart_product['Product']['Flag'] as $flag ){
-					// priznak pro dopravu zdarma je "1"
-					if ( $flag['id'] == 1 && $cart_product['CartsProduct']['quantity'] >= $flag['FlagsProduct']['quantity'] ){
-						$free_shipping = true;
-					}
-				}
-			}
-		}
-		$this->set('free_shipping', $free_shipping);
 
 		// vytahnu si data o zpusobu dopravy
 		$shipping = $this->Order->Shipping->get_data($order['shipping_id']);
