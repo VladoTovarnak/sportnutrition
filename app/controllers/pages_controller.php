@@ -132,6 +132,65 @@ class PagesController extends AppController{
 		$hp_most_sold = $this->MostSoldProduct->hp_list($customer_type_id);
 		$this->set('hp_most_sold', $hp_most_sold);
 		
+		$opening_hours = array(
+			1 => '8:oo - 17:oo',
+			2 => '8:oo - 17:oo',
+			3 => '8:oo - 17:oo',
+			4 => '8:oo - 17:oo',
+			5 => '8:oo - 16:oo',
+			6 => 'Zavřeno',
+			7 => 'Zavřeno'
+		);
+		
+		$today = date('Y-m-d');
+		
+		// oteviraci doba behem vanoc 2014
+		$before_christmas_start = '2014-12-15';
+		$before_christmas_end = '2014-12-21';
+		$before_christmas = ($today >= $before_christmas_start && $today <= $before_christmas_end);
+		if ($before_christmas) {
+			$opening_hours = array(
+					1 => '8:oo - 18:oo',
+					2 => '8:oo - 18:oo',
+					3 => '8:oo - 18:oo',
+					4 => '8:oo - 18:oo',
+					5 => '8:oo - 18:oo',
+					6 => '9:3o - 12:oo',
+					7 => 'Zavřeno'
+			);
+		} else {
+			$during_christmas_start = '2014-12-22';
+			$during_christmas_end = '2014-12-28';
+			$during_christmas = ($today >= $during_christmas_start && $today <= $during_christmas_end);
+			if ($during_christmas) {
+				$opening_hours = array(
+						1 => '8:oo - 18:oo',
+						2 => '8:oo - 18:oo',
+						3 => 'Zavřeno',
+						4 => 'Zavřeno',
+						5 => 'Zavřeno',
+						6 => 'Zavřeno',
+						7 => 'Zavřeno'
+				);
+			} else {
+				$after_christmas_start = '2014-12-29';
+				$after_christmas_end = '2015-01-04';
+				$after_christmas = ($today >= $after_christmas_start && $today <= $after_christmas_end);
+				if ($after_christmas) {
+					$opening_hours = array(
+							1 => '8:oo - 17:oo',
+							2 => '8:oo - 17:oo',
+							3 => 'Zavřeno',
+							4 => 'Zavřeno',
+							5 => 'Zavřeno',
+							6 => 'Zavřeno',
+							7 => 'Zavřeno'
+					);
+				}
+			}
+		}
+		
+		$this->set('opening_hours', $opening_hours);
 	}
 }
 ?>
