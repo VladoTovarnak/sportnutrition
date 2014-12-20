@@ -57,6 +57,7 @@ $(function() {
 		<th>&nbsp;</th>
 		<th>&nbsp;</th>
 		<th>&nbsp;</th>
+		<th>&nbsp;</th>
 		<th><?php echo (empty($products) ? 'Priorita' : $this->Paginator->sort('Priorita', 'Product.priority'))?></th>
 	</tr>
 	<?php if (isset($this->data['Category']['id']) && !empty($this->data['Category']['id'])) { ?>
@@ -81,7 +82,7 @@ $(function() {
 			}
 			echo  $this->Html->link($icon, $action, array('escape' => false), $notice);
 		?></td>
-		<td><?php echo $this->Html->link($product['Product']['id'], array('controller' => 'products', 'action' => 'edit_detail', $product['Product']['id'], (isset($category_id) ? $category_id : null)))?></td>
+		<td><?php echo $this->Html->link($product['Product']['id'], array('controller' => 'products', 'action' => 'view', 'admin' => false, $product['Product']['id'], (isset($category_id) ? $category_id : null)))?></td>
 		<td><?php
 			$style = '';
 			if (!$product['Product']['active']) {
