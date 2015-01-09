@@ -20,7 +20,7 @@
 		echo '<button name="login">OK</button>';
 		echo $this->Form->hidden('Customer.backtrace_url', array('value' => $_SERVER['REQUEST_URI']));
 		echo $this->Form->end();
-		echo '<p>' . $this->Html->link('Zapomněl(a) jsem heslo', '/obnova-hesla') . ' | ' . $this->Html->link('Chci se zaregistrovat', '/registrace') . '</p>';
+		echo '<p>' . $this->Html->link('Zapomněl(a) jsem heslo', '/obnova-hesla?back=' . urlencode(base64_encode($_SERVER['REQUEST_URI']))) . ' | ' . $this->Html->link('Chci se zaregistrovat', '/registrace') . '</p>';
 	} else {
 		$customer = $this->Session->read('Customer');
 ?>

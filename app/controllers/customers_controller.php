@@ -15,6 +15,7 @@ class CustomersController extends AppController {
 			'order_personal_info',
 			'login',
 			'password',
+			'confirm_hash',
 			'import',
 			'repair'
 		);
@@ -1000,7 +1001,7 @@ class CustomersController extends AppController {
 		$this->set('_description', $_description);
 	}
 
-	function password(){
+	function password() {
 		// nastavim layout
 		$this->layout = REDESIGN_PATH . 'content';
 		
@@ -1010,7 +1011,14 @@ class CustomersController extends AppController {
 		$breadcrumbs = array(array('anchor' => 'Obnova hesla', 'href' => '/obnova-hesla'));
 		$this->set('breadcrumbs', $breadcrumbs);
 		
-		if ( isset($this->data) ){
+		$back = urlencode(base64_encode('/obnova-hesla'));
+		if (isset($_GET['back'])) {
+			$back = $_GET['back'];
+		}
+		$this->set('back', $back);
+		
+		if (isset($this->data)) {
+			$back = $this->data['Customer']['back'];
 			$customer = $this->Customer->find('first', array(
 				'conditions' => array('Customer.email' => $this->data['Customer']['email']),
 				'contain' => array(
@@ -1032,16 +1040,104 @@ class CustomersController extends AppController {
 				if (empty($ns_customer)) { 
 					$this->Session->setFlash('Účet s takovou emailovou adresou neexistuje.', REDESIGN_PATH . 'flash_failure');
 				} else {
-					$this->Customer->changeNSPassword($ns_customer[0]);
-					$this->Session->setFlash('Email o změně hesla byl odeslán.', REDESIGN_PATH . 'flash_success');
+					$this->Customer->changeNSPassword($ns_customer[0], $back);
+					$this->Session->setFlash('Vaše žádost byla úspěšně odeslána ke zpracování. Zkontrolujte prosím Vaši emailovou schránku.', REDESIGN_PATH . 'flash_success');
 					$this->redirect(array('controller' => 'customers', 'action' => 'login'));
 				}
 			} else {
-				$this->Customer->changePassword($customer);
-				$this->Session->setFlash('Email o změně hesla byl odeslán.', REDESIGN_PATH . 'flash_success');
+				$this->Customer->changePassword($customer, $back);
+				$this->Session->setFlash('Vaše žádost byla úspěšně odeslána ke zpracování. Zkontrolujte prosím Vaši emailovou schránku.', REDESIGN_PATH . 'flash_success');
 				$this->redirect(array('controller' => 'customers', 'action' => 'login')); 
 			}
 		}
+	}
+	
+	function confirm_hash() {
+		if (!isset($this->params['named']['hash']) || !isset($this->params['named']['customer_id'])) {
+			$this->Session->setFlash('Chyba při ověření požadavku. Zkontrolujte prosím, zda je adresa pro ověření zadána správně.', REDESIGN_PATH . 'flash_failure');
+			$this->redirect(array('url' => 'customers', 'action' => 'password'));
+		}
+		
+		$hash = $this->params['named']['hash'];
+		$hash = urldecode($hash);
+		$customer_id = $this->params['named']['customer_id'];
+		
+		$customer = $this->Customer->find('first', array(
+			'conditions' => array('Customer.id' => $customer_id),
+			'contain' => array(),
+		));
+		
+		if (empty($customer)) {
+			$this->Session->setFlash('Chyba při ověření požadavku. Zkontrolujte prosím, zda je adresa pro ověření zadána správně.', REDESIGN_PATH . 'flash_failure');
+			$this->redirect(array('controller' => 'customers', 'action' => 'password'));
+		}
+		
+		if (isset($this->data)) {
+			// pokud zakaznik heslo nezadal, vygeneruju mu ho a poslu emailem
+			if (empty($this->data['Customer']['password'])) {
+				$password = $this->Customer->generatePassword($customer);
+				$md5_password = md5($password);
+			// jinak nastavim nove heslo
+			} else {
+				$password = $this->data['Customer']['password'];
+				$md5_password = md5($this->data['Customer']['password']);
+			}
+			
+			$customer_logins = $this->Customer->CustomerLogin->find('all', array(
+				'conditions' => array('CustomerLogin.customer_id' => $customer_id),
+				'contain' => array(),
+				'fields' => array('CustomerLogin.id', 'CustomerLogin.login')
+			));
+			
+			if (empty($customer_logins)) {
+				$customer_logins = array(
+					'CustomerLogin' => array(
+						'login' => $customer['Customer']['email'],
+						'customer_id' => $customer_id 
+					)
+				);
+			}
+			
+			$save = array();
+			$login = false;
+			foreach ($customer_logins as $login) {
+				$save_item = array('password' => $md5_password);
+				if (isset($login['CustomerLogin']['id'])) {
+					$save_item['id'] = $login['CustomerLogin']['id'];
+				}
+				$save[] = $save_item;
+			}
+			if (!empty($save)) {
+				if ($this->Customer->CustomerLogin->saveAll($save)) {
+					// poslu email s novymi prihlasovacimi udaji
+					$this->Customer->passwordRecoveryMail($customer_id, $customer_logins[0]['CustomerLogin']['login'], $password);
+						
+					// automaticky ho prihlasim
+					$this->Session->write('Customer', $customer['Customer']);
+					$this->Session->setFlash('Vaše přístupové údaje Vám byly odeslány na emailovou adresu.<br/>Byl jste úspěšně přihlášen', REDESIGN_PATH . 'flash_success');
+					// PRESMERUJU TAM, ODKUD PRISEL
+					$url = '/prihlaseni';
+					if (isset($this->params['named']['back'])) {
+						$url = urldecode(base64_decode($this->params['named']['back']));
+					}
+					$this->redirect($url);
+				} else {
+					$this->Session->setFlash('Nepodařilo se změnit heslo.', REDESIGN_PATH . 'flash_failure');
+					$this->redirect(array('controller' => 'customers', 'action' => 'confirm_hash') + $this->passedArgs);
+				}
+			}
+		}
+		
+		$db_hash = $this->Customer->passwordRecoveryHash($customer['Customer']['email']);
+		
+		if ($hash != $db_hash) {
+			$this->Session->setFlash('Chyba při ověření požadavku. Zkontrolujte prosím, zda je adresa pro ověření zadána správně.', REDESIGN_PATH . 'flash_failure');
+			$this->redirect(array('controller' => 'customers', 'action' => 'password'));
+		}
+		
+		// nastavim layout
+		$this->layout = REDESIGN_PATH . 'content';
+		$this->set('customer_id', $customer_id);
 	}
 	
 	function import() {

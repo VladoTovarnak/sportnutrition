@@ -78,12 +78,33 @@ class Customer extends AppModel {
 		return $password;
 	}
 	
+	function passwordRecoveryHash($email) {
+		return md5($email . Configure::read('Security.salt'));
+	}
 	
-	function changePassword($customer) {
-		include 'class.phpmailer.php';
-
-		$mail = &new phpmailer;
-
+	private function passwordRecoveryUrl($email, $customer_id, $back = null) {
+		$hash = $this->passwordRecoveryHash($email);
+		$url = 'http://www.' . CUST_ROOT . '/customers/confirm_hash/hash:' . urlencode($hash) . '/customer_id:' . $customer_id;
+		if ($back) {
+			$url .= '/back:' . $back;
+		}
+		return $url;
+	}
+	
+	function passwordRecoveryMail($customer_id, $login, $password) {
+		App::import('Vendor', 'PHPMailer', array('file' => 'class.phpmailer.php'));
+		$mail = &new PHPMailer;
+		
+		$customer = $this->find('first', array(
+			'conditions' => array('Customer.id' => $customer_id),
+			'contain' => array(),
+			'fields' => array('Customer.first_name', 'Customer.last_name', 'Customer.email')
+		));
+		
+		if (empty($customer)) {
+			return false;
+		}
+		
 		$mail->CharSet = $this->CharSet = 'utf-8';
 		$mail->Hostname = $this->Hostname = CUST_ROOT;
 		$mail->Sender = $this->Sender = CUST_MAIL;
@@ -96,8 +117,8 @@ class Customer extends AppModel {
 		$mail->Body = "Dobrý den,\n\n";
 		$mail->Body .= "Váš požadavek na změnu hesla byl vykonán, pro přihlášení k účtu,
 		použijte následující údaje: \n";
-		$mail->Body .= "login: " . $customer['CustomerLogin'][0]['login'] . "\n";
-		$mail->Body .= "heslo: " . $this->assignPassword($customer['CustomerLogin'][0]['id'], $customer['Customer']['email']) . "\n";
+		$mail->Body .= "login: " . $login . "\n";
+		$mail->Body .= "heslo: " . $password . "\n";
 		$mail->Body .= "team " . CUST_NAME . "\n";
 		$mail->Body .= "--\n";
 		$mail->Body .= "emailová adresa " . $customer['Customer']['email'] . " byla použita pro vyžádání změny hesla pro přístup\n";
@@ -107,7 +128,34 @@ class Customer extends AppModel {
 		$mail->Send();
 	}
 	
-	function changeNSPassword($customer) {
+	function changePassword($customer, $back) {
+		include 'class.phpmailer.php';
+
+		$mail = &new phpmailer;
+
+		$mail->CharSet = $this->CharSet = 'utf-8';
+		$mail->Hostname = $this->Hostname = CUST_ROOT;
+		$mail->Sender = $this->Sender = CUST_MAIL;
+		$mail->From = $this->From = CUST_MAIL;
+		$mail->FromName = $this->FromName = CUST_NAME;
+		$mail->ReplyTo = $this->ReplyTo = CUST_MAIL;
+		
+		$mail->AddAddress($customer['Customer']['email'], $customer['Customer']['first_name'] . " " . $customer['Customer']['last_name']);
+		$mail->Subject = 'Zapomenuté heslo pro přístup do www.' . CUST_ROOT;
+		$mail->Body = "Dobrý den,\n\n";
+		$mail->Body .= "na základě žádosti odeslané z www" . CUST_ROOT . " Vám zasíláme odkaz pro obnovu hesla k Vašemu účtu.
+		Pro změnu hesla prosím klikněte na níže uvedený odkaz \n\n";
+		$mail->Body .= $this->passwordRecoveryUrl($customer['Customer']['email'], $customer['Customer']['id'], $back) . "\n";
+		$mail->Body .= "team " . CUST_NAME . "\n";
+		$mail->Body .= "--\n";
+		$mail->Body .= "emailová adresa " . $customer['Customer']['email'] . " byla použita pro vyžádání změny hesla pro přístup\n";
+		$mail->Body .= "na " . CUST_ROOT . " Jste-li majitelem emailové schránky a neprováděl(a) jste žádnou žádost o změnu,\n";
+		$mail->Body .= "upozorněte nás prosím na tuto skutečnost na adrese webmaster@" . CUST_ROOT;
+
+		$mail->Send();
+	}
+	
+	function changeNSPassword($customer, $back) {
 		$customer_login = $customer['NSCustomer']['login'];
 		$start = rand(0, 23);
 		$customer_password = md5($customer['NSCustomer']['email'] . Configure::read('Security.salt'));
@@ -135,15 +183,14 @@ class Customer extends AppModel {
 		$mail->ReplyTo = $this->ReplyTo = CUST_MAIL;
 		
 		$mail->AddAddress($customer['NSCustomer']['email'], $customer['NSCustomer']['first_name'] . " " . $customer['NSCustomer']['last_name']);
-		$mail->Subject = 'změna hesla pro přístup do www.' . CUST_ROOT;
+		$mail->Subject = 'Zapomenuté heslo pro přístup do www.' . CUST_ROOT;
 		$mail->Body = "Dobrý den,\n\n";
-		$mail->Body .= "Váš požadavek na změnu hesla byl vykonán, pro přihlášení k účtu,
-		použijte následující údaje: \n";
-		$mail->Body .= "login: " . $customer_login . "\n";
-		$mail->Body .= "heslo: " . $customer_password . "\n";
+		$mail->Body .= "na základě žádosti odeslané z www" . CUST_ROOT . " Vám zasíláme odkaz pro obnovu hesla k Vašemu účtu.
+		Pro změnu hesla prosím klikněte na níže uvedený odkaz \n\n";
+		$mail->Body .= $this->passwordRecoveryUrl($customer['Customer']['email'], $customer['Customer']['id'], $back) . "\n";
 		$mail->Body .= "team " . CUST_NAME . "\n";
 		$mail->Body .= "--\n";
-		$mail->Body .= "emailová adresa " . $customer['NSCustomer']['email'] . " byla použita pro vyžádání změny hesla pro přístup\n";
+		$mail->Body .= "emailová adresa " . $customer['Customer']['email'] . " byla použita pro vyžádání změny hesla pro přístup\n";
 		$mail->Body .= "na " . CUST_ROOT . " Jste-li majitelem emailové schránky a neprováděl(a) jste žádnou žádost o změnu,\n";
 		$mail->Body .= "upozorněte nás prosím na tuto skutečnost na adrese webmaster@" . CUST_ROOT;
 
@@ -181,7 +228,6 @@ class Customer extends AppModel {
 		$password = strtolower($password);
 		return $password;
 	}
-
 	
 	function notify_account_created($customer) {
 		// musim zjistit, zda zakaznik uvedl
