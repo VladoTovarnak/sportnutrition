@@ -95,8 +95,8 @@ class ContentsController extends AppController{
 		if ( $this->Content->getNumRows() > 0 ){
 			$this->set('page_heading', $page['Content']['heading']);
 			$this->set('page_content', $page['Content']['content']);
-			$this->set('title_for_content', $page['Content']['title']);
-			$this->set('description_for_content', $page['Content']['description']);
+			$this->set('_title', $page['Content']['title']);
+			$this->set('_description', $page['Content']['description']);
 		} else {
 			die('404 nenalezeno');
 		}
