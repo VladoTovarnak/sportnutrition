@@ -1019,35 +1019,40 @@ class CustomersController extends AppController {
 		
 		if (isset($this->data)) {
 			$back = $this->data['Customer']['back'];
-			$customer = $this->Customer->find('first', array(
-				'conditions' => array('Customer.email' => $this->data['Customer']['email']),
-				'contain' => array(
-					'CustomerLogin' => array(
-						'fields' => array('CustomerLogin.id', 'CustomerLogin.login', 'CustomerLogin.password'),
-						'limit' => 1
-					)
-				),
-				'fields' => array('Customer.id', 'Customer.email', 'Customer.first_name', 'Customer.last_name')
-			));
-
-			if (empty($customer)) {
-				// podivam se, jestli si neposila heslo zakaznik z NS
-				$ns_customer = $this->Customer->query('
-					SELECT *
-					FROM ns_customers AS NSCustomer
-					WHERE NSCustomer.email="' . 	$this->data['Customer']['email'] . '"
-				');
-				if (empty($ns_customer)) { 
-					$this->Session->setFlash('Účet s takovou emailovou adresou neexistuje.', REDESIGN_PATH . 'flash_failure');
-				} else {
-					$this->Customer->changeNSPassword($ns_customer[0], $back);
-					$this->Session->setFlash('Vaše žádost byla úspěšně odeslána ke zpracování. Zkontrolujte prosím Vaši emailovou schránku.', REDESIGN_PATH . 'flash_success');
-					$this->redirect(array('controller' => 'customers', 'action' => 'login'));
-				}
+			if (empty($this->data['Customer']['email'])) {
+				$this->Session->setFlash('Zadejte Vaši emailovou adresu', REDESIGN_PATH . 'flash_failure');
+				$this->redirect('/obnova-hesla?back=' . $back);
 			} else {
-				$this->Customer->changePassword($customer, $back);
-				$this->Session->setFlash('Vaše žádost byla úspěšně odeslána ke zpracování. Zkontrolujte prosím Vaši emailovou schránku.', REDESIGN_PATH . 'flash_success');
-				$this->redirect(array('controller' => 'customers', 'action' => 'login')); 
+				$customer = $this->Customer->find('first', array(
+					'conditions' => array('Customer.email' => $this->data['Customer']['email']),
+					'contain' => array(
+						'CustomerLogin' => array(
+							'fields' => array('CustomerLogin.id', 'CustomerLogin.login', 'CustomerLogin.password'),
+							'limit' => 1
+						)
+					),
+					'fields' => array('Customer.id', 'Customer.email', 'Customer.first_name', 'Customer.last_name')
+				));
+	
+				if (empty($customer)) {
+					// podivam se, jestli si neposila heslo zakaznik z NS
+					$ns_customer = $this->Customer->query('
+						SELECT *
+						FROM ns_customers AS NSCustomer
+						WHERE NSCustomer.email="' . 	$this->data['Customer']['email'] . '"
+					');
+					if (empty($ns_customer)) { 
+						$this->Session->setFlash('Účet s takovou emailovou adresou neexistuje.', REDESIGN_PATH . 'flash_failure');
+					} else {
+						$this->Customer->changeNSPassword($ns_customer[0], $back);
+						$this->Session->setFlash('Vaše žádost byla úspěšně odeslána ke zpracování. Zkontrolujte prosím Vaši emailovou schránku.', REDESIGN_PATH . 'flash_success');
+						$this->redirect(array('controller' => 'customers', 'action' => 'login'));
+					}
+				} else {
+					$this->Customer->changePassword($customer, $back);
+					$this->Session->setFlash('Vaše žádost byla úspěšně odeslána ke zpracování. Zkontrolujte prosím Vaši emailovou schránku.', REDESIGN_PATH . 'flash_success');
+					$this->redirect(array('controller' => 'customers', 'action' => 'login')); 
+				}
 			}
 		}
 	}
