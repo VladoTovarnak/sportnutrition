@@ -120,10 +120,6 @@ class Customer extends AppModel {
 		$mail->Body .= "login: " . $login . "\n";
 		$mail->Body .= "heslo: " . $password . "\n";
 		$mail->Body .= "team " . CUST_NAME . "\n";
-		$mail->Body .= "--\n";
-		$mail->Body .= "emailová adresa " . $customer['Customer']['email'] . " byla použita pro vyžádání změny hesla pro přístup\n";
-		$mail->Body .= "na " . CUST_ROOT . " Jste-li majitelem emailové schránky a neprováděl(a) jste žádnou žádost o změnu,\n";
-		$mail->Body .= "upozorněte nás prosím na tuto skutečnost na adrese webmaster@" . CUST_ROOT;
 
 		$mail->Send();
 	}
@@ -143,14 +139,14 @@ class Customer extends AppModel {
 		$mail->AddAddress($customer['Customer']['email'], $customer['Customer']['first_name'] . " " . $customer['Customer']['last_name']);
 		$mail->Subject = 'Zapomenuté heslo pro přístup do www.' . CUST_ROOT;
 		$mail->Body = "Dobrý den,\n\n";
-		$mail->Body .= "na základě žádosti odeslané z www" . CUST_ROOT . " Vám zasíláme odkaz pro obnovu hesla k Vašemu účtu.
+		$mail->Body .= "na základě žádosti odeslané z www." . CUST_ROOT . " Vám zasíláme odkaz pro obnovu hesla k Vašemu účtu.
 		Pro změnu hesla prosím klikněte na níže uvedený odkaz \n\n";
 		$mail->Body .= $this->passwordRecoveryUrl($customer['Customer']['email'], $customer['Customer']['id'], $back) . "\n";
 		$mail->Body .= "team " . CUST_NAME . "\n";
 		$mail->Body .= "--\n";
 		$mail->Body .= "emailová adresa " . $customer['Customer']['email'] . " byla použita pro vyžádání změny hesla pro přístup\n";
 		$mail->Body .= "na " . CUST_ROOT . " Jste-li majitelem emailové schránky a neprováděl(a) jste žádnou žádost o změnu,\n";
-		$mail->Body .= "upozorněte nás prosím na tuto skutečnost na adrese webmaster@" . CUST_ROOT;
+		$mail->Body .= "můžete tuto zprávu ignorovat, nedošlo k žádným změnám na vašem účtu.";
 
 		$mail->Send();
 	}
@@ -185,14 +181,14 @@ class Customer extends AppModel {
 		$mail->AddAddress($customer['NSCustomer']['email'], $customer['NSCustomer']['first_name'] . " " . $customer['NSCustomer']['last_name']);
 		$mail->Subject = 'Zapomenuté heslo pro přístup do www.' . CUST_ROOT;
 		$mail->Body = "Dobrý den,\n\n";
-		$mail->Body .= "na základě žádosti odeslané z www" . CUST_ROOT . " Vám zasíláme odkaz pro obnovu hesla k Vašemu účtu.
+		$mail->Body .= "na základě žádosti odeslané z www." . CUST_ROOT . " Vám zasíláme odkaz pro obnovu hesla k Vašemu účtu.
 		Pro změnu hesla prosím klikněte na níže uvedený odkaz \n\n";
 		$mail->Body .= $this->passwordRecoveryUrl($customer['Customer']['email'], $customer['Customer']['id'], $back) . "\n";
 		$mail->Body .= "team " . CUST_NAME . "\n";
 		$mail->Body .= "--\n";
 		$mail->Body .= "emailová adresa " . $customer['Customer']['email'] . " byla použita pro vyžádání změny hesla pro přístup\n";
 		$mail->Body .= "na " . CUST_ROOT . " Jste-li majitelem emailové schránky a neprováděl(a) jste žádnou žádost o změnu,\n";
-		$mail->Body .= "upozorněte nás prosím na tuto skutečnost na adrese webmaster@" . CUST_ROOT;
+		$mail->Body .= "můžete tuto zprávu ignorovat, nedošlo k žádným změnám na vašem účtu.";
 
 		$mail->Send();
 	}
