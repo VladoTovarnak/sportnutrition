@@ -1,6 +1,6 @@
 		<div id="slides" class="slidorion">
 			<div class="accordion">
-				<div class="header"><div style="padding-top: 10px"><b>Kalendář</b><br/>ke každé objednávce</div></div>
+				<div class="header"><div style="padding-top: 10px"><b>BCAA zdarma</b><br/>ke 2 produktům XXLabs</div></div>
 				<div class="content"></div>
 				<div class="header"><div style="padding-top: 10px"><b>MusclePharm</b><br/>za super ceny</div></div>
 				<div class="content"></div>
@@ -10,7 +10,7 @@
 				<div class="content"></div>
 			</div>
 			<div class="slider">
-				<div class="slide"><a href="/kalendar-2014-darek-nyni-az-do-vyprodani-zasob-zdarma-v-kazde-objednavce-p3948"><img src="/images/hp-banner/kalendar-banner.jpg" alt=""></a></div>
+				<div class="slide"><a href="/xxtreme-nut-v19"><img src="/images/hp-banner/banner-2-produkty-bcaa-zdarma.jpg" alt=""></a></div>
 				<div class="slide"><a href="/manufacturer/muscle-pharm-usa:94/"><img src="/images/hp-banner/musclepharm.jpg" alt=""></a></div>
 				<div class="slide"><a href="/precre-720g-30-davek-p4202"><img src="/images/hp-banner/PreCre_AmiNo_websnvjpg.jpg" alt=""></a></div>
 				<div class="slide"><a href="/manufacturer/cellucor:119/"><img src="/images/hp-banner/cellucor.jpg" alt=""></a></div>
