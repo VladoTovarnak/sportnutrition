@@ -129,7 +129,7 @@ class SearchesController extends AppController {
 			$queries = trim($this->data['Search']['q']);
 			
 			// od vice mezer za sebou
-			while ( eregi("  ", $queries) ){
+			while (eregi("  ", $queries)) {
 				$queries = str_replace("  ", " ", $queries);
 			}
 			
