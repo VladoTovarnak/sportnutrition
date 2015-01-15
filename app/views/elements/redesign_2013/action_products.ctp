@@ -25,8 +25,10 @@
 			<span class="regular_price">cena: <?php echo front_end_display_price($action_product['Product']['price'])?> Kč</span>
 			<?php 
 				echo $this->Form->create('Product', array('url' => '/' . $action_product['Product']['url'], 'encoding' => false));
-				echo '<input class="right_sidebar_cart_add" type="submit" value="Vložit do košíku" />';
-				echo $form->end();
+				echo $this->Form->hidden('Product.id', array('value' => $action_product['Product']['id']));
+				echo $this->Form->hidden('Product.quantity', array('value' => 1));
+				echo $this->Form->submit('Vložit do košíku', array('class' => 'right_sidebar_cart_add'));
+				echo $this->Form->end();
 			?>
 		</div>
 		<div style="clear:both"></div>

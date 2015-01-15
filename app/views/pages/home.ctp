@@ -29,8 +29,10 @@
 			<p class="comments"><a href="<?php echo $suggested_product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="<?php echo $suggested_product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
 			<?php 
 				echo $this->Form->create('Product', array('url' => '/' . $suggested_product['Product']['url'], 'encoding' => false));
-				echo '<input class="cart_add" type="submit" value="Vložit do košíku" />';
-				echo $form->end();
+				echo $this->Form->hidden('Product.id', array('value' => $suggested_product['Product']['id']));
+				echo $this->Form->hidden('Product.quantity', array('value' => 1));
+				echo $this->Form->submit('Vložit do košíku', array('class' => 'cart_add'));
+				echo $this->Form->end();
 			?>
 			<p class="prices">
 				<span class="common">Běžná cena: <?php echo front_end_display_price($suggested_product['Product']['retail_price_with_dph'])?> Kč</span><br />
@@ -57,8 +59,10 @@
 						<p class="comments"><a href="<?php echo $product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="<?php echo $product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
 						<?php 
 							echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false));
-							echo '<input class="cart_add" type="submit" value="Vložit do košíku" />';
-							echo $form->end();
+							echo $this->Form->hidden('Product.id', array('value' => $product['Product']['id']));
+							echo $this->Form->hidden('Product.quantity', array('value' => 1));
+							echo $this->Form->submit('Vložit do košíku', array('class' => 'cart_add'));
+							echo $this->Form->end();
 						?>
 						<p class="prices">
 							<span class="common">Běžná cena: <?php echo front_end_display_price($product['Product']['retail_price_with_dph'])?> Kč</span><br />
@@ -123,8 +127,10 @@
 			<p class="comments"><a href="<?php echo $product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="<?php echo $product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
 			<?php 
 				echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false));
-				echo '<input class="cart_add" type="submit" value="Vložit do košíku" />';
-				echo $form->end();
+				echo $this->Form->hidden('Product.id', array('value' => $product['Product']['id']));
+				echo $this->Form->hidden('Product.quantity', array('value' => 1));
+				echo $this->Form->submit('Vložit do košíku', array('class' => 'cart_add'));
+				echo $this->Form->end();
 			?>
 			<p class="prices">
 				<span class="common">Běžná cena: <?php echo front_end_display_price($product['Product']['retail_price_with_dph'])?> Kč</span><br />

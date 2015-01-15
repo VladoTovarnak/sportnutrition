@@ -70,8 +70,10 @@
 						<span class="regular_price">cena: <?php echo $similar_product[0]['price']?> Kč</span>
 						<?php 
 							echo $this->Form->create('Product', array('url' => '/' . $similar_product['Product']['url'], 'encoding' => false));
-							echo '<input class="right_sidebar_cart_add" type="submit" value="Vložit do košíku" />';
-							echo $form->end();
+							echo $this->Form->hidden('Product.id', array('value' => $similar_product['Product']['id']));
+							echo $this->Form->hidden('Product.quantity', array('value' => 1));
+							echo $this->Form->submit('Vložit do košíku', array('class' => 'right_sidebar_cart_add'));
+							echo $this->Form->end();
 						?>
 					</div>
 				</div>
@@ -108,8 +110,10 @@
 						<span class="regular_price">cena: <?php echo $right_sidebar_product[0]['price']?> Kč</span>
 						<?php 
 							echo $this->Form->create('Product', array('url' => '/' . $right_sidebar_product['Product']['url'], 'encoding' => false));
-							echo '<input class="right_sidebar_cart_add" type="submit" value="Vložit do košíku" />';
-							echo $form->end();
+							echo $this->Form->hidden('Product.id', array('value' => $right_sidebar_product['Product']['id']));
+							echo $this->Form->hidden('Product.quantity', array('value' => 1));
+							echo $this->Form->submit('Vložit do košíku', array('class' => 'right_sidebar_cart_add'));
+							echo $this->Form->end();
 						?>
 					</div>
 				</div>

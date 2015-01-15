@@ -22,8 +22,10 @@ foreach ( $products as $product ){
 		<p class="comments"><a href="/<?php echo $product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="/<?php echo $product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
 		<?php if (isset($product['Availability']['cart_allowed']) && $product['Availability']['cart_allowed']) { 
 			echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false));
-			echo '<input class="cart_add" type="submit" value="Vložit do košíku" />';
-			echo $form->end();
+			echo $this->Form->hidden('Product.id', array('value' => $product['Product']['id']));
+			echo $this->Form->hidden('Product.quantity', array('value' => 1));
+			echo $this->Form->submit('Vložit do košíku', array('class' => 'cart_add'));
+			echo $this->Form->end();
 		} else { ?>
 		<p>Produkt nyní nelze objednat.</p>
 		<?php } ?>
