@@ -124,6 +124,9 @@ class Product extends AppModel {
 		if (array_key_exists('zbozi_name', $this->data['Product']) && empty($this->data['Product']['zbozi_name'])) {
 			$this->data['Product']['zbozi_name'] = $this->data['Product']['name'];
 		}
+		if (array_key_exists('heureka_name', $this->data['Product']) && empty($this->data['Product']['heureka_name'])) {
+			$this->data['Product']['heureka_name'] = $this->data['Product']['name'];
+		}
 	}
 	
 	function beforeSave() {

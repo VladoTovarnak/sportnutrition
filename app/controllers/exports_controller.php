@@ -101,6 +101,7 @@ class ExportsController extends AppController{
 				'Product.short_description',
 				'Product.url',
 				'Product.zbozi_name',
+				'Product.heureka_name',
 				'Product.price',
 				'Product.ean',
 				
@@ -166,7 +167,7 @@ class ExportsController extends AppController{
 		$this->layout = 'xml/heureka';
 		
 		$products = $this->get_products('heureka.cz');
- 		
+
 		// sparovani kategorii na heurece s kategoriemi u nas v obchode
 		$pairs = array(
 			'Sport | Sportovní výživa | Aminokyseliny' => array(15, 57, 58, 59, 60, 87, 88, 89, 61, 62),

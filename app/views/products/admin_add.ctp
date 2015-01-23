@@ -34,6 +34,10 @@
 		<td>Název - zbozi.cz</td>
 		<td><?php echo $form->input('Product.zbozi_name', array('label' => false, 'size' => 60))?></td>
 	</tr>
+	<tr valign="top">
+		<td>Název - heureka.cz</td>
+		<td><?php echo $form->input('Product.heureka_name', array('label' => false, 'size' => 60))?></td>
+	</tr>
 	<tr valign="top" class="nutne">
 		<td>Krátký popis: 
 			<a href='/administrace/help.php?width=500&id=8' class='jTip' id='8' name='SEO Description (8)'>

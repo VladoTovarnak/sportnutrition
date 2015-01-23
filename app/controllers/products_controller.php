@@ -475,6 +475,7 @@ class ProductsController extends AppController {
 				'Product.breadcrumb',
 				'Product.related_name',
 				'Product.zbozi_name',
+				'Product.heureka_name',
 				'Product.short_description',
 				'Product.description',
 				'Product.active',
@@ -1543,7 +1544,7 @@ class ProductsController extends AppController {
 	}
 	
 	function load_eans() {
-		$file_name = 'ean.csv';
+		$file_name = 'EanDopl.csv';
 		$file_dir = 'files';
 		$file_path = $file_dir . DS . $file_name;
 		
@@ -1563,6 +1564,7 @@ class ProductsController extends AppController {
 								'ean' => $data[2]
 							)	
 						);
+
 						if (!$this->Product->save($product)) {
 							debug($data);
 							debug($product);
@@ -1627,6 +1629,7 @@ class ProductsController extends AppController {
 					'Product.heading',
 					'Product.title',
 					'Product.zbozi_name',
+					'Product.heureka_name',
 					'Product.url',
 					'Availability.cart_allowed'
 				),
@@ -1680,6 +1683,7 @@ debug($product);
 					$product['Product']['heading'] = trim(preg_replace('/' . $remove_string . '/i', '', $product['Product']['heading']));
 					$product['Product']['title'] = trim(preg_replace('/' . $remove_string . '/i', '', $product['Product']['title']));
 					$product['Product']['zbozi_name'] = trim(preg_replace('/' . $remove_string . '/i', '', $product['Product']['zbozi_name']));
+					$product['Product']['heureka_name'] = trim(preg_replace('/' . $remove_string . '/i', '', $product['Product']['heureka_name']));
 				}
 				
 				$product['Product']['url'] = $new_url;

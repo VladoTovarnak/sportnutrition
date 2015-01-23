@@ -1,12 +1,12 @@
 <? 
 foreach ($products as $product) { 
-	$zbozi_name = $product['Product']['zbozi_name'];
-	if (empty($zbozi_name)) {
-		$zbozi_name = $product['Product']['name'];
+	$name = $product['Product']['heureka_name'];
+	if (empty($name)) {
+		$name = $product['Product']['name'];
 	}
 ?>
 	<SHOPITEM>
-		<PRODUCT><![CDATA[<?php echo $zbozi_name ?>]]></PRODUCT>
+		<PRODUCT><![CDATA[<?php echo $name ?>]]></PRODUCT>
 		<DESCRIPTION><![CDATA[<?php echo $product['Product']['short_description']?>]]></DESCRIPTION>
 		<URL><![CDATA[http://www.<?php echo CUST_ROOT?>/<?=$product['Product']['url']?>]]></URL>
 		<IMGURL><![CDATA[http://www.<?php echo CUST_ROOT ?>/product-images/<?=(empty($product['Image']['name']) ? '' : str_replace(" ", "%20", $product['Image']['name']))?>]]></IMGURL>
