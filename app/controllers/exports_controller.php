@@ -35,6 +35,7 @@ class ExportsController extends AppController{
 			"Product.short_description != ''",
 			'Availability.cart_allowed' => true,
 			'Product.active' => true,
+			'Product.feed' => true
 		);
 		
 		if (!empty($present_ids)) {
