@@ -112,6 +112,9 @@
 			if ($product['Product']['active']) {
 				$availability = ucfirst($product['Availability']['name']);
 			}
+			if (!empty($product['Availability']['color'])) {
+				$availability = '<span style="color:#' . $product['Availability']['color'] . '">' . $availability . '</span>';
+			}
 		?>
 		<b>Dostupnost:</b>&nbsp;<?php echo $availability?><br/>
 	</div>
