@@ -1,19 +1,20 @@
 		<div id="slides" class="slidorion">
 			<div class="accordion">
-				<div class="header"><div style="padding-top: 10px"><b>BCAA zdarma</b><br/>ke 2 produktům XXLabs</div></div>
+				<div class="header"><div style="padding-top: 10px"><b>AKCE</b><br/>Nejprodávanější protein</div></div>
+				<div class="content"></div>
+				<div class="header"><div style="padding-top: 10px">Nový<br/><b>NO-Xplode 3.0</b></div></div>
 				<div class="content"></div>
 				<div class="header"><div style="padding-top: 10px"><b>MusclePharm</b><br/>za super ceny</div></div>
 				<div class="content"></div>
 				<div class="header"><div style="padding-top: 10px"><b>PreCre</b><br/>pro větší růst</div></div>
-				<div class="content"></div>
-				<div class="header"><div style="padding-top: 10px">Předtréninkové formule<br/><b>Cellucor</b></div></div>
+
 				<div class="content"></div>
 			</div>
 			<div class="slider">
-				<div class="slide"><a href="/xxtreme-nut-v19"><img src="/images/hp-banner/banner-2-produkty-bcaa-zdarma.jpg" alt=""></a></div>
+				<div class="slide"><a href="/100-whey-protein-gold-2-3kg-82-p748"><img src="/images/hp-banner/gold-whey.jpg" alt=""></a></div>
+				<div class="slide"><a href="/no-xplode-30-1000g-bsn-p4233"><img src="/images/hp-banner/noxplode3.jpg" alt=""></a></div>
 				<div class="slide"><a href="/manufacturer/muscle-pharm-usa:94/"><img src="/images/hp-banner/musclepharm.jpg" alt=""></a></div>
 				<div class="slide"><a href="/precre-720g-30-davek-p4202"><img src="/images/hp-banner/PreCre_AmiNo_websnvjpg.jpg" alt=""></a></div>
-				<div class="slide"><a href="/manufacturer/cellucor:119/"><img src="/images/hp-banner/cellucor.jpg" alt=""></a></div>
 			</div>
 		</div>
 
