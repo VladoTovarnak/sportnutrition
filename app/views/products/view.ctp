@@ -51,7 +51,19 @@
 <?php if ($product['Product']['name'] != $product['Product']['short_description']) { ?>
 	<p><?php echo $product['Product']['short_description']?> <a href="#tabs-1">Více informací...</a></p>
 <?php } ?>
-	<p class="prices">
+	<div class="availability">
+		<?php
+			$availability = 'Vyprodáno';
+			if ($product['Product']['active']) {
+				$availability = ucfirst($product['Availability']['name']);
+			}
+			if (!empty($product['Availability']['color'])) {
+				$availability = '<span style="color:#' . $product['Availability']['color'] . '">' . $availability . '</span>';
+			}
+		?>
+		<b>Dostupnost:</b>&nbsp;<?php echo $availability?><br/>
+	</div>
+	<p class="prices" style="float:right">
 <?php if (isset($product['Product']['retail_price_with_dph']) && $product['Product']['retail_price_with_dph'] > $product['Product']['price']) { ?>
 		Běžná cena: <?php echo front_end_display_price($product['Product']['retail_price_with_dph']) ?>&nbsp;Kč<br/>
 <?php } ?>
@@ -63,10 +75,10 @@
 <?php 
 	// pokud neni produkt aktivni, vypisu informaci
 	if (!$product['Product']['active']) { ?>
-	<p>Omlouváme se, ale produkt je v současné době vyprodaný a nelze jej objednat.</p>
+	<p class="not-available-text">Omlouváme se, ale produkt je v současné době vyprodaný a nelze jej objednat.</p>
 <?php // pokud se produkt neda objednat, zobrazim informaci
 	} elseif (!$product['Availability']['cart_allowed']) { ?>
-	<p>Informaci o dostupnosti Vám rádi sdělíme na telefonu <strong><?php echo CUST_PHONE ?></strong> nebo e-mailu <strong><?php echo CUST_MAIL ?></strong>.</p>
+	<p class="not-available-text">Informaci o dostupnosti Vám rádi sdělíme na telefonu <strong><?php echo CUST_PHONE ?></strong> nebo e-mailu <strong><?php echo CUST_MAIL ?></strong>.</p>
 <?php } ?>
 
 	<!-- VLOZENI DO KOSIKU, KDYZ PRODUKT NEMA VARIANTY -->
@@ -106,18 +118,6 @@
 		</div>
 	</div>
 	<hr class="cleaner" />
-	<div class="availability">
-		<?php
-			$availability = 'Vyprodáno';
-			if ($product['Product']['active']) {
-				$availability = ucfirst($product['Availability']['name']);
-			}
-			if (!empty($product['Availability']['color'])) {
-				$availability = '<span style="color:#' . $product['Availability']['color'] . '">' . $availability . '</span>';
-			}
-		?>
-		<b>Dostupnost:</b>&nbsp;<?php echo $availability?><br/>
-	</div>
 </div>
 <h3><a href="/garance-nejnizsi-ceny.htm">Garance nejnižší ceny</a></h3>
 <p>Našli jste jinde lepší cenu ? Napište nám na <a href='mailto:info@sportnutrition.cz'>info@sportnutrition.cz</a> (uveďte výrobek, cenu a webovou adresu, kde jste jej našli). Pokud to bude možné, cenu Vám srovnáme či nabídneme nižší.</p>

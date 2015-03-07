@@ -27,7 +27,7 @@ foreach ( $products as $product ){
 			echo $this->Form->submit('Vložit do košíku', array('class' => 'cart_add'));
 			echo $this->Form->end();
 		} else { ?>
-		<p>Produkt nyní nelze objednat.</p>
+		<p class="product-not-available">Produkt nyní nelze objednat.</p>
 		<?php } ?>
 		<p class="prices">
 			<span class="common">Běžná cena: <?php echo front_end_display_price($product['Product']['retail_price_with_dph'])?>&nbsp;Kč</span><br />

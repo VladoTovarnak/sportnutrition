@@ -506,6 +506,12 @@ form div.pair button {
 	text-decoration:underline;
 }
 
+#main div.product.card p.product-not-available {
+	font-weight: bold;
+	color: red;
+	font-size: 15px;
+}
+
 #main div.product.card p.prices {
 	padding:0px;
 	margin:5px 0px 0px 10px;
@@ -660,6 +666,11 @@ ul.breadcrumbs li:last-child a {
     margin: 0 10px 0 0;
     border: 1px solid #E8E8E8;
 }
+
+#main div.product p.not-available-text {
+	float: right;
+}
+
 #main div.product form.on_detail {
     float: right;
     width: 310px;
