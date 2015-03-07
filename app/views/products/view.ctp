@@ -54,12 +54,14 @@
 	<div class="availability">
 		<?php
 			$availability = 'Vyprodáno';
+			$color = 'FF0000';
 			if ($product['Product']['active']) {
 				$availability = ucfirst($product['Availability']['name']);
+				if (!empty($product['Availability']['color'])) {
+					$color = $product['Availability']['color'];
+				}
 			}
-			if (!empty($product['Availability']['color'])) {
-				$availability = '<span style="color:#' . $product['Availability']['color'] . '">' . $availability . '</span>';
-			}
+			$availability = '<span style="color:#' . $color . '">' . $availability . '</span>';
 		?>
 		<b>Dostupnost:</b>&nbsp;<?php echo $availability?><br/>
 	</div>
