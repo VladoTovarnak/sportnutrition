@@ -119,9 +119,7 @@
 			$this->set('categories_submenu', $this->Product->CategoriesProduct->Category->getSubmenuCategories());
 			
 			// vyrobci do selectu
-			$manufacturers_list = $this->Product->Manufacturer->find('list', array(
-				'conditions' => array('Manufacturer.active' => true)	
-			));
+			$manufacturers_list = $this->Product->Manufacturer->get_list();
 			$this->set('manufacturers_list', $manufacturers_list);
 			
 			// nastaveni aktivniho tabu v login boxu, defaultne prihlaseni

@@ -54,6 +54,22 @@ class Manufacturer extends AppModel {
 		return $description;
 	}
 	
+	function get_list() {
+		$manufacturers = $this->find('list', array(
+			'conditions' => array('Manufacturer.active' => true),	
+		));
+		$res = array();
+		foreach ($manufacturers as $index => $key) {
+			if ($this->Product->hasAny(array(
+					'Product.manufacturer_id' => $index,
+					'Product.active' => true
+			))) {
+				$res[$index] = $key;
+			}
+		}
+		return $res;
+	}
+	
 	function filter_manufacturers($opened_category_id) {
 		$conditions = array('Product.active' => true);
 		if (isset($opened_category_id)) {
