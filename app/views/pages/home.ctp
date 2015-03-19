@@ -14,7 +14,7 @@
 				<div class="slide"><a href="/100-whey-protein-gold-2-3kg-82-p748"><img src="/images/hp-banner/gold-whey.jpg" alt=""></a></div>
 				<div class="slide"><a href="/no-xplode-30-1000g-bsn-p4233"><img src="/images/hp-banner/noxplode3.jpg" alt=""></a></div>
 				<div class="slide"><a href="/manufacturer/muscle-pharm-usa:94/"><img src="/images/hp-banner/musclepharm.jpg" alt=""></a></div>
-				<div class="slide"><a href="/l-carnitin-100-000-s-chromem-1litr-l-carnitin-35-000-500ml-zdarma-p3706"><img src="/images/hp-banner/carnitin2.jpg" alt=""></a></div>
+				<div class="slide"><a href="/l-carnitin-100-000-chrom-1000ml-p4218"><img src="/images/hp-banner/carnitin2.jpg" alt=""></a></div>
 			</div>
 		</div>
 
