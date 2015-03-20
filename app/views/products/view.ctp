@@ -15,7 +15,7 @@
 </script>
 
 <div class="product">
-	<h2><a href="/<?php echo $product['Product']['url']?>"><?php echo $product['Product']['heading']?></a></h2>
+	
 	
 	<!-- OBRAZKY -->
 	<div class="photos">
@@ -121,8 +121,6 @@
 	</div>
 	<hr class="cleaner" />
 </div>
-<h3><a href="/garance-nejnizsi-ceny.htm">Garance nejnižší ceny</a></h3>
-<p>Našli jste jinde lepší cenu ? Napište nám na <a href='mailto:info@sportnutrition.cz'>info@sportnutrition.cz</a> (uveďte výrobek, cenu a webovou adresu, kde jste jej našli). Pokud to bude možné, cenu Vám srovnáme či nabídneme nižší.</p>
 
 <!-- VLOZENI DO KOSIKU, KDYZ PRODUKT MA VARIANTY -->
 <?php if (!empty($subproducts) && $product['Availability']['cart_allowed'] && $product['Product']['active']) { ?>

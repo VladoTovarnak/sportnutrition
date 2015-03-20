@@ -298,6 +298,89 @@ class CategoriesProductsController extends AppController {
 		$action_products = $this->CategoriesProduct->Product->get_action_products($customer_type_id, 4);
 		$this->set('action_products', $action_products);
 	}
+
+	function view_named(){
+		// navolim si layout, ktery se pouzije
+		$this->layout = REDESIGN_PATH . 'no_right';
+
+		App::import('Model', 'CustomerType');
+		$this->CustomerType = new CustomerType;
+		$customer_type_id = $this->CustomerType->get_id($this->Session->read());
+		
+		$joins = array(
+			array(
+				'table' => 'ordered_products',
+				'alias' => 'OrderedProduct',
+				'type' => 'LEFT',
+				'conditions' => array('OrderedProduct.product_id = Product.id')
+			),
+			array(
+				'table' => 'categories_products',
+				'alias' => 'CategoriesProduct',
+				'type' => 'INNER',
+				'conditions' => array('CategoriesProduct.product_id = Product.id')
+			),
+			array(
+				'table' => 'images',
+				'alias' => 'Image',
+				'type' => 'LEFT',
+				'conditions' => array('Image.product_id = Product.id AND Image.is_main = "1"')
+			),
+			array(
+				'table' => 'customer_type_product_prices',
+				'alias' => 'CustomerTypeProductPrice',
+				'type' => 'LEFT',
+				'conditions' => array('Product.id = CustomerTypeProductPrice.product_id AND CustomerTypeProductPrice.customer_type_id = ' . $customer_type_id)
+			),
+			array(
+				'table' => 'availabilities',
+				'alias' => 'Availability',
+				'type' => 'INNER',
+				'conditions' => array('Availability.id = Product.availability_id')
+			)
+		);
+		
+		// nastavim si ktere produkty chci zobrazit
+		$conditions = array('Product.id' => array(4132, 3984, 4172, 4176, 4141, 4191));
+		$conditions = array('Product.id' => array(4176, 4141, 4191)); // proteiny
+		
+		$this->paginate['Product'] = array(
+			'conditions' => $conditions,
+			'contain' => array(),
+			'fields' => array(
+				'Product.id',
+				'Product.name',
+				'Product.url',
+				'Product.short_description',
+				'Product.retail_price_with_dph',
+				'Product.discount_common',
+				'Product.sold',
+				'Product.price',
+				'Product.rate',
+					
+				'Image.id',
+				'Image.name',
+				
+				'Availability.id',
+				'Availability.cart_allowed'
+
+			),
+			'joins' => $joins,
+			'group' => 'Product.id',
+			'limit' => 10
+		);
+		
+		$this->CategoriesProduct->Product->virtualFields['sold'] = 'SUM(OrderedProduct.product_quantity)';
+		// cenu produktu urcim jako cenu podle typu zakaznika, pokud je nastavena, pokud neni nastavena cena podle typu zakaznika, vezmu za cenu beznou slevu, pokud ani ta neni nastavena
+		// vezmu jako cenu produktu obycejnou cenu
+		$this->CategoriesProduct->Product->virtualFields['price'] = $this->CategoriesProduct->Product->price;
+		
+		$products = $this->paginate('Product');
+		$this->set('products', $products);
+		
+		$listing_style = 'products_listing_grid';
+		$this->set('listing_style', $listing_style);
+	}
 	
 	function cancel_filter($id) {
 		$this->Session->delete('filter');
