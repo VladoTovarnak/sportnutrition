@@ -595,16 +595,15 @@ ul.breadcrumbs li:last-child a {
     text-decoration: none;
 }
 
-#main div.product h2 {
-    float: right;
+#main h2.product_name {
     border: none;
-    width: 310px;
     height: auto;
     font-size:26px;
-    margin: 0 20px 0 0;
+	margin: 10px 0px 10px 5px;
+	border-bottom: 1px solid silver;
 }
 
-#main div.product h2 a{
+#main h2.product_name a{
     text-decoration: none;
     color: #373B3D;
 }
