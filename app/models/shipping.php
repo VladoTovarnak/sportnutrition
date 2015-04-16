@@ -66,7 +66,8 @@ class Shipping extends AppModel {
 	function get_cost($id, $order_total, $is_voc = false) {
 		// pokud je doprava po CR (mimo osobniho odberu) a soucasne je zakaznik VOC, je cena vzdy 95 KC
 		if ($is_voc && in_array($id, array(2, 3, 7, 18, 14))) {
-			$price = 95;
+//			$price = 95;
+			$price = 0;
 		} else {
 			$shipping = $this->find('first', array(
 				'conditions' => array('Shipping.id' => $id),
