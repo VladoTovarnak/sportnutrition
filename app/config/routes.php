@@ -36,6 +36,11 @@
 
 //	Router::connect('/', array('controller' => 'contents', 'action' => 'view', 'index'));
 	Router::connect('/', array('controller' => 'pages', 'action' => 'home'));
+	
+	
+	Router::connect('/proteiny-akce', array('controller' => 'categories_products', 'action' => 'view_named'));
+	
+	
 	Router::connect('/kosik', array('controller' => 'carts_products', 'action' => 'index'));
 	
 	Router::connect('/objednavka-osobni-udaje', array('controller' => 'customers', 'action' => 'order_personal_info'));

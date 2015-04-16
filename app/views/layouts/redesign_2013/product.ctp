@@ -3,7 +3,7 @@
 	<head>
 		<?php echo $this->element(REDESIGN_PATH . 'default_head2')?>
 		<?php if (!$product['Product']['active']) { ?>
-			<meta name="robots" content="noindex" />
+			<meta name="robots" content="noindex, follow" />
 		<?php } ?>
 	</head>
 <body>
@@ -33,6 +33,7 @@
 	<div id="main">
 		<?php echo $this->element(REDESIGN_PATH . 'breadcrumbs'); ?>
 		<?php echo $this->element(REDESIGN_PATH . 'category_banner')?>
+		<h2 class="product_name"><a href="/<?php echo $product['Product']['url']?>"><?php echo $product['Product']['heading']?></a></h2>
 		<div class="left">
 			<?php 
 				if ($session->check('Message.flash')){
@@ -45,7 +46,7 @@
 			<?php 
 				if (isset($similar_products) && !empty($similar_products)) { ?>
 				<div>
-				<h2><span>Lidé co koupili tento <br />produkt koupili také:</span></h2>
+				<h2><span>S tímto produktem <br />ostatní kupují také:</span></h2>
 			<?php
 				foreach ($similar_products as $similar_product) {
 					$image = '/img/na_small.jpg';

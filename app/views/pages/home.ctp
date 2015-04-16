@@ -6,7 +6,7 @@
 				<div class="content"></div>
 				<div class="header"><div style="padding-top: 10px"><b>MusclePharm</b><br/>kvalitní doplňky<br/>pro sportovce</div></div>
 				<div class="content"></div>
-				<div class="header"><div style="padding-top: 10px"><b>L-Carnitin</b><br/>za super cenu</div></div>
+				<div class="header"><div style="padding-top: 10px"><b>C4 Cellucor</b><br/>zvyšte Váš výkon</div></div>
 
 				<div class="content"></div>
 			</div>
@@ -14,7 +14,7 @@
 				<div class="slide"><a href="/100-whey-protein-gold-2-3kg-82-p748"><img src="/images/hp-banner/gold-whey.jpg" alt=""></a></div>
 				<div class="slide"><a href="/no-xplode-30-1000g-bsn-p4233"><img src="/images/hp-banner/noxplode3.jpg" alt=""></a></div>
 				<div class="slide"><a href="/manufacturer/muscle-pharm-usa:94/"><img src="/images/hp-banner/musclepharm.jpg" alt=""></a></div>
-				<div class="slide"><a href="/l-carnitin-100-000-s-chromem-1litr-l-carnitin-35-000-500ml-zdarma-p3706"><img src="/images/hp-banner/carnitin2.jpg" alt=""></a></div>
+				<div class="slide"><a href="/c4-extreme-30-davek-180g-cellucor-p3556"><img src="/images/hp-banner/cellucor.jpg" alt=""></a></div>
 			</div>
 		</div>
 
