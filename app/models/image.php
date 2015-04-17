@@ -97,8 +97,8 @@ class Image extends AppModel {
 	    
 	    
 	    $img2 = imagecreatetruecolor($max_x, $max_y);
-	    $bg = imagecolorallocate($img2, 255, 255, 255);
-//	    $bg = imagecolorallocate($img2, 242, 247, 253);
+//	    $bg = imagecolorallocate($img2, 255, 255, 255);
+	    $bg = imagecolorallocate($img2, 242, 247, 253);
 	    imagefill($img2, 0, 0, $bg);
 	    
 	    imagecopyresampled($img2, $img, $off_x, $off_y, 0, 0, $width, $height, $imagesize[0], $imagesize[1]);
