@@ -825,5 +825,23 @@ class Product extends AppModel {
 
 		return $category_most_sold;
 	}
+	
+	function image_name($name, $suffix = 'jpg') {
+		if (is_numeric($name)) {
+			$product = $this->find('first', array(
+				'conditions' => array('Product.id' => $name),
+				'contain' => array(),
+				'fields' => array('Product.name')
+			));
+			$name = $product['Product']['name'];
+		}
+		// vygeneruju nazev obrazku
+		$image_name = strip_diacritic($name . '.' . $suffix, false);
+		// zjistim, jestli nemusim obrazek cislovat
+		$image_name = $this->Image->checkName('product-images/' . $image_name);
+		$image_name = explode("/", $image_name);
+		$image_name = $image_name[count($image_name) -1];
+		return $image_name;
+	}
 }
 ?>

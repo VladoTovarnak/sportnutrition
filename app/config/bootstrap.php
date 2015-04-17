@@ -178,6 +178,18 @@ function front_end_display_price($price, $decimals = 0) {
 	return number_format($price, $decimals, ',', ' ');
 }
 
+function download_url($url = null) {
+	if ($url) {
+		$content = false;
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$content = curl_exec($ch);
+		curl_close($ch);
+		return $content;
+	}
+	return false;
+}
+
 define('SN_USERNAME', 'admin');
 define('SN_PASSWORD', 'e7j3w9');
 

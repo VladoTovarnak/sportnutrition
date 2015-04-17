@@ -97,7 +97,8 @@ class Image extends AppModel {
 	    
 	    
 	    $img2 = imagecreatetruecolor($max_x, $max_y);
-	    $bg = imagecolorallocate($img2, 242, 247, 253);
+	    $bg = imagecolorallocate($img2, 255, 255, 255);
+//	    $bg = imagecolorallocate($img2, 242, 247, 253);
 	    imagefill($img2, 0, 0, $bg);
 	    
 	    imagecopyresampled($img2, $img, $off_x, $off_y, 0, 0, $width, $height, $imagesize[0], $imagesize[1]);
@@ -141,13 +142,17 @@ class Image extends AppModel {
 		}
 	}
 
-	function deleteAllImages($id = null){
-		if ( !$id ){
+	function deleteAllImages($conditions = null) {
+		if (!$conditions) {
 			return false;
 		} else {
+			if (is_numeric($conditions)) {
+				$conditions = array('product_id' => $id);
+			}
 			$images = $this->find('all', array(
-				'conditions' => array('product_id' => $id),
-				'fields' => array('id')
+					'conditions' => $conditions,
+					'contain' => array(),
+					'fields' => array('id')
 			));
 			foreach ( $images as $image ){
 				$this->deleteImage($image['Image']['id']);
