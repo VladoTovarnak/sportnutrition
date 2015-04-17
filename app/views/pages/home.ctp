@@ -1,3 +1,23 @@
+<?php if (date('Y-m-d') <= '2015-04-20') { ?>
+		<div id="slides" class="slidorion">
+			<div class="accordion">
+				<div class="header"><div style="padding-top: 10px"><b>POŠTOVNÉ ZDARMA!!!</b></div></div>
+				<div class="content"></div>
+				<div class="header"><div style="padding-top: 10px"><b>AKCE</b><br/>Nejprodávanější protein</div></div>
+				<div class="content"></div>
+				<div class="header"><div style="padding-top: 10px">Nový<br/><b>NO-Xplode 3.0</b></div></div>
+				<div class="content"></div>
+				<div class="header"><div style="padding-top: 10px"><b>MusclePharm</b><br/>kvalitní doplňky<br/>pro sportovce</div></div>
+				<div class="content"></div>
+			</div>
+			<div class="slider">
+				<div class="slide"><a href="#"><img src="/images/hp-banner/postovne-zdarma.jpg" alt=""></a></div>
+				<div class="slide"><a href="/100-whey-protein-gold-2-3kg-82-p748"><img src="/images/hp-banner/gold-whey.jpg" alt=""></a></div>
+				<div class="slide"><a href="/no-xplode-30-1000g-bsn-p4233"><img src="/images/hp-banner/noxplode3.jpg" alt=""></a></div>
+				<div class="slide"><a href="/manufacturer/muscle-pharm-usa:94/"><img src="/images/hp-banner/musclepharm.jpg" alt=""></a></div>
+			</div>
+		</div>
+<?php } else { ?>
 		<div id="slides" class="slidorion">
 			<div class="accordion">
 				<div class="header"><div style="padding-top: 10px"><b>AKCE</b><br/>Nejprodávanější protein</div></div>
@@ -17,9 +37,9 @@
 				<div class="slide"><a href="/c4-extreme-30-davek-180g-cellucor-p3556"><img src="/images/hp-banner/cellucor.jpg" alt=""></a></div>
 			</div>
 		</div>
+<?php } ?>
 
 		<h2><span>Doporučujeme</span></h2>
-		
 		<?php foreach ($hp_recommended as $suggested_product) {?>
 		<div class="product card">
 			<h3><a href="/<?php echo $suggested_product['Product']['url']?>"><?php echo $suggested_product['Product']['name']?></a></h3>
