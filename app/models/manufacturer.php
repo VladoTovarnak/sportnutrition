@@ -72,22 +72,6 @@ class Manufacturer extends AppModel {
 			),
 			'contain' => array()	
 		));
-		
-/*		$manufacturers = $this->find('all', array(
-			'conditions' => array('Manufacturer.active' => true),	
-		));
-		$res = array();
-		foreach ($manufacturers as $index => $key) {
-			if ($this->Product->hasAny(array(
-					'Product.manufacturer_id' => $index,
-					'Product.active' => true
-			))) {
-				$res[$index] = $key;
-			}
-		}
-		debug($res);
-		die('zdekoneczde');*/
-		
 		return $manufacturers;
 	}
 	
