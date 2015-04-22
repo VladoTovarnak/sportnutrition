@@ -55,7 +55,25 @@ class Manufacturer extends AppModel {
 	}
 	
 	function get_list() {
-		$manufacturers = $this->find('list', array(
+		// distinct manufacturers with products
+		$distinct = $this->Product->find('all',
+			array(
+				'conditions' => array(
+				),
+				'fields' => array('DISTINCT Product.manufacturer_id'),
+				'contain' => array()
+			)
+		);
+		$manufacturer_ids = Set::extract('/Product/manufacturer_id', $distinct);
+
+		$manufacturers = $this->find('all', array(
+			'conditions' => array(
+				'Manufacturer.id' => $manufacturer_ids
+			),
+			'contain' => array()	
+		));
+		
+/*		$manufacturers = $this->find('all', array(
 			'conditions' => array('Manufacturer.active' => true),	
 		));
 		$res = array();
@@ -67,7 +85,10 @@ class Manufacturer extends AppModel {
 				$res[$index] = $key;
 			}
 		}
-		return $res;
+		debug($res);
+		die('zdekoneczde');*/
+		
+		return $manufacturers;
 	}
 	
 	function filter_manufacturers($opened_category_id) {
