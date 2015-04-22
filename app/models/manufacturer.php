@@ -55,19 +55,24 @@ class Manufacturer extends AppModel {
 	}
 	
 	function get_list() {
-		$manufacturers = $this->find('list', array(
-			'conditions' => array('Manufacturer.active' => true),	
+		// distinct manufacturers with products
+		$distinct = $this->Product->find('all',
+			array(
+				'conditions' => array(
+				),
+				'fields' => array('DISTINCT Product.manufacturer_id'),
+				'contain' => array()
+			)
+		);
+		$manufacturer_ids = Set::extract('/Product/manufacturer_id', $distinct);
+
+		$manufacturers = $this->find('all', array(
+			'conditions' => array(
+				'Manufacturer.id' => $manufacturer_ids
+			),
+			'contain' => array()	
 		));
-		$res = array();
-		foreach ($manufacturers as $index => $key) {
-			if ($this->Product->hasAny(array(
-					'Product.manufacturer_id' => $index,
-					'Product.active' => true
-			))) {
-				$res[$index] = $key;
-			}
-		}
-		return $res;
+		return $manufacturers;
 	}
 	
 	function filter_manufacturers($opened_category_id) {
