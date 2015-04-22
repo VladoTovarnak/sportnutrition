@@ -65,13 +65,18 @@ class Manufacturer extends AppModel {
 			)
 		);
 		$manufacturer_ids = Set::extract('/Product/manufacturer_id', $distinct);
-
 		$manufacturers = $this->find('all', array(
 			'conditions' => array(
 				'Manufacturer.id' => $manufacturer_ids
 			),
+			'fields' => array(
+				'Manufacturer.id',
+				'Manufacturer.name',
+			),
 			'contain' => array()	
 		));
+		
+		$manufacturers = Set::combine($manufacturers, '{n}.Manufacturer.id', '{n}.Manufacturer.name');
 		return $manufacturers;
 	}
 	
