@@ -573,7 +573,8 @@ class ProductsController extends AppController {
 				'CustomerTypeProductPrice' => array(
 					'fields' => array('CustomerTypeProductPrice.id', 'CustomerTypeProductPrice.price'),
 					'CustomerType' => array(
-						'fields' => array('CustomerType.id', 'CustomerType.name')
+						'fields' => array('CustomerType.id', 'CustomerType.name'),
+						'order' => array('CustomerType.order' => 'asc')
 					)
 				)
 			),
@@ -584,7 +585,7 @@ class ProductsController extends AppController {
 				'Product.discount_common'
 			)
 		));
-		
+
 		if (empty($product)) {
 			$this->Session->setFlash('Neexistující produkt.', REDESIGN_PATH . 'flash_failure');
 			$this->redirect(array('action'=>'index'));
