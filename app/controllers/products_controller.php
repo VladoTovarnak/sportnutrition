@@ -569,15 +569,7 @@ class ProductsController extends AppController {
 		
 		$product = $this->Product->find('first', array(
 			'conditions' => array('Product.id' => $id),
-			'contain' => array(
-				'CustomerTypeProductPrice' => array(
-					'fields' => array('CustomerTypeProductPrice.id', 'CustomerTypeProductPrice.price'),
-					'CustomerType' => array(
-						'fields' => array('CustomerType.id', 'CustomerType.name'),
-						'order' => array('CustomerType.order' => 'asc')
-					)
-				)
-			),
+			'contain' => array(),
 			'fields' => array(
 				'Product.id',
 				'Product.name',
@@ -589,8 +581,29 @@ class ProductsController extends AppController {
 		if (empty($product)) {
 			$this->Session->setFlash('Neexistující produkt.', REDESIGN_PATH . 'flash_failure');
 			$this->redirect(array('action'=>'index'));
-			
 		}
+		
+		$customer_type_product_prices = $this->Product->CustomerTypeProductPrice->find('all', array(
+			'conditions' => array('CustomerTypeProductPrice.product_id' => $id),
+			'contain' => array('CustomerType'),
+			'order' => array('CustomerType.order' => 'asc'),
+			'fields' => array(
+				'CustomerTypeProductPrice.id',
+				'CustomerTypeProductPrice.price',
+				'CustomerTypeProductPrice.customer_type_id',
+				'CustomerTypeProductPrice.product_id',
+				'CustomerType.id',
+				'CustomerType.name'
+			)
+		));
+		
+		foreach ($customer_type_product_prices as &$customer_type_product_price) {
+			$customer_type_product_price['CustomerTypeProductPrice']['CustomerType'] = $customer_type_product_price['CustomerType'];
+			unset($customer_type_product_price['CustomerType']);
+			$product['CustomerTypeProductPrice'][] = $customer_type_product_price['CustomerTypeProductPrice'];
+		}
+
+		$this->set('product', $product);
 
 		$this->set('product', $product);
 		
