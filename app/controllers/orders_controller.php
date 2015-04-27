@@ -1091,6 +1091,11 @@ class OrdersController extends AppController {
 
 		$this->redirect(array('action' => 'finished'), null, true);
 	} // konec funkce
+
+	function one_step_order(){
+		$this->layout = REDESIGN_PATH . 'order_process';
+		
+	}
 	
 	function finished() {
 		$id = $this->Session->read('Order.id');
