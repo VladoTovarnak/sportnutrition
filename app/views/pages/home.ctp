@@ -1,43 +1,16 @@
-<?php if (date('Y-m-d') <= '2015-04-20') { ?>
 		<div id="slides" class="slidorion">
 			<div class="accordion">
-				<div class="header"><div style="padding-top: 10px"><b>POŠTOVNÉ ZDARMA!!!</b></div></div>
+				<?php foreach ($homepage_banners as $banner) { ?>
+				<div class="header"><div style="padding-top: 10px"><?php echo $banner['HomepageBanner']['description']?></div></div>
 				<div class="content"></div>
-				<div class="header"><div style="padding-top: 10px"><b>AKCE</b><br/>Nejprodávanější protein</div></div>
-				<div class="content"></div>
-				<div class="header"><div style="padding-top: 10px">Nový<br/><b>NO-Xplode 3.0</b></div></div>
-				<div class="content"></div>
-				<div class="header"><div style="padding-top: 10px"><b>MusclePharm</b><br/>kvalitní doplňky<br/>pro sportovce</div></div>
-				<div class="content"></div>
+				<?php } ?>
 			</div>
 			<div class="slider">
-				<div class="slide"><a href="#"><img src="/images/hp-banner/postovne-zdarma.jpg" alt=""></a></div>
-				<div class="slide"><a href="/100-whey-protein-gold-2-3kg-82-p748"><img src="/images/hp-banner/gold-whey.jpg" alt=""></a></div>
-				<div class="slide"><a href="/no-xplode-30-1000g-bsn-p4233"><img src="/images/hp-banner/noxplode3.jpg" alt=""></a></div>
-				<div class="slide"><a href="/manufacturer/muscle-pharm-usa:94/"><img src="/images/hp-banner/musclepharm.jpg" alt=""></a></div>
+				<?php foreach ($homepage_banners as $banner) { ?>
+				<div class="slide"><a href="<?php echo $banner['HomepageBanner']['url']?>"><img src="<?php echo $homepage_banner_folder . '/' . $banner['HomepageBanner']['image']?>" alt="<?php echo $banner['HomepageBanner']['description']?>"></a></div>
+				<?php } ?>
 			</div>
 		</div>
-<?php } else { ?>
-		<div id="slides" class="slidorion">
-			<div class="accordion">
-				<div class="header"><div style="padding-top: 10px"><b>AKCE</b><br/>Nejprodávanější protein</div></div>
-				<div class="content"></div>
-				<div class="header"><div style="padding-top: 10px">Nový<br/><b>NO-Xplode 3.0</b></div></div>
-				<div class="content"></div>
-				<div class="header"><div style="padding-top: 10px"><b>MusclePharm</b><br/>kvalitní doplňky<br/>pro sportovce</div></div>
-				<div class="content"></div>
-				<div class="header"><div style="padding-top: 10px"><b>C4 Cellucor</b><br/>zvyšte Váš výkon</div></div>
-
-				<div class="content"></div>
-			</div>
-			<div class="slider">
-				<div class="slide"><a href="/100-whey-protein-gold-2-3kg-82-p748"><img src="/images/hp-banner/gold-whey.jpg" alt=""></a></div>
-				<div class="slide"><a href="/no-xplode-30-1000g-bsn-p4233"><img src="/images/hp-banner/noxplode3.jpg" alt=""></a></div>
-				<div class="slide"><a href="/manufacturer/muscle-pharm-usa:94/"><img src="/images/hp-banner/musclepharm.jpg" alt=""></a></div>
-				<div class="slide"><a href="/c4-extreme-30-davek-180g-cellucor-p3556"><img src="/images/hp-banner/cellucor.jpg" alt=""></a></div>
-			</div>
-		</div>
-<?php } ?>
 
 		<h2><span>Doporučujeme</span></h2>
 		<?php foreach ($hp_recommended as $suggested_product) {?>

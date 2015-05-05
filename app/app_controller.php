@@ -147,7 +147,6 @@
 					$this->set('products_stack', $products_stack);
 				}
 			} elseif ($this->layout == REDESIGN_PATH . 'content') {
-
 				// nejprodavanejsi produkty
 				App::import('Model', 'CustomerType');
 				$this->CustomerType = new CustomerType;
@@ -155,6 +154,17 @@
 
 				$action_products = $this->Product->get_action_products($customer_type_id, 6);
 				$this->set('action_products', $action_products);
+			} elseif ($this->layout == REDESIGN_PATH . 'homepage') {
+				App::import('Model', 'HomepageBanner');
+				$this->HomepageBanner = &new HomepageBanner;
+				$banners  = $this->HomepageBanner->find('all', array(
+					'conditions' => array(),
+					'contain' => array(),
+					'fields' => array('*'),
+					'order' => array('HomepageBanner.order' => 'asc')
+				));
+				$this->set('homepage_banners', $banners);
+				$this->set('homepage_banner_folder', $this->HomepageBanner->folder);
 			}
 		} elseif (isset($this->params['admin']) && $this->params['admin'] == 1) {
 			App::import('Model', 'Status');

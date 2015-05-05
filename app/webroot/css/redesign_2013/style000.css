@@ -1168,13 +1168,13 @@ ul.breadcrumbs li:last-child a {
     margin: 0 10px;
     border-top: 1px solid #ccc;
 }
+#slides .accordion .header p {
+	margin: 0;
+}
 #slides .accordion .header.red {
     color: #E2001A;
 }
-#slides .accordion .header strong {
-    font-size: 25px;
-}
-#slides .accordion .header b {
+#slides .accordion .header b, #slides .accordion .header strong {
     font-size: 18px;
 }
 #slides .accordion .header i {
