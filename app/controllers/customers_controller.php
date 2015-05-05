@@ -332,7 +332,8 @@ class CustomersController extends AppController {
 		// nactu si data k zakaznikovi a smazu je
 		$customer = $this->Customer->find('first', array(
 			'conditions' => array('Customer.id' => $id),
-			'contain' => array()
+			'contain' => array(),
+			'fields' => array('Customer.id')
 		));
 
 		if ( empty($customer) ){
@@ -341,14 +342,15 @@ class CustomersController extends AppController {
 		}
 		
 		$customer['Customer']['active'] = false;
-		
+
 		// smazu zakaznika
 		if ($this->Customer->save($customer)) {
 			$this->Session->setFlash('Zákazník byl úspěšně deaktivován!', REDESIGN_PATH . 'flash_success');
+			$this->redirect(array('controller' => 'customers', 'action' => 'index'));
 		} else {
-			$this->Session->setFlash('Nepodailo se smazat záznam o zákazníkovi, zkuste to prosím znovu!', REDESIGN_PATH . 'flash_failure');
+			debug($this->Customer->validationErrors);
+			$this->Session->setFlash('Nepodařilo se smazat záznam o zákazníkovi, zkuste to prosím znovu!', REDESIGN_PATH . 'flash_failure');
 		}
-		$this->redirect(array('controller' => 'customers', 'action' => 'index'));
 	}
 	
 	/**
@@ -1159,10 +1161,10 @@ class CustomersController extends AppController {
 		$api_key = '1dc2cb5152762d18ed8eb879b7b3b37d-us9';
 		$list_id = '3423967b09';
 
-/*		App::import('Vendor', 'MailchimpTools', array('file' => 'mailchimp/mailchimp_tools.php'));
+		App::import('Vendor', 'MailchimpTools', array('file' => 'mailchimp/mailchimp_tools.php'));
 		$this->Customer->MailchimpTools = &new MailchimpTools;
-		$this->Customer->MailchimpTools->unsubscribe('martin.polak@gmail.com');
-*/
+		$this->Customer->MailchimpTools->unsubscribe('quilly@quick.cz');
+
 		// zjistim list, kam chci clena zapsat
 		App::import('Vendor', 'Mailchimp', array('file' => 'mailchimp/Mailchimp.php'));
 		$mc = &new Mailchimp($api_key);
