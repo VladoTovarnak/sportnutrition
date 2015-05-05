@@ -36,6 +36,7 @@
 				<li><?php echo $this->Html->link('Platby', array('controller' => 'payments', 'action' => 'index'))?></li>
 				<li><?php echo $this->Html->link('DPH', array('controller' => 'tax_classes', 'action' => 'index'))?></li>
 				<li><?php echo $this->Html->link('Cenové kategorie', array('controller' => 'customer_types', 'action' => 'index'))?></li>
+				<li><?php echo $this->Html->link('Bannery na hlavní stránce', array('controller' => 'homepage_banners', 'action' => 'index'))?></li>
 				<li><?php echo $this->Html->link('Doporučujeme', array('controller' => 'recommended_products', 'action' => 'index'))?></li>
 				<li><?php echo $this->Html->link('Akční produkty', array('controller' => 'discounted_products', 'action' => 'index'))?></li>
 				<li><?php echo $this->Html->link('Nejprodávanější', array('controller' => 'most_sold_products', 'action' => 'index'))?></li>
