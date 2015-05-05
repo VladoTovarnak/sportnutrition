@@ -191,6 +191,18 @@ class PagesController extends AppController{
 		}
 		
 		$this->set('opening_hours', $opening_hours);
+		
+		App::import('Model', 'HomepageBanner');
+		$this->HomepageBanner = &new HomepageBanner;
+		$banners  = $this->HomepageBanner->find('all', array(
+			'conditions' => array(),
+			'contain' => array(),
+			'fields' => array('*'),
+			'order' => array('HomepageBanner.order' => 'asc')
+		));
+		$this->set('homepage_banners', $banners);
+		$this->set('homepage_banner_folder', $this->HomepageBanner->folder);
+		
 	}
 }
 ?>
