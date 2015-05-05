@@ -158,7 +158,6 @@ class MailChimpTools {
         echo "\r\n";
         $output = ob_get_clean();
         $file_name = dirname(__FILE__).'/' . $file . '.log';
-        debug($file_name); die();
         fwrite(fopen($file_name, 'a'), $output);
     }
 

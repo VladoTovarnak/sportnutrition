@@ -1159,11 +1159,14 @@ class CustomersController extends AppController {
 		$api_key = '1dc2cb5152762d18ed8eb879b7b3b37d-us9';
 		$list_id = '3423967b09';
 
+/*		App::import('Vendor', 'MailchimpTools', array('file' => 'mailchimp/mailchimp_tools.php'));
+		$this->Customer->MailchimpTools = &new MailchimpTools;
+		$this->Customer->MailchimpTools->unsubscribe('martin.polak@gmail.com');
+*/
+		// zjistim list, kam chci clena zapsat
 		App::import('Vendor', 'Mailchimp', array('file' => 'mailchimp/Mailchimp.php'));
 		$mc = &new Mailchimp($api_key);
 		$mcList = &new Mailchimp_Lists($mc);
-		
-		// zjistim list, kam chci clena zapsat
 		debug($mcList->members($list_id));
 		die();
 	}
