@@ -29,18 +29,33 @@
 		<script type="text/javascript">tinyMCE.init({
 			mode : "exact",
 			language : "cs",
-			width : 528,
+<?php
+$tiny_mce_width = '528';
+if (isset($tiny_mce_easy)) {
+	$tiny_mce_width = '250';
+}
+?>
+			width : <?php echo $tiny_mce_width?>,
 			elements : "<?php echo $tiny_mce_elements?>",
 		    entity_encoding : "raw",
 		    relative_urls : false,
-			theme : "advanced",
+<?php
+$tiny_mce_theme = 'advanced';
+if (isset($tiny_mce_easy)) {
+	$tiny_mce_theme = 'simple';
+}?>
+			theme : "<?php echo $tiny_mce_theme?>",
 			plugins : "table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,zoom,flash,searchreplace,print,contextmenu",
+<?php if (!isset($tiny_mce_easy)) {?>
 			theme_advanced_buttons1_add_before : "save,separator",
+<?php }?>
 			theme_advanced_buttons1_add : "fontselect,fontsizeselect",
+<?php if (!isset($tiny_mce_easy)) {?>
 			theme_advanced_buttons2_add : "separator,insertdate,inserttime,preview,zoom,separator,forecolor,backcolor",
 			theme_advanced_buttons2_add_before: "cut,copy,paste,separator,search,replace,separator",
 			theme_advanced_buttons3_add_before : "tablecontrols,separator",
 			theme_advanced_buttons3_add : "emotions,iespell,flash,advhr,separator,print",
+<?php } ?>
 			theme_advanced_toolbar_location : "top",
 			theme_advanced_toolbar_align : "left",
 			theme_advanced_path_location : "bottom",
