@@ -48,7 +48,10 @@ class RecommendedProduct extends AppModel {
 				'Product.rate',
 							
 				'Image.id',
-				'Image.name'
+				'Image.name',
+					
+				'Availability.id',
+				'Availability.cart_allowed',
 			),
 			'joins' => array(
 				array(
@@ -69,6 +72,12 @@ class RecommendedProduct extends AppModel {
 					'type' => 'LEFT',
 					'conditions' => array('Product.id = CustomerTypeProductPrice.product_id AND CustomerTypeProductPrice.customer_type_id = ' . $customer_type_id)
 				),
+				array(
+					'table' => 'availabilities',
+					'alias' => 'Availability',
+					'type' => 'LEFT',
+					'conditions' => array('Product.availability_id = Availability.id')
+				)
 			),
 			'order' => array('RecommendedProduct.order' => 'asc')
 		));
