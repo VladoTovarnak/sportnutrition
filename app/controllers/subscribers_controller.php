@@ -21,18 +21,33 @@ class SubscribersController extends AppController {
 			$customer = $this->Customer->find('first', array(
 				'conditions' => array('email' => $this->data['Subscriber']['email']),
 				'contain' => array(),
-				'fields' => array('id')
+				'fields' => array('Customer.id', 'Customer.email', 'Customer.first_name', 'Customer.last_name')
 			));
 			// pokud jsem nenasel uzivatele s timto emailem, vlozim ho do tabulky subscribers
+			
+			$email = '';
+			$fname = '';
+			$lname = '';
 			if (empty($customer)) {
 				$this->Subscriber->create();
 				// nemusim validovat, protoze data uz prosla validaci
 				$this->Subscriber->save($this->data, false);
+				$email = $this->data['Subscriber']['email'];
 			} else {
 				// pokud jsem nasel uzivatele s timto emailem a zaroven mi prosla validace znamena, ze uzivatel nema prihlasen odber newsletteru, takze mu ho prihlasim
 				$customer['Customer']['newsletter'] = true;
 				$this->Customer->save($customer, false);
+				
+				$email = $customer['Customer']['email'];
+				$fname = $customer['Customer']['first_name'];
+				$lname = $customer['Customer']['last_name'];
 			}
+			
+			// zaloguju zakaznika do mailchimpu
+			App::import('Vendor', 'MailchimpTools', array('file' => 'mailchimp/mailchimp_tools.php'));
+			$this->Customer->MailchimpTools = &new MailchimpTools;
+			$this->Customer->MailchimpTools->subscribe($email, $fname, $lname);
+			
 			$this->Session->setFlash('Zadaná emailová adresa byla přihlášena k odběru novinek.', REDESIGN_PATH . 'flash_success');
 			$this->redirect($this->data['Subscriber']['request_uri']);
 		} else {

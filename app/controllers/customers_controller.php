@@ -17,7 +17,8 @@ class CustomersController extends AppController {
 			'password',
 			'confirm_hash',
 			'import',
-			'repair'
+			'repair',
+			'test_mc'
 		);
 		
 		if ( !$this->Session->check('Customer') && !in_array($this->params['action'], $allowed_actions) && !eregi("admin_", $this->params['action'])  ){
@@ -408,7 +409,7 @@ class CustomersController extends AppController {
 		$this->layout = REDESIGN_PATH . 'content';
 		
 		// formular byl vyplnen
-		if ( isset($this->data) ){
+		if (isset($this->data)) {
 			// pro zakaznika si preddefinuju login a heslo
 			$this->data['CustomerLogin'][0]['login'] = $this->Customer->generateLogin($this->data['Customer']);
 
@@ -438,6 +439,10 @@ class CustomersController extends AppController {
 
 			// ukladam zakaznika (spolu s adresou a udaji o prihlaseni
 			if ($this->Customer->saveAll($this->data)) {
+				// pokud jsem zakaznika uspesne ulozil do db, zaloguju ho do mailchimpu
+				App::import('Vendor', 'MailchimpTools', array('file' => 'mailchimp/mailchimp_tools.php'));
+				$this->Customer->MailchimpTools = &new MailchimpTools;
+				$this->Customer->MailchimpTools->subscribe($this->data['Customer']['email'], $this->data['Customer']['first_name'], $this->data['Customer']['last_name']);
 				// ulozeni probehlo v poradku, naimportuju mailer class a odeslu zakaznikovi mail,
 				// ze jeho ucet byl vytvoren, do dat o zakaznikovi si musim ale vratit nekryptovane heslo
 				$this->data['CustomerLogin'][0]['password'] = $password_not_md5;
@@ -1148,6 +1153,19 @@ class CustomersController extends AppController {
 	function import() {
 		$this->Customer->import();
 		die('here');
+	}
+	
+	function test_mc() {
+		$api_key = '1dc2cb5152762d18ed8eb879b7b3b37d-us9';
+		$list_id = '3423967b09';
+
+		App::import('Vendor', 'Mailchimp', array('file' => 'mailchimp/Mailchimp.php'));
+		$mc = &new Mailchimp($api_key);
+		$mcList = &new Mailchimp_Lists($mc);
+		
+		// zjistim list, kam chci clena zapsat
+		debug($mcList->members($list_id));
+		die();
 	}
 }
 ?>

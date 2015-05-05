@@ -1027,7 +1027,7 @@ class OrdersController extends AppController {
 			$customer['Customer']['confirmed'] = 1;
 			$customer['Customer']['registration_source'] = 'eshop';
 			$customer['Customer']['customer_type_id'] = 1;
-			
+
 			$c_dataSource = $this->Order->Customer->getDataSource();
 			$c_dataSource->begin($this->Order->Customer);
 			try {
@@ -1049,7 +1049,12 @@ class OrdersController extends AppController {
 			$this->Session->delete('Customer.noreg');
 			
 		}
-
+		
+		// zaloguju zakaznika do mailchimpu
+		App::import('Vendor', 'MailchimpTools', array('file' => 'mailchimp/mailchimp_tools.php'));
+		$this->Order->Customer->MailchimpTools = &new MailchimpTools;
+		$this->Order->Customer->MailchimpTools->subscribe($customer['Customer']['email'], $customer['Customer']['first_name'], $customer['Customer']['last_name']);
+		
 		//data pro objednavku
 		$order = $this->Order->build($customer);
 
