@@ -78,13 +78,15 @@
 			<h2><span>Aktuality</span></h2>
 <?php 		if (empty($hp_news)) { ?>
 			<p><em>Nemáme pro Vás žádné aktuality.</em></p>
-<?php 		} else {
-				foreach ($hp_news as $actuality) { ?>
+<?php 		} else { ?>
+			<div id="news_container">
+<?php	 		foreach ($hp_news as $actuality) { ?>
 			<h3><?php echo $this->Html->link($actuality['News']['title'], array('controller' => 'news', 'action' => 'view', $actuality['News']['id']))?></h3>
 			<p><?php echo $actuality['News']['first_sentence']?> ...</p>
 			<span class="date"><?php echo $actuality['News']['czech_date']?></span>
-<?php 			}
-			echo $this->Html->link('Všechny aktuality', '/aktuality', array('class' => 'open'));
+<?php 			} ?>
+	 		</div>
+<?php 		echo $this->Html->link('Všechny aktuality', '/aktuality', array('class' => 'open'));
 	 		} ?>
 		</div>
 
