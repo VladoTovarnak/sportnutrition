@@ -34,10 +34,6 @@
 				<span class="common">Běžná cena: <?php echo front_end_display_price($suggested_product['Product']['retail_price_with_dph'])?> Kč</span><br />
 				<span class="price">Cena: <?php echo front_end_display_price($suggested_product['Product']['price'])?> Kč</span>
 			</p>
-			<p class="guarantee">
-				<a href="/garance-nejnizsi-ceny.htm"><span class="first_line">Garance nejnižší ceny!</span></a><br />
-				<span class="second_line">Pro více informací pokračujte <a href="/garance-nejnizsi-ceny.htm">zde</a>.</span>
-			</p>
 		</div>
 		<?php } ?>
 
@@ -135,10 +131,6 @@
 			<p class="prices">
 				<span class="common">Běžná cena: <?php echo front_end_display_price($product['Product']['retail_price_with_dph'])?> Kč</span><br />
 				<span class="price">Cena: <?php echo front_end_display_price($product['Product']['price'])?> Kč</span>
-			</p>
-			<p class="guarantee">
-				<a href="/garance-nejnizsi-ceny.htm"><span class="first_line">Garance nejnižší ceny!</span></a><br />
-				<span class="second_line">Pro více informací pokračujte <a href="/garance-nejnizsi-ceny.htm">zde</a>.</span>
 			</p>
 		</div>
 		<?php } ?>

@@ -33,10 +33,6 @@ foreach ( $products as $product ){
 			<span class="common">Běžná cena: <?php echo front_end_display_price($product['Product']['retail_price_with_dph'])?>&nbsp;Kč</span><br />
 			<span class="price">Cena: <?php echo front_end_display_price($product['Product']['price'])?>&nbsp;Kč</span>
 		</p>
-		<p class="guarantee">
-			<a href="/garance-nejnizsi-ceny.htm"><span class="first_line">Garance nejnižší ceny!</span></a><br />
-			<span class="second_line">Pro více informací pokračujte <a href="/garance-nejnizsi-ceny.htm">zde</a>.</span>
-		</p>
 		<?php if (isset($product['Product']['short_description']) && !empty($product['Product']['short_description'])) { ?>
 		<p class="desc<?php echo ($odd ? '' : ' right')?>"><?php echo $product['Product']['short_description']?></p>
 		<?php } ?>
