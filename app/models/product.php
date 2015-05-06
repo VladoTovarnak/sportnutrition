@@ -843,5 +843,9 @@ class Product extends AppModel {
 		$image_name = $image_name[count($image_name) -1];
 		return $image_name;
 	}
+	
+	function in_category($id, $category_id) {
+		return $this->CategoriesProduct->hasAny(array('product_id' => $id, 'category_id' => $category_id));
+	}
 }
 ?>
