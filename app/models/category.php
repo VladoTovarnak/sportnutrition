@@ -132,7 +132,14 @@ class Category extends AppModel {
 		}
 		
 		// idcka kategorii, ktere nechci ve vertikalnim menu zobrazit
-		$unwanted_category_ids = array(2, 4, 5, 6, 7);
+		$unwanted_category_ids = array();
+		// TODO - muzu odstranit, az pustim kategorii s dopravou zdarma live
+		App::import('Model', 'Setting');
+		$this->Setting = &new Setting;
+		if ($free_shipping_category_id =  $this->Setting->findValue('FREE_SHIPPING_CATEGORY_ID')) {
+			$unwanted_category_ids[] = $free_shipping_category_id;
+		}
+		$unwanted_category_ids = array_merge($unwanted_category_ids, $horizontal_categories_tree_ids);
 		if (!empty($unwanted_category_ids)) {
 			$conditions[] = 'Category.id NOT IN (' . implode(',', $unwanted_category_ids) . ')';
 		}
@@ -163,12 +170,12 @@ class Category extends AppModel {
 	}
 	
 	function getSubmenuCategories() {
-		$submenu_category_ids = array(2, 4, 5, 6, 7);
+		$submenu_category_ids =  $this->get_horizontal_categories_ids();
 		$categories = $this->find('all', array(
 			'conditions' => array('Category.id' => $submenu_category_ids),
 			'contain' => array(),
 			'fields' => array('Category.id', 'Category.name', 'Category.url'),
-			'order' => array('Category.id')	
+			'order' => array('Category.lft')	
 		));
 
 		return ($categories);
@@ -265,8 +272,21 @@ class Category extends AppModel {
 		return $products;
 	}
 	
-	function get_horizontal_categories_tree_ids() {
+	function get_horizontal_categories_ids() {
 		$horizontal_categories_ids = array(2, 4, 5, 6, 7);
+if (Configure::read('debug')) {
+		App::import('Model', 'Setting');
+		$this->Setting = &new Setting;
+		if ($free_shipping_category_id = $this->Setting->findValue('FREE_SHIPPING_CATEGORY_ID')) {
+			$horizontal_categories_ids[] = $free_shipping_category_id;
+		}
+}
+		
+		return $horizontal_categories_ids;
+	}
+	
+	function get_horizontal_categories_tree_ids() {
+		$horizontal_categories_ids = $this->get_horizontal_categories_ids();
 		$horizontal_categories_tree_ids = array();
 		foreach ($horizontal_categories_ids as $hci) {
 			$children = $this->children($hci);
