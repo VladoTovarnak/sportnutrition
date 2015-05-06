@@ -274,13 +274,11 @@ class Category extends AppModel {
 	
 	function get_horizontal_categories_ids() {
 		$horizontal_categories_ids = array(2, 4, 5, 6, 7);
-if (Configure::read('debug')) {
 		App::import('Model', 'Setting');
 		$this->Setting = &new Setting;
 		if ($free_shipping_category_id = $this->Setting->findValue('FREE_SHIPPING_CATEGORY_ID')) {
 			$horizontal_categories_ids[] = $free_shipping_category_id;
 		}
-}
 		
 		return $horizontal_categories_ids;
 	}
