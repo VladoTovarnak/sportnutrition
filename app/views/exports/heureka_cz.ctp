@@ -23,16 +23,10 @@ foreach ($products as $product) {
 <?php if (isset($product['ComparatorProductClickPrice']['click_price']) && !empty($product['ComparatorProductClickPrice']['click_price'])) { ?>
 		<HEUREKA_CPC><?php echo number_format($product['ComparatorProductClickPrice']['click_price'], 2, ',', '')?></HEUREKA_CPC>
 <?php } ?>
-<?php foreach ($shippings as $shipping) { ?>
+<?php foreach ($product['shippings'] as $shipping) { ?>
 		<DELIVERY>
-			<DELIVERY_ID><![CDATA[<?php echo $shipping['Shipping']['heureka_id']?>]]></DELIVERY_ID>
-			<?php // pokud je cena produktu vyssi, nez cena objednavky, od ktere je tato doprava zdarma, cena je 0, jinak zadam cenu dopravy
-			$shipping_price = ceil($shipping['Shipping']['price']);
-			if ($shipping['Shipping']['free'] != 0 && $product['Product']['price'] > $shipping['Shipping']['free']) {
-				$shipping_price = 0;
-			}
-			?>
-			<DELIVERY_PRICE><![CDATA[<?php echo $shipping_price?>]]></DELIVERY_PRICE>	
+			<DELIVERY_ID><![CDATA[<?php echo $shipping['name']?>]]></DELIVERY_ID>
+			<DELIVERY_PRICE><![CDATA[<?php echo $shipping['price']?>]]></DELIVERY_PRICE>	
 		</DELIVERY>
 <?php } ?>
 	</SHOPITEM>

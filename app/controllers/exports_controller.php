@@ -41,6 +41,15 @@ class ExportsController extends AppController{
 		if (!empty($present_ids)) {
 			$conditions[] = 'Product.id NOT IN (' . implode(',', $present_ids) . ')';
 		}
+		
+		// kategorie chci vybirat jine, nez doprava zdarma
+		App::import('Model', 'Setting');
+		$this->Setting = &new Setting;
+		$category_id_condition = '';
+		if ($free_shipping_category_id = $this->Setting->findValue('FREE_SHIPPING_CATEGORY_ID')) {
+			$category_id_condition = ' AND CategoriesProduct.category_id != ' . $free_shipping_category_id;
+		}
+		
 		$this->Product->virtualFields['price'] = $this->Product->price;
 		$products = $this->Product->find('all', array(
 			'conditions' => $conditions,
@@ -75,7 +84,7 @@ class ExportsController extends AppController{
 					'table' => 'categories_products',
 					'alias' => 'CategoriesProduct',
 					'type' => 'INNER',
-					'conditions' => array('CategoriesProduct.product_id = Product.id')
+					'conditions' => array('CategoriesProduct.product_id = Product.id' . (!empty($category_id_condition) ? $category_id_condition : ''))
 				),
 				array(
 					'table' => 'categories',
@@ -208,6 +217,23 @@ class ExportsController extends AppController{
 			'Sport | Fitness | Posilovací lavice' => array(37),
 			'Sport | Fitness | Posilovací věže' => array(38)
 		);
+		
+		App::import('Model', 'Shipping');
+		$this->Shipping = &new Shipping;
+		// vytahnu si vsechny zpusoby dopravy
+		$shippings = $this->Shipping->find('all', array(
+			// do exportu budu davat jen PPL, GP a CP do ruky
+			'conditions' => array('Shipping.id' => array(2,3,7)),
+			'contain' => array(),
+			'fields' => array('Shipping.id', 'Shipping.name', 'Shipping.price', 'Shipping.free', 'Shipping.heureka_id')
+		));
+		
+		App::import('Model', 'Product');
+		$this->Product = &new Product;
+		
+		App::import('Model', 'Setting');
+		$this->Setting = &new Setting;
+		$free_shipping_category_id = $this->Setting->findValue('FREE_SHIPPING_CATEGORY_ID');
 
 		foreach ($products as $index => $product) {
 			// pokud je kategorie produktu sparovana s heurekou, nastavi se rovnou jako 'Sportovni vyziva | *odpovidajici nazev kategorie*
@@ -225,21 +251,29 @@ class ExportsController extends AppController{
 				unset($keys[0]);
 				$products[$index]['CATEGORYTEXT'] = implode(' | ', $keys);
 			}
+
+			$products[$index]['shippings'] = array();
+
+			foreach ($shippings as $shipping) {
+				$shipping_name = $shipping['Shipping']['heureka_id'];
+				
+				// pokud je cena produktu vyssi, nez cena objednavky, od ktere je tato doprava zdarma, cena je 0, jinak zadam cenu dopravy
+				$shipping_price = ceil($shipping['Shipping']['price']);
+				if ($shipping['Shipping']['free'] != 0 && $product['Product']['price'] > $shipping['Shipping']['free']) {
+					$shipping_price = 0;
+				// pokud je produkt v kategorii "doprava zdarma", je doprava zdarma
+				} elseif ($free_shipping_category_id && $this->Product->in_category($product['Product']['id'], $free_shipping_category_id)) {
+					$shipping_price = 0;
+				}
+
+				$products[$index]['shippings'][] = array(
+					'name' => $shipping_name,
+					'price' => $shipping_price
+				);
+			}
 		}
-	
+
 		$this->set('products', $products);
-		
-		// udaje o moznych variantach dopravy
-		App::import('Model', 'Shipping');
-		$this->Shipping = new Shipping;
-		// vytahnu si vsechny zpusoby dopravy
-		$shippings = $this->Shipping->find('all', array(
-			// do exportu budu davat jen PPL, GP a CP do ruky
-			'conditions' => array('Shipping.id' => array(2,3,7)),
-			'contain' => array(),
-			'fields' => array('Shipping.id', 'Shipping.name', 'Shipping.price', 'Shipping.free', 'Shipping.heureka_id')
-		));
-		$this->set('shippings', $shippings);
 	}
 	
 	function google_merchant() {
