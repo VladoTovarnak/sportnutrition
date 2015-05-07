@@ -1,3 +1,8 @@
+<?php 	if (isset($category['Category']['content']) && !empty($category['Category']['content'])) { ?>
+		<div id="category-desc">
+<?php 		echo $category['Category']['content']; ?>
+		</div>
+<?php 	} ?>
 <?php if (isset($category_most_sold) && !empty($category_most_sold)) { ?>
 <h2><span>Nejprodávanější v této kategorii</span></h2>
 <div class="dark">
@@ -12,11 +17,6 @@
 	if (!empty($products)) {
 ?>
 		<h2><span><?php echo $category['Category']['heading']?></span></h2>
-<?php 	if (isset($category['Category']['content']) && !empty($category['Category']['content'])) { ?>
-		<div id="category-desc">
-<?php 		echo $category['Category']['content']; ?>
-		</div>
-<?php 	} ?>
 		<div class="paginator">
 			<div class="sorter">
 			<?php echo $this->Form->create(null, array('url' => '/' . $this->params['url']['url'], 'type' => 'get', 'id' => 'filter_form', 'encoding' => false))?>
