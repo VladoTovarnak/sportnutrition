@@ -12,6 +12,11 @@
 	if (!empty($products)) {
 ?>
 		<h2><span><?php echo $category['Category']['heading']?></span></h2>
+<?php 	if (isset($category['Category']['content']) && !empty($category['Category']['content'])) { ?>
+		<div id="category-desc">
+<?php 		echo $category['Category']['content']; ?>
+		</div>
+<?php 	} ?>
 		<div class="paginator">
 			<div class="sorter">
 			<?php echo $this->Form->create(null, array('url' => '/' . $this->params['url']['url'], 'type' => 'get', 'id' => 'filter_form', 'encoding' => false))?>
@@ -70,8 +75,3 @@
 			<p>Tato kategorie neobsahuje žádné produkty ani podkategorie.</p>
 		</div>
 <? } ?>
-<?php if (Configure::read('debug')) { ?>
-	<div id="category-desc">
-<?php 		echo $category['Category']['content']; ?>
-	</div>
-<?php } ?>

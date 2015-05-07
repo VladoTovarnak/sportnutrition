@@ -128,7 +128,7 @@ class CategoriesProductsController extends AppController {
 		$this->Setting = &new Setting;
 		$category_text = $this->Setting->findValue('CATEGORYTEXT');
 		
-		$category['Category']['content'] = $category['Category']['content'] . ($category_text ? $category_text : '');
+		$category['Category']['content'] = $category['Category']['content'] . ($category_text && !empty($category_text) ? $category_text : '');
 
 		$this->set('category', $category);
 		// nastavim head tagy
