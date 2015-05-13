@@ -17,7 +17,22 @@ class ProductsController extends AppController {
 		$this->Product->recursive = 0;
 		$this->set('products', $this->paginate());
 	}
-
+	
+	function my_redirect($id = null) {
+		// kontrola, zda ctu produkt, ktery vubec existuje
+		if (!$this->Product->hasAny(array('Product.id' => $id))) {
+			$this->Session->setFlash('Neexistující produkt.', REDESIGN_PATH . 'flash_failure');
+			$this->redirect('/', null, true);
+		}
+	
+		$product = $this->Product->find('first', array(
+			'conditions' => array('Product.id' => $id),
+			'contain' => array(),
+			'fields' => array('Product.url')
+		));
+		$this->redirect('/' . $product['Product']['url']);
+	}
+	
 	function view($id = null) {
 		// kontrola, zda ctu produkt, ktery vubec existuje
 		if (!$this->Product->hasAny(array('Product.id' => $id))) {
