@@ -58,3 +58,20 @@ var _hrq = _hrq || [];
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ho, s);
 })();
 </script>
+
+<!-- Facebook Conversion Code for Objednano -->
+<script>(function() {
+  var _fbq = window._fbq || (window._fbq = []);
+  if (!_fbq.loaded) {
+    var fbds = document.createElement('script');
+    fbds.async = true;
+    fbds.src = '//connect.facebook.net/en_US/fbds.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(fbds, s);
+    _fbq.loaded = true;
+  }
+})();
+window._fbq = window._fbq || [];
+window._fbq.push(['track', '6027840544802', {'value':'<?php echo $order['Order']['orderfinaltotal'] ?>','currency':'CZK'}]);
+</script>
+<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?ev=6027840544802&amp;cd[value]=<?php echo $order['Order']['orderfinaltotal'] ?>&amp;cd[currency]=CZK&amp;noscript=1" /></noscript>
