@@ -30,7 +30,19 @@ class ProductsController extends AppController {
 			'contain' => array(),
 			'fields' => array('Product.url')
 		));
-		$this->redirect('/' . $product['Product']['url']);
+		
+		$get_params = $this->params['url'];
+		unset($get_params['url']);
+
+		foreach ($get_params as $index => &$value) {
+			$value = $index . '=' . $value;
+		}
+		$get_params = implode('&', $get_params);
+		$url = '/' . $product['Product']['url'];
+		if (!empty($get_params)) {
+			$url .= '?' . $get_params;
+		}
+		$this->redirect($url);
 	}
 	
 	function view($id = null) {
