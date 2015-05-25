@@ -561,6 +561,10 @@ class Order extends AppModel {
 			$cp_count++;
 		}
 		$order['Order']['shipping_cost'] = $this->get_shipping_cost($order['Order']['shipping_id']);
+		// pokud je zvolena doprava na slovensko (id = 6) a platba prevodem (id = 2), je sleva z dopravy 70,-
+		if ($order['Order']['shipping_id'] == 16 && $order['Order']['payment_id'] == 2) {
+			$order['Order']['shipping_cost'] -= 70;
+		}
 		$order['Order']['shipping_tax_class'] = $this->Shipping->get_tax_class_description($order['Order']['shipping_id']);
 		// cena produktu v kosiku, bez dopravneho
 		$order['Order']['subtotal_with_dph'] = $order_total_with_dph;
