@@ -1226,6 +1226,7 @@ class OrdersController extends AppController {
 			
 						if (empty($customer)) {
 							$this->Session->setFlash('Neplatný login nebo heslo!', REDESIGN_PATH . 'flash_failure');
+							$this->data['Customer']['is_registered'] = 1;
 						} else {
 							// ulozim si info o zakaznikovi do session
 							$this->Session->write('Customer', $customer['Customer']);
@@ -1247,8 +1248,9 @@ class OrdersController extends AppController {
 							
 							// presmeruju
 							$this->Session->setFlash('Jste přihlášen(a) jako ' . $customer['Customer']['first_name'] . ' ' . $customer['Customer']['last_name'] . '.', REDESIGN_PATH . 'flash_success');
+							$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order'));
 						}
-						$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order'));
+						
 						break;
 					case 'order_finish':
 						// nechci kontrolovat, jestli je zakaznikuv email unikatni (aby i zakaznik, ktery neni prihlaseny, ale jeho email je v systemu, mohl dokoncit objednavku
@@ -1329,6 +1331,7 @@ class OrdersController extends AppController {
 			if (isset($customer)) {
 				$this->data = $customer;
 			}
+			$this->data['Customer']['is_registered'] = 0;
 		}
 
 		// data o zbozi v kosiku

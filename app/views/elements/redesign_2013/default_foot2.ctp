@@ -152,7 +152,11 @@ window._fbq.push(['track', 'PixelInitialized', {}]);
 <!-- JEDNOKROKOVA OBJEDNAVKA -->
 <script type="text/javascript">
 $(document).ready(function() {
-	$('input[name="customer-is-registered"]').change(function() {
+	if ($('#CustomerIsRegistered1').is(':checked')) {
+		$('#CustomerOneStepOrderDiv').show();
+	}
+	
+	$('input.customer-is-registered').change(function() {
 		if (this.id == 'CustomerIsRegistered1') {
 			$('#CustomerOneStepOrderDiv').show();
 		} else {

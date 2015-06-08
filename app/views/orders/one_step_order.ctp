@@ -32,7 +32,7 @@
 				</div>
 				<div class="cart-product-info">
 					<a href="/<?php echo $cart_product['Product']['url'] ?>"><?php echo $cart_product['Product']['name'] ?></a>
-<?php 	if ( !empty($cart_product['CartsProduct']['product_attributes']) ){ ?>
+<?php 	if (!empty($cart_product['CartsProduct']['product_attributes'])) { ?>
 					<br />
 					<div style="font-size:11px;padding-left:20px;">
 <?php 		foreach ($cart_product['CartsProduct']['product_attributes'] as $option => $value) { ?>
@@ -72,7 +72,14 @@
 <?php if (!$is_logged_in) { ?>
 <ul style="list-style-type:none">
 	<li>
-		<input type="radio" name="customer-is-registered" value="1" id="CustomerIsRegistered1" /> Přihlásit se, jsem již zaregistrován
+		<?php
+			$value = 1;
+			$checked = '';
+			if (isset($this->data['Customer']['is_registered']) && $this->data['Customer']['is_registered'] == $value) {
+				$checked = 'checked="checked"';
+			}
+		?>
+		<input type="radio" class="customer-is-registered" value="1" id="CustomerIsRegistered1" name="data[Customer][is_registered]" <?php echo $checked?>/> Přihlásit se, jsem již zaregistrován
 		<div id="CustomerOneStepOrderDiv" class="neukazovat">
 			<?=$form->Create('Customer', array('url' => array('controller' => 'orders', 'action' => 'one_step_order')));?>
 			<table id="orderForm">
@@ -91,7 +98,16 @@
 			<?=$html->link('zapomněl(a) jsem heslo', array('controller' => 'customers', 'action' => 'password')) ?>
 		</div>
 	</li>
-	<li><input type="radio" name="customer-is-registered" value="0" id="CustomerIsRegistered0" /> Toto je moje první objednávka</li>
+	<li>
+		<?php
+			$value = 0;
+			$checked = '';
+			if (isset($this->data['Customer']['is_registered']) && $this->data['Customer']['is_registered'] == $value) {
+				$checked = 'checked="checked"';
+			}
+		?>
+		<input type="radio" class="customer-is-registered" value="<?php echo $value?>" id="CustomerIsRegistered0" name="data[Customer][is_registered]" <?php echo $checked?>/> Toto je moje první objednávka
+	</li>
 </ul>
 <?php } ?>
 
