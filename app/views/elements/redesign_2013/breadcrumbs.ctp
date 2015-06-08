@@ -1,7 +1,7 @@
 <?php
 if (isset($breadcrumbs)) {
 	$arr2link = function ($item) {
-		return $this->Html->link($item['anchor'], $item['href']);
+		return '<a href="' . $item['href'] . '">' . $item['anchor'] . '</a>';
 	};
 	
 	$breadcrumbs = array_map($arr2link, $breadcrumbs);

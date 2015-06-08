@@ -1393,7 +1393,7 @@ class OrdersController extends AppController {
 		$this->set('page_heading', 'Objednávka');
 		$this->set('_title', 'Objednávka');
 		$this->set('_description', 'Objednávka');
-		$breadcrumbs = array(array('anchor' => 'Objednávka', 'href' => array('controller' => 'orders', 'action' => 'one_step_order')));
+		$breadcrumbs = array(array('anchor' => 'Objednávka', 'href' => '/objednavka'));
 		$this->set('breadcrumbs', $breadcrumbs);
 		
 		// layout
