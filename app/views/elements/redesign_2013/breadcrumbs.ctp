@@ -1,12 +1,11 @@
 <?php
 if (isset($breadcrumbs)) {
 	$arr2link = function ($item) {
-		return '<a href="' . $item['href'] . '">' . $item['anchor'] . '</a>';
+		return $this->Html->link($item['anchor'], $item['href']);
 	};
 	
 	$breadcrumbs = array_map($arr2link, $breadcrumbs);
 	$breadcrumbs = implode('</li><li>', $breadcrumbs);
-	//debug($breadcrumbs); die();
 	$breadcrumbs = '<ul class="breadcrumbs"><li><a href="/">Úvodní stránka</a></li><li>' . $breadcrumbs . '</li></ul>';
 	echo $breadcrumbs;
 }

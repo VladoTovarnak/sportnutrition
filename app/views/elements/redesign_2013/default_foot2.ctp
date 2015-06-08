@@ -148,3 +148,27 @@ window._fbq = window._fbq || [];
 window._fbq.push(['track', 'PixelInitialized', {}]);
 </script>
 <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=455047541326994&amp;ev=PixelInitialized" /></noscript>
+
+<!-- JEDNOKROKOVA OBJEDNAVKA -->
+<script type="text/javascript">
+$(document).ready(function() {
+	$('input[name="customer-is-registered"]').change(function() {
+		if (this.id == 'CustomerIsRegistered1') {
+			$('#CustomerOneStepOrderDiv').show();
+		} else {
+			$('#CustomerOneStepOrderDiv').hide();
+		}
+	});
+
+	$('#isDifferentAddressCheckbox').change(function() {
+		// pokud mam dorucovaci adresu ruznou od fakturacni
+		if ($(this).is(':checked')) {
+			// zobrazim tabulku pro dorucovaci adresu
+			$('#DeliveryAddressTable').show();
+		} else {
+			// schovam tabulku pro dorucovaci adresu
+			$('#DeliveryAddressTable').hide();
+		}
+	});
+});
+</script>

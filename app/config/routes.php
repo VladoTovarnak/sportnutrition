@@ -42,7 +42,7 @@
 	
 	
 	Router::connect('/kosik', array('controller' => 'carts_products', 'action' => 'index'));
-	Router::connect('/nakup', array('controller' => 'orders', 'action' => 'one_step_order'));
+	Router::connect('/objednavka', array('controller' => 'orders', 'action' => 'one_step_order'));
 	
 	Router::connect('/objednavka-osobni-udaje', array('controller' => 'customers', 'action' => 'order_personal_info'));
 	Router::connect('/doprava-a-zpusob-platby', array('controller' => 'orders', 'action' => 'set_payment_and_shipping'));

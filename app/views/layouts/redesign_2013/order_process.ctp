@@ -21,12 +21,12 @@
 
 	<hr class="cleaner" />
 	<div id="main">
-			<?php 
-				if ($session->check('Message.flash')){
-					echo $session->flash();
-				}
-				echo $content_for_layout;
-			?>
+		<?php echo $this->element(REDESIGN_PATH . 'breadcrumbs'); ?>
+<?php	if ($session->check('Message.flash')) {
+			echo $session->flash();
+		}
+		echo $content_for_layout;
+?>
 		<hr class="cleaner" />
 	</div>
 	<hr class="cleaner" />

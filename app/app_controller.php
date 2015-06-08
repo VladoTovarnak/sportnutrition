@@ -130,6 +130,16 @@
 			}
 			$this->set('login_box_tab', $login_box_tab);
 			
+			// je zakaznik zalgovany
+			$is_logged_in = false;
+			if ($this->Session->check('Customer')) {
+				$customer = $this->Session->read('Customer');
+				if (isset($customer['id']) && !empty($customer['id']) && !isset($customer['noreg'])) {
+					$is_logged_in = true;
+				}
+			}
+			$this->set('is_logged_in', $is_logged_in);
+			
 			// do layoutu pro vypis produktu potrebuju vyrobce, prichute atd do filtru vpravo
 			if ($this->layout == REDESIGN_PATH . 'category') {
 				if ($opened_category_id != ROOT_CATEGORY_ID && $this->params['controller'] == 'categories_products' && $this->params['action'] == 'view') {

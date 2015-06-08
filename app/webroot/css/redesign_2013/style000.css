@@ -775,43 +775,49 @@ ul.breadcrumbs li:last-child a {
 #main .tabs h3, #main .tabs h4, #main .tabs h5, #main .tabs h6 {
 	margin: 0;
 }
-#main div.left table {
+#main div.left table, #main table {
     border-collapse: collapse;
     width: 100%;
     margin: 0 0 20px;
 }
-#main div.left table th {
+#main div.left table th, #main table th {
     background: #F0F0F0;
     font-weight: normal;
     padding: 7px 10px;
     border: 1px solid #E7E7E7;
     font-size: 12px;
 }
-#main div.left table td {
+#main div.left table td, #main table td {
     border: 1px solid #E7E7E7;
     padding: 7px 10px;
 }
-#main div.left table .left {
+#main div.left table .left, #main table .left {
     text-align: left;
 }
-#main div.left table .center {
+#main div.left table .center, #main table .center {
     text-align: center;
 }
-#main div.left table input {
+#main div.left table input, #main table input {
     border: 1px solid #ccc;
     height: 25px; width: 70px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
 }
 
-#main div.left table input.content {
+#main div.left table input.content, #main table input.content {
     border: 1px solid #ccc;
     height: 25px; width: 170px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
 }
 
-#main div.left table button {
+#main div.left textarea.content, #main textarea.content {
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	width:100%;
+}
+
+#main div.left table button, #main table button {
     background: #E2001A;
     -webkit-border-radius: 3px;
     border-radius: 3px;
@@ -1389,16 +1395,37 @@ div.right_sidebar_product span.regular_price{
 	font-size: 12px;
 }
 
-#main div.left table input.small{
+#cartContents .image-holder {
+	margin: 3px 5px;
+}
+
+#cartContents .cart-product-info {
+	 position:absolute;
+	 top:30%;
+	 left: 65px;
+	 height:60px;
+}
+
+#main div.left table input.small, #main table input.small {
+	width: 30px;
+	text-align: right;
+	padding: 0 3px;
+}
+
+#main div.left table input[type="submit"].small, #main table input[type="submit"].small {
 	width: 50px;
 }
 
-#main div.left table input.changeAmount{
+#main div.left table input.changeAmount, #main table input.changeAmount {
 	margin-left: 5px;
 }
 
 #cartContents .price {
 	font-size: 14px;
+}
+
+#cartContents .final-price {
+	font-size: 24px;
 }
 
 #category-desc {

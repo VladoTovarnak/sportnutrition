@@ -100,7 +100,7 @@ class Shipping extends AppModel {
 		return $shipping['TaxClass']['description'];
 	}
 	
-	function geis_point_url($session) {
+	function geis_point_url($session, $one_step_order = false) {
 		$address = $session->read('Address');
 		if (!$address) {
 			return false;
@@ -112,6 +112,9 @@ class Shipping extends AppModel {
 		$cust_address .= ';' . $address['city'] . ';' . $address['zip'];
 		$cust_address = urlencode($cust_address);
 		$redirect_url = 'http://' . $_SERVER['HTTP_HOST'] . '/rekapitulace-objednavky';
+		if ($one_step_order) {
+			$redirect_url = 'http://' . $_SERVER['HTTP_HOST'] . '/orders/finalize';
+		}
 		$redirect_url = urlencode($redirect_url);
 		$service_url = 'http://plugin.geispoint.cz/map.php';
 		$service_url = $service_url . '?CustAddress=' . $cust_address . '&ReturnURL=' . $redirect_url;

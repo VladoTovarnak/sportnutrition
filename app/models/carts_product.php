@@ -49,7 +49,7 @@ class CartsProduct extends AppModel {
 			'CartsProduct.cart_id' => $cart_id,
 			'CartsProduct.id' => $product_id
 		);
-		if ( $this->find($conditions) ){
+		if ($this->find($conditions)){
 			return true;
 		}
 		return false;

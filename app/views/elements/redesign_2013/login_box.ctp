@@ -6,13 +6,6 @@
 <div id="login"<?php echo ($login_box_tab != 'login') ? ' style="display:none"' : ''?>>
 	<div id="login_wrapper">
 <?php 
-	$is_logged_in = false;
-	if ($this->Session->check('Customer')) {
-		$customer = $this->Session->read('Customer');
-		if (isset($customer['id']) && !empty($customer['id']) && !isset($customer['noreg'])) {
-			$is_logged_in = true;
-		}
-	}
 	if (!$is_logged_in) {
 		echo $this->Form->create('Customer', array('url' => array('controller' => 'customers', 'action' => 'login'), 'id' => 'login_form_top', 'encoding' => false));
 		echo $this->Form->input('Customer.login', array('label' => false, 'placeholder' => 'Login', 'div' => false, 'after' => '&nbsp;'));
