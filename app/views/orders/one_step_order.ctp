@@ -1,4 +1,4 @@
-<h2><span>Nákupní košík</span></h2>
+<h2>Nákupní košík</h2>
 <? if (empty($cart_products)) { ?>
 	<p>Nákupní košík je prázdný.</p>
 <? } else { ?>
@@ -53,7 +53,7 @@
 			<td align="right"><span class="price"><?php echo intval($cart_product['CartsProduct']['price_with_dph']) ?></span>&nbsp;Kč</td>
 			<td align="right"><span class="price"><?php echo intval($cart_product['CartsProduct']['price_with_dph'] * $cart_product['CartsProduct']['quantity']) ?></span>&nbsp;Kč</td>
 			<td align="right"><?php 
-				echo $this->Html->link('smazat', array('controller' => 'carts_products', 'action' => 'delete', $cart_product['CartsProduct']['id'], 'back' => base64_encode($_SERVER['REQUEST_URI'])), array('title' => 'odstranit z košíku'), 'Opravdu chcete produkt odstranit z košíku?');
+				echo $this->Html->link('odebrat z košíku', array('controller' => 'carts_products', 'action' => 'delete', $cart_product['CartsProduct']['id'], 'back' => base64_encode($_SERVER['REQUEST_URI'])), array('title' => 'odstranit z košíku', 'class' => 'red_alert'), 'Opravdu chcete produkt odstranit z košíku?');
 			?></td>
 		</tr>
 <?php	} ?>
@@ -65,39 +65,16 @@
 	</table>
 <? } ?>
 
-<?php echo $this->Html->link('Zpět na nabídku', '/', array('style' => 'float:left'))?>
-<?php echo $this->Html->link('Přejít k objednání', '#OrderDetails', array('style' => 'float:right'))?>
+
+
+<?php echo $this->Html->link('Přejít k objednání', '#OrderDetails', array('class' => 'button_like_link red'))?>
+
+<?php echo $this->Html->link('Zpět do obchodu', '/', array('class' => 'button_like_link silver'))?>
+
 <div class="clearer"></div>
-<h2 id="OrderDetails"><span>Objednávka</span></h2>
+<h2 id="OrderDetails">Objednávka</h2>
 <?php if (!$is_logged_in) { ?>
 <ul style="list-style-type:none">
-	<li>
-		<?php
-			$value = 1;
-			$checked = '';
-			if (isset($this->data['Customer']['is_registered']) && $this->data['Customer']['is_registered'] == $value) {
-				$checked = 'checked="checked"';
-			}
-		?>
-		<input type="radio" class="customer-is-registered" value="1" id="CustomerIsRegistered1" name="data[Customer][is_registered]" <?php echo $checked?>/> Přihlásit se, jsem již zaregistrován
-		<div id="CustomerOneStepOrderDiv" class="neukazovat">
-			<?=$form->Create('Customer', array('url' => array('controller' => 'orders', 'action' => 'one_step_order')));?>
-			<table id="orderForm">
-				<tr>
-					<th>Login:</th>
-					<td><?=$form->text('Customer.login', array('class' => 'content'))?></td>
-				</tr>
-				<tr>
-					<th>Heslo:</th>
-					<td><?=$form->password('Customer.password', array('class' => 'content'))?></td>
-				</tr>
-			</table>
-			<?php echo $this->Form->hidden('Order.action', array('value' => 'customer_login'))?>
-			<?php echo $this->Form->submit('Přihlásit')?>
-			<?php echo $this->Form->end()?>
-			<?=$html->link('zapomněl(a) jsem heslo', array('controller' => 'customers', 'action' => 'password')) ?>
-		</div>
-	</li>
 	<li>
 		<?php
 			$value = 0;
@@ -106,13 +83,42 @@
 				$checked = 'checked="checked"';
 			}
 		?>
-		<input type="radio" class="customer-is-registered" value="<?php echo $value?>" id="CustomerIsRegistered0" name="data[Customer][is_registered]" <?php echo $checked?>/> Toto je moje první objednávka
+		<input type="radio" class="customer-is-registered" value="<?php echo $value?>" id="CustomerIsRegistered0" name="data[Customer][is_registered]" <?php echo $checked?>/>
+			<label for="CustomerIsRegistered0" class="customer_status_label">Toto je moje první objednávka</label>
+	</li>
+	<li>
+		<?php
+			$value = 1;
+			$checked = '';
+			if (isset($this->data['Customer']['is_registered']) && $this->data['Customer']['is_registered'] == $value) {
+				$checked = 'checked="checked"';
+			}
+		?>
+		<input type="radio" class="customer-is-registered" value="1" id="CustomerIsRegistered1" name="data[Customer][is_registered]" <?php echo $checked?>/>
+			<label for="CustomerIsRegistered1" class="customer_status_label">Přihlásit se, jsem již zaregistrován</label>
+			<div id="CustomerOneStepOrderDiv" class="neukazovat">
+				<?=$form->Create('Customer', array('url' => array('controller' => 'orders', 'action' => 'one_step_order')));?>
+				<table id="orderForm">
+					<tr>
+						<th>Login:</th>
+						<td><?=$form->text('Customer.login', array('class' => 'content'))?></td>
+					</tr>
+					<tr>
+						<th>Heslo:</th>
+						<td><?=$form->password('Customer.password', array('class' => 'content'))?></td>
+					</tr>
+				</table>
+				<?php echo $this->Form->hidden('Order.action', array('value' => 'customer_login'))?>
+				<?php echo $this->Form->submit('Přihlásit')?>
+				<?php echo $this->Form->end()?>
+				<?=$html->link('zapomněl(a) jsem heslo', array('controller' => 'customers', 'action' => 'password')) ?>
+			</div>
 	</li>
 </ul>
 <?php } ?>
 
 <?php echo $this->Form->create('Order', array('url' => array('controller' => 'orders', 'action' => 'one_step_order')))?>
-<h3>Doprava</h3>
+<h3><span>&rarr;</span>&nbsp;Vyberte: způsob dopravy</h3>
 <?php if (!empty($shippings)) { ?>
 <table>
 <?php
@@ -137,7 +143,7 @@
 </table>
 <?php } ?>
 
-<h3>Platba</h3>
+<h3><span>&rarr;</span>&nbsp;Vyberte: způsob platby</h3>
 <?php if (!empty($payments)) { ?>
 <table>
 <?php
@@ -162,12 +168,12 @@
 </table>
 <?php } ?>
 
-<h3>Poznámka k objednávce</h3>
+<h3><span>&rarr;</span>&nbsp;vzkaz nebo přání k objednávce</h3>
 <?php echo $this->Form->input('Order.comments', array('label' => false, 'class' => 'content'))?>
 <!-- INFORMACE O ZAKAZNIKOVI -->
 <?php echo $this->Form->create('Customer', array('url' => array('controller' => 'customers', 'action' => 'order_personal_info'), 'id' => 'OrderDetailsCustomer'))?>
-<h3>Informace o zákazníkovi</h3>
-<table>
+<h3><span>&rarr;</span>&nbsp;vyplňte: Informace o vás</h3>
+<table class="customer_info_form">
 	<tr>
 		<th>Křestní jméno<sup>*</sup></th>
 		<td><?php echo $this->Form->input('Customer.first_name', array('label' => false, 'class' => 'content'))?></td>
@@ -197,8 +203,8 @@
 		<td><?php echo $this->Form->input('Customer.dic', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 </table>
-<h3>Fakturační adresa</h3>
-<table id="InvoiceAddressTable">
+<h3><span>&rarr;</span>&nbsp;Fakturační adresa</h3>
+<table id="InvoiceAddressTable"  class="customer_info_form">
 	<tr>
 		<th>Ulice<sup>*</sup></th>
 		<td><?php echo $this->Form->input('Address.0.street', array('label' => false, 'class' => 'content'))?></td>
@@ -221,13 +227,13 @@
 	</tr>
 </table>
 
-<h3>Doručovací adresa</h3>
-<?php echo $this->Form->input('Customer.is_delivery_address_different', array('label' => 'Dodací adresa není stejná jako fakturační', 'type' => 'checkbox', 'id' => 'isDifferentAddressCheckbox'))?>
+<h3><span>&rarr;</span>&nbsp;Doručovací adresa</h3>
+<?php echo $this->Form->input('Customer.is_delivery_address_different', array('label' => 'Chci vyplnit jinou adresu doručení než je fakturační', 'type' => 'checkbox', 'id' => 'isDifferentAddressCheckbox'))?>
 
 <?php 
-	$class = ' class="neukazovat"';
+	$class = ' class="neukazovat customer_info_form"';
 	if (isset($this->data['Customer']) && array_key_exists('is_delivery_address_different', $this->data['Customer']) && $this->data['Customer']['is_delivery_address_different']) {
-		$class = '';
+		$class = ' class="customer_info_form"';
 	}
 ?>
 <table id="DeliveryAddressTable"<?php echo $class?>>
@@ -264,6 +270,6 @@
 	
 	echo $this->Form->hidden('Order.action', array('value' => 'order_finish'));
 
-	echo $this->Form->submit('Objednat');
+	echo $this->Form->submit('ODESLAT OBJEDNÁVKU', array('class' => 'finish_order_button'));
 	echo $this->Form->end();
 ?>
