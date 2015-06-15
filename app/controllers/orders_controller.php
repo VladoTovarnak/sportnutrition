@@ -1195,21 +1195,21 @@ class OrdersController extends AppController {
 							// nastavil jsem nulove mnozstvi, smazu produkt z kosiku
 							if ($cart_product['CartsProduct']['quantity'] == 0) {
 								if ($this->Order->Cart->CartsProduct->delete($this->data['CartsProduct']['id'])) {
-									$this->Session->setFlash('Zboží bylo z košíku odstraněno.', REDESIGN_PATH . 'flash_success');
+									$this->Session->setFlash('Zboží bylo z košíku odstraněno.', REDESIGN_PATH . 'flash_success', array('type' => 'shopping_cart'));
 								} else {
-									$this->Session->setFlash('Zboží se nepodařilo z košíku odstranit, zkuste to prosím ještě jednou', REDESIGN_PATH . 'flash_failure');
+									$this->Session->setFlash('Zboží se nepodařilo z košíku odstranit, zkuste to prosím ještě jednou', REDESIGN_PATH . 'flash_failure', array('type' => 'shopping_cart'));
 								}
 							} else {
 								if ($this->Order->Cart->CartsProduct->save($cart_product)) {
-									$this->Session->setFlash('Množství zboží bylo upraveno', REDESIGN_PATH . 'flash_success');
+									$this->Session->setFlash('Množství zboží bylo upraveno', REDESIGN_PATH . 'flash_success', array('type' => 'shopping_cart'));
 								} else {
-									$this->Session->setFlash('Nepodařilo se upravit množství zboží v košíku, zkuste to prosím ještě jednou.', REDESIGN_PATH . 'flash_failure');
+									$this->Session->setFlash('Nepodařilo se upravit množství zboží v košíku, zkuste to prosím ještě jednou.', REDESIGN_PATH . 'flash_failure', array('type' => 'shopping_cart'));
 								}
 							}
 						} else {
-							$this->Session->setFlash('Košík daný produkt neobsahuje, nelze jej proto vymazat.', REDESIGN_PATH . 'flash_failure');
+							$this->Session->setFlash('Košík daný produkt neobsahuje, nelze jej proto vymazat.', REDESIGN_PATH . 'flash_failure', array('type' => 'shopping_cart'));
 						}
-						$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order'));
+						$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order', '#ShoppingCart'));
 						break;
 					case 'customer_login':
 						$conditions = array(
@@ -1225,7 +1225,7 @@ class OrdersController extends AppController {
 						));
 			
 						if (empty($customer)) {
-							$this->Session->setFlash('Neplatný login nebo heslo!', REDESIGN_PATH . 'flash_failure');
+							$this->Session->setFlash('Neplatný login nebo heslo!', REDESIGN_PATH . 'flash_failure', array('type' => 'customer_login'));
 							$this->data['Customer']['is_registered'] = 1;
 						} else {
 							// ulozim si info o zakaznikovi do session
@@ -1319,10 +1319,9 @@ class OrdersController extends AppController {
 							if (!$this->data['Customer']['is_delivery_address_different']) {
 								unset($this->data['Address'][1]);
 							}
-							$this->Session->setFlash('Údaje obsahují o zákazníkovi obsahují chybu, opravte ji prosím a formulář uložte znovu.', REDESIGN_PATH . 'flash_failure');
+							$this->Session->setFlash('Údaje o zákazníkovi obsahují chybu, opravte ji prosím a formulář uložte znovu.', REDESIGN_PATH . 'flash_failure', array('type' => 'customer_info'));
 							//$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order', '#' => 'OrderDetailsCustomer'));
 						}
-						
 
 						break;
 				}
@@ -1423,13 +1422,6 @@ class OrdersController extends AppController {
 		$this->Session->delete('cpass');
 		$this->Session->delete('login');
 				
-		// navolim si layout, ktery se pouzije
-		$this->layout = REDESIGN_PATH . 'content';
-		$this->set('_title', 'Potvrzení objednávky');
-		$this->set('_description', 'Potvrzení odeslání objednávky do systému ' . CUST_NAME);
-		$breadcrumbs = array(array('anchor' => 'Potvrzení objednávky', 'href' => '/orders/finished'));
-		$this->set('breadcrumbs', $breadcrumbs);
-
 		// nastavim si pro menu zakladni idecko
 		$this->set('opened_category_id', ROOT_CATEGORY_ID);
 
@@ -1548,6 +1540,13 @@ class OrdersController extends AppController {
 		
 		$this->set('order', $order);
 
+		$this->set('_title', 'Potvrzení objednávky');
+		$this->set('_description', 'Potvrzení odeslání objednávky do systému ' . CUST_NAME);
+		$breadcrumbs = array(array('anchor' => 'Potvrzení objednávky', 'href' => '/orders/finished'));
+		$this->set('breadcrumbs', $breadcrumbs);
+		
+		// navolim si layout, ktery se pouzije
+		$this->layout = REDESIGN_PATH . 'order_process';
 	}
 
 	function admin_create_addresses(){

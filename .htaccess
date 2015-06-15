@@ -2,7 +2,14 @@
    RewriteEngine on
    
    	RewriteCond %{HTTP_HOST} ^sportnutrition.cz
-	RewriteRule (.*) http://www.sportnutrition.cz/$1 [R=301,QSA,L] 
+	RewriteRule (.*) http://www.sportnutrition.cz/$1 [R=301,QSA,L]
+	
+	## JEDNOKROKOVA OBJEDNAVKA - presmerovani puvodnich kroku objednavky
+	RewriteRule ^kosik$	/objednavka		[R=301,L]
+	RewriteRule ^objednavka-osobni-udaje$	/objednavka		[R=301,L]
+	RewriteRule ^doprava-a-zpusob-platby$	/objednavka		[R=301,L]
+	RewriteRule ^rekapitulace$	/objednavka		[R=301,L]
+	 
    
 	RewriteRule ^registration/$	/registrace		[R=301,L]
 	RewriteRule	^basket/$		/kosik			[R=301,L]

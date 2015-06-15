@@ -1,4 +1,13 @@
-<h2>Nákupní košík</h2>
+<h2 id="ShoppingCart">Nákupní košík</h2>
+<?php 
+// flash, pokud je chyba ve formu pro prihlaseni
+if ($this->Session->check('Message.flash')) {
+	$flash = $this->Session->read('Message.flash');
+	if (isset($flash['params']['type']) && $flash['params']['type'] == 'shopping_cart') {
+		echo $this->Session->flash();
+	}
+}
+?>
 <? if (empty($cart_products)) { ?>
 	<p>Nákupní košík je prázdný.</p>
 <? } else { ?>
@@ -43,7 +52,7 @@
 				</div>
 			</td>
 			<td align="right"><?php 
-				echo $this->Form->Create('CartsProduct', array('url' => array('controller' => 'orders', 'action' => 'one_step_order')));
+				echo $this->Form->Create('CartsProduct', array('url' => array('controller' => 'orders', 'action' => 'one_step_order', '#ShoppingCart'), 'encoding' => false));
 				echo $this->Form->hidden('Order.action', array('value' => 'cart_edit'));
 				echo $this->Form->hidden('CartsProduct.id', array('value' => $cart_product['CartsProduct']['id']));
 				echo $this->Form->input('CartsProduct.quantity', array('label' => false, 'size' => 1, 'value' => $cart_product['CartsProduct']['quantity'], 'div' => false, 'class' => 'small')) . '&nbsp;ks&nbsp;&nbsp;';
@@ -53,7 +62,7 @@
 			<td align="right"><span class="price"><?php echo intval($cart_product['CartsProduct']['price_with_dph']) ?></span>&nbsp;Kč</td>
 			<td align="right"><span class="price"><?php echo intval($cart_product['CartsProduct']['price_with_dph'] * $cart_product['CartsProduct']['quantity']) ?></span>&nbsp;Kč</td>
 			<td align="right"><?php 
-				echo $this->Html->link('odebrat z košíku', array('controller' => 'carts_products', 'action' => 'delete', $cart_product['CartsProduct']['id'], 'back' => base64_encode($_SERVER['REQUEST_URI'])), array('title' => 'odstranit z košíku', 'class' => 'red_alert'), 'Opravdu chcete produkt odstranit z košíku?');
+				echo $this->Html->link('odebrat z košíku', array('controller' => 'carts_products', 'action' => 'delete', $cart_product['CartsProduct']['id'], 'back' => base64_encode($_SERVER['REQUEST_URI'] . '#ShoppingCart')), array('title' => 'odstranit z košíku', 'class' => 'red_alert'), 'Opravdu chcete produkt odstranit z košíku?');
 			?></td>
 		</tr>
 <?php	} ?>
@@ -73,6 +82,15 @@
 
 <div class="clearer"></div>
 <h2 id="OrderDetails">Objednávka</h2>
+<?php 
+// flash, pokud je chyba ve formu pro prihlaseni
+if ($this->Session->check('Message.flash')) {
+	$flash = $this->Session->read('Message.flash');
+	if (isset($flash['params']['type']) && $flash['params']['type'] == 'customer_login') {
+		echo $this->Session->flash();
+	}
+}
+?>
 <?php if (!$is_logged_in) { ?>
 <ul style="list-style-type:none">
 	<li>
@@ -97,7 +115,7 @@
 		<input type="radio" class="customer-is-registered" value="1" id="CustomerIsRegistered1" name="data[Customer][is_registered]" <?php echo $checked?>/>
 			<label for="CustomerIsRegistered1" class="customer_status_label">Přihlásit se, jsem již zaregistrován</label>
 			<div id="CustomerOneStepOrderDiv" class="neukazovat">
-				<?=$form->Create('Customer', array('url' => array('controller' => 'orders', 'action' => 'one_step_order')));?>
+				<?=$form->Create('Customer', array('url' => array('controller' => 'orders', 'action' => 'one_step_order', '#OrderDetails'), 'encoding' => false));?>
 				<table id="orderForm">
 					<tr>
 						<th>Login:</th>
@@ -117,8 +135,8 @@
 </ul>
 <?php } ?>
 
-<?php echo $this->Form->create('Order', array('url' => array('controller' => 'orders', 'action' => 'one_step_order')))?>
-<h3><span>&rarr;</span>&nbsp;Vyberte: způsob dopravy</h3>
+<h3 id="ShippingInfo"><span>&rarr;</span>&nbsp;Vyberte: způsob dopravy</h3>
+<?php echo $this->Form->create('Order', array('url' => array('controller' => 'orders', 'action' => 'one_step_order', '#CustomerInfo'), 'encoding' => false))?>
 <?php if (!empty($shippings)) { ?>
 <table>
 <?php
@@ -171,8 +189,16 @@
 <h3><span>&rarr;</span>&nbsp;vzkaz nebo přání k objednávce</h3>
 <?php echo $this->Form->input('Order.comments', array('label' => false, 'class' => 'content'))?>
 <!-- INFORMACE O ZAKAZNIKOVI -->
-<?php echo $this->Form->create('Customer', array('url' => array('controller' => 'customers', 'action' => 'order_personal_info'), 'id' => 'OrderDetailsCustomer'))?>
-<h3><span>&rarr;</span>&nbsp;vyplňte: Informace o vás</h3>
+<h3 id="CustomerInfo"><span>&rarr;</span>&nbsp;vyplňte: Informace o vás</h3>
+<?php 
+// flash, pokud je chyba ve formu pro udaje o zakaznikovi
+if ($this->Session->check('Message.flash')) {
+	$flash = $this->Session->read('Message.flash');
+	if (isset($flash['params']['type']) && $flash['params']['type'] == 'customer_info') {
+		echo $this->Session->flash();
+	}
+}
+?>
 <table class="customer_info_form">
 	<tr>
 		<th>Křestní jméno<sup>*</sup></th>
