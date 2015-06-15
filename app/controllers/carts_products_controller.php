@@ -173,12 +173,12 @@ class CartsProductsController extends AppController {
 
 	function delete($id) {
 		// predpoklad ze se to nepodari
-		$this->Session->setFlash('Košík daný produkt neobsahuje, nelze jej proto vymazat.', REDESIGN_PATH . 'flash_failure');
+		$this->Session->setFlash('Košík daný produkt neobsahuje, nelze jej proto vymazat.', REDESIGN_PATH . 'flash_failure', array('type' => 'shopping_cart'));
 
 		// najdu si produkt a smazu ho
 		if ( $this->CartsProduct->findByIds($this->CartsProduct->cart_id, $id) ){
 			$this->CartsProduct->delete($id);
-			$this->Session->setFlash('Produkt byl z košíku vymazán.', REDESIGN_PATH . 'flash_success');
+			$this->Session->setFlash('Produkt byl z košíku vymazán.', REDESIGN_PATH . 'flash_success', array('type' => 'shopping_cart'));
 		}
 				
 		$redirect = array('action' => 'index');

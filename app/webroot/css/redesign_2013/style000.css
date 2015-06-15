@@ -400,7 +400,13 @@ form div.pair button {
 }
 #order_process #main h2{
 	border:none;
+	font-size: 30px;
+	margin: 25px 0px;
+	height: auto;
+	color:#454545;
+	border-bottom:1px solid #313131;
 }
+
 #main h2 span {
     background: #fff;
     padding: 0 10px 0 0;
@@ -712,8 +718,7 @@ ul.breadcrumbs li:last-child a {
 	font-size: 32px;
 }
 
-#main div.product form.on_detail button {
-/*    position: absolute; right: 0; bottom: 0; */
+#main div.product form.on_detail button, input.finish_order_button {
     background: #E2001A url("/images/redesign_2013/icon_basket_big.png") no-repeat 31px 5px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
@@ -721,7 +726,40 @@ ul.breadcrumbs li:last-child a {
     color: #fff;
     padding: 8px 35px 8px 60px;
     float: left;
+	cursor:pointer;
 }
+a.button_like_link{
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    color: #fff;
+}
+a.button_like_link.red{
+    background: #E2001A url("/images/redesign_2013/icon_basket_big.png") no-repeat 31px 5px;
+    padding: 8px 35px 8px 60px;
+}
+a.button_like_link.silver{
+	background: silver;
+    padding: 8px 35px;
+}
+label.customer_status_label{
+	color: #000;
+	font-size: 16px;
+	line-height: 30px;
+	cursor: pointer;
+}
+table.customer_info_form th{
+	width:10em;
+	text-align:right;
+}
+
+#main table.customer_info_form input.content{
+	width:30em;
+}
+#order_process div.submit{
+	margin-top:25px;
+}
+
 #main div.product div.social {
     border-top: 1px solid #CCCCCC;
     border-bottom: 1px solid #CCCCCC;
@@ -767,6 +805,15 @@ ul.breadcrumbs li:last-child a {
     text-transform: uppercase;
 }
 
+#order_process #main h3{
+	color:#454545;
+}
+
+#order_process #main h3 span{
+	color: #E2001A;
+	font-weight: bold;
+}
+
 #main h3 a {
 	text-decoration: none;
 	color: #E2001A;
@@ -785,7 +832,7 @@ ul.breadcrumbs li:last-child a {
     font-weight: normal;
     padding: 7px 10px;
     border: 1px solid #E7E7E7;
-    font-size: 12px;
+    font-size: 18px;
 }
 #main div.left table td, #main table td {
     border: 1px solid #E7E7E7;
@@ -1392,7 +1439,7 @@ div.right_sidebar_product span.regular_price{
 }
 
 #cartContents {
-	font-size: 12px;
+	font-size: 18px;
 }
 
 #cartContents .image-holder {
@@ -1404,6 +1451,15 @@ div.right_sidebar_product span.regular_price{
 	 top:30%;
 	 left: 65px;
 	 height:60px;
+}
+
+#cartContents .cart-product-info a{
+	color:#222;
+	text-decoration:none;
+}
+#cartContents .cart-product-info a:hover{
+	color:silver;
+	text-decoration:underline;
 }
 
 #main div.left table input.small, #main table input.small {
@@ -1421,7 +1477,7 @@ div.right_sidebar_product span.regular_price{
 }
 
 #cartContents .price {
-	font-size: 14px;
+	font-size: 18px;
 }
 
 #cartContents .final-price {
@@ -1454,4 +1510,8 @@ div#banner h2 {
 
 .neukazovat {
 	display:none;
+}
+
+.red_alert{
+	color:red;
 }
