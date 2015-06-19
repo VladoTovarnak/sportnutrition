@@ -75,13 +75,20 @@
 
 		// z main.js
 		$("#header ul.accordion li a").click(function(){
-			if($(this).attr('href')[0] == "#"){
+			if($(this).attr('href')[0] == "#") {
+				// byl pred kliknutim zvoleny tab kosik?
+				var basketIsActive = $('#header ul.accordion').find('li.basket.active');
+				basketIsActive = basketIsActive.length;
 				$("#basket").hide();
 				$("#login").hide();
 				$("#info").hide();
 				$($(this).attr('href')).show();
 				$(this).parent().parent().find('li').removeClass('active');
 				var tab = $(this).parent().attr('class');
+				// pokud byl predtim zvoleny tab kosik a znovu jsem klikl na dany tab, presmeruju do kosiku
+				if (tab == 'basket' && basketIsActive) {
+					window.location.href = '/objednavka';
+				}
 				$(this).parent().addClass("active");
 				
 				$.ajax({
@@ -93,7 +100,7 @@
 				return false;
 			}
 		});
-	
+
 		$("#slides").slidorion({
 			interval: 10000
 		});
