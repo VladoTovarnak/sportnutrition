@@ -560,6 +560,10 @@ class Order extends AppModel {
 			}
 			$cp_count++;
 		}
+		// k objednavce si zapamatuju id kosiku
+		$order['Order']['cart_id'] = $cart_id;
+		// a IPcko toho, kdo objednavku zalozil
+		$order['Order']['ip_address'] = $_SERVER['REMOTE_ADDR'];
 		$order['Order']['shipping_cost'] = $this->get_shipping_cost($order['Order']['shipping_id']);
 		// pokud je zvolena doprava na slovensko (id = 6) a platba prevodem (id = 2), je sleva z dopravy 70,-
 		if ($order['Order']['shipping_id'] == 16 && $order['Order']['payment_id'] == 2) {
