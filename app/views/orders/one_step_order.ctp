@@ -9,7 +9,7 @@ if ($this->Session->check('Message.flash')) {
 }
 ?>
 <? if (empty($cart_products)) { ?>
-	<p>Nákupní košík je prázdný.</p>
+	<p class="empty_cart">Nákupní košík zatím zeje prázdnotou. Vložte produkty, které chcete objednat, do košíku.</p>
 	<?php echo $this->Html->link('Zpět do obchodu', '/', array('class' => 'button_like_link red'))?>
 <? } else { ?>
 	<table id="cartContents" cellpadding="0" cellspacing="0">
