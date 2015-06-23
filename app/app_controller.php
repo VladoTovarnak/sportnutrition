@@ -16,7 +16,7 @@
 			header("Location: http://www." . CUST_ROOT . $_SERVER['REQUEST_URI']);
 			exit();
 		} */
-		
+	
 		// presmerovani puvodnich adres sportnutrition na nase
 		App::import('Model', 'Tool');
 		$this->Tool = &new Tool;
@@ -138,6 +138,15 @@
 				}
 			}
 			$this->set('is_logged_in', $is_logged_in);
+			
+			// v sesne si zapamatuju posledni navstivenou stranku (kvuli zpetnemu linku z kosiku, takze kosik vynechavam)
+			if ($this->params['controller'] != 'orders' && $this->params['action'] != 'one_step_order') {
+				$this->Session->write('last_visited_url', $_SERVER['REQUEST_URI']);
+			} else {
+				if (!$this->Session->check('last_visited_url')) {
+					$this->Session->write('last_visited_url', '/');
+				}
+			}
 			
 			// do layoutu pro vypis produktu potrebuju vyrobce, prichute atd do filtru vpravo
 			if ($this->layout == REDESIGN_PATH . 'category') {

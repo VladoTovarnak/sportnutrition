@@ -1404,6 +1404,13 @@ class OrdersController extends AppController {
 		$breadcrumbs = array(array('anchor' => 'Objednávka', 'href' => '/objednavka'));
 		$this->set('breadcrumbs', $breadcrumbs);
 		
+		// link pro navrat z kosiku
+		$back_shop_url = '/';
+		if ($this->Session->check('last_visited_url')) {
+			$back_shop_url = $this->Session->read('last_visited_url');
+		}
+		$this->set('back_shop_url', $back_shop_url);
+		
 		// layout
 		$this->layout = REDESIGN_PATH . 'order_process';
 		
