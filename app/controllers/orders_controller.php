@@ -1133,9 +1133,6 @@ class OrdersController extends AppController {
 		// potrebuju na dekovaci strance vedet cislo objednavky
 		$this->Session->write('Order.id', $this->Order->id);
 
-		// nastavim hlasku a presmeruju
-		$this->Session->setFlash('Vaše objednávka byla úspešně uložena!', REDESIGN_PATH . 'flash_success');
-
 		$this->redirect(array('action' => 'finished'), null, true);
 	} // konec funkce
 
