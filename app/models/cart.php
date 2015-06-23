@@ -32,6 +32,7 @@ class Cart extends AppModel {
 		
 		$this->data['Cart']['rand'] = $this->Session->read('Config.rand');
 		$this->data['Cart']['userAgent'] = $this->Session->read('Config.userAgent');
+		$this->data['Cart']['ip_address'] = $_SERVER['REMOTE_ADDR'];
 		$this->save($this->data);
 		return $this->getLastInsertID();
 	}
