@@ -1212,9 +1212,10 @@ class OrdersController extends AppController {
 						$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order', '#ShoppingCart'));
 						break;
 					case 'customer_login':
+						$login = $this->data['Customer']['login'];
+						$pwd_hash = md5($this->data['Customer']['password']);
 						$conditions = array(
-							'CustomerLogin.login' => $this->data['Customer']['login'],
-							'CustomerLogin.password' => md5($this->data['Customer']['password']),
+							'CustomerLogin.login' => $login,
 							'Customer.active' => true
 						);
 						
@@ -1223,32 +1224,37 @@ class OrdersController extends AppController {
 							'conditions' => $conditions,
 							'contain' => array('Customer'),
 						));
-			
+						
 						if (empty($customer)) {
-							$this->Session->setFlash('Neplatný login nebo heslo!', REDESIGN_PATH . 'flash_failure', array('type' => 'customer_login'));
+							$this->Session->setFlash('Uživatelský účet se zadaným loginem neexistuje. Zadejte prosím přihlašovací údaje znovu.', REDESIGN_PATH . 'flash_failure', array('type' => 'customer_login'));
 							$this->data['Customer']['is_registered'] = 1;
 						} else {
-							// ulozim si info o zakaznikovi do session
-							$this->Session->write('Customer', $customer['Customer']);
-							
-							// ze session odstranim data o objednavce,
-							// pokud se snazil zakaznik pred prihlasenim neco
-							// vyplnovat v objednavce, delalo by mi to bordel
-							$this->Session->delete('Order');
-							
-							// na pocitadle si inkrementuju pocet prihlaseni
-							$customer_update = array(
-								'Customer' => array(
-									'id' => $customer['Customer']['id'],
-									'login_count' => $customer['Customer']['login_count'] + 1,
-									'login_date' => date('Y-m-d H:i:s')
-								)
-							);
-							$this->Order->Customer->save($customer_update);
-							
-							// presmeruju
-							$this->Session->setFlash('Jste přihlášen(a) jako ' . $customer['Customer']['first_name'] . ' ' . $customer['Customer']['last_name'] . '.', REDESIGN_PATH . 'flash_success');
-							$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order'));
+							if ($customer['CustomerLogin']['password'] != $pwd_hash) {
+								$this->Session->setFlash('Uživatelský účet se zadaným heslem neexistuje. Zadejte prosím přihlašovací údaje znovu. Pokud si heslo nepamatujete, můžete <a href="/obnova-hesla">požádat o jeho obnovení</a>.', REDESIGN_PATH . 'flash_failure', array('type' => 'customer_login'));
+								$this->data['Customer']['is_registered'] = 1;								
+							} else {
+								// ulozim si info o zakaznikovi do session
+								$this->Session->write('Customer', $customer['Customer']);
+								
+								// ze session odstranim data o objednavce,
+								// pokud se snazil zakaznik pred prihlasenim neco
+								// vyplnovat v objednavce, delalo by mi to bordel
+								$this->Session->delete('Order');
+								
+								// na pocitadle si inkrementuju pocet prihlaseni
+								$customer_update = array(
+									'Customer' => array(
+										'id' => $customer['Customer']['id'],
+										'login_count' => $customer['Customer']['login_count'] + 1,
+										'login_date' => date('Y-m-d H:i:s')
+									)
+								);
+								$this->Order->Customer->save($customer_update);
+								
+								// presmeruju
+								$this->Session->setFlash('Jste přihlášen(a) jako ' . $customer['Customer']['first_name'] . ' ' . $customer['Customer']['last_name'] . '.', REDESIGN_PATH . 'flash_success', array('type' => 'customer_login'));
+								$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order'));
+							}
 						}
 						
 						break;
