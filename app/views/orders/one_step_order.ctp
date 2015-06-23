@@ -10,6 +10,7 @@ if ($this->Session->check('Message.flash')) {
 ?>
 <? if (empty($cart_products)) { ?>
 	<p>Nákupní košík je prázdný.</p>
+	<?php echo $this->Html->link('Zpět do obchodu', '/', array('class' => 'button_like_link red'))?>
 <? } else { ?>
 	<table id="cartContents" cellpadding="0" cellspacing="0">
 		<tr>
@@ -72,12 +73,8 @@ if ($this->Session->check('Message.flash')) {
 			<td>&nbsp;</td>
 		</tr>
 	</table>
-<? } ?>
-
-
 
 <?php echo $this->Html->link('Přejít k objednání', '#OrderDetails', array('class' => 'button_like_link red'))?>
-
 <?php echo $this->Html->link('Zpět do obchodu', '/', array('class' => 'button_like_link silver'))?>
 
 <div class="clearer"></div>
@@ -298,4 +295,6 @@ if ($this->Session->check('Message.flash')) {
 
 	echo $this->Form->submit('ODESLAT OBJEDNÁVKU', array('class' => 'finish_order_button'));
 	echo $this->Form->end();
+
+} // konec nakupni kosik neni prazdny
 ?>
