@@ -85,6 +85,12 @@
 			// administrator ma session timeout 720 sekund * 10 = 2 hodiny
 			Configure::write('Session.timeout', 720);
 
+		} else {
+			// data o kosiku
+			// musim je posilat uz v beforeFilter, protoze se mi tady inicializuje kosik (v beforeRender uz by mohlo byt pozde)
+			App::import('Model', 'CartsProduct');
+			$this->CartsProduct = &new CartsProduct;
+			$this->set('carts_stats', $this->CartsProduct->getStats($this->CartsProduct->Cart->get_id()));
 		}
 		
 		App::import('Model', 'Setting');
@@ -109,9 +115,6 @@
 				$opened_category_id = $this->viewVars['opened_category_id'];
 			}
 			
-			// data o kosiku
-			$this->set('carts_stats', $this->Product->CartsProduct->getStats($this->Product->CartsProduct->Cart->get_id()));
-
 			// menu hlavni kategorie
 			$this->set('categories_menu', $this->Product->CategoriesProduct->Category->getSubcategoriesMenuList($opened_category_id, $this->Session->check('Customer')));
 			
