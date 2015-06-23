@@ -821,6 +821,20 @@ table.customer_info_form th{
 	font-style: italic;
 }
 
+#order_process p.finished_first{
+	margin: 50px 0px 15px 45px;
+	font-size: 22px;
+	color: #000;
+	font-style: italic;
+}
+
+#order_process p.finished_second{
+	margin: 0px 0px 25px 45px;
+	font-size: 22px;
+	color: #000;
+	font-style: italic;
+}
+
 #main h3 a {
 	text-decoration: none;
 	color: #E2001A;
