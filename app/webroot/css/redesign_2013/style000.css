@@ -814,6 +814,13 @@ table.customer_info_form th{
 	font-weight: bold;
 }
 
+#order_process p.empty_cart{
+	margin: 0px 0px 45px 45px;
+	font-size: 22px;
+	color: #000;
+	font-style: italic;
+}
+
 #main h3 a {
 	text-decoration: none;
 	color: #E2001A;
