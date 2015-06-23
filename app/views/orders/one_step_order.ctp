@@ -74,7 +74,7 @@ if ($this->Session->check('Message.flash')) {
 		</tr>
 	</table>
 
-<?php echo $this->Html->link('Přejít k objednání', '#OrderDetails', array('class' => 'button_like_link red'))?>
+<?php echo $this->Html->link('Přejít k objednání', '#OrderDetails', array('class' => 'button_like_link red'))?>&nbsp;
 <?php echo $this->Html->link('Zpět do obchodu', '/', array('class' => 'button_like_link silver'))?>
 
 <div class="clearer"></div>
