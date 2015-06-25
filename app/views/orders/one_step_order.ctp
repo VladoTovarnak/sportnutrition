@@ -68,8 +68,40 @@ if ($this->Session->check('Message.flash')) {
 		</tr>
 <?php	} ?>
 		<tr>
-			<th colspan="2" align="right">cena za zboží celkem:</th>
+			<th colspan="2" align="right">cena za zboží:</th>
 			<td colspan="2" align="right"><strong><span class="final-price"><?php echo intval($final_price) ?></span> Kč</strong></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th colspan="2" align="right">cena za dopravu:</th>
+			<td colspan="2" align="right" id="ShippingPriceCell"><strong>
+			<?php if ($shipping_price == 0) { ?>
+			<span class="final-price" id="ShippingPriceSpan">ZDARMA</span>
+			<?php } else {
+				if (isset($this->data['Order']['shipping_id'])) { ?>
+			<span class="final-price" id="ShippingPriceSpan"><?php echo intval($shipping_price)?></span> Kč
+				<?php } else { ?>
+			od <span class="final-price" id="ShippingPriceSpan"><?php echo intval($shipping_price)?></span> Kč
+				<?php } ?>
+			 <?php } ?>
+			 </strong></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th colspan="2" align="right">cena celkem:</th>
+			<td colspan="2" align="right" id="TotalPriceCell"><strong>
+			<?php
+			$total_price = intval($shipping_price + $final_price);
+			if ($shipping_price == 0) { ?>
+			<span class="final-price" id="TotalPriceSpan"><?php echo $total_price?></span> Kč
+			<?php } else { 
+				if (isset($this->data['Order']['shipping_id'])) { ?>
+			<span class="final-price" id="TotalPriceSpan"><?php echo $total_price?></span> Kč
+				<?php } else { ?>
+			od <span class="final-price" id="TotalPriceSpan"><?php echo $total_price?></span> Kč
+				<?php } ?>
+			 <?php } ?>
+			</strong></td>
 			<td>&nbsp;</td>
 		</tr>
 	</table>

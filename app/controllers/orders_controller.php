@@ -941,11 +941,7 @@ class OrdersController extends AppController {
 		$cart_products = $this->requestAction('/carts_products/getProducts/');
 		$this->set('cart_products', $cart_products);
 		
-		$order['shipping_cost'] = $this->Order->get_shipping_cost($order['shipping_id']);
-		// pokud je zvolena doprava na slovensko (id = 6) a platba prevodem (id = 2), je sleva z dopravy 70,-
-		if ($order['shipping_id'] == 16 && $order['payment_id'] == 2) {
-			$order['shipping_cost'] -= 70;
-		}
+		$order['shipping_cost'] = $this->Order->get_shipping_cost($order['shipping_id'], $order['payment_id']);
 		$this->Session->write('Order.shipping_cost', $order['shipping_cost']);
 
 		// data o objednavce
@@ -1159,19 +1155,39 @@ class OrdersController extends AppController {
 			)
 		));
 		
-		// podivam se, jestli je zakaznik prihlaseny
-		if ($this->Session->check('Customer.id')) {
-			// pokud ano, predvyplnim formular jeho udaji
-			$customer = $this->Order->Customer->find('first', array(
-				'conditions' => array('Customer.id' => $this->Session->read('Customer.id')),
-				'contain' => array(
-					'Address' => array(
-						// seradim adresy tak, aby prvni byla fakturacni
-						'conditions' => array('Address.type' => 'f')
+		$customer_id = null;
+		// pokud je prihlaseny
+		if ($this->Session->check('Customer')) {
+			$customer = $this->Session->read('Customer');
+			if (isset($customer['id']) && !empty($customer['id']) && !isset($customer['noreg'])) {
+				// zapamatuju si jeho id
+				$customer_id = $customer['id'];
+				
+				// predvyplnim formular jeho udaji
+				$customer = $this->Order->Customer->find('first', array(
+					'conditions' => array('Customer.id' => $customer_id),
+					'contain' => array(
+						'Address' => array(
+							// seradim adresy tak, aby prvni byla fakturacni
+							'conditions' => array('Address.type' => 'f')
+						)
 					)
-				)
-			));
+				));
+			}
 		}
+
+		if (isset($this->data['Order']['shipping_id'])) {
+			$payment_id = null;
+			if (isset($this->data['Order']['payment_id'])) {
+				$payment_id = $this->data['Order']['payment_id'];
+			}
+			$shipping_price = $this->Order->get_shipping_cost($this->data['Order']['shipping_id'], $payment_id);
+		} else {
+			App::import('Model', 'Cart');
+			$this->Order->Cart = &new Cart;
+			$shipping_price = $this->Order->Cart->shippingPrice($customer_id);
+		}
+		$this->set('shipping_price', $shipping_price);
 		
 		if (isset($this->data)) {
 			if (isset($this->data['Order']['action'])) {
