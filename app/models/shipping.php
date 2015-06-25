@@ -65,7 +65,7 @@ class Shipping extends AppModel {
 
 	function get_cost($id, $payment_id, $order_total, $is_voc = false) {
 		// pokud je doprava po CR (mimo osobniho odberu) a soucasne je zakaznik VOC, je cena vzdy 95 KC
-		if ($is_voc && in_array($id, array(2, 3, 7, 18, 14))) {
+		if ($is_voc && in_array($id, array(2, 3, 7, 18, 14, 28))) {
 			$price = VOC_SHIPPING_PRICE;
 //			$price = 0;
 		} else {
