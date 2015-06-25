@@ -228,7 +228,7 @@ $(document).ready(function() {
 		});
 
 		// zjistim, jaka cena je v soucasne dobe zobrazena
-		var prevShippingPrice = $('#ShippingPriceSpan').text();
+		var prevShippingPrice = $('.shipping-price-span').text();
 		if (prevShippingPrice == 'ZDARMA') {
 			prevShippingPrice = 0;
 		}
