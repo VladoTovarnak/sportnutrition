@@ -12,7 +12,7 @@ if ($this->Session->check('Message.flash')) {
 	<p class="empty_cart">Nákupní košík zatím zeje prázdnotou. Vložte produkty, které chcete objednat, do košíku.</p>
 	<?php echo $this->Html->link('Zpět do obchodu', $back_shop_url, array('class' => 'button_like_link red'))?>
 <? } else { ?>
-	<table id="cartContents" cellpadding="0" cellspacing="0">
+	<table class="cart-contents" cellpadding="0" cellspacing="0">
 		<tr>
 			<th style="width:60%">Název produktu</th>
 			<th style="width:16%">Množství</th>
@@ -67,39 +67,7 @@ if ($this->Session->check('Message.flash')) {
 			?></td>
 		</tr>
 <?php	} ?>
-		<tr>
-			<th colspan="2" align="right">cena za zboží:</th>
-			<td colspan="2" align="right"><strong><span class="final-price" id="GoodsPriceSpan"><?php echo intval($final_price) ?></span> Kč</strong></td>
-			<td>&nbsp;</td>
-		</tr>
-		<tr>
-			<th colspan="2" align="right">cena za dopravu:</th>
-			<td colspan="2" align="right" id="ShippingPriceCell"><strong>
-			<?php if ($shipping_price == 0) { ?>
-			<span class="final-price" id="ShippingPriceSpan">ZDARMA</span>
-			<?php } else {
-				if (isset($this->data['Order']['shipping_id'])) { ?>
-			<span class="final-price" id="ShippingPriceSpan"><?php echo intval($shipping_price)?></span> Kč
-				<?php } else { ?>
-			od <span class="final-price" id="ShippingPriceSpan"><?php echo intval($shipping_price)?></span> Kč
-				<?php } ?>
-			 <?php } ?>
-			 </strong></td>
-			<td>&nbsp;</td>
-		</tr>
-		<tr>
-			<th colspan="2" align="right">cena celkem:</th>
-			<td colspan="2" align="right" id="TotalPriceCell"><strong>
-			<?php
-			$total_price = intval($shipping_price + $final_price);
-			if (isset($this->data['Order']['shipping_id'])) { ?>
-			<span class="final-price" id="TotalPriceSpan"><?php echo $total_price?></span> Kč
-			<?php } else { ?>
-			od <span class="final-price" id="TotalPriceSpan"><?php echo $total_price?></span> Kč
-			 <?php } ?>
-			</strong></td>
-			<td>&nbsp;</td>
-		</tr>
+		<?php echo $this->element(REDESIGN_PATH . 'one_step_order_table_footer', array('final_price' => $final_price, 'shipping_price' => $shipping_price, 'type' => 'cart_summary'))?>
 	</table>
 
 <?php echo $this->Html->link('Přejít k objednání', '#OrderDetails', array('class' => 'button_like_link red'))?>&nbsp;
@@ -308,6 +276,11 @@ if ($this->Session->check('Message.flash')) {
 		<th>Stát</th>
 		<td><?php echo $this->Form->input('Address.1.state', array('label' => false, 'type' => 'select', 'options' => array('Česká republika' => 'Česká republika', 'Slovensko' => 'Slovensko'))); ?></td>
 	</tr>
+</table>
+<br/>
+<h3><span>&rarr;</span>&nbsp;Rekapitulace ceny objednávky</h3>
+<table class="cart-contents" cellpadding="0" cellspacing="0">
+<?php echo $this->element(REDESIGN_PATH . 'one_step_order_table_footer', array('final_price' => $final_price, 'shipping_price' => $shipping_price, 'type' => 'bottom_summary'))?>
 </table>
 
 <?php 

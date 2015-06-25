@@ -1350,6 +1350,8 @@ class OrdersController extends AppController {
 				$this->data = $customer;
 			}
 			$this->data['Customer']['is_registered'] = 0;
+			
+			$this->data['Order']['shipping_id'] = 28;
 		}
 
 		// data o zbozi v kosiku

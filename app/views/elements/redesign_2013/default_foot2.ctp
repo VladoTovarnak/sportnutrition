@@ -237,19 +237,19 @@ $(document).ready(function() {
  	 		// cena dopravy
  			var shippingPriceInfo = '';
  	 		if (shippingPrice == 0) {
- 	 			shippingPriceInfo = '<span class="final-price" id="ShippingPriceSpan">ZDARMA</span>';
+ 	 			shippingPriceInfo = '<span class="final-price shipping-price-span">ZDARMA</span>';
  	 		} else {
- 	 			shippingPriceInfo = '<span class="final-price" id="ShippingPriceSpan">' + shippingPrice + '</span> Kč';
+ 	 			shippingPriceInfo = '<span class="final-price shipping-price-span">' + shippingPrice + '</span> Kč';
  	 		}
- 	 		$('#ShippingPriceCell').empty();
- 	 		$('#ShippingPriceCell').html('<strong>' + shippingPriceInfo + '</strong>');
+ 	 		$('.shipping-price-cell').empty();
+ 	 		$('.shipping-price-cell').html('<strong>' + shippingPriceInfo + '</strong>');
 
  	 		// celkova cena za objednavku
  	 		var goodsPrice = parseInt($('#GoodsPriceSpan').text());
  	 		var totalPrice = goodsPrice + shippingPrice;
- 	 		var totalPriceInfo = '<span class="final-price" id="TotalPriceSpan">' + totalPrice + '</span> Kč';
- 	 		$('#TotalPriceCell').empty();
- 	 		$('#TotalPriceCell').html('<strong>' + totalPriceInfo + '</strong>');
+ 	 		var totalPriceInfo = '<span class="final-price total-price-span">' + totalPrice + '</span> Kč';
+ 	 		$('.total-price-cell').empty();
+ 	 		$('.total-price-cell').html('<strong>' + totalPriceInfo + '</strong>');
 		}
 	}
 });
