@@ -157,6 +157,7 @@ window._fbq.push(['track', 'PixelInitialized', {}]);
 <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=455047541326994&amp;ev=PixelInitialized" /></noscript>
 
 <!-- JEDNOKROKOVA OBJEDNAVKA -->
+<?php if ($this->params['controller'] == 'orders' && $this->params['action'] == 'one_step_order') { ?>
 <script type="text/javascript">
 $(document).ready(function() {
 	if ($('#CustomerIsRegistered1').is(':checked')) {
@@ -181,5 +182,76 @@ $(document).ready(function() {
 			$('#DeliveryAddressTable').hide();
 		}
 	});
+
+	// pri zmene dopravy chci prepsat jeji cenu v kosiku 
+	$('input[name="data[Order][shipping_id]"]').change(function(e) {
+		var shippingId = this.value;
+		// doprava je take zavisla na zpusobu platby
+		var paymentId = $('input[name="data[Order][payment_id]"]:checked').val();
+		fillShippingPriceCell(shippingId, paymentId);
+	});
+
+	// pri zmene zpusobu platby chci prepsat cenu dopravy v kosiku 
+	$('input[name="data[Order][payment_id]"]').change(function(e) {
+		var paymentId = this.value;
+		// doprava je take zavisla na zpusobu platby
+		var shippingId = $('input[name="data[Order][shipping_id]"]:checked').val();
+		fillShippingPriceCell(shippingId, paymentId);
+	});
+
+	function fillShippingPriceCell(shippingId, paymentId) {
+		var shippingPrice = 0;
+		var body = $("body");
+		$.ajax({
+			method: 'POST',
+			url: '/orders/ajax_shipping_price',
+			dataType: 'json',
+			data: {
+				shippingId: shippingId,
+				paymentId: paymentId
+			},
+			async: false,
+			beforeSend: function(jqXHR, settings) {
+				// zobrazim loading spinner
+				body.addClass("loading");
+			},
+			success: function(data) {
+				shippingPrice = parseInt(data.value);
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				alert(textStatus);
+			},
+			complete: function(jqXHR, textStatus) {
+				// skryju loading spinner
+				body.removeClass("loading");
+			}
+		});
+
+		// zjistim, jaka cena je v soucasne dobe zobrazena
+		var prevShippingPrice = $('#ShippingPriceSpan').text();
+		if (prevShippingPrice == 'ZDARMA') {
+			prevShippingPrice = 0;
+		}
+		// a pokud je nova cena ruzna, prepocitam hodnoty ceny za dopravu a celkove ceny objednavky
+ 		if (prevShippingPrice != shippingPrice) {
+ 	 		// cena dopravy
+ 			var shippingPriceInfo = '';
+ 	 		if (shippingPrice == 0) {
+ 	 			shippingPriceInfo = '<span class="final-price" id="ShippingPriceSpan">ZDARMA</span>';
+ 	 		} else {
+ 	 			shippingPriceInfo = '<span class="final-price" id="ShippingPriceSpan">' + shippingPrice + '</span> Kč';
+ 	 		}
+ 	 		$('#ShippingPriceCell').empty();
+ 	 		$('#ShippingPriceCell').html('<strong>' + shippingPriceInfo + '</strong>');
+
+ 	 		// celkova cena za objednavku
+ 	 		var goodsPrice = parseInt($('#GoodsPriceSpan').text());
+ 	 		var totalPrice = goodsPrice + shippingPrice;
+ 	 		var totalPriceInfo = '<span class="final-price" id="TotalPriceSpan">' + totalPrice + '</span> Kč';
+ 	 		$('#TotalPriceCell').empty();
+ 	 		$('#TotalPriceCell').html('<strong>' + totalPriceInfo + '</strong>');
+		}
+	}
 });
 </script>
+<?php } ?>

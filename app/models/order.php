@@ -564,11 +564,7 @@ class Order extends AppModel {
 		$order['Order']['cart_id'] = $cart_id;
 		// a IPcko toho, kdo objednavku zalozil
 		$order['Order']['ip_address'] = $_SERVER['REMOTE_ADDR'];
-		$order['Order']['shipping_cost'] = $this->get_shipping_cost($order['Order']['shipping_id']);
-		// pokud je zvolena doprava na slovensko (id = 6) a platba prevodem (id = 2), je sleva z dopravy 70,-
-		if ($order['Order']['shipping_id'] == 16 && $order['Order']['payment_id'] == 2) {
-			$order['Order']['shipping_cost'] -= 70;
-		}
+		$order['Order']['shipping_cost'] = $this->get_shipping_cost($order['Order']['shipping_id'], $order['Order']['payment_id'] == 2);
 		$order['Order']['shipping_tax_class'] = $this->Shipping->get_tax_class_description($order['Order']['shipping_id']);
 		// cena produktu v kosiku, bez dopravneho
 		$order['Order']['subtotal_with_dph'] = $order_total_with_dph;
@@ -577,7 +573,7 @@ class Order extends AppModel {
 		return array($order, $ordered_products);
 	}
 	
-	function get_shipping_cost($shipping_id) {
+	function get_shipping_cost($shipping_id, $payment_id = null) {
 		// data pro produkty objednavky
 		App::import('Model', 'CartsProduct');
 		$this->CartsProduct = &new CartsProduct;
@@ -589,7 +585,7 @@ class Order extends AppModel {
 		$free_shipping = false;
 
 		$cp_count = 0;
-		// neni nahodou zakaznik VOC?
+		// je zakaznik VOC?
 		$is_voc = false;
 		App::import('model', 'CakeSession');
 		$this->Session = &new CakeSession;
@@ -602,14 +598,13 @@ class Order extends AppModel {
 		// zjistit ID kategorie, ve ktere jsou produkty s dopravou zdarma
 		App::import('Model', 'Setting');
 		$this->Setting = &new Setting;
-		$free_shipping_category_id = $this->Setting->findValue('FREE_SHIPPING_CATEGORY_ID');
 		
 		foreach ($cart_products as $cart_product) {
 			// pokud mam danou kategorii, kde jsou produkty zdarma, neni zvolena doprava na SK, o vikendu nebo zakaznik neni VOC, muze byt doprava zdarma
-			if ($free_shipping_category_id && !$is_voc && !in_array($shipping_id, array(16, 20))) {
+			if (FREE_SHIPPING_CATEGORY_ID && !$is_voc && !in_array($shipping_id, array(16, 20))) {
 				// pokud je nektery produkt z kategorie "doprava zdarma", potom je postovne za objednavku zdarma
 				$product_id = $cart_product['CartsProduct']['product_id'];
-				$free_shipping = $free_shipping || $this->OrderedProduct->Product->in_category($product_id, $free_shipping_category_id);
+				$free_shipping = $free_shipping || $this->OrderedProduct->Product->in_category($product_id, FREE_SHIPPING_CATEGORY_ID);
 			}
 					
 			$order_total_with_dph = $order_total_with_dph + ($cart_product['CartsProduct']['quantity'] * $cart_product['CartsProduct']['price_with_dph']);
@@ -621,7 +616,7 @@ class Order extends AppModel {
 		$shipping_cost = 0;
 		if (!$free_shipping) {
 			// objednavka neobsahuje produkt s dopravou zdarma, cenu dopravy si proto dopocitam v zavislosti na cene objednaneho zbozi
-			$shipping_cost = $this->Shipping->get_cost($shipping_id, $order_total_with_dph, $is_voc);
+			$shipping_cost = $this->Shipping->get_cost($shipping_id, $payment_id, $order_total_with_dph, $is_voc);
 		}
 		return $shipping_cost;
 	}

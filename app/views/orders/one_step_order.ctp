@@ -10,7 +10,7 @@ if ($this->Session->check('Message.flash')) {
 ?>
 <? if (empty($cart_products)) { ?>
 	<p class="empty_cart">Nákupní košík zatím zeje prázdnotou. Vložte produkty, které chcete objednat, do košíku.</p>
-	<?php echo $this->Html->link('Zpět do obchodu', '/', array('class' => 'button_like_link red'))?>
+	<?php echo $this->Html->link('Zpět do obchodu', $back_shop_url, array('class' => 'button_like_link red'))?>
 <? } else { ?>
 	<table id="cartContents" cellpadding="0" cellspacing="0">
 		<tr>
@@ -68,14 +68,42 @@ if ($this->Session->check('Message.flash')) {
 		</tr>
 <?php	} ?>
 		<tr>
-			<th colspan="2" align="right">cena za zboží celkem:</th>
-			<td colspan="2" align="right"><strong><span class="final-price"><?php echo intval($final_price) ?></span> Kč</strong></td>
+			<th colspan="2" align="right">cena za zboží:</th>
+			<td colspan="2" align="right"><strong><span class="final-price" id="GoodsPriceSpan"><?php echo intval($final_price) ?></span> Kč</strong></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th colspan="2" align="right">cena za dopravu:</th>
+			<td colspan="2" align="right" id="ShippingPriceCell"><strong>
+			<?php if ($shipping_price == 0) { ?>
+			<span class="final-price" id="ShippingPriceSpan">ZDARMA</span>
+			<?php } else {
+				if (isset($this->data['Order']['shipping_id'])) { ?>
+			<span class="final-price" id="ShippingPriceSpan"><?php echo intval($shipping_price)?></span> Kč
+				<?php } else { ?>
+			od <span class="final-price" id="ShippingPriceSpan"><?php echo intval($shipping_price)?></span> Kč
+				<?php } ?>
+			 <?php } ?>
+			 </strong></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th colspan="2" align="right">cena celkem:</th>
+			<td colspan="2" align="right" id="TotalPriceCell"><strong>
+			<?php
+			$total_price = intval($shipping_price + $final_price);
+			if (isset($this->data['Order']['shipping_id'])) { ?>
+			<span class="final-price" id="TotalPriceSpan"><?php echo $total_price?></span> Kč
+			<?php } else { ?>
+			od <span class="final-price" id="TotalPriceSpan"><?php echo $total_price?></span> Kč
+			 <?php } ?>
+			</strong></td>
 			<td>&nbsp;</td>
 		</tr>
 	</table>
 
 <?php echo $this->Html->link('Přejít k objednání', '#OrderDetails', array('class' => 'button_like_link red'))?>&nbsp;
-<?php echo $this->Html->link('Zpět do obchodu', '/', array('class' => 'button_like_link silver'))?>
+<?php echo $this->Html->link('Zpět do obchodu', $back_shop_url, array('class' => 'button_like_link silver'))?>
 
 <div class="clearer"></div>
 <h2 id="OrderDetails">Objednávka</h2>
@@ -298,3 +326,4 @@ if ($this->Session->check('Message.flash')) {
 
 } // konec nakupni kosik neni prazdny
 ?>
+<div class="modal"><!-- Place at bottom of page --></div>
