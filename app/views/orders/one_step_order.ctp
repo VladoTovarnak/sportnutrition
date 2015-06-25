@@ -69,7 +69,7 @@ if ($this->Session->check('Message.flash')) {
 <?php	} ?>
 		<tr>
 			<th colspan="2" align="right">cena za zboží:</th>
-			<td colspan="2" align="right"><strong><span class="final-price"><?php echo intval($final_price) ?></span> Kč</strong></td>
+			<td colspan="2" align="right"><strong><span class="final-price" id="GoodsPriceSpan"><?php echo intval($final_price) ?></span> Kč</strong></td>
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
@@ -92,14 +92,10 @@ if ($this->Session->check('Message.flash')) {
 			<td colspan="2" align="right" id="TotalPriceCell"><strong>
 			<?php
 			$total_price = intval($shipping_price + $final_price);
-			if ($shipping_price == 0) { ?>
+			if (isset($this->data['Order']['shipping_id'])) { ?>
 			<span class="final-price" id="TotalPriceSpan"><?php echo $total_price?></span> Kč
-			<?php } else { 
-				if (isset($this->data['Order']['shipping_id'])) { ?>
-			<span class="final-price" id="TotalPriceSpan"><?php echo $total_price?></span> Kč
-				<?php } else { ?>
+			<?php } else { ?>
 			od <span class="final-price" id="TotalPriceSpan"><?php echo $total_price?></span> Kč
-				<?php } ?>
 			 <?php } ?>
 			</strong></td>
 			<td>&nbsp;</td>
@@ -330,3 +326,4 @@ if ($this->Session->check('Message.flash')) {
 
 } // konec nakupni kosik neni prazdny
 ?>
+<div class="modal"><!-- Place at bottom of page --></div>

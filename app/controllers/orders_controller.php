@@ -1429,6 +1429,24 @@ class OrdersController extends AppController {
 		
 	}
 	
+	// ajaxova metoda pro zjisteni ceny dopravy v kosiku na zaklade zvolene dopravy a zpusobu platby
+	function ajax_shipping_price() {
+		$res = array(
+			'value' => null
+		);
+		
+		if (isset($_POST['shippingId']) && isset($_POST['paymentId'])) {
+			$shipping_id = $_POST['shippingId'];
+			$payment_id = $_POST['paymentId'];
+
+			$shipping_price = $this->Order->get_shipping_cost($shipping_id, $payment_id);
+			$res['value'] = $shipping_price;
+			echo json_encode($res);
+		}
+		
+		die();
+	}
+	
 	function finished() {
 		$id = $this->Session->read('Order.id');
 		if ( empty($id) ){
