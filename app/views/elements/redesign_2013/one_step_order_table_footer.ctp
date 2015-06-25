@@ -9,12 +9,12 @@
 	<th colspan="2" align="right">cena za dopravu:</th>
 	<td colspan="2" align="right" class="shipping-price-cell"<?php echo ($type == 'cart_summary' ? ' id="ShippingPriceCell"' : '') ?>><strong>
 	<?php if ($shipping_price == 0) { ?>
-	<span class="final-price shipping-price-span"<?php echo ($type == 'cart_summary' ? ' id="ShippingPriceCell"' : '') ?>>ZDARMA</span>
+	<span class="final-price shipping-price-span"<?php echo ($type == 'cart_summary' ? ' id="ShippingPriceSpan"' : '') ?>>ZDARMA</span>
 	<?php } else {
 		if (isset($this->data['Order']['shipping_id'])) { ?>
-	<span class="final-price shipping-price-span"<?php echo ($type == 'cart_summary' ? ' id="ShippingPriceCell"' : '') ?>><?php echo intval($shipping_price)?></span> Kč
+	<span class="final-price shipping-price-span"<?php echo ($type == 'cart_summary' ? ' id="ShippingPriceSpan"' : '') ?>><?php echo intval($shipping_price)?></span> Kč
 		<?php } else { ?>
-	od <span class="final-price shipping-price-span"<?php echo ($type == 'cart_summary' ? ' id="ShippingPriceCell"' : '') ?>><?php echo intval($shipping_price)?></span> Kč
+	od <span class="final-price shipping-price-span"<?php echo ($type == 'cart_summary' ? ' id="ShippingPriceSpan"' : '') ?>><?php echo intval($shipping_price)?></span> Kč
 		<?php } ?>
 	 <?php } ?>
 	 </strong></td>
