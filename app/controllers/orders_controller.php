@@ -1272,76 +1272,79 @@ class OrdersController extends AppController {
 						
 						break;
 					case 'order_finish':
-						// nechci kontrolovat, jestli je zakaznikuv email unikatni (aby i zakaznik, ktery neni prihlaseny, ale jeho email je v systemu, mohl dokoncit objednavku
-						if (isset($this->data['Customer']['id']) && empty($this->data['Customer']['id'])) {
-							unset($this->data['Customer']['id']);
-						}
-
-						// jsou data o zakaznikovi validni?
-						unset($this->Order->Customer->validate['email']['isUnique']);
-						
-						// dogeneruju si nazev do adresy
-						$this->data['Address'][0]['name'] = $this->data['Customer']['first_name'] . ' ' . $this->data['Customer']['last_name'];
-						$this->data['Address'][1]['name'] = $this->data['Customer']['first_name'] . ' ' . $this->data['Customer']['last_name'];
-						// pokud mam zadano, ze dodaci adresa je shodna s fakturacni, nakopiruju hodnoty
-						if (!$this->data['Customer']['is_delivery_address_different']) {
-							$this->data['Address'][1]['name'] = $this->data['Address'][0]['name'];
-							$this->data['Address'][1]['street'] = $this->data['Address'][0]['street'];
-							$this->data['Address'][1]['street_no'] = $this->data['Address'][0]['street_no'];
-							$this->data['Address'][1]['city'] = $this->data['Address'][0]['city'];
-							$this->data['Address'][1]['zip'] = $this->data['Address'][0]['zip'];
-							$this->data['Address'][1]['state'] = $this->data['Address'][0]['state'];
-						}
-
-						$customer_data['Customer'] = $this->data['Customer'];
-						$customer_data['Address'] = $this->data['Address'];
-						
-						// jestlize jsou data o zakaznikovy validni
-						if ($this->Order->Customer->saveAll($customer_data, array('validate' => 'only'))) {
-							// jestli neni zakaznik prihlaseny a zaroven existuje zakaznik se zadanou emailovou adresou
-							if (!$this->Session->check('Customer.id')) {
-								$customer = $this->Order->Customer->find('first', array(
-									'conditions' => array('Customer.email' => $this->data['Customer']['email']),
-									'contain' => array(),
-									'fields' => array('Customer.id')
-								));
-								// pokud existuje, priradim k objednavce zakaznikovo idcko (at nezakladam noveho a nevznikaji mi ucty s duplicitnim emailem
-								if (!empty($customer)) {
-									$this->data['Customer']['id'] = $customer['Customer']['id'];
-								}
-								// pamatuju si, ze zakaznik neni prihlaseny v objednavce (protoze to vsude testuju z historickych duvodu
-								// pres customer id v sesne a to je mi ted na nic
-								$this->data['Customer']['noreg'] = true;
-							}
-									
-							$this->Session->write('Customer', $this->data['Customer']);
-							$this->Session->write('Address', $this->data['Address'][1]);
-							$this->Session->write('Address_payment', $this->data['Address'][0]);
-							
-							$this->Session->write('Order', $this->data['Order']);
-							// pokud je jako zpusob dopravy vybrano Geis Point (doruceni na odberne misto), presmeruju na plugin pro vyber odberneho
-							// mista s tim, aby se po navratu presmeroval na ulozeni informaci o vyberu odberneho mista
-							if ($this->data['Order']['shipping_id'] == $this->Order->Shipping->GP_shipping_id) {
-								if ($service_url = $this->Order->Shipping->geis_point_url($this->Session, true)) {
-									$this->redirect($service_url);
-								} else {
-									$this->Session->setFlash('Zadejte prosím Vaši doručovací adresu');
-									$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order', '#' => 'OrderDetailsCustomer'));
-								}
-							}
-							
-							// presmeruju do finalizace objednavky, kde se data ulozena v sesne ulozi do systemu
-							$this->redirect(array('controller' => 'orders', 'action' => 'finalize'));
-								
+						// mam vybranou dopravu?
+						if (!isset($this->data['Order']['shipping_id']) || empty($this->data['Order']['shipping_id'])) {
+							$this->Session->setFlash('Vyberte prosím způsob dopravy, kterým si přejete zboží doručit.', REDESIGN_PATH . 'flash_failure', array('type' => 'shipping_info'));
 						} else {
-							// pokud jsem nakopiroval dorucovaci adresu pred ulozenim, protoze zakaznik nerekl, ze je jina, nez fakturacni, tak ji zase vynuluju
-							if (!$this->data['Customer']['is_delivery_address_different']) {
-								unset($this->data['Address'][1]);
+							// nechci kontrolovat, jestli je zakaznikuv email unikatni (aby i zakaznik, ktery neni prihlaseny, ale jeho email je v systemu, mohl dokoncit objednavku
+							if (isset($this->data['Customer']['id']) && empty($this->data['Customer']['id'])) {
+								unset($this->data['Customer']['id']);
 							}
-							$this->Session->setFlash('Údaje o zákazníkovi obsahují chybu, opravte ji prosím a formulář uložte znovu.', REDESIGN_PATH . 'flash_failure', array('type' => 'customer_info'));
-							//$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order', '#' => 'OrderDetailsCustomer'));
+	
+							// jsou data o zakaznikovi validni?
+							unset($this->Order->Customer->validate['email']['isUnique']);
+							
+							// dogeneruju si nazev do adresy
+							$this->data['Address'][0]['name'] = $this->data['Customer']['first_name'] . ' ' . $this->data['Customer']['last_name'];
+							$this->data['Address'][1]['name'] = $this->data['Customer']['first_name'] . ' ' . $this->data['Customer']['last_name'];
+							// pokud mam zadano, ze dodaci adresa je shodna s fakturacni, nakopiruju hodnoty
+							if (!$this->data['Customer']['is_delivery_address_different']) {
+								$this->data['Address'][1]['name'] = $this->data['Address'][0]['name'];
+								$this->data['Address'][1]['street'] = $this->data['Address'][0]['street'];
+								$this->data['Address'][1]['street_no'] = $this->data['Address'][0]['street_no'];
+								$this->data['Address'][1]['city'] = $this->data['Address'][0]['city'];
+								$this->data['Address'][1]['zip'] = $this->data['Address'][0]['zip'];
+								$this->data['Address'][1]['state'] = $this->data['Address'][0]['state'];
+							}
+	
+							$customer_data['Customer'] = $this->data['Customer'];
+							$customer_data['Address'] = $this->data['Address'];
+							
+							// jestlize jsou data o zakaznikovy validni
+							if ($this->Order->Customer->saveAll($customer_data, array('validate' => 'only'))) {
+								// jestli neni zakaznik prihlaseny a zaroven existuje zakaznik se zadanou emailovou adresou
+								if (!$this->Session->check('Customer.id')) {
+									$customer = $this->Order->Customer->find('first', array(
+										'conditions' => array('Customer.email' => $this->data['Customer']['email']),
+										'contain' => array(),
+										'fields' => array('Customer.id')
+									));
+									// pokud existuje, priradim k objednavce zakaznikovo idcko (at nezakladam noveho a nevznikaji mi ucty s duplicitnim emailem
+									if (!empty($customer)) {
+										$this->data['Customer']['id'] = $customer['Customer']['id'];
+									}
+									// pamatuju si, ze zakaznik neni prihlaseny v objednavce (protoze to vsude testuju z historickych duvodu
+									// pres customer id v sesne a to je mi ted na nic
+									$this->data['Customer']['noreg'] = true;
+								}
+										
+								$this->Session->write('Customer', $this->data['Customer']);
+								$this->Session->write('Address', $this->data['Address'][1]);
+								$this->Session->write('Address_payment', $this->data['Address'][0]);
+								
+								$this->Session->write('Order', $this->data['Order']);
+								// pokud je jako zpusob dopravy vybrano Geis Point (doruceni na odberne misto), presmeruju na plugin pro vyber odberneho
+								// mista s tim, aby se po navratu presmeroval na ulozeni informaci o vyberu odberneho mista
+								if ($this->data['Order']['shipping_id'] == $this->Order->Shipping->GP_shipping_id) {
+									if ($service_url = $this->Order->Shipping->geis_point_url($this->Session, true)) {
+										$this->redirect($service_url);
+									} else {
+										$this->Session->setFlash('Zadejte prosím Vaši doručovací adresu');
+										$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order', '#' => 'OrderDetailsCustomer'));
+									}
+								}
+								
+								// presmeruju do finalizace objednavky, kde se data ulozena v sesne ulozi do systemu
+								$this->redirect(array('controller' => 'orders', 'action' => 'finalize'));
+									
+							} else {
+								// pokud jsem nakopiroval dorucovaci adresu pred ulozenim, protoze zakaznik nerekl, ze je jina, nez fakturacni, tak ji zase vynuluju
+								if (!$this->data['Customer']['is_delivery_address_different']) {
+									unset($this->data['Address'][1]);
+								}
+								$this->Session->setFlash('Údaje o zákazníkovi obsahují chybu, opravte ji prosím a formulář uložte znovu.', REDESIGN_PATH . 'flash_failure', array('type' => 'customer_info'));
+							}
 						}
-
 						break;
 				}
 			}
@@ -1351,7 +1354,7 @@ class OrdersController extends AppController {
 			}
 			$this->data['Customer']['is_registered'] = 0;
 			
-			$this->data['Order']['shipping_id'] = 28;
+			//$this->data['Order']['shipping_id'] = 28;
 		}
 
 		// data o zbozi v kosiku

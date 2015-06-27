@@ -130,16 +130,22 @@ if ($this->Session->check('Message.flash')) {
 
 <h3 id="ShippingInfo"><span>&rarr;</span>&nbsp;Vyberte: způsob dopravy</h3>
 <?php echo $this->Form->create('Order', array('url' => array('controller' => 'orders', 'action' => 'one_step_order', '#CustomerInfo'), 'encoding' => false))?>
+<?php 
+// flash, pokud je chyba ve formu pro udaje o zakaznikovi
+if ($this->Session->check('Message.flash')) {
+	$flash = $this->Session->read('Message.flash');
+	if (isset($flash['params']['type']) && $flash['params']['type'] == 'shipping_info') {
+		echo $this->Session->flash();
+	}
+}
+?>
 <?php if (!empty($shippings)) { ?>
-<table>
+<table id="ShippingChoiceTable">
 <?php
 	$first = true;
 	foreach ($shippings as $shipping) { 
 		$checked = '';
 		if (isset($this->data['Order']['shipping_id']) && $this->data['Order']['shipping_id'] == $shipping['Shipping']['id']) {
-			$checked = ' checked="checked"';
-		}
-		if (!isset($this->data['Order']['shipping_id']) && $first) {
 			$checked = ' checked="checked"';
 		}
 ?>
@@ -154,9 +160,9 @@ if ($this->Session->check('Message.flash')) {
 </table>
 <?php } ?>
 
-<h3><span>&rarr;</span>&nbsp;Vyberte: způsob platby</h3>
+<h3 id="PaymentInfo"><span>&rarr;</span>&nbsp;Vyberte: způsob platby</h3>
 <?php if (!empty($payments)) { ?>
-<table>
+<table id="PaymentChoiceTable">
 <?php
 	$first = true;
 	foreach ($payments as $payment) {
@@ -222,7 +228,7 @@ if ($this->Session->check('Message.flash')) {
 		<td><?php echo $this->Form->input('Customer.dic', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 </table>
-<h3><span>&rarr;</span>&nbsp;Fakturační adresa</h3>
+<h3 id="InvoiceAddressInfo"><span>&rarr;</span>&nbsp;Fakturační adresa</h3>
 <table id="InvoiceAddressTable"  class="customer_info_form">
 	<tr>
 		<th>Ulice<sup>*</sup></th>
@@ -246,7 +252,7 @@ if ($this->Session->check('Message.flash')) {
 	</tr>
 </table>
 
-<h3><span>&rarr;</span>&nbsp;Doručovací adresa</h3>
+<h3 id="DeliveryAddressInfo"><span>&rarr;</span>&nbsp;Doručovací adresa</h3>
 <?php echo $this->Form->input('Customer.is_delivery_address_different', array('label' => 'Chci vyplnit jinou adresu doručení než je fakturační', 'type' => 'checkbox', 'id' => 'isDifferentAddressCheckbox'))?>
 
 <?php 
