@@ -37,7 +37,7 @@ class Customer extends AppModel {
 		'email' => array(
 			'email' => array(
 				'rule' => array('email', true),
-				'message' => 'Vyplňte prosím existující emailovou adresu.',
+				'message' => 'Vyplňte prosím vaši emailovou adresu.',
 			),
 			'isUnique' => array(
 				'rule' => 'isUnique',
