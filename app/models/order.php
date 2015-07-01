@@ -752,7 +752,7 @@ class Order extends AppModel {
 		
 		$customer_invoice_address = '&nbsp;';
 		$customer_delivery_address = '&nbsp;';
-		if ($order['Order']['shipping_id'] != PERSONAL_PURCHASE_SHIPPIG_ID) {
+		if ($order['Order']['shipping_id'] != PERSONAL_PURCHASE_SHIPPING_ID) {
 			$customer_invoice_address = 'Fakturační adresa: ' . $order['Order']['customer_street'] . ', ' . $order['Order']['customer_zip'] . ' ' . $order['Order']['customer_city'] . ' ' . $order['Order']['delivery_state'];
 			$customer_delivery_address = 'Dodací adresa: ' . $order['Order']['delivery_name'] . ', ' . $order['Order']['delivery_street'] . ', ' . $order['Order']['delivery_zip'] . ' ' . $order['Order']['delivery_city'] . ', ' . $order['Order']['delivery_state'];
 		}
