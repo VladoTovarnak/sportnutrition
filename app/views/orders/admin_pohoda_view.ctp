@@ -13,6 +13,16 @@
 				<ord:partnerIdentity>
 					<typ:address>
 						<typ:company><?php echo $order['Order']['customer_name'] ?></typ:company>
+<?php if ($order['Order']['shipping_id'] == PERSONAL_PURCHASE_SHIPPING_ID) { ?>
+						<typ:name></typ:name>
+						<typ:city></typ:city>
+						<typ:street></typ:street>
+						<typ:zip></typ:zip>
+						<typ:ico></typ:ico>
+						<typ:dic></typ:dic>
+						<typ:phone></typ:phone>
+						<typ:email></typ:email>
+<?php } else { ?>
 						<typ:name><?php echo $order['Order']['customer_name'] ?></typ:name>
 						<typ:city><?php echo $order['Order']['customer_city'] ?></typ:city>
 						<typ:street><?php echo $order['Order']['customer_street'] ?></typ:street>
@@ -21,6 +31,7 @@
 						<typ:dic><?php echo $order['Order']['customer_dic'] ?></typ:dic>
 						<typ:phone><?php echo $order['Order']['customer_phone'] ?></typ:phone>
 						<typ:email><?php echo $order['Order']['customer_email'] ?></typ:email>
+<?php } ?>
 					</typ:address>
 					<typ:shipToAddress>
 			            <typ:name></typ:name>
