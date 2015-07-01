@@ -984,7 +984,8 @@ class CustomersController extends AppController {
 				'Order.delivery_zip',
 				'Order.delivery_city',
 				'Order.delivery_state',
-				'Order.comments'
+				'Order.comments',
+				'Order.shipping_id'
 			)
 		));
 

@@ -160,10 +160,14 @@ window._fbq.push(['track', 'PixelInitialized', {}]);
 <?php if ($this->params['controller'] == 'orders' && $this->params['action'] == 'one_step_order') { ?>
 <script type="text/javascript">
 $(document).ready(function() {
+	PERSONAL_PURCHASE_SHIPPING_ID = parseInt(<?php echo PERSONAL_PURCHASE_SHIPPING_ID?>);
+	
+	// zobrazit form pro prihlaseni, pokud jsem zaskrtnul, ze zakaznik je jiz registrovany
 	if ($('#CustomerIsRegistered1').is(':checked')) {
 		$('#CustomerOneStepOrderDiv').show();
 	}
-	
+
+	// zobrazit / skryt form pro prihlaseni, pokud jsem zaskrtnul, ze zakaznik je jiz registrovany
 	$('input.customer-is-registered').change(function() {
 		if (this.id == 'CustomerIsRegistered1') {
 			$('#CustomerOneStepOrderDiv').show();
@@ -172,6 +176,7 @@ $(document).ready(function() {
 		}
 	});
 
+	// zobrazit / skryt form pro druhou adresu, pokud jsem zaskrtnul, ze ho chci
 	$('#isDifferentAddressCheckbox').change(function() {
 		// pokud mam dorucovaci adresu ruznou od fakturacni
 		if ($(this).is(':checked')) {
@@ -183,12 +188,26 @@ $(document).ready(function() {
 		}
 	});
 
+	if ($('OrderShippingId' . PERSONAL_PURCHASE_SHIPPING_ID).is(':checked')) {
+		$('#InvoiceAddressBox').hide();
+		$('#DeliveryAddressBox').hide();
+	}
+
 	// pri zmene dopravy chci prepsat jeji cenu v kosiku 
 	$('input[name="data[Order][shipping_id]"]').change(function(e) {
 		var shippingId = this.value;
 		// doprava je take zavisla na zpusobu platby
 		var paymentId = $('input[name="data[Order][payment_id]"]:checked').val();
 		fillShippingPriceCell(shippingId, paymentId);
+
+		// zobrazit / skryt elementy pro zadani adres, pokud jsem zaskrtnul, ze chci / nechci doruceni osobnim odberem
+		if (shippingId == PERSONAL_PURCHASE_SHIPPING_ID) {
+			$('#InvoiceAddressBox').hide();
+			$('#DeliveryAddressBox').hide();
+		} else {
+			$('#InvoiceAddressBox').show();
+			$('#DeliveryAddressBox').show();			
+		}
 	});
 
 	// pri zmene zpusobu platby chci prepsat cenu dopravy v kosiku 
@@ -253,6 +272,7 @@ $(document).ready(function() {
 		}
 	}
 
+	// JAVASCRIPTOVA VALIDACE FORMU PRO ODESLANI OBJEDNAVKY
 	function flashOpening() {
 		return '<div id="flash" class="' + flashClass() + '">';
 	}
@@ -408,140 +428,145 @@ $(document).ready(function() {
 		}
 
 		var invoiceAddressValid = true;
-		// ulice
-		// smazu message, pokud byla zobrazena
-		element = '#Address0Street';
-		theClass = errorClass();
-		$(element).next('.' + theClass).remove();
-		var elementValue =  $(element).val();
-		if (elementValue == '') {
-			invoiceAddressValid = false;
-			messageOpenings.push(errorOpening());
-			messageClosings.push(errorClosing());			
-			messageTexts.push('Vyplňte prosím název ulice.');
-			messageTargets.push(element);
-			messageMethods.push('after');
-			if (!skipTarget) {
-				skipTarget = '#InvoiceAddressInfo';
+		// u dopravy osobnim odberem nechci validovat adresu)
+		if (shippingId != PERSONAL_PURCHASE_SHIPPING_ID) {
+			// ulice
+			// smazu message, pokud byla zobrazena
+			element = '#Address0Street';
+			theClass = errorClass();
+			$(element).next('.' + theClass).remove();
+			var elementValue =  $(element).val();
+			if (elementValue == '') {
+				invoiceAddressValid = false;
+				messageOpenings.push(errorOpening());
+				messageClosings.push(errorClosing());			
+				messageTexts.push('Vyplňte prosím název ulice.');
+				messageTargets.push(element);
+				messageMethods.push('after');
+				if (!skipTarget) {
+					skipTarget = '#InvoiceAddressInfo';
+				}
 			}
-		}
-
-		// mesto
-		// smazu message, pokud byla zobrazena
-		element = '#Address0City';
-		theClass = errorClass();
-		$(element).next('.' + theClass).remove();
-		var elementValue =  $(element).val();
-		if (elementValue == '') {
-			invoiceAddressValid = false;
-			messageOpenings.push(errorOpening());
-			messageClosings.push(errorClosing());			
-			messageTexts.push('Vyplňte prosím název města.');
-			messageTargets.push(element);
-			messageMethods.push('after');
-			if (!skipTarget) {
-				skipTarget = '#InvoiceAddressInfo';
+	
+			// mesto
+			// smazu message, pokud byla zobrazena
+			element = '#Address0City';
+			theClass = errorClass();
+			$(element).next('.' + theClass).remove();
+			var elementValue =  $(element).val();
+			if (elementValue == '') {
+				invoiceAddressValid = false;
+				messageOpenings.push(errorOpening());
+				messageClosings.push(errorClosing());			
+				messageTexts.push('Vyplňte prosím název města.');
+				messageTargets.push(element);
+				messageMethods.push('after');
+				if (!skipTarget) {
+					skipTarget = '#InvoiceAddressInfo';
+				}
 			}
-		}
-
-		// PSC
-		// smazu message, pokud byla zobrazena
-		element = '#Address0Zip';
-		theClass = errorClass();
-		$(element).next('.' + theClass).remove();
-		var elementValue =  $(element).val();
-		if (elementValue == '') {
-			invoiceAddressValid = false;
-			messageOpenings.push(errorOpening());
-			messageClosings.push(errorClosing());			
-			messageTexts.push('Vyplňte prosím správné PSČ.');
-			messageTargets.push(element);
-			messageMethods.push('after');
-			if (!skipTarget) {
-				skipTarget = '#InvoiceAddressInfo';
+	
+			// PSC
+			// smazu message, pokud byla zobrazena
+			element = '#Address0Zip';
+			theClass = errorClass();
+			$(element).next('.' + theClass).remove();
+			var elementValue =  $(element).val();
+			if (elementValue == '') {
+				invoiceAddressValid = false;
+				messageOpenings.push(errorOpening());
+				messageClosings.push(errorClosing());			
+				messageTexts.push('Vyplňte prosím správné PSČ.');
+				messageTargets.push(element);
+				messageMethods.push('after');
+				if (!skipTarget) {
+					skipTarget = '#InvoiceAddressInfo';
+				}
 			}
-		}
-
-		// smazu message, pokud byla zobrazena
-		element = '#InvoiceAddressInfo';
-		theClass = flashClass();
-		$(element).next('.' + theClass).remove();
-		if (!invoiceAddressValid) {
-			messageOpenings.push(flashOpening());
-			messageClosings.push(flashClosing());
-			messageTexts.push('Opravte prosím fakturační adresu');
-			messageTargets.push('#InvoiceAddressTable');
-			messageMethods.push('before');
+	
+			// smazu message, pokud byla zobrazena
+			element = '#InvoiceAddressInfo';
+			theClass = flashClass();
+			$(element).next('.' + theClass).remove();
+			if (!invoiceAddressValid) {
+				messageOpenings.push(flashOpening());
+				messageClosings.push(flashClosing());
+				messageTexts.push('Opravte prosím fakturační adresu');
+				messageTargets.push('#InvoiceAddressTable');
+				messageMethods.push('before');
+			}
 		}
 
 		var deliveryAddressValid = true;
-		// mam zaskrtnuto, ze je dorucovaci odlisna od fakturacni?
-		isDeliveryAddressDifferent = $('#isDifferentAddressCheckbox').prop('checked');
-		
-		// ulice
-		// smazu message, pokud byla zobrazena
-		element = '#Address1Street';
-		theClass = errorClass();
-		$(element).next('.' + theClass).remove();
-		var elementValue =  $(element).val();
-		if (elementValue == '' && isDeliveryAddressDifferent) {
-			deliveryAddressValid = false;
-			messageOpenings.push(errorOpening());
-			messageClosings.push(errorClosing());			
-			messageTexts.push('Vyplňte prosím název ulice.');
-			messageTargets.push(element);
-			messageMethods.push('after');
-			if (!skipTarget) {
-				skipTarget = '#DeliveryAddressInfo';
+		if (shippingId != PERSONAL_PURCHASE_SHIPPING_ID) {
+			// mam zaskrtnuto, ze je dorucovaci odlisna od fakturacni?
+			isDeliveryAddressDifferent = $('#isDifferentAddressCheckbox').prop('checked');
+			
+			// ulice
+			// smazu message, pokud byla zobrazena
+			element = '#Address1Street';
+			theClass = errorClass();
+			$(element).next('.' + theClass).remove();
+			var elementValue =  $(element).val();
+			if (elementValue == '' && isDeliveryAddressDifferent) {
+				deliveryAddressValid = false;
+				messageOpenings.push(errorOpening());
+				messageClosings.push(errorClosing());			
+				messageTexts.push('Vyplňte prosím název ulice.');
+				messageTargets.push(element);
+				messageMethods.push('after');
+				if (!skipTarget) {
+					skipTarget = '#DeliveryAddressInfo';
+				}
 			}
-		}
-
-		// mesto
-		// smazu message, pokud byla zobrazena
-		element = '#Address1City';
-		theClass = errorClass();
-		$(element).next('.' + theClass).remove();
-		var elementValue =  $(element).val();
-		if (elementValue == '' && isDeliveryAddressDifferent) {
-			deliveryAddressValid = false;
-			messageOpenings.push(errorOpening());
-			messageClosings.push(errorClosing());			
-			messageTexts.push('Vyplňte prosím název města.');
-			messageTargets.push(element);
-			messageMethods.push('after');
-			if (!skipTarget) {
-				skipTarget = '#DeliveryAddressInfo';
+	
+			// mesto
+			// smazu message, pokud byla zobrazena
+			element = '#Address1City';
+			theClass = errorClass();
+			$(element).next('.' + theClass).remove();
+			var elementValue =  $(element).val();
+			if (elementValue == '' && isDeliveryAddressDifferent) {
+				deliveryAddressValid = false;
+				messageOpenings.push(errorOpening());
+				messageClosings.push(errorClosing());			
+				messageTexts.push('Vyplňte prosím název města.');
+				messageTargets.push(element);
+				messageMethods.push('after');
+				if (!skipTarget) {
+					skipTarget = '#DeliveryAddressInfo';
+				}
 			}
-		}
-
-		// PSC
-		// smazu message, pokud byla zobrazena
-		element = '#Address1Zip';
-		theClass = errorClass();
-		$(element).next('.' + theClass).remove();
-		var elementValue =  $(element).val();
-		if (elementValue == '' && isDeliveryAddressDifferent) {
-			deliveryAddressValid = false;
-			messageOpenings.push(errorOpening());
-			messageClosings.push(errorClosing());			
-			messageTexts.push('Vyplňte prosím správné PSČ.');
-			messageTargets.push(element);
-			messageMethods.push('after');
-			if (!skipTarget) {
-				skipTarget = '#DeliveryAddressInfo';
+	
+			// PSC
+			// smazu message, pokud byla zobrazena
+			element = '#Address1Zip';
+			theClass = errorClass();
+			$(element).next('.' + theClass).remove();
+			var elementValue =  $(element).val();
+			if (elementValue == '' && isDeliveryAddressDifferent) {
+				deliveryAddressValid = false;
+				messageOpenings.push(errorOpening());
+				messageClosings.push(errorClosing());			
+				messageTexts.push('Vyplňte prosím správné PSČ.');
+				messageTargets.push(element);
+				messageMethods.push('after');
+				if (!skipTarget) {
+					skipTarget = '#DeliveryAddressInfo';
+				}
 			}
-		}
-
-		// smazu message, pokud byla zobrazena
-		element = '#DeliveryAddressTable';
-		theClass = flashClass();
-		$(element).prev('.' + theClass).remove();
-		if (!deliveryAddressValid) {
-			messageOpenings.push(flashOpening());
-			messageClosings.push(flashClosing());
-			messageTexts.push('Opravte prosím doručovací adresu');
-			messageTargets.push('#DeliveryAddressTable');
-			messageMethods.push('before');
+	
+			// smazu message, pokud byla zobrazena
+			element = '#DeliveryAddressTable';
+			theClass = flashClass();
+			$(element).prev('.' + theClass).remove();
+			if (!deliveryAddressValid) {
+				messageOpenings.push(flashOpening());
+				messageClosings.push(flashClosing());
+				messageTexts.push('Opravte prosím doručovací adresu');
+				messageTargets.push('#DeliveryAddressTable');
+				messageMethods.push('before');
+			}
 		}
 			
 

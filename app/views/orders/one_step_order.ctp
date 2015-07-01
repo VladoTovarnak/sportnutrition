@@ -228,61 +228,66 @@ if ($this->Session->check('Message.flash')) {
 		<td><?php echo $this->Form->input('Customer.dic', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 </table>
-<h3 id="InvoiceAddressInfo"><span>&rarr;</span>&nbsp;Fakturační adresa</h3>
-<table id="InvoiceAddressTable"  class="customer_info_form">
-	<tr>
-		<th>Ulice<sup>*</sup></th>
-		<td><?php echo $this->Form->input('Address.0.street', array('label' => false, 'class' => 'content'))?></td>
-	</tr>
-	<tr>
-		<th>Číslo popisné</th>
-		<td><?php echo $this->Form->input('Address.0.street_no', array('label' => false))?></td>
-	</tr>
-	<tr>
-		<th>Město<sup>*</sup></th>
-		<td><?php echo $this->Form->input('Address.0.city', array('label' => false, 'class' => 'content'))?></td>
-	</tr>
-	<tr>
-		<th>PSČ<sup>*</sup></th>
-		<td><?php echo $this->Form->input('Address.0.zip', array('label' => false))?></td>
-	</tr>
-	<tr>
-		<th>Stát</th>
-		<td><?php echo $this->Form->input('Address.0.state', array('label' => false, 'type' => 'select', 'options' => array('Česká republika' => 'Česká republika', 'Slovensko' => 'Slovensko'))); ?></td>
-	</tr>
-</table>
 
-<h3 id="DeliveryAddressInfo"><span>&rarr;</span>&nbsp;Doručovací adresa</h3>
-<?php echo $this->Form->input('Customer.is_delivery_address_different', array('label' => 'Chci vyplnit jinou adresu doručení než je fakturační', 'type' => 'checkbox', 'id' => 'isDifferentAddressCheckbox'))?>
+<div id="InvoiceAddressBox">
+	<h3 id="InvoiceAddressInfo"><span>&rarr;</span>&nbsp;Fakturační adresa</h3>
+	<table id="InvoiceAddressTable"  class="customer_info_form">
+		<tr>
+			<th>Ulice<sup>*</sup></th>
+			<td><?php echo $this->Form->input('Address.0.street', array('label' => false, 'class' => 'content'))?></td>
+		</tr>
+		<tr>
+			<th>Číslo popisné</th>
+			<td><?php echo $this->Form->input('Address.0.street_no', array('label' => false))?></td>
+		</tr>
+		<tr>
+			<th>Město<sup>*</sup></th>
+			<td><?php echo $this->Form->input('Address.0.city', array('label' => false, 'class' => 'content'))?></td>
+		</tr>
+		<tr>
+			<th>PSČ<sup>*</sup></th>
+			<td><?php echo $this->Form->input('Address.0.zip', array('label' => false))?></td>
+		</tr>
+		<tr>
+			<th>Stát</th>
+			<td><?php echo $this->Form->input('Address.0.state', array('label' => false, 'type' => 'select', 'options' => array('Česká republika' => 'Česká republika', 'Slovensko' => 'Slovensko'))); ?></td>
+		</tr>
+	</table>
+</div>
 
-<?php 
-	$class = ' class="neukazovat customer_info_form"';
-	if (isset($this->data['Customer']) && array_key_exists('is_delivery_address_different', $this->data['Customer']) && $this->data['Customer']['is_delivery_address_different']) {
-		$class = ' class="customer_info_form"';
-	}
-?>
-<table id="DeliveryAddressTable"<?php echo $class?>>
-	<tr>
-		<th>Ulice<sup>*</sup></th>
-		<td><?php echo $this->Form->input('Address.1.street', array('label' => false, 'class' => 'content'))?></td>
-	</tr>
-	<tr>
-		<th>Číslo popisné</th>
-		<td><?php echo $this->Form->input('Address.1.street_no', array('label' => false))?></td>
-	</tr>
-	<tr>
-		<th>Město<sup>*</sup></th>
-		<td><?php echo $this->Form->input('Address.1.city', array('label' => false, 'class' => 'content'))?></td>
-	</tr>
-	<tr>
-		<th>PSČ<sup>*</sup></th>
-		<td><?php echo $this->Form->input('Address.1.zip', array('label' => false))?></td>
-	</tr>
-	<tr>
-		<th>Stát</th>
-		<td><?php echo $this->Form->input('Address.1.state', array('label' => false, 'type' => 'select', 'options' => array('Česká republika' => 'Česká republika', 'Slovensko' => 'Slovensko'))); ?></td>
-	</tr>
-</table>
+<div id="DeliveryAddressBox">
+	<h3 id="DeliveryAddressInfo"><span>&rarr;</span>&nbsp;Doručovací adresa</h3>
+	<?php echo $this->Form->input('Customer.is_delivery_address_different', array('label' => 'Chci vyplnit jinou adresu doručení než je fakturační', 'type' => 'checkbox', 'id' => 'isDifferentAddressCheckbox'))?>
+	
+	<?php 
+		$class = ' class="neukazovat customer_info_form"';
+		if (isset($this->data['Customer']) && array_key_exists('is_delivery_address_different', $this->data['Customer']) && $this->data['Customer']['is_delivery_address_different']) {
+			$class = ' class="customer_info_form"';
+		}
+	?>
+	<table id="DeliveryAddressTable"<?php echo $class?>>
+		<tr>
+			<th>Ulice<sup>*</sup></th>
+			<td><?php echo $this->Form->input('Address.1.street', array('label' => false, 'class' => 'content'))?></td>
+		</tr>
+		<tr>
+			<th>Číslo popisné</th>
+			<td><?php echo $this->Form->input('Address.1.street_no', array('label' => false))?></td>
+		</tr>
+		<tr>
+			<th>Město<sup>*</sup></th>
+			<td><?php echo $this->Form->input('Address.1.city', array('label' => false, 'class' => 'content'))?></td>
+		</tr>
+		<tr>
+			<th>PSČ<sup>*</sup></th>
+			<td><?php echo $this->Form->input('Address.1.zip', array('label' => false))?></td>
+		</tr>
+		<tr>
+			<th>Stát</th>
+			<td><?php echo $this->Form->input('Address.1.state', array('label' => false, 'type' => 'select', 'options' => array('Česká republika' => 'Česká republika', 'Slovensko' => 'Slovensko'))); ?></td>
+		</tr>
+	</table>
+</div>
 <br/>
 <h3><span>&rarr;</span>&nbsp;Rekapitulace ceny objednávky</h3>
 <table class="cart-contents" cellpadding="0" cellspacing="0">

@@ -19,7 +19,7 @@ class Setting extends AppModel {
 		)
 	);
 	
-	var $shop_keys = array(0 => 'CUST_ROOT', 'CUST_NAME', 'CUST_COMPANY', 'CUST_ICO', 'CUST_DIC', 'CUST_PHONE', 'CUST_MAIL', 'CUST_STREET', 'CUST_CITY', 'CUST_ZIP', 'FREE_SHIPPING_CATEGORY_ID', 'VOC_SHIPPING_PRICE');
+	var $shop_keys = array(0 => 'CUST_ROOT', 'CUST_NAME', 'CUST_COMPANY', 'CUST_ICO', 'CUST_DIC', 'CUST_PHONE', 'CUST_MAIL', 'CUST_STREET', 'CUST_CITY', 'CUST_ZIP', 'FREE_SHIPPING_CATEGORY_ID', 'VOC_SHIPPING_PRICE', 'PERSONAL_PURCHASE_SHIPPING_ID');
 	
 	function findId($name) {
 		$setting = $this->find('first', array(

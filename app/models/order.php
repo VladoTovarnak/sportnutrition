@@ -498,7 +498,7 @@ class Order extends AppModel {
 			$order['Order']['customer_zip'] = $customer['Address'][1]['zip'];
 			$order['Order']['customer_state'] = $customer['Address'][1]['state'];
 		} else {
-			return false;
+			$order['Order']['customer_name'] = $customer['Customer']['first_name'] . ' ' . $customer['Customer']['last_name'];
 		}
 		// doplnim data o dorucovaci adrese
 		if (isset($customer['Address'][0]['name']) && isset($customer['Address'][0]['street']) && isset($customer['Address'][0]['street_no']) && isset($customer['Address'][0]['city']) && isset($customer['Address'][0]['zip']) && isset($customer['Address'][0]['state'])) {
@@ -507,8 +507,6 @@ class Order extends AppModel {
 			$order['Order']['delivery_city'] = $customer['Address'][0]['city'];
 			$order['Order']['delivery_zip'] = $customer['Address'][0]['zip'];
 			$order['Order']['delivery_state'] = $customer['Address'][0]['state'];
-		} else {
-			return false;
 		}
 		
 		$order['Order']['customer_id'] = $customer['Customer']['id'];
@@ -752,6 +750,13 @@ class Order extends AppModel {
 			'fields' => array('CustomerType.id', 'CustomerType.name')
 		));
 		
+		$customer_invoice_address = '&nbsp;';
+		$customer_delivery_address = '&nbsp;';
+		if ($order['Order']['shipping_id'] != PERSONAL_PURCHASE_SHIPPIG_ID) {
+			$customer_invoice_address = 'Fakturační adresa: ' . $order['Order']['customer_street'] . ', ' . $order['Order']['customer_zip'] . ' ' . $order['Order']['customer_city'] . ' ' . $order['Order']['delivery_state'];
+			$customer_delivery_address = 'Dodací adresa: ' . $order['Order']['delivery_name'] . ', ' . $order['Order']['delivery_street'] . ', ' . $order['Order']['delivery_zip'] . ' ' . $order['Order']['delivery_city'] . ', ' . $order['Order']['delivery_state'];
+		}
+		
 		// hlavicka emailu s identifikaci dodavatele a odberatele
 		$customer_mail = '<h1>Objednávka č. ' . $id . '</h1>' . "\n";
 		$customer_mail .= '<table style="width:100%">' . "\n";
@@ -759,10 +764,10 @@ class Order extends AppModel {
 		$customer_mail .= '<tr><td><strong>' . str_replace('<br/>', ', ', $this->Setting->findValue('CUST_NAME')) . '</strong></td><td><strong>' . $order['Order']['customer_name'] . '</strong>' . (!empty($customer['CustomerType']['name']) ? ' (' . $customer['CustomerType']['name'] . ')' : '') . '</td></tr>' . "\n";
 		$customer_mail .= '<tr><td>IČ: ' . $this->Setting->findValue('CUST_ICO') . '</td><td>IČ: ' . $order['Order']['customer_ico'] . '</td></tr>' . "\n";
 		$customer_mail .= '<tr><td>DIČ: ' . $this->Setting->findValue('CUST_DIC') . '</td><td>DIČ: ' . $order['Order']['customer_dic'] . '</td></tr>' . "\n";
-		$customer_mail .= '<tr><td>Adresa: ' . $this->Setting->findValue('CUST_STREET') . ', ' . $this->Setting->findValue('CUST_ZIP') . ' ' . $this->Setting->findValue('CUST_CITY') . '</td><td>Fakturační adresa: ' . $order['Order']['customer_street'] . ', ' . $order['Order']['customer_zip'] . ' ' . $order['Order']['customer_city'] . ' ' . $order['Order']['delivery_state'] . '</td></tr>' . "\n";
+		$customer_mail .= '<tr><td>Adresa: ' . $this->Setting->findValue('CUST_STREET') . ', ' . $this->Setting->findValue('CUST_ZIP') . ' ' . $this->Setting->findValue('CUST_CITY') . '</td><td>' . $customer_invoice_address . '</td></tr>' . "\n";
 		$customer_mail .= '<tr><td>Email: <a href="mailto:' . $this->Setting->findValue('CUST_MAIL') . '">' . $this->Setting->findValue('CUST_MAIL') . '</a></td><td>Email: <a href="mailto:' . $order['Order']['customer_email'] . '">'. $order['Order']['customer_email'] . '</a></td></tr>' . "\n";
 		$customer_mail .= '<tr><td>Telefon: ' . $this->Setting->findValue('CUST_PHONE') . '</td><td>Telefon: ' . $order['Order']['customer_phone'] . '</td></tr>' . "\n";
-		$customer_mail .= '<tr><td>Web: <a href="http://www.' . $this->Setting->findValue('CUST_ROOT') . '">http://www.' . $this->Setting->findValue('CUST_ROOT') . '</a></td><td><strong>Dodací adresa: ' . $order['Order']['delivery_name'] . ', ' . $order['Order']['delivery_street'] . ', ' . $order['Order']['delivery_zip'] . ' ' . $order['Order']['delivery_city'] . ', ' . $order['Order']['delivery_state'] . '</strong></td></tr>' . "\n";
+		$customer_mail .= '<tr><td>Web: <a href="http://www.' . $this->Setting->findValue('CUST_ROOT') . '">http://www.' . $this->Setting->findValue('CUST_ROOT') . '</a></td><td><strong>' . $customer_delivery_address . '</strong></td></tr>' . "\n";
 		$customer_mail .= '</table><br/>' . "\n";
 
 		// telo emailu s obsahem objednavky
@@ -960,10 +965,10 @@ class Order extends AppModel {
 		}
 		$output .= '
 </dat:dataPack>';
-		
+
 		// zjistim nazev souboru, do ktereho budu export ukladat
 		$file_name = $this->get_pohoda_file_name();
-		
+
 		// ulozim vystup do souboru
 		if (file_put_contents(POHODA_EXPORT_DIR . DS . $file_name, $output)) {
 			return $file_name;
@@ -974,27 +979,6 @@ class Order extends AppModel {
 	
 	function get_pohoda_file_name() {
 		return 'pohoda-export.xml';
-		
-		$exports = scandir(POHODA_EXPORT_DIR, 1);
-		$dir_prefix = function($file) {
-			return POHODA_EXPORT_DIR . DS . $file;
-		};
-		$exports = array_map($dir_prefix, $exports);
-		$exports = array_filter($exports, 'is_file');
-		if (empty($exports)) {
-			$file_name = '1.xml';
-		} else {
-			$last_file = $exports[0];
-			$last_file = str_replace(POHODA_EXPORT_DIR . DS, '', $last_file);
-			$last_file = explode('.', $last_file);
-			
-			$last_file = $last_file[0];
-			$file_name = $last_file + 1 . '.xml';
-		}
-		
-		$file_name = POHODA_EXPORT_DIR . DS . $file_name;
-
-		return $file_name;
 	}
 	
 	function set_attribute($order_ids, $name, $value) {
