@@ -141,7 +141,12 @@ class CategoriesProductsController extends AppController {
 		$this->set('_title', $_title);
 		$this->set('_description', $_description);
 		// nastavim zobrazovany banner
-		$this->set('category_banner', unserialize(CATEGORY_BANNER));
+		$category_banner = unserialize(CATEGORY_BANNER);
+		// pokud jsem v podstromu proteinovych kategorii, chci nastavit jiny banner
+		if (in_array($id, $this->CategoriesProduct->Category->subtree_ids(16))) {
+			$category_banner = array('href' => '/deluxe-60g-p4215', 'src' => '/images/protein-category-banner.gif');
+		}
+		$this->set('category_banner', $category_banner);
 		// nejprodavanejsi produkty
 		App::import('Model', 'CustomerType');
 		$this->CustomerType = new CustomerType;
