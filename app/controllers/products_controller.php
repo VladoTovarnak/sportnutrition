@@ -1499,9 +1499,10 @@ class ProductsController extends AppController {
 		$this->redirect(array('controller' => 'products', 'action' => 'attributes_list', $id));
 	}
 	
-	function admin_comparator_undecided($comparator_id) {
+	function admin_comparator_undecided($comparator_id = null) {
 		if (!$comparator_id) {
 			$comparator_id = 3;
+			$this->redirect(array('controller' => 'products', 'action' => 'comparator_undecided', $comparator_id));
 		}
 		
 		$products = $this->Product->find('all', array(

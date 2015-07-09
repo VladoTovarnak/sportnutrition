@@ -15,7 +15,7 @@
 		<li><a href="#">Zboží</a>
 			<ul>
 				<li><?php echo $this->Html->link('Produkty', array('controller' => 'products', 'action' => 'index'))?></li>
-				<li><?php echo $this->Html->link('GMC feed hromadně', array('controller' => 'products', 'action' => 'comparator_undecided'))?></li>
+				<li><?php echo $this->Html->link('GMC feed hromadně', array('controller' => 'products', 'action' => 'comparator_undecided', 3))?></li>
 				<li><?php echo $this->Html->link('Kategorie', array('controller' => 'categories', 'action' => 'index'))?></li>
 				<li><?php echo $this->Html->link('Výrobci', array('controller' => 'manufacturers', 'action' => 'index'))?></li>
 			</ul>
