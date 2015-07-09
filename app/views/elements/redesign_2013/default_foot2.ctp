@@ -161,6 +161,7 @@ window._fbq.push(['track', 'PixelInitialized', {}]);
 <script type="text/javascript">
 $(document).ready(function() {
 	PERSONAL_PURCHASE_SHIPPING_ID = parseInt(<?php echo PERSONAL_PURCHASE_SHIPPING_ID?>);
+	ON_POST_SHIPPING_ID = parseInt(<?php echo ON_POST_SHIPPING_ID?>);
 	
 	// zobrazit form pro prihlaseni, pokud jsem zaskrtnul, ze zakaznik je jiz registrovany
 	if ($('#CustomerIsRegistered1').is(':checked')) {
@@ -188,9 +189,15 @@ $(document).ready(function() {
 		}
 	});
 
+	// vstoupim na stranku a mam zaskrtnut osobni odber (napr pri chybe ve validaci)
 	if ($('OrderShippingId' . PERSONAL_PURCHASE_SHIPPING_ID).is(':checked')) {
 		$('#InvoiceAddressBox').hide();
 		$('#DeliveryAddressBox').hide();
+	}
+
+	// vstoupim na stranku a mam zaskrtnutou dopravu na postu (napr pri chybe ve validaci)
+	if ($('OrderShippingId' . ON_POST_SHIPPING_ID).is(':checked')) {
+		$('#InvoiceAddressBox').hide();
 	}
 
 	// pri zmene dopravy chci prepsat jeji cenu v kosiku 
@@ -204,10 +211,113 @@ $(document).ready(function() {
 		if (shippingId == PERSONAL_PURCHASE_SHIPPING_ID) {
 			$('#InvoiceAddressBox').hide();
 			$('#DeliveryAddressBox').hide();
+		// pokud chci balik na postu
+		} else if (shippingId == ON_POST_SHIPPING_ID) {
+			// skryt pole pro zadani dorucovaci adresy
+			$('#DeliveryAddressBox').hide();
+			// zobrazit pole pro zadani fakturacni adresy
+			$('#InvoiceAddressBox').show();
+			// a nemam zadane PSC, kam chci poslat zasilku
+			var zip = $('#Address1Zip').val();
+			if (zip == '') {
+				postOfficeChoice();
+			}
 		} else {
 			$('#InvoiceAddressBox').show();
 			$('#DeliveryAddressBox').show();			
 		}
+
+	});
+
+	// pokud chci vybrat pobocku posty
+	$('#PostOfficeChoiceLink').click(function(e) {
+		e.preventDefault();
+		// skryt pole pro zadani dorucovaci adresy
+		$('#DeliveryAddressBox').hide();
+		// zobrazit pole pro zadani fakturacni adresy
+		$('#InvoiceAddressBox').show();
+		postOfficeChoice();
+	});
+
+	function postOfficeChoice() {
+		// zobrazit form pro vyber pobocky
+		$.fancybox(
+			$('#PostOfficeChoice').html(), {
+				'autoSize'		    : true,
+				'transitionIn'      : 'none',
+				'transitionOut'     : 'none',
+				'hideOnContentClick': false,
+				'autoResize': true,
+			}
+        );
+	}
+
+	// odeslani formulare pro vyber pobocky posty
+	$(document).on('submit', '#PostOfficeChoiceForm', function(e) {
+		e.preventDefault();
+		$('.no-input').hide();
+		$('.empty-output').hide();
+		$('.post-offices-list').empty();
+		
+		var zip = $(this).find('#PostOfficePSC').val();
+		var city = $(this).find('#PostOfficeNAZPROV').val();
+		if (zip == '' && city == '') {
+			$('.no-input').show();
+			$('.post-offices-list').empty();
+		} else {
+			$.ajax({
+				url: '/post_offices/ajax_search',
+				method: 'POST',
+				dataType: 'json',
+				data: {
+					zip: zip,
+					city: city,
+					type: 'post_office'
+				},
+				success: function(data) {
+					if (data.success) {
+						$('.post-offices-list').empty();
+						var postOffices = data.data;
+						if (postOffices.length == 0) {
+							$('.empty-output').show();
+						} else {
+							$('.post-offices-list').append(drawPostOfficesDiv(postOffices));
+						}
+					} else {
+						alert(data.message);
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					alert(textStatus);
+				},
+				complete: function(jqXHR, textStatus) {
+					$.fancybox.update();
+				}
+			});
+		}
+	});
+
+	function drawPostOfficesDiv(postOffices) {
+		var content = '<h2>Vyberte vaši pobočku</h2>';
+		content += '<table style="width:100%" class="content-table"><thead><tr><th>PSČ</th><th>Adresa</th><th>&nbsp;</th></tr></thead><tbody>';
+		for (i=0; i<postOffices.length; i++) {
+			postOffice = postOffices[i];
+			content += '<tr><td>' + postOffice.PostOffice.PSC + '</td><td>' + postOffice.PostOffice.ADRESA + '</td><td><a href="#" class="choose-post-office-link button_like_link silver" data-post-office-id="' + postOffice.PostOffice.id + '" data-post-office-zip="' + postOffice.PostOffice.PSC + '" data-post-office-address="' + postOffice.PostOffice.ADRESA + '">Vybrat</a></td></tr>';
+		}
+		content += '</tbody></table>';
+		return content;
+	}
+
+	// vybiram pobocku posty pro doruceni baliku na postu
+	$(document).on('click', '.choose-post-office-link', function(e) {
+		e.preventDefault();
+		var postOfficeId = $(this).attr('data-post-office-id');
+		var postOfficeZip = $(this).attr('data-post-office-zip');
+		var postOfficeAddress = $(this).attr('data-post-office-address');
+		// zapamatuju si PSC vybrane posty v dorucovaci adrese
+		$('#Address1Zip').val(postOfficeZip);
+		$('#PostOfficeChoiceLink').text(postOfficeAddress);
+		$.fancybox.close();
 	});
 
 	// pri zmene zpusobu platby chci prepsat cenu dopravy v kosiku 
@@ -323,6 +433,21 @@ $(document).ready(function() {
 			if (!skipTarget) {
 				skipTarget = '#ShippingInfo';
 			}
+		} else {
+			// pokud je doprava na postu, mam vybranou pobocku?
+			if (shippingId == ON_POST_SHIPPING_ID) {
+				var postOfficeZip = $('#Address1Zip').val();
+				if (typeof(postOfficeZip) == 'undefined' || postOfficeZip == '') {
+					messageOpenings.push(flashOpening());
+					messageClosings.push(flashClosing());
+					messageTexts.push('Vyberte prosím pobočku České pošty, kam si přejete zboží doručit.');
+					messageTargets.push(element);
+					messageMethods.push('before');
+					if (!skipTarget) {
+						skipTarget = '#ShippingInfo';
+					}
+				}
+			}
 		}
 
 		// je vybrana platba?
@@ -428,7 +553,7 @@ $(document).ready(function() {
 		}
 
 		var invoiceAddressValid = true;
-		// u dopravy osobnim odberem nechci validovat adresu)
+		// u dopravy osobnim odberem nechci validovat fakturacni adresu
 		if (shippingId != PERSONAL_PURCHASE_SHIPPING_ID) {
 			// ulice
 			// smazu message, pokud byla zobrazena
@@ -498,7 +623,7 @@ $(document).ready(function() {
 		}
 
 		var deliveryAddressValid = true;
-		if (shippingId != PERSONAL_PURCHASE_SHIPPING_ID) {
+		if (shippingId != PERSONAL_PURCHASE_SHIPPING_ID && shippingId != ON_POST_SHIPPING_ID) {
 			// mam zaskrtnuto, ze je dorucovaci odlisna od fakturacni?
 			isDeliveryAddressDifferent = $('#isDifferentAddressCheckbox').prop('checked');
 			

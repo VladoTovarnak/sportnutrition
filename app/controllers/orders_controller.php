@@ -1006,7 +1006,7 @@ class OrdersController extends AppController {
 			$this->Session->setFlash('Není zvolena doprava pro Vaši objednávku', REDESIGN_PATH . 'flash_failure');
 			$this->redirect(array('controller' => 'carts_products', 'action' => 'index'));
 		}
-		
+
 		$sess_customer = $this->Session->read('Customer');
 		$customer['Customer'] = $sess_customer;
 		$order = $this->Session->read('Order');
@@ -1291,6 +1291,19 @@ class OrdersController extends AppController {
 							// pokud neni zvolena doprava osobnim odberem
 							if ($shipping_id == PERSONAL_PURCHASE_SHIPPING_ID) {
 								unset($this->data['Address']);
+							// je zvolena doprava na postu?
+							} elseif ($shipping_id == ON_POST_SHIPPING_ID) {
+								// zapamatuju si psc pobocky, na kterou chci poslat zasilku
+								$branch_zip = $this->data['Address'][1]['zip'];
+								$this->data['Address'][0]['name'] = $this->data['Customer']['first_name'] . ' ' . $this->data['Customer']['last_name'];
+								$this->data['Address'][1]['name'] = $this->data['Address'][0]['name'];
+								$this->data['Address'][1]['street'] = $this->data['Address'][0]['street'];
+								$this->data['Address'][1]['street_no'] = $this->data['Address'][0]['street_no'];
+								$this->data['Address'][1]['city'] = $this->data['Address'][0]['city'];
+								$this->data['Address'][1]['zip'] = $this->data['Address'][0]['zip'];
+								$this->data['Address'][1]['state'] = $this->data['Address'][0]['state'];
+								
+								$address_data = $this->data['Address'];
 							} else {
 								// dogeneruju si nazev do adresy
 								$this->data['Address'][0]['name'] = $this->data['Customer']['first_name'] . ' ' . $this->data['Customer']['last_name'];
@@ -1336,6 +1349,10 @@ class OrdersController extends AppController {
 								}
 								if (isset($this->data['Address'][0])) {
 									$this->Session->write('Address_payment', $this->data['Address'][0]);
+								}
+								// pokud mam doruceni na postu, v predchozim prubehu jsem si zapamatoval jeji PSC a ted si ho musim zapsat do sesny, abych si ho pozdeji vytahl a pridal k objednavce
+								if (isset($branch_zip)) {
+									$this->Session->write('branch_zip', $branch_zip);
 								}
 								
 								$this->Session->write('Order', $this->data['Order']);
@@ -1484,6 +1501,7 @@ class OrdersController extends AppController {
 		$this->Session->delete('Address_payment');
 		$this->Session->delete('cpass');
 		$this->Session->delete('login');
+		$this->Session->delete('branch_zip');
 				
 		// nastavim si pro menu zakladni idecko
 		$this->set('opened_category_id', ROOT_CATEGORY_ID);
