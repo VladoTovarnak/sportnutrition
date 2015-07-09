@@ -9,10 +9,10 @@ if ($this->Session->check('Message.flash')) {
 }
 ?>
 <? if (empty($cart_products)) { ?>
-	<p>Nákupní košík je prázdný.</p>
-	<?php echo $this->Html->link('Zpět do obchodu', '/', array('class' => 'button_like_link red'))?>
+	<p class="empty_cart">Nákupní košík zatím zeje prázdnotou. Vložte produkty, které chcete objednat, do košíku.</p>
+	<?php echo $this->Html->link('Zpět do obchodu', $back_shop_url, array('class' => 'button_like_link red'))?>
 <? } else { ?>
-	<table id="cartContents" cellpadding="0" cellspacing="0">
+	<table class="cart-contents" cellpadding="0" cellspacing="0">
 		<tr>
 			<th style="width:60%">Název produktu</th>
 			<th style="width:16%">Množství</th>
@@ -67,15 +67,11 @@ if ($this->Session->check('Message.flash')) {
 			?></td>
 		</tr>
 <?php	} ?>
-		<tr>
-			<th colspan="2" align="right">cena za zboží celkem:</th>
-			<td colspan="2" align="right"><strong><span class="final-price"><?php echo intval($final_price) ?></span> Kč</strong></td>
-			<td>&nbsp;</td>
-		</tr>
+		<?php echo $this->element(REDESIGN_PATH . 'one_step_order_table_footer', array('final_price' => $final_price, 'shipping_price' => $shipping_price, 'type' => 'cart_summary'))?>
 	</table>
 
 <?php echo $this->Html->link('Přejít k objednání', '#OrderDetails', array('class' => 'button_like_link red'))?>&nbsp;
-<?php echo $this->Html->link('Zpět do obchodu', '/', array('class' => 'button_like_link silver'))?>
+<?php echo $this->Html->link('Zpět do obchodu', $back_shop_url, array('class' => 'button_like_link silver'))?>
 
 <div class="clearer"></div>
 <h2 id="OrderDetails">Objednávka</h2>
@@ -134,16 +130,22 @@ if ($this->Session->check('Message.flash')) {
 
 <h3 id="ShippingInfo"><span>&rarr;</span>&nbsp;Vyberte: způsob dopravy</h3>
 <?php echo $this->Form->create('Order', array('url' => array('controller' => 'orders', 'action' => 'one_step_order', '#CustomerInfo'), 'encoding' => false))?>
+<?php 
+// flash, pokud je chyba ve formu pro udaje o zakaznikovi
+if ($this->Session->check('Message.flash')) {
+	$flash = $this->Session->read('Message.flash');
+	if (isset($flash['params']['type']) && $flash['params']['type'] == 'shipping_info') {
+		echo $this->Session->flash();
+	}
+}
+?>
 <?php if (!empty($shippings)) { ?>
-<table>
+<table id="ShippingChoiceTable">
 <?php
 	$first = true;
 	foreach ($shippings as $shipping) { 
 		$checked = '';
 		if (isset($this->data['Order']['shipping_id']) && $this->data['Order']['shipping_id'] == $shipping['Shipping']['id']) {
-			$checked = ' checked="checked"';
-		}
-		if (!isset($this->data['Order']['shipping_id']) && $first) {
 			$checked = ' checked="checked"';
 		}
 ?>
@@ -158,9 +160,9 @@ if ($this->Session->check('Message.flash')) {
 </table>
 <?php } ?>
 
-<h3><span>&rarr;</span>&nbsp;Vyberte: způsob platby</h3>
+<h3 id="PaymentInfo"><span>&rarr;</span>&nbsp;Vyberte: způsob platby</h3>
 <?php if (!empty($payments)) { ?>
-<table>
+<table id="PaymentChoiceTable">
 <?php
 	$first = true;
 	foreach ($payments as $payment) {
@@ -226,60 +228,70 @@ if ($this->Session->check('Message.flash')) {
 		<td><?php echo $this->Form->input('Customer.dic', array('label' => false, 'class' => 'content'))?></td>
 	</tr>
 </table>
-<h3><span>&rarr;</span>&nbsp;Fakturační adresa</h3>
-<table id="InvoiceAddressTable"  class="customer_info_form">
-	<tr>
-		<th>Ulice<sup>*</sup></th>
-		<td><?php echo $this->Form->input('Address.0.street', array('label' => false, 'class' => 'content'))?></td>
-	</tr>
-	<tr>
-		<th>Číslo popisné</th>
-		<td><?php echo $this->Form->input('Address.0.street_no', array('label' => false))?></td>
-	</tr>
-	<tr>
-		<th>Město<sup>*</sup></th>
-		<td><?php echo $this->Form->input('Address.0.city', array('label' => false, 'class' => 'content'))?></td>
-	</tr>
-	<tr>
-		<th>PSČ<sup>*</sup></th>
-		<td><?php echo $this->Form->input('Address.0.zip', array('label' => false))?></td>
-	</tr>
-	<tr>
-		<th>Stát</th>
-		<td><?php echo $this->Form->input('Address.0.state', array('label' => false, 'type' => 'select', 'options' => array('Česká republika' => 'Česká republika', 'Slovensko' => 'Slovensko'))); ?></td>
-	</tr>
-</table>
 
-<h3><span>&rarr;</span>&nbsp;Doručovací adresa</h3>
-<?php echo $this->Form->input('Customer.is_delivery_address_different', array('label' => 'Chci vyplnit jinou adresu doručení než je fakturační', 'type' => 'checkbox', 'id' => 'isDifferentAddressCheckbox'))?>
+<div id="InvoiceAddressBox">
+	<h3 id="InvoiceAddressInfo"><span>&rarr;</span>&nbsp;Fakturační adresa</h3>
+	<table id="InvoiceAddressTable"  class="customer_info_form">
+		<tr>
+			<th>Ulice<sup>*</sup></th>
+			<td><?php echo $this->Form->input('Address.0.street', array('label' => false, 'class' => 'content'))?></td>
+		</tr>
+		<tr>
+			<th>Číslo popisné</th>
+			<td><?php echo $this->Form->input('Address.0.street_no', array('label' => false))?></td>
+		</tr>
+		<tr>
+			<th>Město<sup>*</sup></th>
+			<td><?php echo $this->Form->input('Address.0.city', array('label' => false, 'class' => 'content'))?></td>
+		</tr>
+		<tr>
+			<th>PSČ<sup>*</sup></th>
+			<td><?php echo $this->Form->input('Address.0.zip', array('label' => false))?></td>
+		</tr>
+		<tr>
+			<th>Stát</th>
+			<td><?php echo $this->Form->input('Address.0.state', array('label' => false, 'type' => 'select', 'options' => array('Česká republika' => 'Česká republika', 'Slovensko' => 'Slovensko'))); ?></td>
+		</tr>
+	</table>
+</div>
 
-<?php 
-	$class = ' class="neukazovat customer_info_form"';
-	if (isset($this->data['Customer']) && array_key_exists('is_delivery_address_different', $this->data['Customer']) && $this->data['Customer']['is_delivery_address_different']) {
-		$class = ' class="customer_info_form"';
-	}
-?>
-<table id="DeliveryAddressTable"<?php echo $class?>>
-	<tr>
-		<th>Ulice<sup>*</sup></th>
-		<td><?php echo $this->Form->input('Address.1.street', array('label' => false, 'class' => 'content'))?></td>
-	</tr>
-	<tr>
-		<th>Číslo popisné</th>
-		<td><?php echo $this->Form->input('Address.1.street_no', array('label' => false))?></td>
-	</tr>
-	<tr>
-		<th>Město<sup>*</sup></th>
-		<td><?php echo $this->Form->input('Address.1.city', array('label' => false, 'class' => 'content'))?></td>
-	</tr>
-	<tr>
-		<th>PSČ<sup>*</sup></th>
-		<td><?php echo $this->Form->input('Address.1.zip', array('label' => false))?></td>
-	</tr>
-	<tr>
-		<th>Stát</th>
-		<td><?php echo $this->Form->input('Address.1.state', array('label' => false, 'type' => 'select', 'options' => array('Česká republika' => 'Česká republika', 'Slovensko' => 'Slovensko'))); ?></td>
-	</tr>
+<div id="DeliveryAddressBox">
+	<h3 id="DeliveryAddressInfo"><span>&rarr;</span>&nbsp;Doručovací adresa</h3>
+	<?php echo $this->Form->input('Customer.is_delivery_address_different', array('label' => 'Chci vyplnit jinou adresu doručení než je fakturační', 'type' => 'checkbox', 'id' => 'isDifferentAddressCheckbox'))?>
+	
+	<?php 
+		$class = ' class="neukazovat customer_info_form"';
+		if (isset($this->data['Customer']) && array_key_exists('is_delivery_address_different', $this->data['Customer']) && $this->data['Customer']['is_delivery_address_different']) {
+			$class = ' class="customer_info_form"';
+		}
+	?>
+	<table id="DeliveryAddressTable"<?php echo $class?>>
+		<tr>
+			<th>Ulice<sup>*</sup></th>
+			<td><?php echo $this->Form->input('Address.1.street', array('label' => false, 'class' => 'content'))?></td>
+		</tr>
+		<tr>
+			<th>Číslo popisné</th>
+			<td><?php echo $this->Form->input('Address.1.street_no', array('label' => false))?></td>
+		</tr>
+		<tr>
+			<th>Město<sup>*</sup></th>
+			<td><?php echo $this->Form->input('Address.1.city', array('label' => false, 'class' => 'content'))?></td>
+		</tr>
+		<tr>
+			<th>PSČ<sup>*</sup></th>
+			<td><?php echo $this->Form->input('Address.1.zip', array('label' => false))?></td>
+		</tr>
+		<tr>
+			<th>Stát</th>
+			<td><?php echo $this->Form->input('Address.1.state', array('label' => false, 'type' => 'select', 'options' => array('Česká republika' => 'Česká republika', 'Slovensko' => 'Slovensko'))); ?></td>
+		</tr>
+	</table>
+</div>
+<br/>
+<h3><span>&rarr;</span>&nbsp;Rekapitulace ceny objednávky</h3>
+<table class="cart-contents" cellpadding="0" cellspacing="0">
+<?php echo $this->element(REDESIGN_PATH . 'one_step_order_table_footer', array('final_price' => $final_price, 'shipping_price' => $shipping_price, 'type' => 'bottom_summary'))?>
 </table>
 
 <?php 
@@ -298,3 +310,4 @@ if ($this->Session->check('Message.flash')) {
 
 } // konec nakupni kosik neni prazdny
 ?>
+<div class="modal"><!-- Place at bottom of page --></div>

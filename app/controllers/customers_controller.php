@@ -719,7 +719,7 @@ class CustomersController extends AppController {
 		);
 		$this->set('breadcrumbs', $breadcrumbs);
 
-		if ( isset($this->data) ){
+		if (isset($this->data)) {
 
 			// zakladni nastaveni pro presmerovani
 			$backtrace_url = array(
@@ -734,7 +734,6 @@ class CustomersController extends AppController {
 
 			$conditions = array(
 				'CustomerLogin.login' => $this->data['Customer']['login'],
-				'CustomerLogin.password' => md5($this->data['Customer']['password']),
 				'Customer.active' => true
 			);
 			
@@ -879,30 +878,35 @@ class CustomersController extends AppController {
 					// prihlasim
 					
 				} else {
-					$this->Session->setFlash('Neplatný login nebo heslo!', REDESIGN_PATH . 'flash_failure');
+					$this->Session->setFlash('Uživatelský účet se zadaným loginem neexistuje. Zadejte prosím přihlašovací údaje znovu.', REDESIGN_PATH . 'flash_failure');
 				}
 			} else {
-				// ulozim si info o zakaznikovi do session
-				$this->Session->write('Customer', $customer['Customer']);
-				
-				// ze session odstranim data o objednavce,
-				// pokud se snazil zakaznik pred prihlasenim neco
-				// vyplnovat v objednavce, delalo by mi to bordel
-				$this->Session->delete('Order');
-				
-				// na pocitadle si inkrementuju pocet prihlaseni
-				$customer_update = array(
-					'Customer' => array(
-						'id' => $customer['Customer']['id'],
-						'login_count' => $customer['Customer']['login_count'] + 1,
-						'login_date' => date('Y-m-d H:i:s')
-					)
-				);
-				$this->Customer->save($customer_update);
-				
-				// presmeruju
-				$this->Session->setFlash('Jste přihlášen(a) jako ' . $customer['Customer']['first_name'] . ' ' . $customer['Customer']['last_name'] . '.', REDESIGN_PATH . 'flash_success');
-				$this->redirect($backtrace_url, null, true);
+				$pwd_hash = md5($this->data['Customer']['password']);
+				if ($customer['CustomerLogin']['password'] != $pwd_hash) {
+					$this->Session->setFlash('Uživatelský účet se zadaným heslem neexistuje. Zadejte prosím přihlašovací údaje znovu. Pokud si heslo nepamatujete, můžete <a href="/obnova-hesla">požádat o jeho obnovení</a>.', REDESIGN_PATH . 'flash_failure');
+				} else {
+					// ulozim si info o zakaznikovi do session
+					$this->Session->write('Customer', $customer['Customer']);
+					
+					// ze session odstranim data o objednavce,
+					// pokud se snazil zakaznik pred prihlasenim neco
+					// vyplnovat v objednavce, delalo by mi to bordel
+					$this->Session->delete('Order');
+					
+					// na pocitadle si inkrementuju pocet prihlaseni
+					$customer_update = array(
+						'Customer' => array(
+							'id' => $customer['Customer']['id'],
+							'login_count' => $customer['Customer']['login_count'] + 1,
+							'login_date' => date('Y-m-d H:i:s')
+						)
+					);
+					$this->Customer->save($customer_update);
+					
+					// presmeruju
+					$this->Session->setFlash('Jste přihlášen(a) jako ' . $customer['Customer']['first_name'] . ' ' . $customer['Customer']['last_name'] . '.', REDESIGN_PATH . 'flash_success');
+					$this->redirect($backtrace_url, null, true);
+				}
 			}
 		}
 	}
@@ -980,7 +984,8 @@ class CustomersController extends AppController {
 				'Order.delivery_zip',
 				'Order.delivery_city',
 				'Order.delivery_state',
-				'Order.comments'
+				'Order.comments',
+				'Order.shipping_id'
 			)
 		));
 

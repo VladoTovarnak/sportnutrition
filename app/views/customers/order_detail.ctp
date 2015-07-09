@@ -45,24 +45,25 @@
 	</tr>
 	<?php } ?>
 </table>
-
+<?php if ($order['Order']['shipping_id'] != PERSONAL_PURCHASE_SHIPPING_ID) { ?>
 <table>
 	<tr>
 		<th>Fakturační adresa</th>
 		<th>Doručovací adresa</th>
 	</tr>
 	<tr>
-		<td>
-			<?=$order['Order']['customer_name']?><br />
-			<?=$order['Order']['customer_street']?><br />
-			<?=$order['Order']['customer_zip'] . ' ' . $order['Order']['customer_city']?><br />
-			<?=$order['Order']['customer_state']?><br />
-		</td>
-		<td>
-			<?=$order['Order']['delivery_name']?><br />
-			<?=$order['Order']['delivery_street']?><br />
-			<?=$order['Order']['delivery_zip'] . ' ' . $order['Order']['delivery_city']?><br />
-			<?=$order['Order']['delivery_state']?><br />
-		</td>
+		<td><?php
+			echo $order['Order']['customer_name'] . '<br />';
+			echo $order['Order']['customer_street']  . '<br />';
+			echo $order['Order']['customer_zip'] . ' ' . $order['Order']['customer_city'] . '<br />';
+			echo $order['Order']['customer_state'];
+		?></td>
+		<td><?php 
+			echo $order['Order']['delivery_name'] . '<br />';
+			echo $order['Order']['delivery_street'] . '<br />';
+			echo $order['Order']['delivery_zip'] . ' ' . $order['Order']['delivery_city'] . '<br />';
+			echo $order['Order']['delivery_state'];
+		?></td>
 	</tr>
 </table>
+<?php } ?>

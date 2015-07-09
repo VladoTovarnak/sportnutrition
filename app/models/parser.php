@@ -3,6 +3,11 @@ class Parser extends AppModel {
 	var $useTable = false;
 	
 	function nutrend_product($feed_product) {
+		$manufacturer_id = null;
+		if ($this->manufacturer_id) {
+			$manufacturer_id = $this->manufacturer_id;
+		}
+
 		$product = array();
 		// atributy produktu
 		try {
@@ -32,20 +37,18 @@ class Parser extends AppModel {
 			$supplier_product_id = $this->nutrend_product_supplier_product_id($feed_product);
 			// 		- dostupnost
 			$availability_id = 1;
-			// 		- vyrobce
-			$manufacturer_id = 14;
 			// 		- danova trida
 			$tax_class_id = $this->nutrend_product_tax_class_id($feed_product);
 			//		- dalsi nastaveni
 			$active = false;
 			$feed = false;
-			$supplier_id = 14;
+			$supplier_id = $manufacturer_id;
 		} catch (Exception $e) {
 			debug($feed_product);
 			debug($e->getMessage());
 			return false;
 		}
-		
+
 		$product = array(
 			'Product' => array(
 				'name' => $name,
@@ -73,38 +76,35 @@ class Parser extends AppModel {
 	}
 		
 	function nutrend_product_name($feed_product) {
-		return $feed_product->PRODUCT->__toString();
+		return $feed_product->PRODUCTNAME->__toString();
 	}
 	
 	function nutrend_product_heading($feed_product) {
-		return $feed_product->PRODUCT->__toString();
+		return $feed_product->PRODUCTNAME->__toString();
 	}
 	
 	function nutrend_product_breadcrumb($feed_product) {
-		return $feed_product->PRODUCT->__toString();
+		return $feed_product->PRODUCTNAME->__toString();
 	}
 	
 	function nutrend_product_related_name($feed_product) {
-		return $feed_product->PRODUCT->__toString();
+		return $feed_product->PRODUCTNAME->__toString();
 	}
 	
 	function nutrend_product_zbozi_name($feed_product) {
-		return $feed_product->PRODUCT->__toString();
+		return $feed_product->PRODUCTNAME->__toString();
 	}
 	
 	function nutrend_product_title($feed_product) {
-		return $feed_product->PRODUCT->__toString();
+		return $feed_product->PRODUCTNAME->__toString();
 	}
 	
 	function nutrend_product_short_description($feed_product) {
-		return $feed_product->ANOTATION->__toString();;
+		return 'MadMax ' . $feed_product->PRODUCTNAME->__toString();
 	}
 	
 	function nutrend_product_description($feed_product) {
-		$description = '';
-		foreach ($feed_product->DESCRIPTIONS as $item) {
-			$description .= $item->ITEM->__toString();
-		}
+		$description = $feed_product->DESCRIPTION->__toString();
 		$description = str_replace('<![CDATA[', '', $description);
 		$description = str_replace(']]>', '', $description);
 		$description = trim($description);
@@ -120,22 +120,26 @@ class Parser extends AppModel {
 	}
 	
 	function nutrend_product_supplier_product_id($feed_product) {
-		return $feed_product->CODE->__toString();
+		return $feed_product->PRODUCTNAME->__toString();
 	}
 	
 	function nutrend_product_tax_class_id($feed_product) {
-		$tax_class = $feed_product->VAT->__toString();
+		$price = $feed_product->PRICE->__toString();
+		$price_vat = $feed_product->PRICE_VAT->__toString();
+		$tax_class = false;
+		if ($price && $price_vat) {
+			$tax_class = round((100 * $price_vat / $price) - 100);
+		}
 		if (!$tax_class) {
-			throw new Exception('CHYBA PARSOVANI DANOVE TRIDY - Nepodařilo se vyparsovat daňovou třídu');
-			return false;
+			$tax_class = 21;
 		}
 		$tax_class_id = false;
 		App::import('Model', 'Product');
 		$this->Product = &new Product;
 		$db_tax_class = $this->Product->TaxClass->find('first', array(
-				'conditions' => array('TaxClass.value' => $tax_class),
-				'contain' => array(),
-				'fields' => array('TaxClass.id')
+			'conditions' => array('TaxClass.value' => $tax_class),
+			'contain' => array(),
+			'fields' => array('TaxClass.id')
 		));
 		if (empty($db_tax_class)) {
 			throw new Exception('CHYBA PARSOVANI DANOVE TRIDY - Nepodařilo se nalézt daňovou třídu s hodnotou ' . $tax_class);
@@ -148,6 +152,15 @@ class Parser extends AppModel {
 	
 	function nutrend_image_url($feed_product) {
 		return $feed_product->IMGURL->__toString();
+	}
+	
+	function images_urls($feed_product) {
+		$urls = $feed_product->IMGURL;
+		$res = array();
+		foreach ($urls as $url) {
+			$res[] = $url->__toString();
+		}
+		return $res;
 	}
 	
 	function nutrend_image_save($product_id, $image_url) {
@@ -163,12 +176,13 @@ class Parser extends AppModel {
 			if (empty($db_image)) {
 				// nahraju obrazek
 				$image_name = $this->Product->image_name($product_id);
+				$is_main = $this->Product->Image->isMain($product_id);
 
 				$save_image = array(
 					'Image' => array(
 						'name' => $image_name,
 						'product_id' => $product_id,
-						'is_main' => true,
+						'is_main' => $is_main,
 						'supplier_url' => $image_url
 					)
 				);
@@ -217,6 +231,99 @@ class Parser extends AppModel {
 			}
 		}
 		return false;
+	}
+	
+	function zbozi_subproducts($feed_product, $product_id) {
+		$variants = $feed_product->VARIANT;
+		$res = array();
+		
+		App::import('Model', 'Attribute');
+		$this->Attribute = &new Attribute;
+
+		$variant_info_separator = ';';
+		$attribute_info_separator = ':';
+		
+		$subproducts = array();
+		
+		foreach ($variants as $variant) {
+			$variant_info = $variant->PRODUCTNAMEEXT->__toString();
+			$variant_price = $variant->PRICE_VAT->__toString();
+			// predpokladam, ze info a variante produktu je ulozeno ve tvaru Option1:Attribute1;Option2=Attribute2'..., takze napr: Velikost: S;Barva: bila
+			$variant_info = explode($variant_info_separator, $variant_info);
+			$attribute_ids = array();
+			foreach ($variant_info as $attribute_info) {
+				$attribute_info = explode($attribute_info_separator, $attribute_info);
+				if (count($attribute_info) != 2) {
+					debug($attribute_info);
+					trigger_error('Nepodarilo se vyparsovat varianty produktu ' . $product_id, E_USER_NOTICE);
+					return false;
+				} else {
+					$option_name = trim($attribute_info[0]);
+					$attribute_value = trim($attribute_info[1]);
+					
+					$db_option = $this->Attribute->Option->findByName($option_name);
+					if (empty($db_option)) {
+						$option_save = array(
+							'Option' => array(
+								'name' => $option_name
+							)
+						);
+						$this->Attribute->Option->create();
+						if ($this->Attribute->Option->save($option_save)) {
+							$option_id = $this->Attribute->Option->id;
+						} else {
+							debug($option_save);
+							trigger_error('Nepodarilo se ulozit nazev tridy atributu ' . $option_name, E_USER_NOTICE);
+							return false;
+						}
+					} else {
+						$option_id = $db_option['Option']['id'];
+					}
+					
+					$db_attribute = $this->Attribute->findByValue($option_id, $attribute_value);
+					if (empty($db_attribute)) {
+						$attribute_save = array(
+							'Attribute' => array(
+								'option_id' => $option_id,
+								'value' => $attribute_value
+							)
+						);
+						$this->Attribute->create();
+						if ($this->Attribute->save($attribute_save)) {
+							$attribute_id = $this->Attribute->id;
+						} else {
+							debug($attribute_save);
+							trigger_error('Nepodarilo se ulozit hodnotu atributu ' . $attribute_value, E_USER_NOTICE);
+							return false;
+						}
+					} else {
+						$attribute_id = $db_attribute['Attribute']['id'];
+					}
+					
+					$attribute_ids[] = $attribute_id;
+				}
+			}
+			if (empty($attribute_ids)) {
+				trigger_error('Nepodarilo se vyparsovat atributy?', E_USER_NOTICE);
+				return false;
+			} else {
+				$product_price = $this->nutrend_product_retail_price_with_dph($feed_product, 'PRICE_VAT');
+				// vygeneruju subproduct
+				$subproduct = array(
+					'Subproduct' => array(
+						'price_with_dph' => $product_price - $variant_price,
+						'active' => true,
+						'product_id' => $product_id
+					),
+					'AttributesSubproduct' => array()
+				);
+				foreach ($attribute_ids as $attribute_id) {
+					$subproduct['AttributesSubproduct'][] = array('attribute_id' => $attribute_id);
+				}
+				$subproducts[] = $subproduct;
+			}
+		}
+		return $subproducts;
 	}
 }
 ?>

@@ -814,6 +814,27 @@ table.customer_info_form th{
 	font-weight: bold;
 }
 
+#order_process p.empty_cart{
+	margin: 0px 0px 45px 45px;
+	font-size: 22px;
+	color: #000;
+	font-style: italic;
+}
+
+#order_process p.finished_first{
+	margin: 50px 0px 15px 45px;
+	font-size: 22px;
+	color: #000;
+	font-style: italic;
+}
+
+#order_process p.finished_second{
+	margin: 0px 0px 25px 45px;
+	font-size: 22px;
+	color: #000;
+	font-style: italic;
+}
+
 #main h3 a {
 	text-decoration: none;
 	color: #E2001A;
@@ -1438,26 +1459,26 @@ div.right_sidebar_product span.regular_price{
 	font-weight:bold;
 }
 
-#cartContents {
+#cartContents, .cart-contents {
 	font-size: 18px;
 }
 
-#cartContents .image-holder {
+#cartContents .image-holder, .cart-contents .image-holder {
 	margin: 3px 5px;
 }
 
-#cartContents .cart-product-info {
+#cartContents .cart-product-info, , .cart-contents .cart-product-info {
 	 position:absolute;
 	 top:30%;
 	 left: 65px;
 	 height:60px;
 }
 
-#cartContents .cart-product-info a{
+#cartContents .cart-product-info a, .cart-contents .cart-product-info a {
 	color:#222;
 	text-decoration:none;
 }
-#cartContents .cart-product-info a:hover{
+#cartContents .cart-product-info a:hover, .cart-contents .cart-product-info a:hover{
 	color:silver;
 	text-decoration:underline;
 }
@@ -1476,11 +1497,11 @@ div.right_sidebar_product span.regular_price{
 	margin-left: 5px;
 }
 
-#cartContents .price {
+#cartContents .price, .cart-contents .price {
 	font-size: 18px;
 }
 
-#cartContents .final-price {
+#cartContents .final-price, .cart-contents .final-price {
 	font-size: 24px;
 }
 
@@ -1514,4 +1535,35 @@ div#banner h2 {
 
 .red_alert{
 	color:red;
+}
+
+/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('/images/ajax-loader.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal {
+    display: block;
 }

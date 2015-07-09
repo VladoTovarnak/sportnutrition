@@ -376,5 +376,13 @@ class Image extends AppModel {
 			}
 		}
 	}
+	
+	// ma byt obrazek nastaven pro dany produkt jako hlavni?
+	function isMain($product_id) {
+		// obrazek je pro dany produkt nastaven jako hlavni, pokud nema produkt doposud zadny jiny obrazek, jako hlavni
+		$has_main = $this->hasAny(array('Image.product_id' => $product_id, 'Image.is_main' => true));
+		return !$has_main;
+		
+	}
 }
 ?>

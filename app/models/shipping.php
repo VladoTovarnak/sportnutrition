@@ -63,10 +63,10 @@ class Shipping extends AppModel {
 		return $shipping;
 	}
 
-	function get_cost($id, $order_total, $is_voc = false) {
+	function get_cost($id, $payment_id, $order_total, $is_voc = false) {
 		// pokud je doprava po CR (mimo osobniho odberu) a soucasne je zakaznik VOC, je cena vzdy 95 KC
-		if ($is_voc && in_array($id, array(2, 3, 7, 18, 14))) {
-			$price = 95;
+		if ($is_voc && in_array($id, array(2, 3, 7, 18, 14, 28))) {
+			$price = VOC_SHIPPING_PRICE;
 //			$price = 0;
 		} else {
 			$shipping = $this->find('first', array(
@@ -78,8 +78,11 @@ class Shipping extends AppModel {
 			$price = $shipping['Shipping']['price'];
 			
 			// u sobotniho doruceni (id = 20) neni doprava zdarma, pouze u objednavky nad 2000 se odecte 80,-
-			if ($shipping['Shipping']['id'] == 20 && $order_total >= 2000) {
+			if ($shipping['Shipping']['id'] == 20 && $order_total >= 2000 && !$is_voc) {
 				$price = 50;
+			// pokud je zvolena doprava na slovensko (id = 16) a platba prevodem (id = 2), je sleva z dopravy 70,-
+			} elseif ($id == 16 && $payment_id == 2) {
+				$price -= 70;
 			} elseif (intval($shipping['Shipping']['free'] > 0) && $order_total > intval($shipping['Shipping']['free'])) {
 				$price = 0;
 			}
@@ -128,6 +131,22 @@ class Shipping extends AppModel {
 			'contain' => array()
 		));
 		
+		return $shipping;
+	}
+	
+	/*
+	 * Vrati mi zpusob dopravy, ktery ma nejmensi hodnotu ceny objednavky, od kdy je doprava zdarma a zaroven ma nejnizsi cenu dopravneho
+	 */
+	function lowestFreeShipping() {
+		$shipping = $this->find('first', array(
+			'conditions' => array(
+				'Shipping.free IS NOT NULL',
+				'Shipping.free >' => 0,
+				'Shipping.active' => true
+			),
+			'contain' => array(),
+			'order' => array('Shipping.free' => 'asc', 'Shipping.price' => 'asc')
+		));
 		return $shipping;
 	}
 
