@@ -1499,6 +1499,67 @@ class ProductsController extends AppController {
 		$this->redirect(array('controller' => 'products', 'action' => 'attributes_list', $id));
 	}
 	
+	function admin_comparator_undecided($comparator_id) {
+		if (!$comparator_id) {
+			$comparator_id = 3;
+		}
+		
+		$products = $this->Product->find('all', array(
+			'conditions' => array(
+				'Product.active' => true,
+				'Availability.cart_allowed' => true,
+				'OR' => array(
+					array('ComparatorProductClickPrice.feed IS NULL'),
+					array('ComparatorProductClickPrice.feed' => 0)
+				)
+			),
+			'contain' => array(),
+			'fields' => array(
+				'Product.id',
+				'Product.name',
+				'Product.url',
+				'ComparatorProductClickPrice.id',
+				'ComparatorProductClickPrice.feed'
+			),
+			'limit' => 50,
+			'joins' => array(
+				array(
+					'table' => 'comparator_product_click_prices',
+					'alias' => 'ComparatorProductClickPrice',
+					'type' => 'LEFT',
+					'conditions' => array('ComparatorProductClickPrice.product_id = Product.id AND ComparatorProductClickPrice.comparator_id = ' . $comparator_id)
+				),
+				array(
+					'table' => 'availabilities',
+					'alias' => 'Availability',
+					'type' => 'INNER',
+					'conditions' => array('Product.availability_id = Availability.id')
+				)
+			),
+			'order' => array('Product.id' => 'asc')
+		));
+
+		if (isset($this->data)) {
+			foreach ($this->data['ComparatorProductClickPrice'] as $cpcp) {
+				$this->Product->ComparatorProductClickPrice->create();
+				$this->Product->ComparatorProductClickPrice->save($cpcp);
+			}
+			$this->Session->setFlash('Hodnoty byly uloženy', REDESIGN_PATH . 'flash_success');
+			$this->redirect(array('controller' => 'products', 'action' => 'comparator_undecided', $comparator_id));
+		} else {
+			$this->data['ComparatorProductClickPrice'] = $products;
+		}
+		
+		$comparator = $this->Product->ComparatorProductClickPrice->Comparator->find('first', array(
+			'conditions' => array('Comparator.id' => $comparator_id),
+			'contain' => array(),
+			'fields' => array('Comparator.id', 'Comparator.name')
+		));
+		$this->set('comparator', $comparator);
+		
+		$this->layout = REDESIGN_PATH . 'admin';
+	}
+	
 	function autocomplete_list() {
 		$term = '';
 		if (isset($_GET['term'])) {
