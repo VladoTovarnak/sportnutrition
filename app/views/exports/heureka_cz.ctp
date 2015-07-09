@@ -20,7 +20,7 @@ foreach ($products as $product) {
 <?php if (isset($product['Product']['ean']) && !empty($product['Product']['ean'])) { ?>
 		<EAN><![CDATA[<?php echo $product['Product']['ean']?>]]></EAN>
 <?php } ?>
-<?php if (isset($product['ComparatorProductClickPrice']['click_price']) && !empty($product['ComparatorProductClickPrice']['click_price'])) { ?>
+<?php if (isset($product['ComparatorProductClickPrice']['click_price']) && !empty($product['ComparatorProductClickPrice']['click_price']) && $product['ComparatorProductClickPrice']['click_price'] != 0) { ?>
 		<HEUREKA_CPC><?php echo number_format($product['ComparatorProductClickPrice']['click_price'], 2, ',', '')?></HEUREKA_CPC>
 <?php } ?>
 <?php foreach ($product['shippings'] as $shipping) { ?>

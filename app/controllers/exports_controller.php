@@ -2,7 +2,7 @@
 class ExportsController extends AppController{
 	var $name = 'Exports';
 	
-	function get_products($comparator_name) {
+	function get_products($comparator_id) {
 		// natahnu si model Product
 		App::Import('model', 'Product');
 		$this->Product = &new Product;
@@ -35,8 +35,18 @@ class ExportsController extends AppController{
 			"Product.short_description != ''",
 			'Availability.cart_allowed' => true,
 			'Product.active' => true,
-			'Product.feed' => true
 		);
+		
+		// google merchant center : pokud neznam dilci hodnotu priznaku pro vlozeni produktu do feedu, nechci tam produkty vlozit
+		if ($comparator_id == 3) {
+			$conditions['ComparatorProductClickPrice.feed'] = true;
+		// jinak (u zbozi a heureky) : pokud neznam dilci hodnotu priznaku pro vlozeni produktu do feedu, orientuju se podle te globalni
+		} else {
+			$conditions['OR'] = array(
+				array('ComparatorProductClickPrice.feed' => true),
+				array('ComparatorProductClickPrice.feed IS NULL AND Product.feed = 1')
+			);
+		}
 		
 		if (!empty($present_ids)) {
 			$conditions[] = 'Product.id NOT IN (' . implode(',', $present_ids) . ')';
@@ -49,7 +59,7 @@ class ExportsController extends AppController{
 		if ($free_shipping_category_id = $this->Setting->findValue('FREE_SHIPPING_CATEGORY_ID')) {
 			$category_id_condition = ' AND CategoriesProduct.category_id != ' . $free_shipping_category_id;
 		}
-		
+
 		$this->Product->virtualFields['price'] = $this->Product->price;
 		$products = $this->Product->find('all', array(
 			'conditions' => $conditions,
@@ -96,13 +106,7 @@ class ExportsController extends AppController{
 					'table' => 'comparator_product_click_prices',
 					'alias' => 'ComparatorProductClickPrice',
 					'type' => 'LEFT',
-					'conditions' => array('Product.id = ComparatorProductClickPrice.product_id')
-				),
-				array(
-					'table' => 'comparators',
-					'alias' => 'Comparator',
-					'type' => 'LEFT',
-					'conditions' => array('Comparator.id = ComparatorProductClickPrice.comparator_id AND Comparator.name="' . $comparator_name . '"')
+					'conditions' => array('Product.id = ComparatorProductClickPrice.product_id AND ComparatorProductClickPrice.comparator_id = ' . $comparator_id)
 				)
 			),
 			'fields' => array(
@@ -137,6 +141,7 @@ class ExportsController extends AppController{
 				'ComparatorProductClickPrice.id',
 				'ComparatorProductClickPrice.click_price'
 			),
+			'order' => array('Product.id' => 'asc'),
 //			'limit' => 10
 		));
 		unset($this->Product->virtualFields['price']);
@@ -162,11 +167,11 @@ class ExportsController extends AppController{
 		return $res;
 	}
 	
-	function seznam_cz(){
+	function seznam_cz() {
 		// nastavim si layout do ktereho budu cpat data v XML
 		$this->layout = 'xml/heureka';
 		
-		$products = $this->get_products('zbozi.cz');
+		$products = $this->get_products(2);
 		$this->set('products', $products);
 		
 		// produkty zobrazovane na detailu na firmy.cz
@@ -176,7 +181,7 @@ class ExportsController extends AppController{
 	function heureka_cz() {
 		$this->layout = 'xml/heureka';
 		
-		$products = $this->get_products('heureka.cz');
+		$products = $this->get_products(1);
 
 		// sparovani kategorii na heurece s kategoriemi u nas v obchode
 		$pairs = array(
@@ -300,7 +305,7 @@ class ExportsController extends AppController{
 			'Sportovní potřeby > Cvičení a fitness > Vzpěračské lavice' => array(37),
 		);
 		
-		$products = $this->get_products('google merchant center');
+		$products = $this->get_products(3);
 		
 		App::import('Model', 'Category');
 		$this->Category = &new Category;
