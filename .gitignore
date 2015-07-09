@@ -7,3 +7,5 @@ Thumbs.db
 /.project
 /.buildpath
 app/tmp/
+/app/webroot/files/notification_log.log
+/app/vendors/mailchimp/mailchimp.log
