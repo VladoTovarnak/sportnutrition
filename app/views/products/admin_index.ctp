@@ -184,7 +184,7 @@ $(function() {
 	</tr>
 	<tr>
 		<td>
-			<img src="/images/<?php echo REDESIGN_PATH ?>icons/flag_red.png" width='16' height='16' /> ... ceny za proklik
+			<img src="/images/<?php echo REDESIGN_PATH ?>icons/flag_red.png" width='16' height='16' /> ... nastavení srovnávačů
 		</td>
 	</tr>
 	<tr>
