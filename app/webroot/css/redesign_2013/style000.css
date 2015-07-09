@@ -843,36 +843,36 @@ table.customer_info_form th{
 #main .tabs h3, #main .tabs h4, #main .tabs h5, #main .tabs h6 {
 	margin: 0;
 }
-#main div.left table, #main table {
+#main div.left table, #main table, table.content-table {
     border-collapse: collapse;
     width: 100%;
     margin: 0 0 20px;
 }
-#main div.left table th, #main table th {
+#main div.left table th, #main table th, table.content-table th{
     background: #F0F0F0;
     font-weight: normal;
     padding: 7px 10px;
     border: 1px solid #E7E7E7;
     font-size: 18px;
 }
-#main div.left table td, #main table td {
+#main div.left table td, #main table td, table.content-table td {
     border: 1px solid #E7E7E7;
     padding: 7px 10px;
 }
-#main div.left table .left, #main table .left {
+#main div.left table .left, #main table .left, table.content-table .left {
     text-align: left;
 }
-#main div.left table .center, #main table .center {
+#main div.left table .center, #main table .center, table.content-table .center {
     text-align: center;
 }
-#main div.left table input, #main table input {
+#main div.left table input, #main table input, table.content-table input{
     border: 1px solid #ccc;
     height: 25px; width: 70px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
 }
 
-#main div.left table input.content, #main table input.content {
+#main div.left table input.content, #main table input.content, table.content-table input.content{
     border: 1px solid #ccc;
     height: 25px; width: 170px;
     -webkit-border-radius: 3px;
@@ -1566,4 +1566,8 @@ body.loading {
    modal element will be visible */
 body.loading .modal {
     display: block;
+}
+
+table.content-table td {
+	padding: 15px 10px;
 }

@@ -58,4 +58,45 @@ class PostOfficesController extends AppController {
 		}
 		die();
 	}
+	
+	function ajax_search() {
+		$result = array(
+			'success' => false,
+			'message' => '',
+			'data' => array()
+		);
+		
+		if (!isset($_POST['zip']) || !isset($_POST['city']) || !isset($_POST['type'])) {
+			$result['message'] = 'Neznám všechny atributy pro vyhledání pošty';
+		} else {
+			$zip = $_POST['zip'];
+			$city = $_POST['city'];
+			$type = $_POST['type'];
+			
+			$conditions = array();
+			if (!empty($zip)) {
+				$conditions[] = 'PostOffice.PSC LIKE "%%' . $zip . '%%"';
+			}
+			if (!empty($city)) {
+				$conditions[] = 'PostOffice.NAZ_PROV LIKE "%%' . $city . '%%"';
+			}
+			
+			// pokud nemam zadano mesto ani psc, koncim s chybou
+			if (empty($conditions)) {
+				$result['message'] = 'Zadejte PSČ nebo město';
+			} else {
+				// vytahnu si pobocky podle podminek
+				$post_offices = $this->PostOffice->find('all', array(
+					'conditions' => $conditions,
+					'contain' => array(),
+				));
+				
+				$result['data'] = $post_offices;
+				$result['success'] = true;
+			}
+		}
+		
+		echo json_encode($result);
+		die();
+	}
 }

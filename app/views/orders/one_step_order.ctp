@@ -151,7 +151,14 @@ if ($this->Session->check('Message.flash')) {
 ?>
 	<tr>
 		<td><input name="data[Order][shipping_id]" type="radio" value="<?php echo $shipping['Shipping']['id']?>" id="OrderShippingId<?php echo $shipping['Shipping']['id']?>"<?php echo $checked?>/></td>
-		<td><?php echo $shipping['Shipping']['name']?></td>
+		<td><?php
+		$shipping_info = $shipping['Shipping']['name'];
+		// pokud mam dopravu na postu, chci vykreslit link pro vyber pobocky
+		if ($shipping['Shipping']['id'] == ON_POST_SHIPPING_ID) {
+			$shipping_info .= ' - ' . $this->Html->link('vyberte pobočku', '#', array('id' => 'PostOfficeChoiceLink'));
+		}
+		echo $shipping_info
+		?></td>
 		<td><small><?php echo $shipping['Shipping']['description']?></small></td>
 		<td><?php echo round($shipping['Shipping']['price'])?>&nbsp;Kč</td> 
 	</tr>
@@ -198,6 +205,7 @@ if ($this->Session->check('Message.flash')) {
 	}
 }
 ?>
+
 <table class="customer_info_form">
 	<tr>
 		<th>Křestní jméno<sup>*</sup></th>
@@ -310,4 +318,23 @@ if ($this->Session->check('Message.flash')) {
 
 } // konec nakupni kosik neni prazdny
 ?>
+<div id="PostOfficeChoice" class="neukazovat">
+<h2>Vybrat pobočku</h2>
+<p>Zadejte název nebo PSČ obce, ve které si přejete zásilku vyzvednout na pobočce ČP.</p>
+<p class="no-input neukazovat red_alert">Zadejte PSČ nebo město</p>
+<p class="empty-output neukazovat red_alert">Zadanému PSČ nebo městu neodpovídá žádná pošta</p>
+<?php echo $this->Form->create('PostOffice', array('url' => '#', 'id' => 'PostOfficeChoiceForm'));?>
+<table class="content-table">
+	<tr>
+		<th>PSČ</th>
+		<td><?php echo $this->Form->input('PostOffice.PSC', array('label' => false, 'div' => false)); ?></td>
+		<th>Město</th>
+		<td><?php echo $this->Form->input('PostOffice.NAZ_PROV', array('label' => false, 'div' => false, 'class' => 'content')); ?></td>
+		<td><?php echo $this->Form->submit('Hledej', array('div' => false));?>
+	</tr>
+</table>
+<?php echo $this->Form->end();?>
+<div class="post-offices-list"></div>
+</div>
+
 <div class="modal"><!-- Place at bottom of page --></div>
