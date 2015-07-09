@@ -20,9 +20,11 @@ echo $this->Html->link('ZPĚT NA SEZNAM PRODUKTŮ', $back_link)?>
 <?php 
 	foreach ($comparators as $comparator) {
 		$price = 1;
+		$feed = 0;
 		foreach ($comparator_product_click_prices as $cpcp) {
 			if ($cpcp['ComparatorProductClickPrice']['comparator_id'] == $comparator['Comparator']['id']) {
 				$price = $cpcp['ComparatorProductClickPrice']['click_price'];
+				$feed = $cpcp['ComparatorProductClickPrice']['feed'];
 			}
 		}
 	?>
@@ -34,6 +36,10 @@ echo $this->Html->link('ZPĚT NA SEZNAM PRODUKTŮ', $back_link)?>
 			echo $this->Form->input('ComparatorProductClickPrice.' . $comparator['Comparator']['id'] . '.click_price', array('label' => false, 'after' => '&nbsp;Kč', 'value' => $price));
 			echo $this->Form->hidden('ComparatorProductClickPrice.' . $comparator['Comparator']['id'] . '.product_id', array('value' => $product['Product']['id']));
 			echo $this->Form->hidden('ComparatorProductClickPrice.' . $comparator['Comparator']['id'] . '.comparator_id', array('value' => $comparator['Comparator']['id']));
+		?></td>
+		<td>Feed</td>
+		<td><?php 
+			echo $this->Form->input('ComparatorProductClickPrice.' . $comparator['Comparator']['id'] . '.feed', array('label' => false, 'type' => 'radio', 'options' => array(-1 => 'Zakázáno', 0 => 'Nerozhodnuto', 1 => 'Povoleno'), 'legend' => false, 'value' => $feed));
 		?></td>
 	</tr>
 <?php } ?>
