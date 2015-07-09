@@ -19,7 +19,7 @@ class Setting extends AppModel {
 		)
 	);
 	
-	var $shop_keys = array(0 => 'CUST_ROOT', 'CUST_NAME', 'CUST_COMPANY', 'CUST_ICO', 'CUST_DIC', 'CUST_PHONE', 'CUST_MAIL', 'CUST_STREET', 'CUST_CITY', 'CUST_ZIP', 'FREE_SHIPPING_CATEGORY_ID', 'VOC_SHIPPING_PRICE', 'PERSONAL_PURCHASE_SHIPPING_ID');
+	var $shop_keys = array(0 => 'CUST_ROOT', 'CUST_NAME', 'CUST_COMPANY', 'CUST_ICO', 'CUST_DIC', 'CUST_PHONE', 'CUST_MAIL', 'CUST_STREET', 'CUST_CITY', 'CUST_ZIP');
 	
 	function findId($name) {
 		$setting = $this->find('first', array(
@@ -63,7 +63,11 @@ class Setting extends AppModel {
 	}
 	
 	function init() {
-		foreach ($this->shop_keys as $constant) {
+		$settings = $this->find('all', array(
+			'contain' => array()
+		));
+		foreach ($settings as $setting) {
+			$constant = $setting['Setting']['name'];
 			if (!defined($constant)) {
 				define($constant, $this->findValue($constant));
 			}
