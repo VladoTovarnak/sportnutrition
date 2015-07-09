@@ -40,11 +40,15 @@ class ExportsController extends AppController{
 		// google merchant center : pokud neznam dilci hodnotu priznaku pro vlozeni produktu do feedu, nechci tam produkty vlozit
 		if ($comparator_id == 3) {
 			$conditions['ComparatorProductClickPrice.feed'] = true;
-		// jinak (u zbozi a heureky) : pokud neznam dilci hodnotu priznaku pro vlozeni produktu do feedu, orientuju se podle te globalni
+		// jinak (u zbozi a heureky) : pokud neznam dilci hodnotu priznaku pro vlozeni produktu do feedu (je null nebo 0), orientuju se podle te globalni
 		} else {
 			$conditions['OR'] = array(
 				array('ComparatorProductClickPrice.feed' => true),
-				array('ComparatorProductClickPrice.feed IS NULL AND Product.feed = 1')
+				array('OR' => array(
+						array('ComparatorProductClickPrice.feed IS NULL AND Product.feed = 1'),
+						array('ComparatorProductClickPrice.feed = 0 AND Product.feed = 1')
+					)
+				)
 			);
 		}
 		
@@ -163,7 +167,6 @@ class ExportsController extends AppController{
 			}
 
 		}
-
 		return $res;
 	}
 	
