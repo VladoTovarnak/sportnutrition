@@ -1297,8 +1297,8 @@ class OrdersController extends AppController {
 							// pokud neni zvolena doprava osobnim odberem
 							if ($shipping_id == PERSONAL_PURCHASE_SHIPPING_ID) {
 								unset($this->data['Address']);
-							// je zvolena doprava na postu?
-							} elseif ($shipping_id == ON_POST_SHIPPING_ID) {
+							// je zvolena doprava na postu nebo balikomat?
+							} elseif ($shipping_id == ON_POST_SHIPPING_ID || $shipping_id == BALIKOMAT_SHIPPING_ID) {
 								// zapamatuju si psc pobocky, na kterou chci poslat zasilku
 								$branch_zip = $this->data['Address'][1]['zip'];
 								$this->data['Address'][0]['name'] = $this->data['Customer']['first_name'] . ' ' . $this->data['Customer']['last_name'];

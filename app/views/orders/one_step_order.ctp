@@ -156,6 +156,8 @@ if ($this->Session->check('Message.flash')) {
 		// pokud mam dopravu na postu, chci vykreslit link pro vyber pobocky
 		if ($shipping['Shipping']['id'] == ON_POST_SHIPPING_ID) {
 			$shipping_info .= ' - ' . $this->Html->link('vyberte pobočku', '#', array('id' => 'PostOfficeChoiceLink'));
+		} elseif ($shipping['Shipping']['id'] == BALIKOMAT_SHIPPING_ID) {
+			$shipping_info .= ' - ' . $this->Html->link('vyberte pobočku', '#', array('id' => 'BalikomatChoiceLink'));
 		}
 		echo $shipping_info
 		?></td>
