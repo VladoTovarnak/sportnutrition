@@ -48,7 +48,7 @@ class Order extends AppModel {
 		
 		$conditions = array('Order.id' => $id);
 		
-		$fields = array('Order.id', 'customer_ico', 'customer_dic', 'subtotal_with_dph', 'shipping_cost', 'shipping_id');
+		$fields = array('Order.id', 'customer_ico', 'customer_dic', 'subtotal_with_dph', 'shipping_cost', 'shipping_id', 'payment_id');
 		
 		$products = $this->find('first', array(
 			'conditions' => $conditions,
@@ -88,7 +88,7 @@ class Order extends AppModel {
 		$shipping_cost = 0;
 		if (!$free_shipping) {
 			// objednavka neobsahuje produkt s dopravou zdarma, cenu dopravy si proto dopocitam v zavislosti na cene objednaneho zbozi
-			$shipping_cost = $this->Shipping->get_cost($products['Order']['shipping_id'], $order_total, $is_voc);
+			$shipping_cost = $this->Shipping->get_cost($products['Order']['shipping_id'], $products['Order']['payment_id'], $order_total, $is_voc);
 		}
 		
 		$order['Order']['shipping_cost'] = $shipping_cost;
