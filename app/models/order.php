@@ -183,20 +183,22 @@ class Order extends AppModel {
 				foreach ($rows[1] as $os){
 					if ( eregi('Vrácení zásilky odesílateli', $os) ){
 						$found = true;
-						
+
 						// pokud byla vracena, najdu si datum vraceni
 						$date = '';
 						
-						$pattern = '|([0-9]{2}\.[0-9]{2}\.[0-9]{4})|';
+						$pattern = '|([0-9]{1,2}\.[0-9]{1,2}\.[0-9]{4})|';
 						preg_match_all($pattern, $os, $date);
 						if (!isset($date[1][0])) {
 							return $id;
+							debug($os);
 							die('nesedi pattern pri zjisteni dorucenosti baliku u CP - datum');
 						}
 						$date = date('d.m.Y', strtotime($date[1][0]));
 						
 						// musim zmenit objednavku na vraceno a zapsat poznamku o tom, kdy byla vracena
 						$this->id = $id;
+
 						$this->save(array('status_id' => '8'), false, array('status_id', 'modified'));
 						
 						// zapisu poznamku o tom, kdy byla vracena
@@ -265,12 +267,8 @@ class Order extends AppModel {
 		// sestavim si URL, kde jsou informace o zasilce
 		$tracker_url = $order['Shipping']['tracker_prefix'] . trim($order['Order']['shipping_number']) . $order['Shipping']['tracker_postfix'];
 
-		// nactu si obsah trackovaci stranky
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $tracker_url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$contents = curl_exec($ch);
-		curl_close($ch);
+		$contents = @file_get_contents($tracker_url);
+		
 		if ( $contents !== false ){
 			if ( eregi('Zásilka nenalezena', $contents) ){
 				return $id;
@@ -279,14 +277,14 @@ class Order extends AppModel {
 			$original = $contents;
 			$contents = str_replace("\r\n", "", $contents);
 			$contents = str_replace("\t", "", $contents);
+			
 			// z obsahu vyseknu usek, ktery zminuje jednotlive stavy objednavky
 			$pattern = '/<table class="frm2" style="width:100%;">\s+<caption>Detail<\/caption>(.*)<\/table>/U';
 			preg_match_all($pattern, $contents, $contents);
 			// stavy si rozhodim do jednotlivych prvku pole
 			$pattern = '/<tr class="(?:[^"]+)">\s*<td>(.*)<\/td>\s*<td>(.*)<\/td>\s*<\/tr>/U';
 			preg_match_all($pattern, $contents[1][0], $contents);
-			$pattern = '/Zásilka doručena/';
-	
+			$pattern = '/(?:Zásilka doručena|Doručeno.)/';
 			$count = count($contents[1]);
 			for ( $i = 0; $i < $count; $i++ ){
 				// najdu si, zda objednavka byla dorucena
