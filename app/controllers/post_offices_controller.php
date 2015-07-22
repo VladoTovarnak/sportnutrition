@@ -72,13 +72,16 @@ class PostOfficesController extends AppController {
 			$zip = $_POST['zip'];
 			$city = $_POST['city'];
 			$type = $_POST['type'];
-			
+
 			$conditions = array();
 			if (!empty($zip)) {
 				$conditions[] = 'PostOffice.PSC LIKE "%%' . $zip . '%%"';
 			}
 			if (!empty($city)) {
 				$conditions[] = 'PostOffice.NAZ_PROV LIKE "%%' . $city . '%%"';
+			}
+			if ($type == 'balikomat') {
+				$conditions[] = 'PostOffice.NAZ_PROV LIKE "%%Balíkomat%%"';
 			}
 			
 			// pokud nemam zadano mesto ani psc, koncim s chybou
