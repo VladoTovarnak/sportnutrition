@@ -456,6 +456,8 @@ class OrdersController extends AppController {
 					break;
 				break;
 				case "3":
+				case "28":
+				case "16":
 					// general parcel
 					$result = $this->Order->track_gparcel($order['Order']['id']);
 					break;
@@ -476,7 +478,11 @@ class OrdersController extends AppController {
 			}
 			
 			if ( $result !== true ){
-				$bad_orders[] = $result;
+				$bad_orders[] = $order['Order']['id'];
+				if (count($bad_orders) > 10) {
+					debug($bad_orders);
+					die();
+				}
 			}
 		}
 		
