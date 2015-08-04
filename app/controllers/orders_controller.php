@@ -451,6 +451,7 @@ class OrdersController extends AppController {
 				case "2":
 				case "20":
 				case "14":
+				case "29":
 					// ceska posta
 					$result = $this->Order->track_cpost($order['Order']['id']);
 					break;

@@ -149,7 +149,7 @@ class Order extends AppModel {
 			$found = false;
 			
 			foreach ($rows[1] as $os){
-				if ( eregi('Dodání zásilky.', $os) ){
+				if (preg_match('/(?:Doručení zásilky|Dodání zásilky)/', $os)) {
 					// mam dorucenou objednavku, dal neprochazim
 					$found = true;
 
