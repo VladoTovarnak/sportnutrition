@@ -133,12 +133,12 @@ class PagesController extends AppController{
 		$this->set('hp_most_sold', $hp_most_sold);
 		
 		$opening_hours = array(
-			1 => '8:oo - 17:oo',
-			2 => '8:oo - 17:oo',
-			3 => '8:oo - 17:oo',
-			4 => '8:oo - 17:oo',
-			5 => '8:oo - 16:oo',
-			6 => 'Zavřeno',
+			1 => '8:00 - 17:00',
+			2 => '8:00 - 17:00',
+			3 => '8:00 - 17:00',
+			4 => '8:00 - 17:00',
+			5 => '8:00 - 16:00',
+			6 => '10:00 - 12:00',
 			7 => 'Zavřeno'
 		);
 		
