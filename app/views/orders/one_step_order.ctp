@@ -339,4 +339,4 @@ if ($this->Session->check('Message.flash')) {
 <div class="post-offices-list"></div>
 </div>
 
-<div class="modal"><!-- Place at bottom of page --></div>
+<div class="modal"><span style="position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);text-align:center;font-size:20px;font-weight:bold">Mějte prosím moment strpení, Vaše objednávka se ukládá...<br/><br/><img src="/images/ajax-loader.gif" /></span></div>
