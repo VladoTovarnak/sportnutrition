@@ -134,10 +134,10 @@
 		});
 	}); // document.ready
 	</script>
-	<link rel="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.css" media="screen" />
-	<link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH ?>jqueryui/style.css" />
-	<link rel="stylesheet" type="text/css" href="/jRating-master/jquery/jRating.jquery.css" media="screen" />
-	<link href="/loadmask/jquery.loadmask.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" property="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.css" media="screen" />
+	<link rel="stylesheet" property="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH ?>jqueryui/style.css" />
+	<link rel="stylesheet" property="stylesheet" type="text/css" href="/jRating-master/jquery/jRating.jquery.css" media="screen" />
+	<link rel="stylesheet" property="stylesheet" type="text/css" href="/loadmask/jquery.loadmask.css" />
 	
 <script>(function() {
   var _fbq = window._fbq || (window._fbq = []);
