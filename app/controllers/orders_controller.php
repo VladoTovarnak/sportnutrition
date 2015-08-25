@@ -1113,18 +1113,23 @@ class OrdersController extends AppController {
 
 		$dataSource = $this->Order->getDataSource();
 		$dataSource->begin($this->Order);
-		try {
-			$this->Order->save($order[0]);
+		
+		if ($this->Order->save($order[0])) {
 			// musim ulozit objednavku a smazat produkty z kosiku
 			foreach ($order[1] as $ordered_product) {
 				$ordered_product['OrderedProduct']['order_id'] = $this->Order->id;
-				$this->Order->OrderedProduct->saveAll($ordered_product);
+				if (!$this->Order->OrderedProduct->saveAll($ordered_product)) {
+					$dataSource->rollback($this->Order);
+					$this->Session->setFlash('Objednávku se nepodařilo uložit. Zkuste to prosím znovu.', REDESIGN_PATH . 'flash_failure');
+					$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order'));
+				}
 			}
-		} catch (Exception $e) {
+		} else {
 			$dataSource->rollback($this->Order);
-			$this->Session->setFlash('Uložení objednávky se nepodařilo, zopakujte prosím znovu dokončení objednávky.', REDESIGN_PATH . 'flash_failure');
-			$this->redirect(array('controller' => 'orders', 'action' => 'recapitulation'));
+			$this->Session->setFlash('Objednávku se nepodařilo uložit. Zkuste to prosím znovu.', REDESIGN_PATH . 'flash_failure');
+			$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order'));			
 		}
+		
 		$this->Order->cleanCartsProducts();
 		$dataSource->commit($this->Order);
 		
