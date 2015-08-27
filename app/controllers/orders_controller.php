@@ -1110,6 +1110,11 @@ class OrdersController extends AppController {
 			$this->Session->setFlash('Objednávku se nepodařilo uložit, máte správně zadané adresy?', REDESIGN_PATH . 'flash_failure');
 			$this->redirect(array('controller' => 'orders', 'action' => 'recapitulation'));
 		}
+		
+		if (empty($order[1])) {
+			$this->Session->setFlash('Vaše objednávka neobsahuje žádné produkty. Pravděpodobně byl Váš prohlížeč delší dobu nečinný.<br/>Prosím vložte produkty znovu do košíku a dokončete objednávku.', REDESIGN_PATH . 'flash_failure');
+			$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order'));
+		}
 
 		$dataSource = $this->Order->getDataSource();
 		$dataSource->begin($this->Order);
