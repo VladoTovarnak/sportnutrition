@@ -46,11 +46,11 @@
 	<hr />
 
 	<div class="copyright">
-		<img src="/images/<?php echo REDESIGN_PATH ?>logo_dark.png" alt="<?php echo CUST_NAME?>" />
+		<img src="/images/<?php echo REDESIGN_PATH ?>logo_dark.png" width="102" height="44" alt="<?php echo CUST_NAME?>" />
 		&copy; <a href="/">www.<?php echo CUST_ROOT?></a> All rights Reserved.
-		<a href="https://www.facebook.com/pages/SportNutrition/230263693680695?fref=ts" target="_blank"><img src="/images/<?php echo REDESIGN_PATH ?>logo_facebook.png" alt="Facebook" /></a>
-		<a href="https://plus.google.com/b/107543305825459915226/107543305825459915226/about?hl=cs" target="_blank"><img src="/images/<?php echo REDESIGN_PATH ?>logo_google.png" alt="Google+" /></a>
-		<a href="http://www.youtube.com/channel/UCheMzjYoHUiq-9I5OH3DdKA" target="_blank"><img src="/images/<?php echo REDESIGN_PATH ?>logo_youtube.png" alt="YouTube" /></a>
+		<a href="https://www.facebook.com/pages/SportNutrition/230263693680695?fref=ts" target="_blank"><img src="/images/<?php echo REDESIGN_PATH ?>logo_facebook.png" width="38" height="38" alt="Facebook" /></a>
+		<a href="https://plus.google.com/b/107543305825459915226/107543305825459915226/about?hl=cs" target="_blank"><img src="/images/<?php echo REDESIGN_PATH ?>logo_google.png" width="38" height="38" alt="Google+" /></a>
+		<a href="http://www.youtube.com/channel/UCheMzjYoHUiq-9I5OH3DdKA" target="_blank"><img src="/images/<?php echo REDESIGN_PATH ?>logo_youtube.png" width="38" height="38" alt="YouTube" /></a>
 	</div>
 </div>
 
