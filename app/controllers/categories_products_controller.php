@@ -385,6 +385,53 @@ class CategoriesProductsController extends AppController {
 		
 		$listing_style = 'products_listing_grid';
 		$this->set('listing_style', $listing_style);
+		
+		// cislo dnesniho dne (0 - nedele az 6 sobota)
+		$day_in_week = date("w");
+
+		// dokdy v ten den muzu objednat, aby to ten den jeste odeslo
+		$default_time_deadline = "13:00:00";
+		
+		// nastaveni doruceni a textove reprezentace pro kazdy den v tydnu
+		$delivery_settings = array(
+			0 => array( // nedele
+				'deadline' => '23:59:59',
+				'textual' => 'v úterý' 
+			),
+			1 => array( // pondeli
+				'deadline' => $default_time_deadline,
+				'textual' => 'v úterý' 
+			),
+			2 => array( // utery
+				'deadline' => $default_time_deadline,
+				'textual' => 've středu' 
+			),
+			3 => array( // streda
+				'deadline' => $default_time_deadline,
+				'textual' => 've čtvrtek' 
+			),
+			4 => array( // ctvrtek
+				'deadline' => $default_time_deadline,
+				'textual' => 'v pátek' 
+			),
+			5 => array( // patek
+				'deadline' => $default_time_deadline,
+				'textual' => 'v pondělí' 
+			),
+			6 => array( // sobota
+				'deadline' => "23:59:59",
+				'textual' => 'v úterý' 
+			)
+		);
+		
+		// pokud jsem uz dneska za deadlinem, tak posunu o jeden den dopredu
+		if (time() >= strtotime($delivery_settings[$day_in_week]['deadline'])){
+			$day_in_week = $day_in_week + 1;
+			if ( $day_in_week > 6 ){
+				$day_in_week = 0;
+			}
+		}
+		$this->set('delivery_textual', $delivery_settings[$day_in_week]['textual']);
 	}
 	
 	function cancel_filter($id) {

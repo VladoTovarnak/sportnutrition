@@ -58,21 +58,15 @@
 
 	<hr class="cleaner" />
 
-	<div id="main">
-		<h2 class="product_name">Nejvýhodnější nákup proteinů - to nejlepší pro růst</h2>
-		<p class="cite">"Používání proteinu bych přirovnal k odlévání rozžhavené ocele do formy."</p>
-		<em>nám známý bouchač v jedné nejmenované posilovně</em>
-		<p>Toto jsou naš největší hvědzy, <strong>ideální poměr cena - výkon</strong>. Objednejte ještě dnes a v úterý můžete <strong>začít kalit ocel</strong>!</p>
-		<div class="left">
-			<?php 
-				if ($session->check('Message.flash')){
-					echo $session->flash();
-				}
-				echo $content_for_layout;
-			?>
-		</div>
-		<hr class="cleaner" />
-	</div>
+	<?php 
+		if ($session->check('Message.flash')){
+			echo $session->flash();
+		}
+		echo $content_for_layout;
+	?>
+
+
+
 	<hr class="cleaner" />
 	<?php echo $this->element(REDESIGN_PATH . 'footer')?>
 </div>
