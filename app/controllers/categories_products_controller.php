@@ -347,7 +347,7 @@ class CategoriesProductsController extends AppController {
 		
 		// nastavim si ktere produkty chci zobrazit
 		$conditions = array('Product.id' => array(4132, 3984, 4172, 4176, 4141, 4191));
-		$conditions = array('Product.id' => array(4176, 4141, 4191)); // proteiny
+		$conditions = array('Product.id' => array(4176, 4565, 4191)); // proteiny
 		
 		$this->paginate['Product'] = array(
 			'conditions' => $conditions,
