@@ -139,6 +139,7 @@
 	<link rel="stylesheet" property="stylesheet" type="text/css" href="/jRating-master/jquery/jRating.jquery.css" media="screen" />
 	<link rel="stylesheet" property="stylesheet" type="text/css" href="/loadmask/jquery.loadmask.css" />
 	
+<!-- FB conversion pixel -->
 <script>(function() {
   var _fbq = window._fbq || (window._fbq = []);
   if (!_fbq.loaded) {
@@ -155,6 +156,15 @@ window._fbq = window._fbq || [];
 window._fbq.push(['track', 'PixelInitialized', {}]);
 </script>
 <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=455047541326994&amp;ev=PixelInitialized" /></noscript>
+
+
+<!-- SEZNAM retargeting -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var seznam_retargeting_id = 21540;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//c.imedia.cz/js/retargeting.js"></script>
 
 <!-- JEDNOKROKOVA OBJEDNAVKA -->
 <?php if ($this->params['controller'] == 'orders' && $this->params['action'] == 'one_step_order') { ?>
