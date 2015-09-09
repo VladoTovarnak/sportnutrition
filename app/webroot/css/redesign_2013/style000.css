@@ -1052,19 +1052,19 @@ table.customer_info_form th{
 }
 
 #main div.paginator .sorter {
-	width:365px;
-	float:left;
+	margin-top:15px;
 }
 
 #main div.paginator .numbers {
-	float:right;
+	float:left;
+	width:585px;
 }
 
 #main div.paginator form {
     display: inline-block;
     background: url("/images/redesign_2013/search_li.png") no-repeat 0 13px;
-	width: 570px;
-    padding: 0 10px 0 10px
+    padding: 0 10px 0 10px;
+    float:left;
 }
 #main div.paginator form select {
     border: 3px solid #ccc;
@@ -1083,17 +1083,23 @@ table.customer_info_form th{
 #main div.paginator a {
     color: #FFF;
     text-decoration: none;
+    padding:8px 15px;
+    font-size:20px;
 }
-
+div.item_count_holder{
+	float:right;
+}
 #main div.paginator .numbers span {
 	border: 1px solid #E2001A;
-	padding: 0 3px;
+	padding: 8px 3px;
 	background-color: #E2001A;
 	border-radius: 4px;
+	font-size:20px;
 }
 
 #main div.paginator .numbers span.current {
 	background-color: #FFF;
+	padding:10px 17px;
 }
 
 #main div.products {
