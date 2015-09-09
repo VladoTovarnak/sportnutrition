@@ -19,14 +19,15 @@
 		<h2><span><?php echo $category['Category']['heading']?></span></h2>
 		<div class="paginator">
 			<div class="sorter">
-			<?php echo $this->Form->create(null, array('url' => '/' . $this->params['url']['url'], 'type' => 'get', 'id' => 'filter_form', 'encoding' => false))?>
-			Řadit podle:
-			<?php echo $this->Form->input('sorting', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $sorting_options, 'div' => false, 'class' => 'sorting'))?>
-			Na stránku:
-			<?php echo $this->Form->input('paging', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $paging_options, 'div' => false, 'class' => 'paging'))?>
-			<?php echo $this->Form->hidden('manufacturer_id')?>
-			<?php echo $this->Form->hidden('attribute_id')?>
-			<?php echo $this->Form->end()?>
+				<?php echo $this->Form->create(null, array('url' => '/' . $this->params['url']['url'], 'type' => 'get', 'id' => 'filter_form', 'encoding' => false))?>
+				Řadit podle:
+				<?php echo $this->Form->input('sorting', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $sorting_options, 'div' => false, 'class' => 'sorting'))?>
+				Na stránku:
+				<?php echo $this->Form->input('paging', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $paging_options, 'div' => false, 'class' => 'paging'))?>
+				<?php echo $this->Form->hidden('manufacturer_id')?>
+				<?php echo $this->Form->hidden('attribute_id')?>
+				<?php echo $this->Form->end()?>
+				<div class="clearer"></div>
 			</div>
 			<div class="numbers">
 <?php
@@ -61,6 +62,7 @@
 				</div>
 
 			</div>
+			<div class="clearer"></div>
 			<div class="sorter">
 			<?php echo $this->Form->create(null, array('url' => '/' . $this->params['url']['url'], 'type' => 'get', 'encoding' => false))?>
 			Řadit podle:
