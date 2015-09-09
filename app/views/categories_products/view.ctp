@@ -44,9 +44,11 @@
 	
 			$this->Paginator->options(array('url' => array_merge($this->passedArgs, array('?' => $url))));
 		
-			echo $this->Paginator->counter(array('format' => '<strong>%count%</strong> položek&nbsp;'));
 			echo $this->Paginator->numbers(array('separator' => '&nbsp;', 'first' => 1, 'last' => 1, 'modulus' => 3));
 ?>
+				<div class="item_count_holder">
+					<?php echo $this->Paginator->counter(array('format' => 'V kategorii se nachází celkem <strong>%count%</strong> položek.')); ?>
+				</div>
 			</div>
 			<div class="clearer"></div>
 		</div>
