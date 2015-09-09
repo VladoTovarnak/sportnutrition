@@ -52,6 +52,15 @@
 		
 		<?php echo $this->element(REDESIGN_PATH . $listing_style); ?>
 		<div class="paginator">
+			<div class="numbers">
+<?php
+			echo $this->Paginator->numbers(array('separator' => '&nbsp;', 'first' => 1, 'last' => 1, 'modulus' => 3));
+?>
+				<div class="item_count_holder">
+					<?php echo $this->Paginator->counter(array('format' => 'V kategorii se nachází celkem <strong>%count%</strong> položek.')); ?>
+				</div>
+
+			</div>
 			<div class="sorter">
 			<?php echo $this->Form->create(null, array('url' => '/' . $this->params['url']['url'], 'type' => 'get', 'encoding' => false))?>
 			Řadit podle:
@@ -59,12 +68,6 @@
 			Na stránku:
 			<?php echo $this->Form->input('paging', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $paging_options, 'div' => false, 'class' => 'paging'))?>
 			<?php echo $this->Form->end()?>
-			</div>
-			<div class="numbers">
-<?php
-			echo $this->Paginator->counter(array('format' => '<strong>%count%</strong> položek&nbsp;'));
-			echo $this->Paginator->numbers(array('separator' => '&nbsp;', 'first' => 1, 'last' => 1, 'modulus' => 3));
-?>
 			</div>
 			<div class="clearer"></div>
 		</div>
