@@ -346,5 +346,81 @@ class ExportsController extends AppController{
 		}
 		$this->set('products', $products);
 	}
+	
+	function facebook() {
+		// bez layoutu
+		$this->autoLayout = false;
+		
+		// sparovani kategorii na heurece s kategoriemi u nas v obchode
+		$pairs = array(
+			'Zdraví a krása > Zdravotní péče > Fitness a výživa' => array(1, 2, 6, 7, 9, 25, 26, 28, 14),
+			'Zdraví a krása > Zdravotní péče > Fitness a výživa > Doplňky na zvýšení růstu svalové hmoty' => array(15, 57, 58, 59, 60, 87, 88, 89, 61, 62, 16, 67, 68, 69, 70, 17, 71, 72, 73, 18, 63, 64, 19, 77, 78, 79, 80, 20),
+			'Zdraví a krása > Zdravotní péče > Fitness a výživa > Vitamíny a výživové doplňky' => array(21, 74, 75, 76, 22, 65, 66, 23, 81, 82, 24, 83, 84, 85, 86),
+			'Média > Knihy > Naučná a odborná literatura > Knihy o zdraví a fitness' => array(12),
+			'Sportovní potřeby > Cvičení a fitness' => array(10, 40, 41, 42, 43, 44, 13, 33, 38),
+			'Oblečení a doplňky > Oblečení > Sportovní oblečení' => array(11, 90, 91, 50, 51),
+			'Oblečení a doplňky > Oblečení > Sportovní oblečení > Sportovní kalhoty' => array(45, 49),
+			'Oblečení a doplňky > Oblečení > Sportovní oblečení > Sportovní šortky' => array(46, 94),
+			'Oblečení a doplňky > Oblečení > Sportovní oblečení > Sportovní trika' => array(47, 93),
+			'Oblečení a doplňky > Oblečení > Sportovní oblečení > Mikiny' => array(48, 92),
+			'Sportovní potřeby > Cvičení a fitness > Činky' => array(29),
+			'Sportovní potřeby > Cvičení a fitness > Trenažéry > Spinningová kola' => array(30, 36),
+			'Sportovní potřeby > Cvičení a fitness > Trenažéry > Šlapací trenažéry' => array(31),
+			'Sportovní potřeby > Cvičení a fitness > Trenažéry > Běžecké trenažéry' => array(34),
+			'Sportovní potřeby > Cvičení a fitness > Trenažéry > Veslařské trenažéry' => array(35),
+			'Sportovní potřeby > Cvičení a fitness > Vzpěračské lavice' => array(37),
+		);
+		
+		$products = $this->get_products(4);
+		
+		App::import('Model', 'Shipping');
+		$this->Shipping = &new Shipping;
+		// vytahnu si vsechny zpusoby dopravy
+		$shippings = $this->Shipping->find('all', array(
+			// do exportu budu davat jen PPL, GP a CP do ruky
+			'conditions' => array('Shipping.id' => array(2,3,7)),
+			'contain' => array(),
+			'fields' => array('Shipping.id', 'Shipping.name', 'Shipping.price', 'Shipping.free', 'Shipping.heureka_id')
+		));
+		
+		App::import('Model', 'Category');
+		$this->Category = &new Category;
+		
+		App::import('Model', 'Setting');
+		$this->Setting = &new Setting;
+		$free_shipping_category_id = $this->Setting->findValue('FREE_SHIPPING_CATEGORY_ID');
+		
+		foreach ($products as $index => &$product) {
+			$product['Product']['category_text'] = '';
+			// pokud je kategorie produktu sparovana , nastavi se rovnou jako 'Sportovni vyziva | *odpovidajici nazev kategorie*
+			foreach ($pairs as $name => $array) {
+				if (in_array($product['CategoriesProduct']['category_id'], $array)) {
+					$product['Product']['category_text'] = $name;
+					break;
+				}
+			}
+			
+			$products[$index]['shippings'] = array();
+			
+			foreach ($shippings as $shipping) {
+				$shipping_name = $shipping['Shipping']['heureka_id'];
+			
+				// pokud je cena produktu vyssi, nez cena objednavky, od ktere je tato doprava zdarma, cena je 0, jinak zadam cenu dopravy
+				$shipping_price = ceil($shipping['Shipping']['price']);
+				if ($shipping['Shipping']['free'] != 0 && $product['Product']['price'] > $shipping['Shipping']['free']) {
+					$shipping_price = 0;
+					// pokud je produkt v kategorii "doprava zdarma", je doprava zdarma
+				} elseif ($free_shipping_category_id && $this->Product->in_category($product['Product']['id'], $free_shipping_category_id)) {
+					$shipping_price = 0;
+				}
+			
+				$products[$index]['shippings'][] = array(
+					'name' => $shipping_name,
+					'price' => $shipping_price
+				);
+			}
+		}
+		$this->set('products', $products);
+	}
 }
 ?>
