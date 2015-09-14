@@ -120,18 +120,6 @@ class ExportsController extends AppController{
 					'conditions' => array('Availability.id = Product.availability_id AND Availability.cart_allowed = 1')
 				),
 				array(
-					'table' => 'categories_products',
-					'alias' => 'CategoriesProduct',
-					'type' => 'INNER',
-					'conditions' => array('CategoriesProduct.product_id = Product.id' . (!empty($category_id_condition) ? $category_id_condition : ''))
-				),
-				array(
-					'table' => 'categories',
-					'alias' => 'Category',
-					'type' => 'INNER',
-					'conditions' => array('Category.id = CategoriesProduct.category_id AND Category.active=1')
-				),
-				array(
 					'table' => 'comparator_product_click_prices',
 					'alias' => 'ComparatorProductClickPrice',
 					'type' => 'LEFT',
@@ -153,13 +141,6 @@ class ExportsController extends AppController{
 					
 				'Availability.id',
 				'Availability.name',
-					
-				'CategoriesProduct.id',
-				'CategoriesProduct.product_id',
-				'CategoriesProduct.category_id',
-					
-				'Category.id',
-				'Category.name',
 					
 				'TaxClass.id',
 				'TaxClass.value',
@@ -185,12 +166,18 @@ class ExportsController extends AppController{
 					break;
 				}
 			}
+			
+			if ($category = $this->Product->opened_category($product['Product']['id'])) {
+				$product['CategoriesProduct']['category_id'] = $category['Category']['id'];
+			} else {
+				$to_res = false;
+			}
+			
 			if ($to_res) {
 				$product['Product']['name'] = str_replace('&times;', 'x', $product['Product']['name']);
 				$product['Product']['short_description'] = str_replace('&times;', 'x', $product['Product']['short_description']);
 				$res[] = $product;				
 			}
-
 		}
 		return $res;
 	}
@@ -214,7 +201,7 @@ class ExportsController extends AppController{
 		// sparovani kategorii na heurece s kategoriemi u nas v obchode
 		$pairs = array(
 			'Sport | Sportovní výživa | Aminokyseliny' => array(15, 57, 58, 59, 60, 87, 88, 89, 61, 62),
-			'Sport | Sportovní výživa | Proteiny' => array(16, 67, 68, 69, 70),
+			'Sport | Sportovní výživa | Proteiny' => array(16, 67, 68, 69, 70, 99),
 			'Sport | Sportovní výživa | Sacharidy a gainery' => array(17, 71, 72, 73),
 			'Sport | Sportovní výživa | Kreatin' => array(18, 63, 64),
 			'Sport | Sportovní výživa | Anabolizéry a NO doplňky' => array(78, 20),
