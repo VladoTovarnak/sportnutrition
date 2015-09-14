@@ -21,6 +21,7 @@ echo $this->Html->link('ZPĚT NA SEZNAM PRODUKTŮ', $back_link)?>
 		<th>ID</th>
 		<th>Kategorie</th>
 		<th>&nbsp;</th>
+		<th>Primární</th>
 	</tr>
 	<?php foreach ($categories_products as $categories_product) { ?>
 	<tr>
@@ -33,6 +34,16 @@ echo $this->Html->link('ZPĚT NA SEZNAM PRODUKTŮ', $back_link)?>
 				$url['category_id'] = $opened_category_id;
 			}
 			echo $this->Html->link($icon, $url, array('escape' => false));
+		?></td>
+		<td align="center"><?php
+			if (!$categories_product['CategoriesProduct']['primary']) { 
+				$icon = '<img src="/images/' . REDESIGN_PATH . 'icons/accept.png" alt="" />';
+				$url = array('controller' => 'categories_products', 'action' => 'set_primary', $categories_product['CategoriesProduct']['id']);
+				if (isset($opened_category_id)) {
+					$url['category_id'] = $opened_category_id;
+				}
+				echo $this->Html->link($icon, $url, array('escape' => false));
+			}
 		?></td>
 	</tr>
 	<?php } ?>

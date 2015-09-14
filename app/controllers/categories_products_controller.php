@@ -52,6 +52,56 @@ class CategoriesProductsController extends AppController {
 		}
 	}
 	
+	function admin_set_primary($id) {
+		if (!$id) {
+			$this->Session->setFlash('Není zadáno, které přiřazení do kategorie má být označeno jako primární', REDESIGN_PATH . 'flash_failure');
+			$this->redirect(array('controller' => 'products', 'action' => 'index'));
+		}
+		
+		$categories_product = $this->CategoriesProduct->find('first', array(
+			'conditions' => array('CategoriesProduct.id' => $id),
+			'contain' => array()
+		));
+		// zjistim si prirazeni produktu do kategorie, ktere chci oznacit jako primarni
+		if (empty($categories_product)) {
+			if (!$id) {
+				$this->Session->setFlash('Přiřazení do kategorie, které má být označeno jako primární, neexistuje', REDESIGN_PATH . 'flash_failure');
+				$this->redirect(array('controller' => 'products', 'action' => 'index'));
+			}
+		}
+		
+		$save = array(
+			array(
+				'id' => $categories_product['CategoriesProduct']['id'],
+				'primary' => true
+			)
+		);
+		// zjistim primarni prirazeni produktu do kategorie
+		$other_product_cps = $this->CategoriesProduct->find('all', array(
+			'conditions' => array(
+				'CategoriesProduct.id !=' => $categories_product['CategoriesProduct']['id'],
+				'CategoriesProduct.product_id' => $categories_product['CategoriesProduct']['product_id'],
+				'CategoriesProduct.primary' => true
+			),
+			'contain' => array()
+		));
+		
+		// zrusim primarni prirazeni
+		foreach ($other_product_cps as $other_product_cp) {
+			$save[] = array(
+				'id' => $other_product_cp['CategoriesProduct']['id'],
+				'primary' => false
+			);
+		}
+		
+		if ($this->CategoriesProduct->saveAll($save)) {
+			$this->Session->setFlash('Přiřazení do kategorie bylo označeno jako primární', REDESIGN_PATH . 'flash_success');
+		} else {
+			$this->Session->setFlash('Primární přiřazení do kategorie se nepodařilo označit', REDESIGN_PATH . 'flash_failure');
+		}
+		$this->redirect(array('controller' => 'products', 'action' => 'edit_categories', $categories_product['CategoriesProduct']['product_id']));
+	}
+	
 	// smaze prirazeni produktu do kategorie
 	function admin_delete($id = null) {
 		if (!$id) {
