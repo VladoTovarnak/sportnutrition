@@ -252,24 +252,8 @@ class ProductsController extends AppController {
 		// z infa o produktu si vytahnu ID otevrene kategorie
 		$opened_category_id = 0;
 		if (!empty($product['CategoriesProduct'])) {
-			// idcka kategorii, do kterych je produkt zarazen
-			$category_ids = Set::extract('/category_id', $product['CategoriesProduct']);
-			// idcka kategorii, ktere jsou ve stromu horizontalniho menu
-			$horizontal_categories_tree_ids = $this->Product->CategoriesProduct->Category->get_horizontal_categories_tree_ids();
 			// aktualne otevrenou kategorii chci vybrat pouze z aktivnich, verejnych kategorii, ktere nejsou ve stromu horizontalniho menu
-			$opened_category_id = $this->Product->CategoriesProduct->Category->find('first', array(
-				'conditions' => array(
-					'Category.id NOT IN (' . implode(',', $horizontal_categories_tree_ids) . ')',
-					'Category.active' => true,
-					'Category.public' => true,
-					'Category.id IN (' . implode(',', $category_ids) . ')'
-				),
-				'contain' => array(),
-				'fields' => array('Category.id')
-			));
-			if (!empty($opened_category_id)) {
-				$opened_category_id = $opened_category_id['Category']['id'];
-			}
+			$opened_category_id = $this->Product->opened_category_id($id);
 		}
 		$this->set('opened_category_id', $opened_category_id);
 		
@@ -838,9 +822,12 @@ class ProductsController extends AppController {
 			'conditions' => array('CategoriesProduct.product_id' => $id),
 			'fields' => array(
 				'CategoriesProduct.id',
-				'CategoriesProduct.category_id'
-			)
+				'CategoriesProduct.category_id',
+				'CategoriesProduct.primary'
+			),
+			'contain' => array()
 		));
+
 		foreach ($categories_products as &$categories_product) {
 			$path = $this->Product->CategoriesProduct->Category->getPath($categories_product['CategoriesProduct']['category_id']);
 			$path = Set::extract('/Category/name', $path);

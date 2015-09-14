@@ -870,5 +870,45 @@ class Product extends AppModel {
 	function in_category($id, $category_id) {
 		return $this->CategoriesProduct->hasAny(array('product_id' => $id, 'category_id' => $category_id));
 	}
+	
+	// vrati aktualne otevrenou kategorii pro dany produkt
+	function opened_category_id($id) {
+		// idcka kategorii, ktere jsou ve stromu horizontalniho menu
+		$horizontal_categories_tree_ids = $this->CategoriesProduct->Category->get_horizontal_categories_tree_ids();
+		
+		$categories = $this->find('all', array(
+			'conditions' => array(
+				'Product.id' => $id,
+				'Category.id NOT IN (' . implode(',', $horizontal_categories_tree_ids) . ')',
+				'Category.active' => true,
+				'Category.public' => true,
+			),
+			'contain' => array(),
+			'joins' => array(
+				array(
+					'table' => 'categories_products',
+					'alias' => 'CategoriesProduct',
+					'type' => 'INNER',
+					'conditions' => array('CategoriesProduct.product_id = Product.id')
+				),
+				array(
+					'table' => 'categories',
+					'alias' => 'Category',
+					'type' => 'INNER',
+					'conditions' => array('CategoriesProduct.category_id = Category.id')
+				)
+			),
+			'fields' => array(
+				'Category.id',
+				'CategoriesProduct.primary'
+			),
+			'order' => array('CategoriesProduct.primary' => 'desc')
+		));
+		
+		if (!empty($categories)) {
+			return $categories[0]['Category']['id'];
+		}
+		return false;
+	}
 }
 ?>
