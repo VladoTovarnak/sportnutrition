@@ -253,7 +253,10 @@ class ProductsController extends AppController {
 		$opened_category_id = 0;
 		if (!empty($product['CategoriesProduct'])) {
 			// aktualne otevrenou kategorii chci vybrat pouze z aktivnich, verejnych kategorii, ktere nejsou ve stromu horizontalniho menu
-			$opened_category_id = $this->Product->opened_category_id($id);
+			$opened_category = $this->Product->opened_category($id);
+			if (!empty($opened_category)) {
+				$opened_category_id = $opened_category['Category']['id'];
+			}
 		}
 		$this->set('opened_category_id', $opened_category_id);
 		

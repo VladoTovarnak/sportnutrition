@@ -872,7 +872,7 @@ class Product extends AppModel {
 	}
 	
 	// vrati aktualne otevrenou kategorii pro dany produkt
-	function opened_category_id($id) {
+	function opened_category($id) {
 		// idcka kategorii, ktere jsou ve stromu horizontalniho menu
 		$horizontal_categories_tree_ids = $this->CategoriesProduct->Category->get_horizontal_categories_tree_ids();
 		
@@ -900,13 +900,14 @@ class Product extends AppModel {
 			),
 			'fields' => array(
 				'Category.id',
+				'Category.name',
 				'CategoriesProduct.primary'
 			),
 			'order' => array('CategoriesProduct.primary' => 'desc')
 		));
 		
 		if (!empty($categories)) {
-			return $categories[0]['Category']['id'];
+			return $categories[0];
 		}
 		return false;
 	}
