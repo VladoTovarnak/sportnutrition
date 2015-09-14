@@ -506,61 +506,84 @@ class Product extends AppModel {
 		return $products;
 	}
 	
-	function right_sidebar_products($id, $customer_type_id) {
+	function right_sidebar_products($id, $customer_type_id, $limit = 3) {
+		// natahnu souvisejici produkty
+		$products = $this->related_products($id, $customer_type_id);
+
+		// snizim limit o pocet souvisejicich produktu
+		$limit -= count($products);
+		if ($limit > 0) {
+			// dohledam si zbytek produktu podle toho, ze byly nejprodavanejsi s danym produktem za posledni mesic
+			$excluded_ids = Set::extract('/Product/id', $products);
+			$excluded_ids[] = $id;
+			$options = array(
+				'excluded_product_ids' => $excluded_ids
+			);
+			$category_related_products = $this->category_related_products($id, $customer_type_id, $limit, $options);
+		
+			$products = array_merge($products, $category_related_products);
+		}
+
+		return $products;
+	}
+	
+	function category_related_products($id, $customer_type_id, $limit = 3, $options) {
 		$product = $this->find('first', array(
 			'conditions' => array('Product.id' => $id),
 			'contain' => array('CategoriesProduct'),
-			'fields' => array('Product.id')	
+			'fields' => array('Product.id')
 		));
 		
 		$products = array();
 		if (!empty($product['CategoriesProduct'])) {
-			$products = $this->find('all', array(
-				'conditions' => array(
-					'Product.active' => true,
-					'CategoriesProduct.category_id' => $product['CategoriesProduct'][0]['category_id'],
-					'Availability.cart_allowed' => true,
-					'Product.id !=' => $product['Product']['id']
-				),
-				'contain' => array(),
-				'joins' => array(
-					array(
-						'table' => 'categories_products',
-						'alias' => 'CategoriesProduct',
-						'type' => 'INNER',
-						'conditions' => array('Product.id = CategoriesProduct.product_id')
-					),
-					array(
-						'table' => 'availabilities',
-						'alias' => 'Availability',
-						'type' => 'INNER',
-						'conditions' => array('Product.availability_id = Availability.id')
-					),
-					array(
-						'table' => 'images',
-						'alias' => 'Image',
-						'type' => 'INNER',
-						'conditions' => array('Product.id = Image.product_id AND Image.is_main = 1')
-					),
-					array(
-						'table' => 'customer_type_product_prices',
-						'alias' => 'CustomerTypeProductPrice',
-						'type' => 'LEFT',
-						'conditions' => array('Product.id = CustomerTypeProductPrice.product_id AND CustomerTypeProductPrice.customer_type_id = ' . $customer_type_id)
-					)
-				),
-				'fields' => array(
-					'Product.id',
-					'Product.name',
-					$this->price . ' AS price',
-					'Product.url',
-					'Product.retail_price_with_dph',
-					'Image.id',
-					'Image.name'
-				),
-				'limit' => 3
-			));
+			$products = $this->CategoriesProduct->Category->related_products($product['CategoriesProduct'][0]['category_id'], $customer_type_id, $limit, $options);
 		}
+		return $products;
+	}
+	
+	function related_products($id, $customer_type_id, $limit = 3) {
+		$conditions = array('RelatedProduct.product_id' => $id);
+		$products = $this->RelatedProduct->find('all', array(
+			'conditions' => $conditions,
+			'contain' => array(),
+			'fields' => array(
+				'Product.id',
+				'Product.name',
+				'Product.related_name',
+				'Product.url',
+				$this->price . ' AS price',
+				'Product.retail_price_with_dph',
+				'Image.id',
+				'Image.name'
+			),
+			'joins' => array(
+				array(
+					'table' => 'products',
+					'alias' => 'Product',
+					'type' => 'INNER',
+					'conditions' => array('Product.id = RelatedProduct.related_product_id AND Product.active = 1')
+				),
+				array(
+					'table' => 'images',
+					'alias' => 'Image',
+					'type' => 'LEFT',
+					'conditions' => array('Product.id = Image.product_id AND Image.is_main = "1"')
+				),
+				array(
+					'table' => 'customer_type_product_prices',
+					'alias' => 'CustomerTypeProductPrice',
+					'type' => 'LEFT',
+					'conditions' => array('Product.id = CustomerTypeProductPrice.product_id AND CustomerTypeProductPrice.customer_type_id = ' . $customer_type_id)
+				)
+			),
+			'order' => array('RelatedProduct.order' => 'asc'),
+			'limit' => $limit
+		));
+	
+		foreach ($products as &$product) {
+			$product['Product']['price'] = $product[0]['price'];
+		}
+
 		return $products;
 	}
 	

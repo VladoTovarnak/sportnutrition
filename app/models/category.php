@@ -429,5 +429,61 @@ class Category extends AppModel {
 		}
 		return $parentId;
 	}
+	
+	function related_products($id, $customer_type_id, $limit = 3, $options) {
+		$conditions = array(
+			'Product.active' => true,
+			'CategoriesProduct.category_id' => $id,
+			'Availability.cart_allowed' => true
+		);
+		if (isset($options['excluded_product_ids']) && !empty($options['excluded_product_ids'])) {
+			$conditions[] = 'Product.id NOT IN (' . implode(',', $options['excluded_product_ids']) . ')';
+		}
+		
+		$this->CategoriesProduct->Product->virtualFields['price'] = $this->CategoriesProduct->Product->price;
+		$products = $this->CategoriesProduct->Product->find('all', array(
+			'conditions' => $conditions,
+			'contain' => array(),
+			'joins' => array(
+				array(
+					'table' => 'categories_products',
+					'alias' => 'CategoriesProduct',
+					'type' => 'INNER',
+					'conditions' => array('Product.id = CategoriesProduct.product_id')
+				),
+				array(
+					'table' => 'availabilities',
+					'alias' => 'Availability',
+					'type' => 'INNER',
+					'conditions' => array('Product.availability_id = Availability.id')
+				),
+				array(
+					'table' => 'images',
+					'alias' => 'Image',
+					'type' => 'INNER',
+					'conditions' => array('Product.id = Image.product_id AND Image.is_main = 1')
+				),
+				array(
+					'table' => 'customer_type_product_prices',
+					'alias' => 'CustomerTypeProductPrice',
+					'type' => 'LEFT',
+					'conditions' => array('Product.id = CustomerTypeProductPrice.product_id AND CustomerTypeProductPrice.customer_type_id = ' . $customer_type_id)
+				)
+			),
+			'fields' => array(
+				'Product.id',
+				'Product.name',
+				'Product.url',
+				'Product.price',
+				'Product.retail_price_with_dph',
+				'Image.id',
+				'Image.name'
+			),
+			'limit' => $limit
+		));
+		unset($this->CategoriesProduct->Product->virtualFields['price']);
+		
+		return $products;
+	}
 }
 ?>

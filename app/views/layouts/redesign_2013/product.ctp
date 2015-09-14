@@ -108,7 +108,7 @@
 					</div>
 					<div class="prices_holder">
 						běžná cena: <span class="old_price"><?php echo $right_sidebar_product['Product']['retail_price_with_dph']?> Kč</span><br />
-						<span class="regular_price">cena: <?php echo $right_sidebar_product[0]['price']?> Kč</span>
+						<span class="regular_price">cena: <?php echo $right_sidebar_product['Product']['price']?> Kč</span>
 						<?php 
 							echo $this->Form->create('Product', array('url' => '/' . $right_sidebar_product['Product']['url'], 'encoding' => false));
 							echo $this->Form->hidden('Product.id', array('value' => $right_sidebar_product['Product']['id']));
