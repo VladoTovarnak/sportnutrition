@@ -63,18 +63,43 @@ class ExportsController extends AppController{
 		if ($free_shipping_category_id = $this->Setting->findValue('FREE_SHIPPING_CATEGORY_ID')) {
 			$category_id_condition = ' AND CategoriesProduct.category_id != ' . $free_shipping_category_id;
 		}
+		
+		$contain = array(
+			'TaxClass' => array(
+				'fields' => array('id', 'value')
+			),
+			'Manufacturer' => array(
+				'fields' => array('id', 'name')
+			)
+		);
+		
+		// do feedu pro zbozi chci k produktu vkladat varianty
+		if ($comparator_id == 2) {
+			$contain = array_merge($contain, array(
+				'Subproduct' => array(
+					'conditions' => array(
+						'Subproduct.active' => true			
+					),
+					'AttributesSubproduct' => array(
+						'Attribute' => array(
+							'fields' => array(
+								'Attribute.id', 'Attribute.value' 
+							),
+							'Option' => array(
+								'fields' => array(
+									'Option.id', 'Option.name'
+								)
+							)
+						)
+					)
+				)	
+			));
+		}
 
 		$this->Product->virtualFields['price'] = $this->Product->price;
 		$products = $this->Product->find('all', array(
 			'conditions' => $conditions,
-			'contain' => array(
-				'TaxClass' => array(
-					'fields' => array('id', 'value')
-				),
-				'Manufacturer' => array(
-					'fields' => array('id', 'name')
-				),
-			),
+			'contain' => $contain,
 			'joins' => array(
 				array(
 					'table' => 'customer_type_product_prices',

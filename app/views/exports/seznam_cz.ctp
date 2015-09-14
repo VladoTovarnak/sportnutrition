@@ -27,5 +27,20 @@ if (empty($zbozi_name)) {
 <?php if (isset($product['ComparatorProductClickPrice']['click_price']) && !empty($product['ComparatorProductClickPrice']['click_price']) && $product['ComparatorProductClickPrice']['click_price'] != 0) { ?>
 		<MAX_CPC><?php echo number_format($product['ComparatorProductClickPrice']['click_price'], 2, '.', '')?></MAX_CPC>
 <?php } ?>
+<?php if (!empty($product['Subproduct'])) { 
+		foreach ($product['Subproduct'] as $subproduct) { 
+			$subproduct_name = array();
+			foreach ($subproduct['AttributesSubproduct'] as $as) {
+				$subproduct_name[] = $as['Attribute']['Option']['name'] . ': ' . $as['Attribute']['value'];
+			}
+			$subproduct_name = implode(', ', $subproduct_name);
+			$subproduct_price = $product['Product']['price'] + $subproduct['price_with_dph'];
+?>
+		<VARIANT>
+			<PRODUCTNAMEEXT><![CDATA[<?php echo $subproduct_name ?>]]></PRODUCTNAMEEXT>
+			<PRICE_VAT><?php echo $subproduct_price?></PRICE_VAT>
+		</VARIANT>
+<?php 	}
+	} ?>
 	</SHOPITEM>
 <? } ?>
