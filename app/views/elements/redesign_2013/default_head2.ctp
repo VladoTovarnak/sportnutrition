@@ -7,7 +7,7 @@
 	}
 ?>
 		<meta charset="UTF-8" />
-		<link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH?><?php echo ($_SERVER['REMOTE_ADDR'] == IMAGE_IP ? 'style000-new.css' : 'style000.css?v=13')?>" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH?><?php echo ($_SERVER['REMOTE_ADDR'] == IMAGE_IP ? 'style000-new.css' : 'style000.css?v=14')?>" type="text/css" media="screen" />
 		<title><?php echo $_title?> : Sportnutrition</title>
 		<meta name="description" content="<?php echo $_description?>" />
 <?php
