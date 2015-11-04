@@ -46,7 +46,7 @@
 		} ?>
 	</div>
 	<p class="manufacturer"><?php echo $this->Html->link($product['Manufacturer']['name'], '/' . strip_diacritic($product['Manufacturer']['name'] . '-v' . $product['Manufacturer']['id']))?></p>
-	<div class="rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div>
+	<!-- <div class="rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div> -->
 	<p class="comments"><a href="#comment_list" class="view_comments_link">Přečíst komentáře</a> | <a href="#tabs-2" class="add_comment_link">Přidat komentář</a></p>
 <?php if ($product['Product']['name'] != $product['Product']['short_description']) { ?>
 	<p><?php echo $product['Product']['short_description']?> <a href="#tabs-1">Více informací...</a></p>
@@ -70,6 +70,14 @@
 		Běžná cena: <?php echo front_end_display_price($product['Product']['retail_price_with_dph']) ?>&nbsp;Kč<br/>
 <?php } ?>
 		<b class="price">Cena: <span id="price_str"><?php echo front_end_display_price($product['Product']['price']) ?></span>&nbsp;Kč</b>
+		<span class="lepsi_cenu">
+			<strong>
+				Chcete lepší cenu? 
+			</strong>
+			<a href="http://www.sportnutrition.cz/registrace">
+				Zaregistrujte se
+			</a> a využijte benefitů pro registrované zákazníky.
+</span>
 	</p>
 <?php if (isset($product['Product']['note']) && !empty($product['Product']['note'])) { ?>
 	<p><b>Poznámka:</b> <?php echo $product['Product']['note']?></p>

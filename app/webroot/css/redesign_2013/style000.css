@@ -537,6 +537,12 @@ form div.pair button {
 	font-weight: bold;
 }
 
+#main div.product.card p.prices span.lepsi_cenu {
+	color: navy;
+	font-size: 13px;
+	font-family: arial;
+}
+
 #main div.product.card p.guarantee {
 	font-size:10px;
 	border:none;
@@ -606,6 +612,11 @@ ul.breadcrumbs li:last-child {
 ul.breadcrumbs li:last-child a {
     color: #E10019;
     text-decoration: none;
+}
+
+p.register_note{
+	font-size: 21px;
+	line-height: 35px;
 }
 
 #main h2.product_name {
