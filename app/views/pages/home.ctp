@@ -19,7 +19,7 @@
 			<a class="image_holder" href="/<?php echo $suggested_product['Product']['url']?>">
 				<img src="/product-images/small/<?php echo $suggested_product['Image']['name']?>" alt="<?php $suggested_product['Product']['title']?>" />
 			</a>
-			<div class="rating" data-average="<?php echo $suggested_product['Product']['rate']?>" data-id="<?php echo $suggested_product['Product']['id']?>"></div>
+			<!-- <div class="rating" data-average="<?php echo $suggested_product['Product']['rate']?>" data-id="<?php echo $suggested_product['Product']['id']?>"></div> -->
 			<p class="comments"><a href="<?php echo $suggested_product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="<?php echo $suggested_product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
 			<?php if (isset($suggested_product['Availability']['cart_allowed']) && $suggested_product['Availability']['cart_allowed']) { 
 				echo $this->Form->create('Product', array('url' => '/' . $suggested_product['Product']['url'], 'encoding' => false));
@@ -47,7 +47,7 @@
 						<a class="image_holder" href="/<?php echo $product['Product']['url']?>">
 							<img src="/product-images/small/<?php echo $product['Image']['name']?>" alt="<?php echo $product['Product']['title']?>"/>
 						</a>
-						<div class="g_rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div>
+						<!-- <div class="g_rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div> -->
 						<p class="comments"><a href="<?php echo $product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="<?php echo $product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
 						<?php if (isset($product['Availability']['cart_allowed']) && $product['Availability']['cart_allowed']) {
 							echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false));
@@ -119,7 +119,7 @@
 		<div class="product card">
 			<h3><a href="/<?php echo $product['Product']['url']?>"><?php echo $product['Product']['name']?></a></h3>
 			<a class="image_holder" href="/<?php echo $product['Product']['url']?>"><img src="/product-images/small/<?php echo $product['Image']['name']?>" alt="<?php $product['Product']['title']?>" /></a>
-			<div class="rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div>
+			<!-- <div class="rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div>  -->
 			<p class="comments"><a href="<?php echo $product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="<?php echo $product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
 			<?php if (isset($product['Availability']['cart_allowed']) && $product['Availability']['cart_allowed']) {
 				echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false));

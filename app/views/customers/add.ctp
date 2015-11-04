@@ -1,6 +1,7 @@
 <h2><span><?php echo $page_heading?></span></h2>
-<p>Zaregistrujte se a budete si moci prohlédnout ceny produktů pro zaregistrované uživatele obchodu.</p>
-<?=$form->Create('Customer', array('id' => 'orderForm'))?>
+<p class="register_note">Registrací <strong>získáte přístup ke sníženým cenám produktů</strong>, které jsou určeny <strong>pouze pro registrované zákazníky</strong>.
+  Vaše kontaktní údaje jsou u nás v bezpečí, vaše <strong>údaje nebudeme s nikým sdílet</strong>.</p>
+<?php echo $form->Create('Customer', array('id' => 'orderForm'))?>
 	<fieldset>
 		<legend>Registrační údaje</legend>
 		<table id="orderForm">
@@ -24,7 +25,7 @@
 	</fieldset>
 
 	<fieldset>
-		<legend>Doručovací adresa - nepovinné</legend>
+		<legend>Doručovací adresa - nepovinné (nyní nemusíte vyplňovat)</legend>
 		<table id="orderForm">
 			<tr>
 				<th>Ulice</th>
@@ -57,8 +58,8 @@
 			<th>&nbsp;</th>
 			<td>
 				<?php echo $this->Form->hidden('Customer.customer_type_id', array('value' => 1))?>
-				<?=$form->Submit('zaregistrovat', array('class' => 'content'));?>
+				<?php echo $form->Submit('zaregistrovat', array('class' => 'content'));?>
 			</td>
 		</tr>
 	</table>
-<?=$form->end()?>
+<?php echo $form->end()?>
