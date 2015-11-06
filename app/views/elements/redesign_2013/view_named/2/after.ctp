@@ -1,3 +1,14 @@
+	<div style="margin-top:25px;margin-right:50px;float:right;" id="showHeurekaBadgeHere-11"></div><script type="text/javascript">
+	//<![CDATA[
+	var _hwq = _hwq || [];
+	    _hwq.push(['setKey', '2CE1ECA351EBBD47F06DF24414582CA0']);_hwq.push(['showWidget', '11', '20863', 'Sportnutrition', 'sportnutrition-cz']);(function() {
+	    var ho = document.createElement('script'); ho.type = 'text/javascript'; ho.async = true;
+	    ho.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.heureka.cz/direct/i/gjs.php?n=wdgt&sak=2CE1ECA351EBBD47F06DF24414582CA0';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ho, s);
+	})();
+	//]]>
+	</script>
+<div style="float:left;">
 	<h3 class="nadpis_after">Proč je vhodné mít L-carnitin při hubnutí?</h3>
 	<ul>
 		<li>podpora spalování tuků</li>
@@ -9,8 +20,10 @@
 		<li>přenašeč mastných kyselin do energetického centra buňky</li>
 		<li>redukce vyšší váhy při zachování svalové hmoty</li>
 	</ul>
+</div>
+<div class="clearer"></div>
 	
-		
+	
 				
 				<!-- SOCIALNI SITE -->
 				<div class="social" style="margin-top:30px;">
