@@ -354,7 +354,8 @@ class CategoriesProductsController extends AppController {
 		$this->set('action_products', $action_products);
 	}
 
-	function view_named(){
+	function view_named($id = null){
+		
 		// navolim si layout, ktery se pouzije
 		$this->layout = REDESIGN_PATH . 'no_right';
 
@@ -396,11 +397,11 @@ class CategoriesProductsController extends AppController {
 		);
 		
 		// nastavim si ktere produkty chci zobrazit
-		$conditions = array('Product.id' => array(4132, 3984, 4172, 4176, 4141, 4191));
-		$conditions = array('Product.id' => array(4176, 4565, 4167)); // proteiny
+		$conditions[2] = array('Product.id' => array(3521, 1190, 4591)); // karnitiny
+		$conditions[1] = array('Product.id' => array(4176, 4565, 4167)); // proteiny
 		
 		$this->paginate['Product'] = array(
-			'conditions' => $conditions,
+			'conditions' => $conditions[$id],
 			'contain' => array(),
 			'fields' => array(
 				'Product.id',
@@ -482,6 +483,7 @@ class CategoriesProductsController extends AppController {
 			}
 		}
 		$this->set('delivery_textual', $delivery_settings[$day_in_week]['textual']);
+		$this->set('id', $id);
 	}
 	
 	function cancel_filter($id) {
