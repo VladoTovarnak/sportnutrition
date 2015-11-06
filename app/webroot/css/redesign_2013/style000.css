@@ -537,10 +537,10 @@ form div.pair button {
 	font-weight: bold;
 }
 
-#main div.product.card p.prices span.lepsi_cenu {
+#main div.product.card p.prices span.lepsi_cenu, #main div.product.card p.prices a.lepsi_cenu {
 	color: navy;
 	font-size: 13px;
-	font-family: arial;
+	font-family: Arial;
 }
 
 #main div.product.card p.guarantee {
