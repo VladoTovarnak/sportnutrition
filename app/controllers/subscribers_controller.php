@@ -58,5 +58,16 @@ class SubscribersController extends AppController {
 			$this->redirect($this->data['Subscriber']['request_uri'] . '#subscription');
 		}
 	}
+	
+	function remove(){
+		$this->layout = REDESIGN_PATH . 'order_process';
+		
+		if ( isset($this->data) ){
+			// logika pro notifikaci o odhlaseni
+			// logika pro odhlaseni
+			$this->Session->setFlash('Požadavek na odhlášení ze seznamu emailových adres proběhl úspěšně.<br> Odhlásil(a) jste se omylem?<br> Přihlásit se zpět do seznamu můžete pomocí formuláře dole na této stránce.<br> Vaše adresa bude odstraněna do tří pracovních dnů, pokud figuruje v seznamu emailových adres.', REDESIGN_PATH . 'flash_failure');
+			$this->redirect('/subscribers/remove#success', null, true);
+		}
+	}
 }
 ?>
