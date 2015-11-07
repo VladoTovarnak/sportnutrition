@@ -27,7 +27,22 @@
 			<img src="/product-images/small/l-carnitin-100-000-barva.jpg" alt="Obrázek L-carnitin 100 000 + chrom, 1000ml " width="90" height="170">
 		</a>
 		<p class="comments">&nbsp;</p>
-		<form method="post" action="/l-carnitin-100-000-chrom-1000ml-p1190"><div style="display:none;"><input type="hidden" name="_method" value="POST"></div><input type="hidden" name="data[Product][id]" value="1190" id="ProductId"><input type="hidden" name="data[Product][quantity]" value="1" id="ProductQuantity"><input type="hidden" name="data[Product][redirect]" value="cart" id="ProductRedirect"><div class="submit"><input class="cart_add" type="submit" value="Objednat"></div></form>		<p class="prices">
+		<form method="post" action="/l-carnitin-100-000-chrom-1000ml-p1190">
+			<div style="display:none;">
+				<input type="hidden" name="_method" value="POST">
+			</div>
+			<input type="hidden" name="data[Product][id]" value="1190" id="ProductId">
+			<input type="hidden" name="data[Product][quantity]" value="1" id="ProductQuantity">
+			<input type="hidden" name="data[Product][redirect]" value="cart" id="ProductRedirect">
+			<input type="hidden" name="data[Product][redirect_after_add]" value="direct_cart">
+			<input type="hidden" name="data[Subproduct][1934][quantity]" value="1" id="Subproduct1934Quantity">
+			<input type="hidden" name="data[Subproduct][1934][id]" value="1934" id="Subproduct1934Id">
+			<input type="hidden" name="data[Subproduct][1934][chosen]" value="1">
+			<div class="submit">
+				<input class="cart_add" type="submit" value="Objednat">
+			</div>
+		</form>
+		<p class="prices">
 			<span class="common">Běžná cena: 750&nbsp;Kč</span><br>
 			<span class="price">Cena: 359&nbsp;Kč</span>
 			<span>

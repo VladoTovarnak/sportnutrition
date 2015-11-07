@@ -84,11 +84,20 @@ class ProductsController extends AppController {
 			}
 			
 			if (isset($new_data)) {
+				/* chci mit moznost presmerovat rovnou do kosiku po pridani
+				 * produktu */
+				if ( isset($this->data['Product']['redirect_after_add']) && $this->data['Product']['redirect_after_add'] == 'direct_cart' ){
+					$redirect_target = '/objednavka';
+				}
 				$this->data = $new_data;
 				
 				$result = $this->Product->requestAction('carts_products/add', $this->data);
 				// vlozim do kosiku
 				if ( $result ){
+					if ( isset($redirect_target) ){ // je-li definovano, presmeruji tam, kam chci
+						$this->redirect($redirect_target, null, true);
+					}
+					
 					$this->Session->setFlash('Produkt byl uložen do nákupního košíku. Obsah Vašeho košíku si můžete zobrazit <a href="/kosik">zde</a>.', REDESIGN_PATH . 'flash_success');
 					$product = $this->Product->read(array('Product.url'), $this->data['CartsProduct']['product_id']);
 					$this->redirect('/' . $product['Product']['url'], null, true);
