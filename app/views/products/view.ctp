@@ -143,6 +143,14 @@
 	</tr>
 <?php 
 foreach ($subproducts as $subproduct) {
+	/* u produktu chci mit moznost v urcitych kampanich nevybirat prichute ani nic jineho
+	 * a vlozit produkt rovnou do kosiku, napr. z vypisu kategorii
+	 * pokud mezi atributy najdu 'nezvoleno', tak atribut do frontu zakazikovi
+	 * nebudu ukazovat - pozn. 'nezvoleno' ma ID: 1934 */ 
+	if ( $subproduct['AttributesSubproduct'][0]['Attribute']['value'] == 'nezvoleno' ){
+		continue;
+	}
+	
 	$information = '';
 	foreach ($subproduct['AttributesSubproduct'] as $attributes_subproduct) {
 		$information .= $attributes_subproduct['Attribute']['Option']['name'] . ': ' . $attributes_subproduct['Attribute']['value'] . '<br/>';

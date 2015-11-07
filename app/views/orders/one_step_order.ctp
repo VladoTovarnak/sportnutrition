@@ -45,7 +45,15 @@ if ($this->Session->check('Message.flash')) {
 <?php 	if (!empty($cart_product['CartsProduct']['product_attributes'])) { ?>
 					<br />
 					<div style="font-size:11px;padding-left:20px;">
-<?php 		foreach ($cart_product['CartsProduct']['product_attributes'] as $option => $value) { ?>
+<?php 		foreach ($cart_product['CartsProduct']['product_attributes'] as $option => $value) {
+				/* u produktu chci mit moznost v urcitych kampanich nevybirat prichute ani nic jineho
+				 * a vlozit produkt rovnou do kosiku, napr. z vypisu kategorii
+				 * pokud mezi atributy najdu 'nezvoleno', tak atribut do frontu zakazikovi
+				 * nebudu ukazovat - pozn. 'nezvoleno' ma ID: 1934 */
+				if ( $value == 'nezvoleno' ){
+					continue;
+				}
+?>
 						<strong><?php echo $option ?></strong>: <?php echo $value ?><br />
 <?php 		} ?>
 					</div>
