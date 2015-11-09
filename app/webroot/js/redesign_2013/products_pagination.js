@@ -1,15 +1,15 @@
 $(function() {
 	$('.paging').change(function() {
 		$('#body').mask('Načítám...');
-		this.form.submit();
+		$('#filter_form').submit();
 	});
 	
 	$('.sorting').change(function() {
 		$('#body').mask('Načítám...');
-		this.form.submit();
+		$('#filter_form').submit();
 	});
 
-	selected_man_str = $('#CategoriesProductManufacturerId').val();
+	selected_man_str = $('#CategoriesProductM').val();
 	if (!selected_man_str) {
 		selected_man_str = '';
 	}
@@ -23,7 +23,7 @@ $(function() {
 		}
 	}
 	
-	selected_att_str = $('#CategoriesProductAttributeId').val();
+	selected_att_str = $('#CategoriesProductA').val();
 	if (!selected_att_str) {
 		selected_att_str = '';
 	}
@@ -56,7 +56,7 @@ $(function() {
 				selected_man.push($(this).attr('rel'));
 			});
 		}
-		$('#CategoriesProductManufacturerId').val(selected_man.toString());
+		$('#CategoriesProductM').val(selected_man.toString());
 		$('#filter_form').submit();
 	});
 	
@@ -73,7 +73,18 @@ $(function() {
 				selected_att.push($(this).attr('rel'));
 			});
 		}
-		$('#CategoriesProductAttributeId').val(selected_att.toString());
+		$('#CategoriesProductA').val(selected_att.toString());
 		$('#filter_form').submit();
+	});
+	
+	$('#filter_form').submit(function(e) {
+		$(this).children().each(function(i, v) {
+			val = $(v).val();
+			if (val == "" || val == 0) {
+				$(v).attr('disabled', 'disabled');
+			}
+		});
+		return true;
+		
 	});
 });

@@ -21,11 +21,11 @@
 			<div class="sorter">
 				<?php echo $this->Form->create(null, array('url' => '/' . $this->params['url']['url'], 'type' => 'get', 'id' => 'filter_form', 'encoding' => false))?>
 				Řadit podle:
-				<?php echo $this->Form->input('sorting', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $sorting_options, 'div' => false, 'class' => 'sorting'))?>
+				<?php echo $this->Form->input('s', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $sorting_options, 'div' => false, 'class' => 'sorting'))?>
 				Na stránku:
-				<?php echo $this->Form->input('paging', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $paging_options, 'div' => false, 'class' => 'paging'))?>
-				<?php echo $this->Form->hidden('manufacturer_id')?>
-				<?php echo $this->Form->hidden('attribute_id')?>
+				<?php echo $this->Form->input('p', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $paging_options, 'div' => false, 'class' => 'paging'))?>
+				<?php echo $this->Form->hidden('m')?>
+				<?php echo $this->Form->hidden('a')?>
 				<?php echo $this->Form->end()?>
 				<div class="clearer"></div>
 			</div>
@@ -112,7 +112,7 @@
 					// cislo stranky, ktera je vypsana
 					$page = $this->Paginator->current();
 					// pocet produktu na stranku
-					$page_products = $paging_options[$this->data['CategoriesProduct']['paging']];
+					$page_products = $paging_options[$this->data['CategoriesProduct']['p']];
 					// pocet produktu na dalsi strance
 					$next_page_products_count = $total_category_products - ($page * $page_products);
 					if ($next_page_products_count > $page_products) {
@@ -137,9 +137,9 @@
 			<div class="sorter">
 			<?php echo $this->Form->create(null, array('url' => '/' . $this->params['url']['url'], 'type' => 'get', 'encoding' => false))?>
 			Řadit podle:
-			<?php echo $this->Form->input('sorting', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $sorting_options, 'div' => false, 'class' => 'sorting'))?>
+			<?php echo $this->Form->input('s', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $sorting_options, 'div' => false, 'class' => 'sorting'))?>
 			Na stránku:
-			<?php echo $this->Form->input('paging', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $paging_options, 'div' => false, 'class' => 'paging'))?>
+			<?php echo $this->Form->input('p', array('label' => false, 'type' => 'select', 'empty' => false, 'options' => $paging_options, 'div' => false, 'class' => 'paging'))?>
 			<?php echo $this->Form->end()?>
 			</div>
 			<div class="clearer"></div>

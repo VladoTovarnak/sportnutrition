@@ -141,16 +141,16 @@ class CategoriesProductsController extends AppController {
 		$this->set('sorting_options', $sorting_options);
 		
 		$sorting = 0;
-		if (isset($_GET['sorting'])) {
-			$sorting = $_GET['sorting'];
+		if (isset($_GET['s'])) {
+			$sorting = $_GET['s'];
 		}
-		$this->data['CategoriesProduct']['sorting'] = $sorting;
+		$this->data['CategoriesProduct']['s'] = $sorting;
 		
 		$paging = 0;
-		if (isset($_GET['paging'])) {
-			$paging = $_GET['paging'];
+		if (isset($_GET['p'])) {
+			$paging = $_GET['p'];
 		}
-		$this->data['CategoriesProduct']['paging'] = $paging;
+		$this->data['CategoriesProduct']['p'] = $paging;
 		
 		// nastavim si pro menu IDecko kategorie,
 		// kterou momentalne prohlizim
@@ -209,7 +209,7 @@ class CategoriesProductsController extends AppController {
 		$category_ids = Set::extract('/Category/id', $category_ids);
 		$category_ids[] = $id;
 		
-		$limit = $paging_options[$this->data['CategoriesProduct']['paging']];
+		$limit = $paging_options[$this->data['CategoriesProduct']['p']];
 		
 		$conditions = array(
 			'CategoriesProduct.category_id' => $category_ids,
@@ -217,14 +217,14 @@ class CategoriesProductsController extends AppController {
 			'Product.price >' => 0
 		);
 
-		if (isset($_GET['manufacturer_id']) && !empty($_GET['manufacturer_id'])) {
-			$manufacturer_id = $_GET['manufacturer_id'];
+		if (isset($_GET['m']) && !empty($_GET['m'])) {
+			$manufacturer_id = $_GET['m'];
 			$manufacturer_id_arr = explode(',', $manufacturer_id);
 			if ($this->CategoriesProduct->Product->Manufacturer->filter_limit && count($manufacturer_id_arr) == $this->CategoriesProduct->Product->Manufacturer->filter_limit) {
 				$manufacturer_id = '';
 			} else {
 				$conditions = array_merge($conditions, array('Product.manufacturer_id' => $manufacturer_id_arr));
-				$this->data['CategoriesProduct']['manufacturer_id'] = $manufacturer_id;
+				$this->data['CategoriesProduct']['m'] = $manufacturer_id;
 			}
 		}
 		
@@ -261,11 +261,11 @@ class CategoriesProductsController extends AppController {
 			)
 		);
 		
-		if (isset($_GET['attribute_id']) && !empty($_GET['attribute_id'])) {
-			$attribute_id = $_GET['attribute_id'];
+		if (isset($_GET['a']) && !empty($_GET['a'])) {
+			$attribute_id = $_GET['a'];
 			$attribute_id_arr = explode(',', $attribute_id);
 			$conditions = array_merge($conditions, array('AttributesSubproduct.attribute_id' => $attribute_id_arr));
-			$this->data['CategoriesProduct']['attribute_id'] = $attribute_id;
+			$this->data['CategoriesProduct']['a'] = $attribute_id;
 			
 			$add_joins = array(
 				array(
@@ -317,8 +317,8 @@ class CategoriesProductsController extends AppController {
 		
 		// sestavim podminku pro razeni podle toho, co je vybrano
 		$order = array('Availability.cart_allowed' => 'desc');
-		if (isset($this->data['CategoriesProduct']['sorting'])) {
-			switch ($this->data['CategoriesProduct']['sorting']) {
+		if (isset($this->data['CategoriesProduct']['s'])) {
+			switch ($this->data['CategoriesProduct']['s']) {
 				// vychozi razeni podle priority
 				case 0: $order = array_merge($order, array('Product.priority' => 'asc')); break;
 				// nastavim razeni podle prodejnosti
