@@ -192,7 +192,6 @@ class CategoriesProductsController extends AppController {
 		
 		$category['Category']['content'] = $category['Category']['content'] . ($category_text && !empty($category_text) ? $category_text : '');
 
-		$this->set('category', $category);
 		// nastavim head tagy
 
 /*		if (isset($this->params['named']['page']) && $this->params['named']['page'] > 1) {
@@ -367,6 +366,7 @@ class CategoriesProductsController extends AppController {
 		} else {
 			unset($category['Category']['content']);
 		}
+		$this->set('category', $category);
 		
 		$action_products = $this->CategoriesProduct->Product->get_action_products($customer_type_id, 4);
 		$this->set('action_products', $action_products);
