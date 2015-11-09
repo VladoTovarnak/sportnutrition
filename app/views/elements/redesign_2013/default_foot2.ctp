@@ -24,7 +24,7 @@
 	}
 ?>
 	<!-- veci pro vypis kategorie -->
-	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>products_pagination.js"></script>
+	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>products_pagination.js?v=1"></script>
 	<script type="text/javascript" src="/loadmask/jquery.loadmask.min.js"></script>
 
 	<!-- veci pro vypis detailu produktu -->
