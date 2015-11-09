@@ -129,6 +129,26 @@ class CategoriesProductsController extends AppController {
 	}
 	
 	function view($id = null) {
+		// presmerovani starych URL, kdyz byly zadany parametry filtru produktu (podle vyrobce, prichute...)
+		if (isset($_GET['sorting']) || isset($_GET['paging']) || isset($_GET['manufacturer_id']) || isset($_GET['attribute_id'])) {
+			$parameters = array();
+			if (isset($_GET['sorting']) && $_GET['sorting'] != '0') {
+				$parameters[] = 's=' . $_GET['sorting'];
+			}
+			if (isset($_GET['paging']) && $_GET['paging'] != '0') {
+				$parameters[] = 'p=' . $_GET['paging'];
+			}
+			if (isset($_GET['manufacturer_id']) && $_GET['manufacturer_id'] != '') {
+				$parameters[] = 'm=' . $_GET['manufacturer_id'];
+			}
+			if (isset($_GET['attribute_id']) && $_GET['attribute_id'] != '') {
+				$parameters[] = 'a=' . $_GET['attribute_id'];
+			}
+			$parameters = implode('&', $parameters);
+			$url = '/' . $this->params['url']['url'] . '/?' . $parameters;
+			$this->redirect($url);
+		}
+		
 		// navolim si layout, ktery se pouzije
 		$this->layout = REDESIGN_PATH . 'category';
 		
@@ -155,14 +175,6 @@ class CategoriesProductsController extends AppController {
 		// nastavim si pro menu IDecko kategorie,
 		// kterou momentalne prohlizim
 		$this->set('opened_category_id', $id);
-		// nastavim breadcrumbs
-		$breadcrumbs = $this->CategoriesProduct->Category->getPath($id);
-		if (!empty($breadcrumbs)) {
-			foreach ($breadcrumbs as &$breadcrumb) {
-				$breadcrumb = array('href' => '/' . $breadcrumb['Category']['url'], 'anchor' => $breadcrumb['Category']['breadcrumb']);
-			}
-		}
-		$this->set('breadcrumbs', $breadcrumbs);
 		// nactu si info o kategorii
 		$category = $this->CategoriesProduct->Category->find('first', array(
 			'conditions' => array('Category.id' => $id, 'Category.active' => true),
@@ -182,14 +194,13 @@ class CategoriesProductsController extends AppController {
 
 		$this->set('category', $category);
 		// nastavim head tagy
-		$_title = $category['Category']['title'];
-		$_description = $category['Category']['description'];
+
 /*		if (isset($this->params['named']['page']) && $this->params['named']['page'] > 1) {
 			$_title .= ' - stránka ' . $this->params['named']['page'];
 			$_description .= ' - stránka ' . $this->params['named']['page'];
 		}*/
-		$this->set('_title', $_title);
-		$this->set('_description', $_description);
+		
+		
 		// nastavim zobrazovany banner
 		$category_banner = unserialize(CATEGORY_BANNER);
 		// pokud jsem v podstromu proteinovych kategorii, chci nastavit jiny banner
@@ -217,6 +228,7 @@ class CategoriesProductsController extends AppController {
 			'Product.price >' => 0
 		);
 
+		$manufacturer_id = null;
 		if (isset($_GET['m']) && !empty($_GET['m'])) {
 			$manufacturer_id = $_GET['m'];
 			$manufacturer_id_arr = explode(',', $manufacturer_id);
@@ -349,6 +361,11 @@ class CategoriesProductsController extends AppController {
 		$listing_style = 'products_listing_grid';
 		
 		$this->set('listing_style', $listing_style);
+		
+		// nastavim meta informace o dane strance
+		list($_title, $_heading, $_description, $breadcrumbs) = $this->CategoriesProduct->Category->getAboutData($id, $manufacturer_id);
+		$this->set(compact('_title', '_description', '_heading', 'breadcrumbs'));
+		$this->set('manufacturer_id', $manufacturer_id);
 		
 		$action_products = $this->CategoriesProduct->Product->get_action_products($customer_type_id, 4);
 		$this->set('action_products', $action_products);
