@@ -364,6 +364,8 @@ class CategoriesProductsController extends AppController {
 			// nastavim zobrazovany banner
 			$category_banner = $this->CategoriesProduct->Category->categoryBanner($id);
 			$this->set('category_banner', $category_banner);
+		} else {
+			unset($category['Category']['content']);
 		}
 		
 		$action_products = $this->CategoriesProduct->Product->get_action_products($customer_type_id, 4);
