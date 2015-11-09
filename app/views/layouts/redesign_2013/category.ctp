@@ -49,7 +49,16 @@
 			<h3>Podle značky</h3>
 			<ul>
 				<?php foreach ($filter_manufacturers as $filter_manufacturer) { ?>
-				<li><label><input type="checkbox" class="filter_manufacturer" rel="<?php echo $filter_manufacturer['Manufacturer']['id']?>" id="Manufacturer<?php echo $filter_manufacturer['Manufacturer']['id']?>"/><?php echo $filter_manufacturer['Manufacturer']['name']?>  (<?php echo $filter_manufacturer[0]['Manufacturer__products_count']?>)</label></li>
+				<li>
+					<label>
+						<input type="checkbox" class="filter_manufacturer" rel="<?php echo $filter_manufacturer['Manufacturer']['id']?>" id="Manufacturer<?php echo $filter_manufacturer['Manufacturer']['id']?>"/>
+						<?php 
+							$manufacturer = $filter_manufacturer['Manufacturer']['name'] . '(' . $filter_manufacturer[0]['Manufacturer__products_count'] . ')';
+							$url = '/' . $category['Category']['url'] . '?m=' . $filter_manufacturer['Manufacturer']['id'];
+							echo $this->Html->link($manufacturer, $url);
+						?>
+					</label>
+				</li>
 				<?php } ?>
 			</ul>
 			<?php } ?>
