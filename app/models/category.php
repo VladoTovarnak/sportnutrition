@@ -585,5 +585,16 @@ class Category extends AppModel {
 		}
 		return $breadcrumbs;
 	}
+	
+	function categoryBanner($id) {
+		$category_banner = unserialize(CATEGORY_BANNER);
+			
+		// pokud jsem v podstromu proteinovych kategorii, chci nastavit jiny banner
+		if (in_array($id, $this->subtree_ids(16))) {
+			$category_banner = array('href' => '/deluxe-60g-p4215', 'src' => '/images/protein-category-banner.gif');
+		}
+		
+		return $category_banner;
+	}
 }
 ?>
