@@ -201,20 +201,10 @@ class CategoriesProductsController extends AppController {
 		}*/
 		
 		
-		// nastavim zobrazovany banner
-		$category_banner = unserialize(CATEGORY_BANNER);
-		// pokud jsem v podstromu proteinovych kategorii, chci nastavit jiny banner
-		if (in_array($id, $this->CategoriesProduct->Category->subtree_ids(16))) {
-			$category_banner = array('href' => '/deluxe-60g-p4215', 'src' => '/images/protein-category-banner.gif');
-		}
-		$this->set('category_banner', $category_banner);
 		// nejprodavanejsi produkty
 		App::import('Model', 'CustomerType');
 		$this->CustomerType = new CustomerType;
 		$customer_type_id = $this->CustomerType->get_id($this->Session->read());
-		
-		$category_most_sold = $this->CategoriesProduct->Category->most_sold_products($id, $customer_type_id);
-		$this->set('category_most_sold', $category_most_sold);
 		
 		$category_ids = $this->CategoriesProduct->Category->children($category['Category']['id']);
 		$category_ids = Set::extract('/Category/id', $category_ids);
@@ -365,7 +355,16 @@ class CategoriesProductsController extends AppController {
 		// nastavim meta informace o dane strance
 		list($_title, $_heading, $_description, $breadcrumbs) = $this->CategoriesProduct->Category->getAboutData($id, $manufacturer_id);
 		$this->set(compact('_title', '_description', '_heading', 'breadcrumbs'));
-		$this->set('manufacturer_id', $manufacturer_id);
+		
+		// pokud mam ve filtru vybrane vyrobce, nechci vypisovat nejprodavanejsi produkty v kategorii
+		if (!$manufacturer_id) {
+			$category_most_sold = $this->CategoriesProduct->Category->most_sold_products($id, $customer_type_id);
+			$this->set('category_most_sold', $category_most_sold);
+			
+			// nastavim zobrazovany banner
+			$category_banner = $this->CategoriesProduct->Category->categoryBanner($id);
+			$this->set('category_banner', $category_banner);
+		}
 		
 		$action_products = $this->CategoriesProduct->Product->get_action_products($customer_type_id, 4);
 		$this->set('action_products', $action_products);
