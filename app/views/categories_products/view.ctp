@@ -16,7 +16,7 @@
 	}
 	if (!empty($products)) {
 ?>
-		<h2><span><?php echo $category['Category']['heading']?></span></h2>
+		<h2><span><?php echo $_heading?></span></h2>
 		<div class="paginator">
 			<div class="sorter">
 				<?php echo $this->Form->create(null, array('url' => '/' . $this->params['url']['url'], 'type' => 'get', 'id' => 'filter_form', 'encoding' => false))?>

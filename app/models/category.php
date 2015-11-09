@@ -485,5 +485,105 @@ class Category extends AppModel {
 		
 		return $products;
 	}
+	
+	function getAboutData($id, $manufacturer_id) {
+		// jestlize je id vyrobce cokoli jineho nez cislo, nepocitat s nim (muze byt i retezec s cisly oddelenymi carkou, pokud je vybrano vice vyrobcu)
+		if (!preg_match('/^\d+$/', $manufacturer_id)) {
+			$manufacturer_id = false;
+		}
+		
+		$title = $this->getTitle($id, $manufacturer_id);
+		$heading = $this->getHeading($id, $manufacturer_id);
+		$description = $this->getDescription($id, $manufacturer_id);
+		$breadcrumbs = $this->getBreadcrumbs($id, $manufacturer_id);
+
+		return array($title, $heading, $description, $breadcrumbs);
+	}
+	
+	function getTitle($id, $manufacturer_id) {
+		$category = $this->find('first', array(
+			'conditions' => array('Category.id' => $id),
+			'contain' => array(),
+			'fields' => array('Category.title')
+		));
+		if (empty($category)) {
+			return false;
+		}
+		
+		$title = $category['Category']['title'];
+		if ($manufacturer_id) {
+			$manufacturer = $this->CategoriesProduct->Product->Manufacturer->find('first', array(
+				'conditions' => array('Manufacturer.id' => $manufacturer_id),
+				'contain' => array(),
+				'fields' => array('Manufacturer.name')
+			));
+			if (!empty($manufacturer)) {
+				$title = $manufacturer['Manufacturer']['name'] . ' ' . $title;
+			}
+		}
+		return $title;
+	}
+	
+	function getHeading($id, $manufacturer_id) {
+		$category = $this->find('first', array(
+			'conditions' => array('Category.id' => $id),
+			'contain' => array(),
+			'fields' => array('Category.heading')
+		));
+		if (empty($category)) {
+			return false;
+		}
+		
+		$heading = $category['Category']['heading'];
+		if ($manufacturer_id) {
+			$manufacturer = $this->CategoriesProduct->Product->Manufacturer->find('first', array(
+				'conditions' => array('Manufacturer.id' => $manufacturer_id),
+				'contain' => array(),
+				'fields' => array('Manufacturer.name')
+			));
+			if (!empty($manufacturer)) {
+				$heading = $manufacturer['Manufacturer']['name'] . ' ' . $heading;
+			}
+		}
+		return $heading;
+	}
+	
+	function getDescription($id, $manufacturer_id) {
+		$category = $this->find('first', array(
+			'conditions' => array('Category.id' => $id),
+			'contain' => array(),
+			'fields' => array('Category.description')
+		));
+		if (empty($category)) {
+			return false;
+		}
+		
+		$description = $category['Category']['description'];
+		return $description;
+	}
+	
+	function getBreadcrumbs($id, $manufacturer_id) {
+		// nastavim breadcrumbs
+		$breadcrumbs = $this->CategoriesProduct->Category->getPath($id);
+		if (!empty($breadcrumbs)) {
+			foreach ($breadcrumbs as &$breadcrumb) {
+				$breadcrumb = array('href' => '/' . $breadcrumb['Category']['url'], 'anchor' => $breadcrumb['Category']['breadcrumb']);
+			}
+			
+			if ($manufacturer_id) {
+				$manufacturer = $this->CategoriesProduct->Product->Manufacturer->find('first', array(
+					'conditions' => array('Manufacturer.id' => $manufacturer_id),
+					'contain' => array(),
+					'fields' => array('Manufacturer.name')
+				));
+				if (!empty($manufacturer)) {
+					$url = $breadcrumbs[count($breadcrumbs)-1]['href'] . '?m=' . $manufacturer_id;
+
+					$breadcrumbs[] = array('href' => $url, 'anchor' => $manufacturer['Manufacturer']['name']);
+				}
+			}
+		}
+		return $breadcrumbs;
+	}
 }
 ?>
