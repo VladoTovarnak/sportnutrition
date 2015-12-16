@@ -263,82 +263,47 @@ class Order extends AppModel {
 		// cislo baliku v kterem byla objednavka expedovana
 		$this->contain('Shipping');
 		$order = $this->read(null, $id);
-
-		// sestavim si URL, kde jsou informace o zasilce
-		$tracker_url = $order['Shipping']['tracker_prefix'] . trim($order['Order']['shipping_number']) . $order['Shipping']['tracker_postfix'];
-
-		$contents = @file_get_contents($tracker_url);
 		
-		if ( $contents !== false ){
-			if ( eregi('Zásilka nenalezena', $contents) ){
-				return $id;
-			}
-				
-			$original = $contents;
-			$contents = str_replace("\r\n", "", $contents);
-			$contents = str_replace("\t", "", $contents);
-			
-			// z obsahu vyseknu usek, ktery zminuje jednotlive stavy objednavky
-			$pattern = '/<table class="frm2" style="width:100%;">\s+<caption>Detail<\/caption>(.*)<\/table>/U';
-			preg_match_all($pattern, $contents, $contents);
-			// stavy si rozhodim do jednotlivych prvku pole
-			$pattern = '/<tr class="(?:[^"]+)">\s*<td>(.*)<\/td>\s*<td>(.*)<\/td>\s*<\/tr>/U';
-			preg_match_all($pattern, $contents[1][0], $contents);
-			$pattern = '/(?:Zásilka doručena|Doručeno.)/';
-			$count = count($contents[1]);
-			for ( $i = 0; $i < $count; $i++ ){
-				// najdu si, zda objednavka byla dorucena
-				if (preg_match($pattern, $contents[2][$i])) {
-					// pokud byla dorucena, najdu si datum doruceni
-					$date = '';
-	
-					if (!empty($contents[1][$i])) {
-						$pattern = '/([0-9]{1,2}\.[0-9]{1,2}\.[0-9]{4} [0-9]{1,2}:[0-9]{2})/';
-						if (preg_match($pattern, $contents[1][$i], $date)) {
-							// potrebuju si nacits admina ze session,
-							// takze si pripojim helper pro session
-							App::import('Helper', 'Session');
-							$this->Session = new SessionHelper;
-
-							$data_source = $this->getDataSource();
-							$data_source->begin($this);
-							
-							// musim zmenit objednavku na doruceno a zapsat poznamku o tom, kdy byla dorucena
-							$this->id = $id;
-							if (!$this->save(array('status_id' => '4'), false, array('status_id', 'modified'))) {
-								$data_source->rollback($this);
-								die('neulozil jsem stav objednavky');
-								continue;
-							}
-							
-							// zapisu poznamku o tom, kdy byla dorucena
-							$note = array('order_id' => $id,
-								'status_id' => '4',
-								'administrator_id' => $this->Session->read('Administrator.id'),
-								'note' => 'Zásilka byla automaticky identifikována jako doručená zákazníkovi. Datum doručení: ' . $date[1],
-								'created' => date('Y-m-d H:i:s'),
-								'modified' => date('Y-m-d H:i:s')
-							);
-							
-							$this->Ordernote->create();
-							if (!$this->Ordernote->save($note)) {
-								$data_source->rollback($this);
-								die('neulozila se poznamka o zmene stavu');
-								continue;
-							}
-							$data_source->commit($this);
-							break;
-						} else {
-							return $id;
-						}
-					}
-					// zatim nedoruceno, nic se neprovadi
-				}
-			}
-			return true;
-		} else {
+		$shipping_number = trim($order['Order']['shipping_number']);
+		
+		$soap = new SoapClient('https://www.ppl.cz/IEGate/IEGate.asmx?WSDL');
+		$GetPackageInfoResponse = $soap->GetPackageInfo(array('PackageID' => $shipping_number));
+		// neni doruceno
+		if (!isset($GetPackageInfoResponse->GetPackageInfoResult) || !$GetPackageInfoResponse->GetPackageInfoResult->DateDeliv || empty($GetPackageInfoResponse->GetPackageInfoResult->DateDeliv)) {
 			return $id;
+		} else {
+			$data_source = $this->getDataSource();
+			$data_source->begin($this);
+				
+			// musim zmenit objednavku na doruceno a zapsat poznamku o tom, kdy byla dorucena
+			$this->id = $id;
+			if (!$this->save(array('status_id' => '4'), false, array('status_id', 'modified'))) {
+				$data_source->rollback($this);
+				die('neulozil jsem stav objednavky');
+				continue;
+			}
+
+			App::import('Helper', 'Session');
+			$this->Session = new SessionHelper;
+			// zapisu poznamku o tom, kdy byla dorucena
+			$note = array('order_id' => $id,
+				'status_id' => '4',
+				'administrator_id' => $this->Session->read('Administrator.id'),
+				'note' => 'Zásilka byla automaticky identifikována jako doručená zákazníkovi. Datum doručení: ' . $GetPackageInfoResponse->GetPackageInfoResult->DateDeliv,
+				'created' => date('Y-m-d H:i:s'),
+				'modified' => date('Y-m-d H:i:s')
+			);
+				
+			$this->Ordernote->create();
+			if (!$this->Ordernote->save($note)) {
+				$data_source->rollback($this);
+				die('neulozila se poznamka o zmene stavu');
+				continue;
+			}
+			$data_source->commit($this);
+			return true;
 		}
+
 	}
 
 	/*
