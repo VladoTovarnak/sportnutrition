@@ -1658,8 +1658,9 @@ class OrdersController extends AppController {
 	}
 	
 	function test() {
-		$this->Order->notifyAdmin(36293);
-		die('hotovo');
+		$soap = new SoapClient('https://www.ppl.cz/IEGate/IEGate.asmx?WSDL');
+		$GetPackageInfoResponse = $soap->GetPackageInfo(array('PackageID' => '40990066613'));
+		debug($GetPackageInfoResponse);
 	}
 } // konec tridy
 ?>
