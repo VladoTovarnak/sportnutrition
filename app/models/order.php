@@ -269,8 +269,10 @@ class Order extends AppModel {
 		$soap = new SoapClient('https://www.ppl.cz/IEGate/IEGate.asmx?WSDL');
 		$GetPackageInfoResponse = $soap->GetPackageInfo(array('PackageID' => $shipping_number));
 		// neni doruceno
-		if (!isset($GetPackageInfoResponse->GetPackageInfoResult) || !$GetPackageInfoResponse->GetPackageInfoResult->DateDeliv || empty($GetPackageInfoResponse->GetPackageInfoResult->DateDeliv)) {
+		if (!isset($GetPackageInfoResponse->GetPackageInfoResult)) {
 			return $id;
+		} elseif (!$GetPackageInfoResponse->GetPackageInfoResult->DateDeliv || empty($GetPackageInfoResponse->GetPackageInfoResult->DateDeliv)) {
+			return true;
 		} else {
 			$data_source = $this->getDataSource();
 			$data_source->begin($this);
