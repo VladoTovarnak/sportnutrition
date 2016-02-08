@@ -203,6 +203,12 @@ class ManufacturersController extends AppController {
 				'conditions' => array('Product.id = CustomerTypeProductPrice.product_id AND CustomerTypeProductPrice.customer_type_id = ' . $customer_type_id)
 			),
 			array(
+				'table' => 'customer_type_product_prices',
+				'alias' => 'CustomerTypeProductPriceDiscount',
+				'type' => 'LEFT',
+				'conditions' => array('Product.id = CustomerTypeProductPriceDiscount.product_id AND CustomerTypeProductPriceDiscount.customer_type_id = 1')
+				),
+			array(
 				'table' => 'availabilities',
 				'alias' => 'Availability',
 				'type' => 'INNER',
@@ -245,6 +251,7 @@ class ManufacturersController extends AppController {
 				'Product.discount_common',
 				'Product.sold',
 				'Product.price',
+				'Product.price_discount',
 				'Product.rate',
 					
 				'Image.id',
@@ -286,10 +293,12 @@ class ManufacturersController extends AppController {
 		// cenu produktu urcim jako cenu podle typu zakaznika, pokud je nastavena, pokud neni nastavena cena podle typu zakaznika, vezmu za cenu beznou slevu, pokud ani ta neni nastavena
 		// vezmu jako cenu produktu obycejnou cenu
 		$this->Manufacturer->Product->virtualFields['price'] = $this->Manufacturer->Product->price;
+		$this->Manufacturer->Product->virtualFields['price_discount'] = $this->Manufacturer->Product->priceDiscount;
 		$products = $this->paginate('Product');
 		// opetovne vypnuti virtualnich poli, nastavenych za behu
 		unset($this->Manufacturer->Product->virtualFields['sold']);
 		unset($this->Manufacturer->Product->virtualFields['price']);
+		unset($this->Manufacturer->Product->virtualFields['price_discount']);
 
 		$this->set('products', $products);
 
