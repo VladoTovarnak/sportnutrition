@@ -70,14 +70,16 @@
 		Běžná cena: <?php echo front_end_display_price($product['Product']['retail_price_with_dph']) ?>&nbsp;Kč<br/>
 <?php } ?>
 		<b class="price">Cena: <span id="price_str"><?php echo front_end_display_price($product['Product']['price']) ?></span>&nbsp;Kč</b>
+<?php // hlasku o lepsi cene chci zobrazit jen tam, kde je to pravda
+	if ($product['Product']['price_discount'] < $product['Product']['price']) {
+?>
 		<span class="lepsi_cenu">
 			<strong>
 				Chcete lepší cenu? 
 			</strong>
-			<a href="http://www.sportnutrition.cz/registrace">
-				Zaregistrujte se
-			</a> a využijte benefitů pro registrované zákazníky.
-</span>
+			<a href="http://www.sportnutrition.cz/registrace">Zaregistrujte se</a> a využijte benefitů pro registrované zákazníky.
+		</span>
+<?php } ?>
 	</p>
 <?php if (isset($product['Product']['note']) && !empty($product['Product']['note'])) { ?>
 	<p><b>Poznámka:</b> <?php echo $product['Product']['note']?></p>
