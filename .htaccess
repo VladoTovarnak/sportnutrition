@@ -4,6 +4,17 @@
    	RewriteCond %{HTTP_HOST} ^sportnutrition.cz
 	RewriteRule (.*) http://www.sportnutrition.cz/$1 [R=301,QSA,L]
 	
+	# subdomeny (s nebo bez www na zacatku)
+	RewriteCond %{REQUEST_URI} !^subdom/
+	RewriteCond %{REQUEST_URI} !^/subdom/
+	RewriteCond %{HTTP_HOST} ^(www\.)?(.*)\.([^\.]*)\.([^\.]*)$
+	RewriteCond %{DOCUMENT_ROOT}/subdom/%2 -d
+	RewriteRule (.*) subdom/%2/$1 [DPI]
+	
+	# subdomeny - spravne presmerovani pri chybejicim /
+	RewriteCond %{REQUEST_FILENAME} -d
+	RewriteRule ^subdom/[^/]+/(.+[^/])$ /$1/ [R]
+	
 	## JEDNOKROKOVA OBJEDNAVKA - presmerovani puvodnich kroku objednavky
 	RewriteRule ^kosik$	/objednavka		[R=301,L]
 	RewriteRule ^objednavka-osobni-udaje$	/objednavka		[R=301,L]
@@ -18,7 +29,9 @@
 
 	RewriteRule ^administrace/help.php	/admin/j_tips/view	[R=301,QSA,L]
    
+   RewriteCond %{HTTP_HOST} !^dev\.sportnutrition\.cz$
    RewriteRule    ^$ app/webroot/    [L]
+   RewriteCond %{HTTP_HOST} !^dev\.sportnutrition\.cz$
    RewriteRule    (.*) app/webroot/$1 [L]
 </IfModule>
 
