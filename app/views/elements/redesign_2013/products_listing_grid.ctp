@@ -32,11 +32,15 @@ foreach ( $products as $product ){
 		<p class="prices">
 			<span class="common">Běžná cena: <?php echo front_end_display_price($product['Product']['retail_price_with_dph'])?>&nbsp;Kč</span><br />
 			<span class="price">Cena: <?php echo front_end_display_price($product['Product']['price'])?>&nbsp;Kč</span>
+			<?php // hlasku o lepsi cene chci zobrazit jen tam, kde je to pravda
+				if ($product['Product']['price_discount'] < $product['Product']['price']) {
+			?>
 			<span>
 				<a class="lepsi_cenu" href="http://www.sportnutrition.cz/registrace">
 					Chcete ještě lepší cenu? Zaregistrujte se.
 				</a>
 			</span>
+			<?php } ?>
 		</p>
 		<?php if (isset($product['Product']['short_description']) && !empty($product['Product']['short_description'])) { ?>
 		<p class="desc<?php echo ($odd ? '' : ' right')?>"><?php echo $product['Product']['short_description']?></p>

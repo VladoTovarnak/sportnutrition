@@ -90,6 +90,7 @@ class Product extends AppModel {
 	);
 	
 	var $price = 'FLOOR(IF(CustomerTypeProductPrice.price, CustomerTypeProductPrice.price, IF(Product.discount_common, Product.discount_common, Product.retail_price_with_dph)))';
+	var $priceDiscount = 'FLOOR(IF(CustomerTypeProductPriceDiscount.price, CustomerTypeProductPriceDiscount.price, IF(Product.discount_common, Product.discount_common, Product.retail_price_with_dph)))';
 	
 	var $virtualFields = array(
 		'rate' => 'ROUND(COALESCE(Product.overall_rate / Product.voted_count))'	

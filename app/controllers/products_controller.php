@@ -115,6 +115,7 @@ class ProductsController extends AppController {
 		$customer_type_id = $this->CustomerType->get_id($this->Session->read());
 		
 		$this->Product->virtualFields['price'] = $this->Product->price;
+		$this->Product->virtualFields['price_discount'] = $this->Product->priceDiscount;
 		// vyhledam si info o produktu
 		$product = $this->Product->find('first', array(
 			'conditions' => array(
@@ -169,6 +170,7 @@ class ProductsController extends AppController {
 				'Product.product_type_id',
 				'Product.note',
 				'Product.price',
+				'Product.price_discount',
 				'Product.rate',
 				'Product.video',
 				'Product.note',
@@ -181,12 +183,19 @@ class ProductsController extends AppController {
 					'alias' => 'CustomerTypeProductPrice',
 					'type' => 'LEFT',
 					'conditions' => array('Product.id = CustomerTypeProductPrice.product_id AND CustomerTypeProductPrice.customer_type_id = ' . $customer_type_id)
+				),
+				array(
+					'table' => 'customer_type_product_prices',
+					'alias' => 'CustomerTypeProductPriceDiscount',
+					'type' => 'LEFT',
+					'conditions' => array('Product.id = CustomerTypeProductPriceDiscount.product_id AND CustomerTypeProductPriceDiscount.customer_type_id = 1')
 				)
 			),
 			'group' => array('Product.id')
 		));
 		unset($this->Product->virtualFields['price']);
-//
+		unset($this->Product->virtualFields['price_discount']);
+
 		if (empty($product)) {
 			$this->cakeError('error404');
 		}
