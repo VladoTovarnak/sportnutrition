@@ -45,9 +45,11 @@
 			}
 		} ?>
 	</div>
-	<p class="manufacturer"><?php echo $this->Html->link($product['Manufacturer']['name'], '/' . strip_diacritic($product['Manufacturer']['name'] . '-v' . $product['Manufacturer']['id']))?></p>
+	<p class="manufacturer">
+		Výrobce: <?php echo $this->Html->link($product['Manufacturer']['name'], '/' . strip_diacritic($product['Manufacturer']['name'] . '-v' . $product['Manufacturer']['id']), array('style' => 'text-decoration:underline'))?>
+	</p>
 	<!-- <div class="rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div> -->
-	<p class="comments"><a href="#comment_list" class="view_comments_link">Přečíst komentáře</a> | <a href="#tabs-2" class="add_comment_link">Přidat komentář</a></p>
+	<p class="comments"><a href="#comment_list" class="view_comments_link" style="text-decoration:underline">Přečíst komentáře</a> | <a href="#tabs-2" class="add_comment_link" style="text-decoration:underline">Přidat komentář</a></p>
 <?php if ($product['Product']['name'] != $product['Product']['short_description']) { ?>
 	<p><?php echo $product['Product']['short_description']?> <a href="#tabs-1">Více informací...</a></p>
 <?php } ?>
