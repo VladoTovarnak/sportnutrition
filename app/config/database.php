@@ -83,12 +83,11 @@ class DATABASE_CONFIG {
 	var $default = array(
 		'driver' => 'mysql',
 		'persistent' => false,
-		'host' => __DB_HOST__,
-		'port' => '',
-		'login' => 'a64454_obchod',
-		'password' => '74XA4bD2',
-		'database' => 'd64454_obchod',
-		'schema' => '',
+		'host' => 'c102um.forpsi.com',
+		'login' => 'f74422',
+		'password' => 'e8upe98',
+		'database' => 'f74422',
+		'port' => 3306,
 		'prefix' => '',
 		'encoding' => 'utf8'
 	);
