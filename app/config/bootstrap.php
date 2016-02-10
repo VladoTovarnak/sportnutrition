@@ -202,7 +202,7 @@ define('FILES_DIR', 'files');
 define('DOCUMENTS_DIR', FILES_DIR . DS . 'documents');
 define('POHODA_EXPORT_DIR', DOCUMENTS_DIR . DS . 'pohoda_exports');
 
-$host = 'wm55.wedos.net';
+$host = 'c102um.forpsi.com';
 if ( $_SERVER['HTTP_HOST'] == 'localhost' ){
 	$host = 'localhost';
 }
