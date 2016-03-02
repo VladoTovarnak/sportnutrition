@@ -266,7 +266,16 @@ class Order extends AppModel {
 		
 		$shipping_number = trim($order['Order']['shipping_number']);
 		
-		$soap = new SoapClient('https://www.ppl.cz/IEGate/IEGate.asmx?WSDL');
+		$options = array(
+			'stream_context' => stream_context_create(array(
+				'ssl' => array(
+					'verify_peer' => false,
+					'verify_peer_name' => false
+				)
+			))
+		);
+		$soap = new SoapClient('https://www.ppl.cz/IEGate/IEGate.asmx?WSDL', $options);
+		
 		$GetPackageInfoResponse = $soap->GetPackageInfo(array('PackageID' => $shipping_number));
 		// neni doruceno
 		if (!isset($GetPackageInfoResponse->GetPackageInfoResult)) {
