@@ -447,7 +447,9 @@ class Product extends AppModel {
 		$products = $this->OrderedProduct->find('all', array(
 			'conditions' => array(
 				'OrderedProduct.product_id' => $id,
-				'CategoriesProduct.category_id NOT IN (' . implode(',', $present_category_ids) . ')'
+				'CategoriesProduct.category_id NOT IN (' . implode(',', $present_category_ids) . ')',
+				'Product.active' => true,
+				'Availability.cart_allowed' => true
 			),
 			'contain' => array(),
 			'fields' => array(
@@ -497,6 +499,12 @@ class Product extends AppModel {
 					'alias' => 'CategoriesProduct',
 					'type' => 'LEFT',
 					'conditions' => array('Product.id = CategoriesProduct.product_id AND CategoriesProduct.category_id NOT IN (' . implode(',', $present_category_ids) . ')')
+				),
+				array(
+					'table' => 'availabilities',
+					'alias' => 'Availability',
+					'type' => 'LEFT',
+					'conditions' => array('Product.availability_id = Availability.id')
 				)
 			),
 			'group' => array('OtherOrderedProduct.product_id'),
