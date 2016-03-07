@@ -100,10 +100,21 @@ class CartsProductsController extends AppController {
 					'alias' => 'CustomerTypeProductPrice',
 					'type' => 'LEFT',
 					'conditions' => array('Product.id = CustomerTypeProductPrice.product_id AND CustomerTypeProductPrice.customer_type_id = ' . $customer_type_id)
+				),
+				array(
+					'table' => 'availabilities',
+					'alias' => 'Availability',
+					'type' => 'LEFT',
+					'conditions' => array('Product.availability_id = Availability.id')
 				)
 			)
 		));
 		unset($this->CartsProduct->Product->virtualFields['price']);
+		
+		if (!$product['Product']['active'] || !$product['Availability']['cart_allowed']) {
+			$this->Session->setFlash('Omlouváme se, ale produkt není v současné době objednat');
+			$this->redirect('/' . $product['Product']['url']);
+		}
 
 		// pokud ma produkt varianty a neni zadna zvolena, musim ho poslat na detail produktu a vyhodit flash
 		if (!empty($product['Subproduct']) && !(isset($this->data['Subproduct']) || isset($this->data['Product']['Option']))) {
