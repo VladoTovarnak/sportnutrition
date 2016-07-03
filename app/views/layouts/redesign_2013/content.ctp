@@ -51,5 +51,8 @@
 	echo $this->element(REDESIGN_PATH . 'facebook_prava');
 	echo $this->element(REDESIGN_PATH . 'default_foot2');
 ?>
+<script type="text/javascript">
+	fbq('track', 'ViewContent');
+</script>
 </body>
 </html>

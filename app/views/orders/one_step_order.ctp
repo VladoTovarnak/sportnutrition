@@ -323,7 +323,7 @@ if ($this->Session->check('Message.flash')) {
 	
 	echo $this->Form->hidden('Order.action', array('value' => 'order_finish'));
 
-	echo $this->Form->submit('ODESLAT OBJEDNÁVKU', array('class' => 'finish_order_button'));
+	echo $this->Form->submit('ODESLAT OBJEDNÁVKU', array('class' => 'finish_order_button', 'onclick' => "fbq('track', 'AddPaymentInfo');"));
 	echo $this->Form->end();
 
 } // konec nakupni kosik neni prazdny
@@ -346,5 +346,9 @@ if ($this->Session->check('Message.flash')) {
 <?php echo $this->Form->end();?>
 <div class="post-offices-list"></div>
 </div>
+
+<script type="text/javascript">
+	fbq('track', 'InitiateCheckout');
+</script>
 
 <div class="modal"><span style="position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);text-align:center;font-size:20px;font-weight:bold">Mějte prosím moment strpení, Vaše objednávka se ukládá...<br/><br/><img src="/images/ajax-loader.gif" /></span></div>
