@@ -113,7 +113,7 @@
 							echo $this->Form->create('Product', array('url' => '/' . $right_sidebar_product['Product']['url'], 'encoding' => false));
 							echo $this->Form->hidden('Product.id', array('value' => $right_sidebar_product['Product']['id']));
 							echo $this->Form->hidden('Product.quantity', array('value' => 1));
-							echo $this->Form->submit('Vložit do košíku', array('class' => 'right_sidebar_cart_add'));
+							echo $this->Form->submit('Vložit do košíku', array('class' => 'right_sidebar_cart_add', 'onclick' => "fbq('track', 'AddToCart');"));
 							echo $this->Form->end();
 						?>
 					</div>
@@ -133,6 +133,9 @@
 	echo $this->element(REDESIGN_PATH . 'facebook_prava');
 	echo $this->element(REDESIGN_PATH . 'default_foot2');
 ?>
+<script type="text/javascript">
+	fbq('track', 'ViewContent');
+</script>
 </body>
 </html>
 <?php echo $this->element('sql_dump')?>
