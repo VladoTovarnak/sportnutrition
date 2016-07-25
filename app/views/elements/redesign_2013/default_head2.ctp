@@ -16,6 +16,11 @@
 		<meta name="keywords" content="<?php echo $_keywords?>" />
 <?php
 	}
+	
+		$sess = $this->Session->read('Customer');
+		echo '<!--';
+		print_r ($sess);
+		echo '-->';
 ?>
 
 		<!-- Facebook Pixel Code -->

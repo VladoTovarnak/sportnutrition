@@ -870,7 +870,7 @@ class CustomersController extends AppController {
 							$headers .= "From: " . '"' . mb_encode_mimeheader('SportNutrition Alert System') . '" <no-reply@sportnutrition.cz>';
 							$headers .= "\n";
 							$st = 'Nepodařil se přenos zákazníka č. ' . $ns_customer[0]['NsCustomer']['id'] . ' - nepodařilo se přidat přihlašovací údaje zákazníkovi';
-							mail('brko11@gmail.com', 'Nepodařilo se uložit zákazníka', $st, $headers);
+							mail('vlado.tovarnak@gmail.com', 'Nepodařilo se uložit zákazníka', $st, $headers);
 							
 							$this->Session->setFlash('Nepodařilo se přenést uživatelský účet z Nutrishop.cz. Prosím kontaktujte nás na emailové adrese info@sportnutrition.cz, nebo si založte nový účet. Děkujeme.', REDESIGN_PATH . 'flash_failure');
 						}
