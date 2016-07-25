@@ -16,11 +16,6 @@
 		<meta name="keywords" content="<?php echo $_keywords?>" />
 <?php
 	}
-	
-		$sess = $this->Session->read('Customer');
-		echo '<!--';
-		print_r ($sess);
-		echo '-->';
 ?>
 
 		<!-- Facebook Pixel Code -->
@@ -31,7 +26,21 @@
 		t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 		document,'script','https://connect.facebook.net/en_US/fbevents.js');
 		
-		fbq('init', '792712067534673');
+		<?php 
+				if ( $this->Session->check('Customer') ){
+		?>
+				fbq('init', '792712067534673', {
+					em: '{{<?php echo $this->Session->read('Customer.email');?>}}',
+					ph: '{{<?php echo $this->Session->read('Customer.phone');?>}}',
+					fn: '{{<?php echo $this->Session->read('Customer.first_name');?>}}',
+				});
+		<?php
+				} else{
+		?>
+					fbq('init', '792712067534673');			
+		<?php
+				}
+		?>
 		fbq('track', "PageView");</script>
 		<noscript><img height="1" width="1" style="display:none"
 		src="https://www.facebook.com/tr?id=792712067534673&ev=PageView&noscript=1"
