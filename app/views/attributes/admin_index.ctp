@@ -5,7 +5,12 @@
 ?>
 <div class="attributes">
 <h2>Atributy produktů - nastavení</h2>
-
+<p style="max-width:450px;">
+	Chcete-li řadit atributy, zvolte si nejdříve níže konkrétní atribut.
+ 	Následně po volbě atributu můžete libovolně myší "chytit" a přetáhnout
+ 	konkrétní atribut v seznamu tam, kam jej chcete zařadit.<br>
+ 	<strong>Jakmile máte seřazeno, nezapomeňte sjet dolů a uložit řazení pomocí tlačítka <em style="color:red">Uspořádat</em></strong>
+ </p>
 <h3>Řazení atributů</h3>
 <ul>
 <?php
