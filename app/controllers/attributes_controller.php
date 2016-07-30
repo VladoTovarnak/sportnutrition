@@ -20,6 +20,10 @@ class AttributesController extends AppController {
 	);
 
 	function admin_index() {
+		$this->layout = REDESIGN_PATH . 'admin';
+		
+		$this->Attributes = new Attribute;
+		
 		$this->Attributes->recursive = -1;
 		
 		$options = $this->Attribute->Option->find('all', array(
@@ -29,8 +33,6 @@ class AttributesController extends AppController {
 		
 		if (isset($this->params['named']['option_id'])) {
 			$script = '
-<script type="text/javascript" src="/js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="/js/jquery-ui-1.8.6.custom.min.js"></script>
 <script type="text/javascript">
 // when the entire document has loaded, run the code inside this function
 $(document).ready(function(){

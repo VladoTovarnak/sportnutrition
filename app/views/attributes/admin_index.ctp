@@ -1,4 +1,9 @@
-﻿<div class="attributes">
+﻿<?php 
+	if ( isset($script) ){
+		echo $script;
+	}
+?>
+<div class="attributes">
 <h2>Atributy produktů - nastavení</h2>
 
 <h3>Řazení atributů</h3>
