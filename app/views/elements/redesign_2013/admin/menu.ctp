@@ -33,6 +33,7 @@
 			<a href="#">Nastavení</a>
 			<ul>
 				<li><?php echo $this->Html->link('E-shop', array('controller' => 'settings', 'action' => 'index'))?></li>
+				<li><?php echo $this->Html->link('Řazení variant', array('controller' => 'attributes', 'action' => 'index'))?></li>
 				<li><?php echo $this->Html->link('Dopravy', array('controller' => 'shippings', 'action' => 'index'))?></li>
 				<li><?php echo $this->Html->link('Platby', array('controller' => 'payments', 'action' => 'index'))?></li>
 				<li><?php echo $this->Html->link('DPH', array('controller' => 'tax_classes', 'action' => 'index'))?></li>
