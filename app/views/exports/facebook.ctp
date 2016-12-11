@@ -1,7 +1,8 @@
+<?php echo "<?xml version=\"1.0\"?>"; ?>
 <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
 	<channel>
 		<title>SportNutrition Vávra</title>
-		<link>http://www.sportnutrition.cz</link>
+		<link>http://www.SportNutrition.cz</link>
 		
 	<? foreach ( $products as $product ){ ?>
 		<item>
