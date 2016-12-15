@@ -126,7 +126,8 @@ class ProductsController extends AppController {
 				'CategoriesProduct' => array(
 					'Category' => array(
 						'fields' => array('id', 'name', 'url')
-					)
+					),
+					'order' => array('primary' => 'desc')
 				),
 				'Image' => array(
 					'order' => array(
