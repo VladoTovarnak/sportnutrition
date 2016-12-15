@@ -67,5 +67,10 @@ var _hrq = _hrq || [];
 </script>
 
 <script type="text/javascript">
-	fbq('track', 'Purchase', {value: '<?php echo $order['Order']['orderfinaltotal'] ?>', currency: 'CZK'});
+	fbq('track', 'Purchase', {
+		content_type: 'product',
+		content_ids: [<?php echo $fb_content_ids ?>],
+		value: '<?php echo $order['Order']['orderfinaltotal'] ?>',
+		currency: 'CZK'
+	});
 </script>
