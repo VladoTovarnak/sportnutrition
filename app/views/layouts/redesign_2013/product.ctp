@@ -138,7 +138,7 @@
 	    content_type: 'product',
 	    content_ids: ['CZ_<?php echo $product['Product']['id'] ?>'],
 	    content_name: '<?php echo $product['Product']['name'] ?>',
-	    content_category: '<?php echo $product['CategoriesProduct']['Category']['name'] ?>'
+	    content_category: '<?php echo $product['CategoriesProduct']['Category']['name'] ?>',
 	    value: <?php echo $product['Product']['price']?>,
 	    currency: 'CZK'
 	});
