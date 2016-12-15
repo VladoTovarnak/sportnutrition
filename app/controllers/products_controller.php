@@ -94,12 +94,16 @@ class ProductsController extends AppController {
 				$result = $this->Product->requestAction('carts_products/add', $this->data);
 				// vlozim do kosiku
 				if ( $result ){
+					$fire_add_to_cart = '1';
+					$this->set('fire_add_to_cart', $fire_add_to_cart);
+					
 					if ( isset($redirect_target) ){ // je-li definovano, presmeruji tam, kam chci
 						$this->redirect($redirect_target, null, true);
 					}
 					
 					$this->Session->setFlash('Produkt byl uložen do nákupního košíku. Obsah Vašeho košíku si můžete zobrazit <a href="/kosik">zde</a>.', REDESIGN_PATH . 'flash_success');
 					$product = $this->Product->read(array('Product.url'), $this->data['CartsProduct']['product_id']);
+					
 					$this->redirect('/' . $product['Product']['url'], null, true);
 				} else {
 					$this->Session->setFlash('Vložení produktu do košíku se nezdařilo. Zkuste to prosím znovu.', REDESIGN_PATH . 'flash_failure');
