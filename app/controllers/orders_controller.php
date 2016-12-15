@@ -1579,6 +1579,8 @@ class OrdersController extends AppController {
 			$overeno->send();
 		} catch (Exception $e) {}
 
+		$fb_content_ids = array();
+		
 		foreach ( $order['OrderedProduct'] as $op ){
 			$sku = $op['Product']['id'];
 			$variations = '';
@@ -1610,6 +1612,8 @@ class OrdersController extends AppController {
 					'" . $op['product_quantity'] . "'               // quantity - required
 				]);
 			";
+			
+			$fb_content_ids[] = "'CZ_" . $op['Product']['id'] . "'";
 		}
 
 		$jscript_code = "
@@ -1627,12 +1631,11 @@ class OrdersController extends AppController {
 		
 		$jscript_code .= "\n\n" . "_gaq.push(['_trackTrans']);"; //submits transaction to the Analytics servers
 
-//		$contents = file_get_contents('js/ga-add.js');
-
-//		$jscript_code = str_replace('//GA DATA', $jscript_code, $contents);
-
 		$this->set('jscript_code', $jscript_code);
 
+		$fb_content_ids = implode(", ", $fb_content_ids);
+		$this->set('fb_content_ids', $fb_content_ids);
+		
 		$order['Customer']['password'] = $pass;
 		$order['Customer']['login'] = $login;
 		
