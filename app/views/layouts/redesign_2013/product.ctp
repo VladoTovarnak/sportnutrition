@@ -113,7 +113,7 @@
 							echo $this->Form->create('Product', array('url' => '/' . $right_sidebar_product['Product']['url'], 'encoding' => false));
 							echo $this->Form->hidden('Product.id', array('value' => $right_sidebar_product['Product']['id']));
 							echo $this->Form->hidden('Product.quantity', array('value' => 1));
-							echo $this->Form->submit('Vložit do košíku', array('class' => 'right_sidebar_cart_add'));
+							echo $this->Form->submit('Vložit do košíku', array('class' => 'right_sidebar_cart_add', 'onclick' => 'fireAddToCart();'));
 							echo $this->Form->end();
 						?>
 					</div>
@@ -142,9 +142,8 @@
 	    value: <?php echo $product['Product']['price']?>,
 	    currency: 'CZK'
 	});
-<?php 
-	if ( isset($fire_add_to_cart) ){
-?>
+
+	function fireAddToCart(){
 		fbq('track', 'AddToCart', { 
 		    content_type: 'product',
 		    content_ids: ['CZ_<?php echo $product['Product']['id'] ?>'],
@@ -153,9 +152,8 @@
 		    value: <?php echo $product['Product']['price']?>,
 		    currency: 'CZK'
 		});
-<?php	
 	}
-?>
+
 
 </script>
 </body>
