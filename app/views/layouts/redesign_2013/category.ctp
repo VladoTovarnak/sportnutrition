@@ -95,7 +95,7 @@
 <script type="text/javascript">
 	fbq('track', 'ViewCategory', {
 	  content_name: '<?php echo $_heading?>',
-	  content_category: '<?php echo implode(" > ", $breadcrumbs); ?>',
+	  content_category: '<?php echo $fb_content_category ?>',
 	  content_ids: [<?php echo $fb_content_ids ?>],
 	  content_type: 'product'
 	});

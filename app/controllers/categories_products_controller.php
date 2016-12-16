@@ -368,6 +368,15 @@ class CategoriesProductsController extends AppController {
 		}
 		$fb_content_ids = implode(", ", $fb_content_ids);
 		$this->set("fb_content_ids", $fb_content_ids);
+
+		// pro FB pixel si vyjedu cestu kategoriemi
+		$fb_content_category = array();
+		$fb_content_categories = $this->CategoriesProduct->Category->getPath($id);
+		foreach ( $fb_content_categories as $fcc ){
+			$fb_content_category[] = $fcc['Category']['name'];
+		}
+		$fb_content_category = implode(" > ", $fb_content_category);
+		$this->set('fb_content_category', $fb_content_category);
 		
 		
 		$listing_style = 'products_listing_grid';
