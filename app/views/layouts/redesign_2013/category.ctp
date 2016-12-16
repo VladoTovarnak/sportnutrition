@@ -62,18 +62,7 @@
 				<?php } ?>
 			</ul>
 			<?php } ?>
-<!-- DODELAT ROZDELENI PRODUKTU PODLE FORMY
-			<h3>Podle formy</h3>
-			<ul>
-				<li><a href="#">Aenean commod  (28)</a></li>
-				<li><a href="#">SULDERES  (5)</a></li>
-				<li><a href="#">JUMBOO  (45)</a></li>
-				<li><a href="#">HYPER SVAL  (12)</a></li>
-				<li><a href="#">UDER  (15)</a></li>
-				<li><a href="#">DETHORT  (18)</a></li>
-				<li><a href="#">JUBENDERRSS  (2)</a></li>
-			</ul>
--->
+
 			<?php if (isset($filter_attributes) && !empty($filter_attributes)) { ?>
 			<h3>Podle příchuti</h3>
 			<ul>
@@ -103,6 +92,14 @@
 	echo $this->element(REDESIGN_PATH . 'facebook_prava');
 	echo $this->element(REDESIGN_PATH . 'default_foot2');
 ?>
+<script type="text/javascript">
+	fbq('track', 'ViewCategory', {
+	  content_name: '<?php echo $_heading?>',
+	  content_category: '<?php echo implode(" > ", $breadcumbs); ?>',
+	  content_ids: [<?php echo $fb_content_ids ?>],
+	  content_type: 'product'
+	});
+</script>
 </body>
 </html>
 <?php echo $this->element('sql_dump')?>

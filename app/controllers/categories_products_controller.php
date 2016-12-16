@@ -354,7 +354,22 @@ class CategoriesProductsController extends AppController {
 		unset($this->CategoriesProduct->Product->virtualFields['price']);
 
 		$this->set('products', $products);
-
+		
+		// pro FB pixel vyextrahuju idecka prvnich deseti produktu MAX
+		$fb_content_ids = array();
+		$i = 0;
+		foreach ( $products as $p ){
+			// omezeni na MAX 10 produktu
+			if ( $i > 9 ){
+				break;
+			}
+			$fb_content_ids[] = "'CZ_" . $p['Product']['id'] . "'";
+			$i = $i + 1;
+		}
+		$fb_content_ids = implode(", ", $fb_content_ids);
+		$this->set("fb_content_ids", $fb_content_ids);
+		
+		
 		$listing_style = 'products_listing_grid';
 		
 		$this->set('listing_style', $listing_style);
