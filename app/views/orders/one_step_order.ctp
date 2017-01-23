@@ -78,6 +78,16 @@ if ($this->Session->check('Message.flash')) {
 		<?php echo $this->element(REDESIGN_PATH . 'one_step_order_table_footer', array('final_price' => $final_price, 'shipping_price' => $shipping_price, 'type' => 'cart_summary'))?>
 	</table>
 
+<!-- 
+
+<div class="discount_coupon">
+ 	<span>Uplatnit slevový kupon:</span>
+	<input name="data[Discount][validater]" type="text" class="discount_code_field" maxlength="80" id="DiscountValidate">
+	<input class="verify_discount_code" type="submit" value="OVĚŘIT PLATNOST">
+</div>
+
+ -->
+
 <?php echo $this->Html->link('Přejít k objednání', '#OrderDetails', array('class' => 'button_like_link red'))?>&nbsp;
 <?php echo $this->Html->link('Zpět do obchodu', $back_shop_url, array('class' => 'button_like_link silver'))?>
 

@@ -739,6 +739,26 @@ p.register_note{
     float: left;
 	cursor:pointer;
 }
+
+input.verify_discount_code {
+    background: silver url("/images/redesign_2013/icon_check_mark.png") no-repeat 31px 5px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    color: #fff;
+    padding: 8px 35px 8px 60px;
+	cursor:pointer;
+}
+
+div.discount_coupon{
+    margin: 20px 0px;
+}
+input.discount_code_field {
+    border: 1px solid #ccc;
+    height: 25px; width: 170px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
 a.button_like_link{
     -webkit-border-radius: 3px;
     border-radius: 3px;
