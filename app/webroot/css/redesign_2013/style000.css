@@ -741,7 +741,7 @@ p.register_note{
 }
 
 input.verify_discount_code {
-    background: silver url("/images/redesign_2013/icon_check_mark.png") no-repeat 31px 5px;
+    background: silver url("/images/redesign_2013/icon_check_mark.png") no-repeat 21px 2px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
     border: none;
@@ -749,7 +749,6 @@ input.verify_discount_code {
     padding: 8px 35px 8px 60px;
 	cursor:pointer;
 }
-
 div.discount_coupon{
     margin: 20px 0px;
 }
