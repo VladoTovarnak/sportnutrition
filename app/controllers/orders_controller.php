@@ -1296,11 +1296,11 @@ class OrdersController extends AppController {
 							// dam kod do session
 							$this->Session->write('Discount', "dpr999");
 							// presmeruju
-							$this->Session->setFlash('Slevový kód je ověřený a přidali jsme jej do košíku.', REDESIGN_PATH . 'flash_success', array('type' => 'customer_login'));
+							$this->Session->setFlash('Slevový kód jsme ověřili a přidali jsme jej do košíku.', REDESIGN_PATH . 'flash_success', array('type' => 'shopping_cart'));
 							$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order'));
 						} else {
 							// presmeruju
-							$this->Session->setFlash('Tento slevový kód není platný.', REDESIGN_PATH . 'flash_success', array('type' => 'customer_login'));
+							$this->Session->setFlash('Tento slevový kód není platný.', REDESIGN_PATH . 'flash_failure', array('type' => 'customer_login'));
 							$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order'));
 						}
 						
@@ -1308,7 +1308,7 @@ class OrdersController extends AppController {
 					case 'order_finish':
 						// mam vybranou dopravu?
 						if (!isset($this->data['Order']['shipping_id']) || empty($this->data['Order']['shipping_id'])) {
-							$this->Session->setFlash('Vyberte prosím způsob dopravy, kterým si přejete zboží doručit.', REDESIGN_PATH . 'flash_failure', array('type' => 'shipping_info'));
+							$this->Session->setFlash('Vyberte prosím způsob dopravy, kterým si přejete zboží doručit.', REDESIGN_PATH . 'flash_failure', array('type' => 'shopping_cart'));
 						} else {
 							$shipping_id = $this->data['Order']['shipping_id'];
 							// nechci kontrolovat, jestli je zakaznikuv email unikatni (aby i zakaznik, ktery neni prihlaseny, ale jeho email je v systemu, mohl dokoncit objednavku

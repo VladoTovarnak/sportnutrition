@@ -75,6 +75,21 @@ if ($this->Session->check('Message.flash')) {
 			?></td>
 		</tr>
 <?php	} ?>
+
+<?php 
+		if ($this->Session->check('Discount')) {
+			$discount = $this->Session->read('Discount');
+			if ( $discount == "dpr999" ){
+?>
+		<tr>
+			<th>Uplatněné slevové kupóny</th>
+			<td>Sleva na dopravu pro objednávku nad 1000 Kč.</td>
+		</tr>
+<?php
+			}
+		}
+?>
+
 		<?php echo $this->element(REDESIGN_PATH . 'one_step_order_table_footer', array('final_price' => $final_price, 'shipping_price' => $shipping_price, 'type' => 'cart_summary'))?>
 	</table>
 
