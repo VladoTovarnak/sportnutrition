@@ -1296,11 +1296,11 @@ class OrdersController extends AppController {
 							// dam kod do session
 							$this->Session->write('Discount', "dpr999");
 							// presmeruju
-							$this->Session->setFlash('Slevový kód je ověřený a přidali jsme jej do košíku.', REDESIGN_PATH . 'flash_success', array('type' => 'customer_login'));
+							$this->Session->setFlash('Slevový kód jsme ověřili a přidali jsme jej do košíku.', REDESIGN_PATH . 'flash_success', array('type' => 'shopping_cart'));
 							$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order'));
 						} else {
 							// presmeruju
-							$this->Session->setFlash('Tento slevový kód není platný.', REDESIGN_PATH . 'flash_success', array('type' => 'customer_login'));
+							$this->Session->setFlash('Tento slevový kód není platný.', REDESIGN_PATH . 'flash_failure', array('type' => 'shopping_cart'));
 							$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order'));
 						}
 						
