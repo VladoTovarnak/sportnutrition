@@ -81,9 +81,16 @@ if ($this->Session->check('Message.flash')) {
 <!-- 
 
 <div class="discount_coupon">
- 	<span>Uplatnit slevový kupon:</span>
-	<input name="data[Discount][validater]" type="text" class="discount_code_field" maxlength="80" id="DiscountValidate">
-	<input class="verify_discount_code" type="submit" value="OVĚŘIT PLATNOST">
+	<?php
+		echo $form->Create('Customer', array('url' => array('controller' => 'orders', 'action' => 'one_step_order', '#OrderDetails'), 'encoding' => false));
+		echo $this->Form->hidden('Order.action', array('value' => 'apply_discount'));
+	?>
+	 	<span>Uplatnit slevový kupon:</span>
+		<input name="data[Discount][validator]" type="text" class="discount_code_field" maxlength="80" id="DiscountValidate">
+		<input class="verify_discount_code" type="submit" value="OVĚŘIT PLATNOST">
+	<?php 
+		echo $this->Form->end();
+	?>
 </div>
 
  -->

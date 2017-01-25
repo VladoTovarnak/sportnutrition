@@ -1290,6 +1290,21 @@ class OrdersController extends AppController {
 						}
 						
 						break;
+					case 'apply_discount':
+						// validace kuponu - ted tam nemusi byt, mame jenom jeden s dopravou zdarma
+						if ( isset($this->data['Discount']['validator']) && $this->data['Discount']['validator'] == "dpr999" ){
+							// dam kod do session
+							$this->Session->write('Discount', "dpr999");
+							// presmeruju
+							$this->Session->setFlash('Slevový kód je ověřený a přidali jsme jej do košíku.', REDESIGN_PATH . 'flash_success', array('type' => 'customer_login'));
+							$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order'));
+						} else {
+							// presmeruju
+							$this->Session->setFlash('Tento slevový kód není platný.', REDESIGN_PATH . 'flash_success', array('type' => 'customer_login'));
+							$this->redirect(array('controller' => 'orders', 'action' => 'one_step_order'));
+						}
+						
+						break;
 					case 'order_finish':
 						// mam vybranou dopravu?
 						if (!isset($this->data['Order']['shipping_id']) || empty($this->data['Order']['shipping_id'])) {
