@@ -40,9 +40,10 @@ class Cart extends AppModel {
 	// cena dopravy za obsah kosiku pro daneho uzivatele
 	function shippingPrice($customer_id = null) {
 		/*
-		 * DOPRAVA MUZE BYT ZDARMA ZE 2 DUVODU:
+		 * DOPRAVA MUZE BYT ZDARMA ZE 3 DUVODU:
 		 * 	1) mam v objednavce produkt z akcni kategorie "doprava zdarma"
 		 * 	2) cena objednavky je nad minimalni nenulovou mez, od ktere je nejaka doprava zdarma
+		 *  3) v session je kupon pro dopravu zdarma nad 999 Kc
 		 * 
 		 * ZAROVEN NEMUZE MIT DOPRAVU ZDARMA VOC ZAKAZNIK ???
 		 */
@@ -93,6 +94,26 @@ class Cart extends AppModel {
 		if ($total_price < $shipping['Shipping']['free']) {
 			$shipping_price = $shipping['Shipping']['price'];
 		}
+		
+		// neni-li jeste doprava zdarma, tak
+		// se podivam, jestli je v kosiku zbozi za vic nez 999 Kc
+		// a jestli je v session kupon pro
+		// dopravu zdarma nad 999 Kc
+		if ( $shipping_price > 0 && $total_price > 999 ){
+			App::import('Helper', 'Session');
+			$this->Session = new SessionHelper;
+			
+			if ( $this->Session->check("Discount") ){
+				$discount = $this->Session->read("Discount");
+				if ( $discount == "dpr999" ){
+					// v session jsem nasel slevovy kupon na dopravu zdarma,
+					// tak je doprava za nulu
+					$shipping_price = 0;
+				}
+			}
+		}
+		
+		
 		return $shipping_price;
 	}
 	
