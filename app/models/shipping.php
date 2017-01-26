@@ -86,6 +86,22 @@ class Shipping extends AppModel {
 			} elseif (intval($shipping['Shipping']['free'] > 0) && $order_total > intval($shipping['Shipping']['free'])) {
 				$price = 0;
 			}
+			
+			// cena postovneho je spocitana dle kosiku
+			// zkontroluju jeste jestli tam neni kupon
+			// pro dopravu zdarma nad 999 Kc
+			if ( $session->check("Discount") ){
+				$discount = $session->read("Discount");
+				if ( $discount == "dpr999" ){
+					// v session jsem nasel slevovy kupon na dopravu zdarma,
+					// zkontroluju jestli je tam zbozi za vic nez 999 Kc
+					// pokud ano, tak je doprava za nulu
+					if ( $order_total > 999 ){
+						$price = 0;
+					}
+				}
+			}
+			
 		}
 		return $price;
 	}
