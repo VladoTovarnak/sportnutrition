@@ -107,11 +107,8 @@ class Cart extends AppModel {
 				$discount = $this->Session->read("Discount");
 				if ( $discount == "dpr999" ){
 					// v session jsem nasel slevovy kupon na dopravu zdarma,
-					// zkontroluju jestli je tam zbozi za vic nez 999 Kc
-					// pokud ano, tak je doprava za nulu
-					if ( $order_total > 999 ){
-						$shipping_price = 0;
-					}
+					// tak je doprava za nulu
+					$shipping_price = 0;
 				}
 			}
 		}
