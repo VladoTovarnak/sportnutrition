@@ -544,6 +544,18 @@ class Order extends AppModel {
 		// cena produktu v kosiku, bez dopravneho
 		$order['Order']['subtotal_with_dph'] = $order_total_with_dph;
 		$order['Order']['subtotal_wout_dph'] = $order_total_wout_dph;
+		
+		// zjistim si jestli v session neni ulozeny kupon
+		// na dopravu zdarma nad 999 Kc a pokud je, tak to
+		// pridam do poznamky
+		if ( $this->Session->check("Discount") ){
+			$discount = $this->Session->read("Discount");
+			if ( $discount == "dpr999" ){
+				// v session jsem nasel slevovy kupon na dopravu zdarma,
+				// pokud ano, pridam tuto informaci do poznamky
+				$order['Order']['comments'] = "uplatněný kupón: dpr999; " . $order['Order']['comments'];
+			}
+		}
 
 		return array($order, $ordered_products);
 	}
