@@ -87,11 +87,14 @@ class Shipping extends AppModel {
 				$price = 0;
 			}
 			
+			App::import('Helper', 'Session');
+			$this->Session = new SessionHelper;
+			
 			// cena postovneho je spocitana dle kosiku
 			// zkontroluju jeste jestli tam neni kupon
 			// pro dopravu zdarma nad 999 Kc
-			if ( $session->check("Discount") ){
-				$discount = $session->read("Discount");
+			if ( $this->Session->check("Discount") ){
+				$discount = $this->Session->read("Discount");
 				if ( $discount == "dpr999" ){
 					// v session jsem nasel slevovy kupon na dopravu zdarma,
 					// zkontroluju jestli je tam zbozi za vic nez 999 Kc
