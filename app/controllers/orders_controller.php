@@ -1144,6 +1144,9 @@ class OrdersController extends AppController {
 
 		// uklidim promenne
 		$this->Session->delete('Order');
+		if ( $this->Session->check('Discount') ){
+			$this->Session->delete('Discount');
+		}
 		
 		// potrebuju na dekovaci strance vedet cislo objednavky
 		$this->Session->write('Order.id', $this->Order->id);
