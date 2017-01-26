@@ -73,8 +73,5 @@
 	
 	window.onload = loadScript;
 </script>
-<script type="text/javascript">
-	fbq('track', 'ViewContent');
-</script>
 </body>
 </html>

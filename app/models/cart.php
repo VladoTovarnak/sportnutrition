@@ -113,7 +113,6 @@ class Cart extends AppModel {
 			}
 		}
 		
-		
 		return $shipping_price;
 	}
 	
