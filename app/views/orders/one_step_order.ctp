@@ -81,10 +81,13 @@ if ($this->Session->check('Message.flash')) {
 			$discount = $this->Session->read('Discount');
 			if ( $discount == "dpr999" ){
 ?>
-		<tr>
-			<th>Uplatněné slevové kupóny</th>
-			<td>Sleva na dopravu pro objednávku nad 1000 Kč.</td>
-		</tr>
+				<tr>
+					<th colspan="5">Uplatněné slevové kupóny</th>
+				</tr>
+				<tr>
+					<td><strong>dpr999</strong> - Sleva na dopravu pro objednávku nad 999 Kč.</td>
+					<td colspan="4" style="font-size: 14px;">(sleva bude uplatněna je-li v košíku zboží za 1000 Kč a více)</td>
+				</tr>
 <?php
 			}
 		}
@@ -97,7 +100,7 @@ if ($this->Session->check('Message.flash')) {
 
 <div class="discount_coupon">
 	<?php
-		echo $form->Create('Customer', array('url' => array('controller' => 'orders', 'action' => 'one_step_order', '#OrderDetails'), 'encoding' => false));
+		echo $form->Create('Customer', array('url' => array('controller' => 'orders', 'action' => 'one_step_order', '#ShoppingCart'), 'encoding' => false));
 		echo $this->Form->hidden('Order.action', array('value' => 'apply_discount'));
 	?>
 	 	<span>Uplatnit slevový kupon:</span>
