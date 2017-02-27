@@ -1,5 +1,5 @@
 ﻿<h2>Upravit dostupnost</h2>
-<?=$form->Create('Availability')?>
+<?php echo $form->Create('Availability')?>
 <table class="tabulkaedit">
 	<tr>
 		<th>Název</th>
@@ -14,7 +14,7 @@
 		<td><?php echo $this->Form->input('Availability.cart_allowed', array('label' => false))?></td>
 	</tr>
 </table>
-<?
+<?php
 	echo $this->Form->hidden('Availability.id');
 	echo $this->Form->submit('Uložit');
 	echo $this->Form->end()

@@ -1,4 +1,4 @@
-<?
+<?php
 class SitemapsController extends AppController{
 	var $name = 'Sitemaps';
 	

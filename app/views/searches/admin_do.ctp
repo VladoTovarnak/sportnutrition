@@ -1,6 +1,6 @@
 ﻿<div>
 	<h2>Vyhledávání</h2>
-<?
+<?php
 		$admin_id = $session->read('Administrator.id');
 		$superadmin = false;
 		if (in_array($admin_id, array(3, 10))) {
@@ -22,7 +22,7 @@
 					<th>Kategorie</th>
 					<th>&nbsp;</th>
 				</tr>
-	<?
+	<?php
 		foreach ( $products as $product ){
 			// oznacim si vyhledavane vyrazy v query
 			$split_query = explode(" ", $this->data['Search']['query']);
@@ -35,12 +35,12 @@
 			}
 	?>
 				<tr <?php echo  $style?>>
-					<td><?=$html->link($product['Product']['id'], '/' . $product['Product']['url']);?></td>
-					<td style="font-size:10px;"><?=$product['Product']['name']?></td>
-					<td style="font-size:10px;"><?=$product['Product']['retail_price_with_dph']?></td>
+					<td><?php echo $html->link($product['Product']['id'], '/' . $product['Product']['url']);?></td>
+					<td style="font-size:10px;"><?php echo $product['Product']['name']?></td>
+					<td style="font-size:10px;"><?php echo $product['Product']['retail_price_with_dph']?></td>
 					<td style="font-size:10px;"><?php echo ($product['Product']['active'] == 1) ? 'Ne' : 'Ano'?></td>
 					<td style="font-size:9px;">
-						<? 
+						<?php 
 							foreach ( $product['CategoriesProduct'] as $category){
 								echo '<a href="/admin/categories/list_products/' . $category['category_id'] . '">';
 								foreach ( $category['path'] as $item ){
@@ -51,12 +51,12 @@
 						?>
 					</td>
 					<td style="font-size:12px;">
-						<a href="/admin/products/edit/<?=$product['Product']['id']?>">Editovat</a> |
-						<a href="/admin/products/attributes_list/<?=$product['Product']['id']?>">Varianty</a> |
-<!-- 						<a href="/admin/products/related/<?=$product['Product']['id']?>">Související</a> | -->
-						<a href="/admin/products/images_list/<?=$product['Product']['id']?>">Obrázky</a> |
-<!--    					<a href="/admin/dirimages/list/<?=$product['Product']['id']?>">FTP</a> | -->
-						<a href="/admin/products/copy/<?=$product['Product']['id']?>">Duplikovat</a> |
+						<a href="/admin/products/edit/<?php echo $product['Product']['id']?>">Editovat</a> |
+						<a href="/admin/products/attributes_list/<?php echo $product['Product']['id']?>">Varianty</a> |
+<!-- 						<a href="/admin/products/related/<?php echo $product['Product']['id']?>">Související</a> | -->
+						<a href="/admin/products/images_list/<?php echo $product['Product']['id']?>">Obrázky</a> |
+<!--    					<a href="/admin/dirimages/list/<?php echo $product['Product']['id']?>">FTP</a> | -->
+						<a href="/admin/products/copy/<?php echo $product['Product']['id']?>">Duplikovat</a> |
 						<?php
 						if ($product['Product']['active']) { 
 							echo $html->link('Smazat', array('controller' => 'products', 'action' => 'delete', $product['Product']['id']), array(), 'Opravdu chcete tento produkt smazat?');
@@ -69,8 +69,8 @@
 						?>
 					</td>
 				</tr>
-	<? } ?>
+	<?php } ?>
 			</table>
-	<? } ?>
+	<?php } ?>
 	
 </div>

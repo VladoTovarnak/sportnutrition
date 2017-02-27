@@ -1,22 +1,23 @@
 ﻿<div class="attribute">
 <h2>Editace atributu</h2>
-<? echo $form->create('Attribute', array('controller' => 'attributes', 'action' => 'edit', $id));?>
+<?php
+echo $form->create('Attribute', array('controller' => 'attributes', 'action' => 'edit', $id));?>
 	<fieldset>
  		<legend>Atribut</legend>
 		<table class="leftHeading" cellpadding="5" cellspacing="3">
 			<tr>
 				<th>Název atributu</th>
 				<td>
-					<?=$form->select('Attribute.option_id', $options_options, null, array('disabled' => 1))?>
-					<?=$form->hidden('Attribute.option_id')?>
+					<?php echo $form->select('Attribute.option_id', $options_options, null, array('disabled' => 1))?>
+					<?php echo $form->hidden('Attribute.option_id')?>
 				</td>
 			</tr>
 			<tr>
 				<th>Hodnota atributu</th>
-				<td><?=$form->input('Attribute.value', array('label' => false))?></td>
+				<td><?php echo $form->input('Attribute.value', array('label' => false))?></td>
 			</tr>
 		</table>
-	<?
+	<?php
 		echo $form->hidden('Attribute.id');
 	?>
 	</fieldset>

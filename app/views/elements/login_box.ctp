@@ -1,4 +1,4 @@
-﻿<?
+﻿<?php
 	if ( $session->check('Customer.id') ){
 		$customer = $session->read('Customer');
 		echo '<div id="loggedAs">Zákazník: <strong>' . $customer['first_name'] . ' ' . $customer['last_name'] . '</strong></div>
@@ -24,11 +24,11 @@
 			<input class="buttonPrihlasit" size="3" type="submit" value="přihlásit" />
 		</fieldset>
 	</div>  
-		<input type="hidden" name="data[backtrace_url]" value="<?=$this->here?>" />
+		<input type="hidden" name="data[backtrace_url]" value="<?php echo $this->here?>" />
 	</form>
 	
 	<!--<a href="#">Zaregistrujte se</a>-->
 	<!--<a href="/customer/login">Přihlásit</a>-->
-<?
+<?php
 	}
 ?>

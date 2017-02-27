@@ -1,4 +1,4 @@
-<?
+<?php
 class RelatedProduct extends AppModel{
 	var $name = 'RelatedProduct';
 	

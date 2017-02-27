@@ -7,12 +7,13 @@
 		<th>stav</th>
 		<th>&nbsp;</th>
 	</tr>
-<? foreach ( $orders as $order ){ ?>
+<?php
+foreach ( $orders as $order ){ ?>
 	<tr>
-		<td><?=$order['Order']['id']?></td>
-		<td><?=cz_date_time($order['Order']['created'])?></td>
-		<td><?=front_end_display_price($order['Order']['subtotal_with_dph'] + $order['Order']['shipping_cost']) . '&nbsp;Kč' ?></td>
-		<td><?
+		<td><?php echo $order['Order']['id']?></td>
+		<td><?php echo cz_date_time($order['Order']['created'])?></td>
+		<td><?php echo front_end_display_price($order['Order']['subtotal_with_dph'] + $order['Order']['shipping_cost']) . '&nbsp;Kč' ?></td>
+		<td><?php
 				$color = '';
 				if ( !empty($order['Status']['color']) ){
 					$color = ' style="color:#' . $order['Status']['color'] . '"';
@@ -21,8 +22,9 @@
 			?>
 		</td>
 		<td>
-			<?=$html->link('detaily', array('controller' => 'customers', 'action' => 'order_detail', $order['Order']['id']));?>
+			<?php echo $html->link('detaily', array('controller' => 'customers', 'action' => 'order_detail', $order['Order']['id']));?>
 		</td>
 	</tr>
-<? } ?>
+<?php
+} ?>
 </table>

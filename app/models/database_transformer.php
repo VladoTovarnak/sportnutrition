@@ -1,4 +1,4 @@
-<?
+<?php
 
 class DatabaseTransformer extends AppModel {
 

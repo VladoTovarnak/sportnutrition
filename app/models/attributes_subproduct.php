@@ -1,4 +1,4 @@
-<?
+<?php
 class AttributesSubproduct extends AppModel {
 	var $name = 'AttributesSubproduct';
 	

@@ -17,7 +17,7 @@ echo $this->Html->link('ZPĚT NA SEZNAM PRODUKTŮ', $back_link)?>
 
 	<a name="imagesform"></a>
 	<h3>Vložit nový obrázek</h3>
-<?
+<?php
 	echo $form->create('Product', array('url' => array('controller' => 'products', 'action' => 'images_list', $product['Product']['id'], (isset($category['Category']['id']) ? $category['Category']['id'] : null))));
 	echo $form->submit('Zobrazit');
 	echo $form->text('Product.image_fields', array('size' => '1')) . ' polí';
@@ -29,7 +29,7 @@ echo $this->Html->link('ZPĚT NA SEZNAM PRODUKTŮ', $back_link)?>
 		<table class="leftHeading" cellpadding="5" cellspacing="3">
 			<tr>
 				<td>
-					<?
+					<?php
 						if ( !isset($this->data['Product']['image_fields']) OR $this->data['Product']['image_fields'] > 10 OR $this->data['Product']['image_fields'] < 1 ) {
 							$this->data['Product']['image_fields'] = 1;
 						}
@@ -40,19 +40,20 @@ echo $this->Html->link('ZPĚT NA SEZNAM PRODUKTŮ', $back_link)?>
 				</td>
 			</tr>
 		</table>
-<?
+<?php
 	echo $form->hidden('Image.image_fields', array('value' => $this->data['Product']['image_fields']));
 	echo $form->hidden('Image.product_id', array('value' => $product['Product']['id']));
 	echo $this->Form->hidden('Image.category_id', array('value' => isset($category['Category']['id']) ? $category['Category']['id'] : null))
 ?>
 	</fieldset>
-<?
+<?php
 	echo $form->submit('Vložit obrázek');
 	echo $form->end();
 ?>
 <br/><br/>
 
-<? if (count($product['Image']) > 0) { ?>
+<?php
+if (count($product['Image']) > 0) { ?>
 	<table class="topHeading" cellpadding="5" cellspacing="3">
 		<tr>
 			<th>ID</th>
@@ -60,7 +61,7 @@ echo $this->Html->link('ZPĚT NA SEZNAM PRODUKTŮ', $back_link)?>
 			<th>Název</th>
 			<th>&nbsp;</th>
 		</tr>
-<?
+<?php
 	foreach ($product['Image'] as $image){
 		$imageSize = @getimagesize('product-images/small/' . $image['name']);
 		$class = '';
@@ -93,11 +94,11 @@ echo $this->Html->link('ZPĚT NA SEZNAM PRODUKTŮ', $back_link)?>
 			?>
 			</td>
 		</tr>
-<?
+<?php
 	}
 ?>
 	</table>
-<?
+<?php
 	} else {
 		echo '<p>Produkt zatím nemá žádné obrázky</p>';
 	}

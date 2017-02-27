@@ -14,7 +14,7 @@
 						<th style="width:15%">Cena za kus</th>
 						<th style="width:15%">Cena celkem</th>
 					</tr>
-					<?
+					<?php
 						$final_price = 0;
 						$final_price_wout = 0;
 						$first = true;
@@ -55,16 +55,16 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							způsob doručení: <strong><?=$shipping['Shipping']['name']?></strong><br />
-							<?=$html->link('upravit', array('controller' => 'orders', 'action' => 'set_payment_and_shipping'), array('class' => 'smallLinkEdit')) ?>
+							způsob doručení: <strong><?php echo $shipping['Shipping']['name']?></strong><br />
+							<?php echo $html->link('upravit', array('controller' => 'orders', 'action' => 'set_payment_and_shipping'), array('class' => 'smallLinkEdit')) ?>
 						</td>
-						<td align="right"><?=front_end_display_price($order['shipping_cost'])?>&nbsp;Kč</td>
-						<td align="right"><?=front_end_display_price($order['shipping_cost'])?>&nbsp;Kč</td>
+						<td align="right"><?php echo front_end_display_price($order['shipping_cost'])?>&nbsp;Kč</td>
+						<td align="right"><?php echo front_end_display_price($order['shipping_cost'])?>&nbsp;Kč</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							způsob platby: <strong><?=$payment['Payment']['name']?></strong><br />
-							<?=$html->link('upravit', array('controller' => 'orders', 'action' => 'set_payment_and_shipping'), array('class' => 'smallLinkEdit')) ?>
+							způsob platby: <strong><?php echo $payment['Payment']['name']?></strong><br />
+							<?php echo $html->link('upravit', array('controller' => 'orders', 'action' => 'set_payment_and_shipping'), array('class' => 'smallLinkEdit')) ?>
 						</td>
 						<td align="right">0&nbsp;Kč</td>
 						<td align="right">0&nbsp;Kč</td>
@@ -92,19 +92,27 @@
 		<tr>
 			<td valign="top" style="width:50%">
 				<h3>Adresa doručení</h3>
-				<? echo $address['name']?><br />
-				<? echo $address['street'] . ' ' . $address['street_no']?><br />
-				<? echo $address['zip'] . ' ' . $address['city'];?><br />
-				<? echo $address['state']?><br />
-				<?=$html->link('upravit', array('controller' => 'orders', 'action' => 'address_edit', 'type' => 'd'), array('class' => 'smallLinkEdit')) ?>
+				<?php
+echo $address['name']?><br />
+				<?php
+echo $address['street'] . ' ' . $address['street_no']?><br />
+				<?php
+echo $address['zip'] . ' ' . $address['city'];?><br />
+				<?php
+echo $address['state']?><br />
+				<?php echo $html->link('upravit', array('controller' => 'orders', 'action' => 'address_edit', 'type' => 'd'), array('class' => 'smallLinkEdit')) ?>
 			</td>
 			<td>
 				<h3>Fakturační adresa</h3>
-				<? echo $address_payment['name']?><br />
-				<? echo $address_payment['street'] . ' ' . $address_payment['street_no']?><br />
-				<? echo $address_payment['zip'] . ' ' . $address_payment['city']?><br />
-				<? echo $address_payment['state']?><br />
-				<?=$html->link('upravit', array('controller' => 'orders', 'action' => 'address_edit', 'type' => 'f'), array('class' => 'smallLinkEdit')) ?>
+				<?php
+echo $address_payment['name']?><br />
+				<?php
+echo $address_payment['street'] . ' ' . $address_payment['street_no']?><br />
+				<?php
+echo $address_payment['zip'] . ' ' . $address_payment['city']?><br />
+				<?php
+echo $address_payment['state']?><br />
+				<?php echo $html->link('upravit', array('controller' => 'orders', 'action' => 'address_edit', 'type' => 'f'), array('class' => 'smallLinkEdit')) ?>
 			</td>
 	</table>
 </div>

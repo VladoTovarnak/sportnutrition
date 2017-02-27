@@ -1,4 +1,4 @@
-<?
+<?php
 function upload_links($layout_name, $ru) {
 	$output = '';
 	// kontrola, zda je zadane jmeno layoutu, pro ktery budu

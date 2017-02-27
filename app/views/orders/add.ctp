@@ -1,42 +1,44 @@
 <div class="mainContentWrapper">
 <h2><span><?php echo $page_heading?></span></h2>
-<? if ( !$session->check('Customer') ){ ?>
+<?php
+if ( !$session->check('Customer') ){ ?>
 <p><strong>Jste-li již našim zákazníkem</strong>, přihlašte se prosím pomocí formuláře v záhlaví stranky,<br />
 nebo použijte <a href="/customers/login">příhlašovací formulář</a>.</p>
-<? } ?>
+<?php
+} ?>
 
-<?=$form->Create('Order', array('url' => '/orders/add', 'id' => 'orderForm'))?>
+<?php echo $form->Create('Order', array('url' => '/orders/add', 'id' => 'orderForm'))?>
 <?if ( !$session->check('Customer.id') ){ ?>
 	<fieldset>
 		<legend>Adresa doručení</legend>
 		<table id="orderForm">
 			<tr>
 				<th><sup>*</sup>Jméno</th>
-				<td><?=$form->input('Customer.first_name', array('label' => false, 'div' => false, 'class' => 'content'))?></td>
+				<td><?php echo $form->input('Customer.first_name', array('label' => false, 'div' => false, 'class' => 'content'))?></td>
 			</tr>
 			<tr>
 				<th><sup>*</sup>Příjmení</th>
-				<td><?=$form->input('Customer.last_name', array('label' => false, 'div' => false, 'class' => 'content'))?></td>
+				<td><?php echo $form->input('Customer.last_name', array('label' => false, 'div' => false, 'class' => 'content'))?></td>
 			</tr>	
 			<tr>
 				<th><sup>*</sup>Ulice</th>
-				<td><?=$form->input('Address.street', array('label' => false, 'class' => 'content'))?></td>
+				<td><?php echo $form->input('Address.street', array('label' => false, 'class' => 'content'))?></td>
 			</tr>	
 			<tr>
 				<th><sup>*</sup>Číslo popisné</th>
-				<td><?=$form->input('Address.street_no', array('label' => false))?></td>
+				<td><?php echo $form->input('Address.street_no', array('label' => false))?></td>
 			</tr>	
 			<tr>
 				<th><sup>*</sup>PSČ</th>
-				<td><?=$form->input('Address.zip', array('label' => false))?></td>
+				<td><?php echo $form->input('Address.zip', array('label' => false))?></td>
 			</tr>	
 			<tr>
 				<th><sup>*</sup>Město</th>
-				<td><?=$form->input('Address.city', array('label' => false, 'class' => 'content'))?></td>
+				<td><?php echo $form->input('Address.city', array('label' => false, 'class' => 'content'))?></td>
 			</tr>
 			<tr>
 				<th><sup>*</sup>Stát</th>
-				<td><?=$form->select('Address.state', array('Česká Republika' => 'Česká Republika', 'Slovenská Republika' => 'Slovenská Republika'), null, array('empty' => false)) ?></td>
+				<td><?php echo $form->select('Address.state', array('Česká Republika' => 'Česká Republika', 'Slovenská Republika' => 'Slovenská Republika'), null, array('empty' => false)) ?></td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -48,11 +50,11 @@ nebo použijte <a href="/customers/login">příhlašovací formulář</a>.</p>
 			</tr>
 			<tr>
 				<th><sup>*</sup>Kontaktní telefon</th>
-				<td><?=$form->input('Customer.phone', array('label' => false, 'div' => false, 'class' => 'content'))?></td>
+				<td><?php echo $form->input('Customer.phone', array('label' => false, 'div' => false, 'class' => 'content'))?></td>
 			</tr>
 			<tr>
 				<th><sup>*</sup>Emailová adresa</th>
-				<td><?=$form->input('Customer.email', array('label' => false, 'div' => false, 'class' => 'content'))?></td>
+				<td><?php echo $form->input('Customer.email', array('label' => false, 'div' => false, 'class' => 'content'))?></td>
 			</tr>
 
 		</table>
@@ -68,26 +70,27 @@ nebo použijte <a href="/customers/login">příhlašovací formulář</a>.</p>
 			</tr>
 			<tr>
 				<th>Název společnosti</th>
-				<td><?=$form->input('Customer.company_name', array('label' => false, 'class' => 'content'))?></td>
+				<td><?php echo $form->input('Customer.company_name', array('label' => false, 'class' => 'content'))?></td>
 			</tr>
 			<tr>
 				<th>IČO</th>
-				<td><?=$form->input('Customer.company_ico', array('label' => false, 'class' => 'content'))?></td>
+				<td><?php echo $form->input('Customer.company_ico', array('label' => false, 'class' => 'content'))?></td>
 			</tr>	
 			<tr>
 				<th>DIČ</th>
-				<td><?=$form->input('Customer.company_dic', array('label' => false, 'class' => 'content'))?></td>
+				<td><?php echo $form->input('Customer.company_dic', array('label' => false, 'class' => 'content'))?></td>
 			</tr>
 		</table>
 	</fieldset>
-<? } ?>
+<?php
+} ?>
 	<fieldset>
 		<legend>Detaily objednávky</legend>
 		<table id="orderForm">
 			<tr>
 				<th>Způsob doručení<sup>*</sup></th>
 				<td>
-					<?
+					<?php
 						if ( !isset($this->data['Order']['shipping_id']) ){
 							$this->data['Order']['shipping_id'] = null;
 						}
@@ -98,7 +101,7 @@ nebo použijte <a href="/customers/login">příhlašovací formulář</a>.</p>
 			<tr>
 				<th>Způsob platby<sup>*</sup></th>
 				<td>
-					<?
+					<?php
 						if ( !isset($this->data['Order']['payment_id']) ){
 							$this->data['Order']['payment_id'] = null;
 						}
@@ -114,7 +117,7 @@ nebo použijte <a href="/customers/login">příhlašovací formulář</a>.</p>
 			<tr>
 				<th>Váš komentář k objednávce</th>
 				<td>
-					<?=$form->textarea('Order.comments', array('cols' => 40, 'rows' => 5))?>
+					<?php echo $form->textarea('Order.comments', array('cols' => 40, 'rows' => 5))?>
 				</td>
 			</tr>
 		</table>
@@ -123,9 +126,9 @@ nebo použijte <a href="/customers/login">příhlašovací formulář</a>.</p>
 		<table id="orderForm">
 			<tr>
 				<th>&nbsp;</th>
-				<td><?=$form->Submit('Rekapitulace objednávky', array('class' => 'content'));?></td>
+				<td><?php echo $form->Submit('Rekapitulace objednávky', array('class' => 'content'));?></td>
 			</tr>
 		</table>
-<?=$form->end()?>
+<?php echo $form->end()?>
 
 </div>

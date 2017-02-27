@@ -1,5 +1,5 @@
 <div id="editorContent">
-<?
+<?php
 	if ( preg_match('/##LINKER##/', $page_content) ){
 		require_once('__linker/uploader.php');
 		$linker_output = upload_links('nutrishop_linkovaci_stranka', base64_encode($_SERVER['REQUEST_URI']));

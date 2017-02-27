@@ -1,4 +1,4 @@
-<?
+<?php
 class Postman extends AppModel{
 	var $name = 'Postman';
 	

@@ -16,7 +16,7 @@ echo $this->Html->link('ZPĚT NA SEZNAM PRODUKTŮ', $back_link)?>
 <div class='prazdny'></div>
 
 <h3>Vložit nový dokument</h3>
-<?
+<?php
 	echo $form->create('Product', array('url' => array('controller' => 'products', 'action' => 'edit_documents', $product['Product']['id'], (isset($category['Category']['id']) ? $category['Category']['id'] : null))));
 	echo $form->submit('Zobrazit');
 	echo $form->text('Product.document_fields', array('size' => '1')) . ' polí';
@@ -28,7 +28,7 @@ echo $this->Html->link('ZPĚT NA SEZNAM PRODUKTŮ', $back_link)?>
 		<table class="leftHeading" cellpadding="5" cellspacing="3">
 			<tr>
 				<td>
-					<?
+					<?php
 						if ( !isset($this->data['Product']['document_fields']) OR $this->data['Product']['document_fields'] > 10 OR $this->data['Product']['document_fields'] < 1 ) {
 							$this->data['Product']['document_fields'] = 1;
 						}
@@ -39,26 +39,27 @@ echo $this->Html->link('ZPĚT NA SEZNAM PRODUKTŮ', $back_link)?>
 				</td>
 			</tr>
 		</table>
-<?
+<?php
 	echo $form->hidden('ProductDocument.document_fields', array('value' => $this->data['Product']['document_fields']));
 	echo $form->hidden('ProductDocument.product_id', array('value' => $product['Product']['id']));
 	echo $this->Form->hidden('ProductDocument.category_id', array('value' => isset($category['Category']['id']) ? $category['Category']['id'] : null))
 ?>
 	</fieldset>
-<?
+<?php
 	echo $form->submit('Vložit dokument');
 	echo $form->end();
 ?>
 <br/><br/>
 
-<? if (count($product['ProductDocument']) > 0) { ?>
+<?php
+if (count($product['ProductDocument']) > 0) { ?>
 	<table class="topHeading" cellpadding="5" cellspacing="3">
 		<tr>
 			<th>ID</th>
 			<th>Název</th>
 			<th>&nbsp;</th>
 		</tr>
-<?
+<?php
 	foreach ($product['ProductDocument'] as $document){
 ?>
 		<tr>
@@ -76,11 +77,11 @@ echo $this->Html->link('ZPĚT NA SEZNAM PRODUKTŮ', $back_link)?>
 			?>
 			</td>
 		</tr>
-<?
+<?php
 	}
 ?>
 	</table>
-<?
+<?php
 	} else {
 		echo '<p>Produkt zatím nemá žádné dokumenty</p>';
 	}

@@ -1,4 +1,4 @@
-﻿<?
+﻿<?php
 /**
  * ZAKLADNI TEMPLATE PRO STRANKU PRODUKTU
 */
@@ -23,13 +23,13 @@ if ( !isset($description_for_content) ){
 	<head>		
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta http-equiv="content-language" content="cs" />
-		<title><?=$title_for_content?> | nutrishop.cz</title>
-		<?
+		<title><?php echo $title_for_content?> | nutrishop.cz</title>
+		<?php
 			if ( isset($meta['robots']) && !empty($meta['robots']) ){
 				echo $meta['robots'] . "\n";
 			}
 		?>
-		<meta name="description" content="<?=$description_for_content?>" />
+		<meta name="description" content="<?php echo $description_for_content?>" />
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>	
 		<?php if (isset($fancybox)) { ?>
 		<link rel="stylesheet" href="/css/fancybox/jquery.fancybox-1.3.2.css" type="text/css" media="screen" />
@@ -54,7 +54,7 @@ if ( !isset($description_for_content) ){
 		</script>
 		<?php } ?>
 		
-		<?=$html->css('front_end')?>
+		<?php echo $html->css('front_end')?>
 		
 		<script type="text/javascript">
 			$(document).ready(function(){
@@ -97,7 +97,8 @@ if ( !isset($description_for_content) ){
 
 			<div id="top-baner">
 				<div id="cart-info-box">
-					<? echo $this->element('cart_info_box', $carts_stats); ?>				
+					<?php
+echo $this->element('cart_info_box', $carts_stats); ?>				
 				</div>
 			</div>
 			
@@ -105,31 +106,34 @@ if ( !isset($description_for_content) ){
 
 			<div id="mid-left-column-wrapper">
 				<div id="middle-column">
-					<?
+					<?php
 						if ($session->check('Message.flash')){
 							echo $session->flash();
 						}
 					?>
-					<h1><?=$page_heading?></h1>
-					<?=$content_for_layout?>
+					<h1><?php echo $page_heading?></h1>
+					<?php echo $content_for_layout?>
 				</div>
 				<div id="left-column">
 					<div class="menu">
-						<? echo $this->element('categories_menu', $categories_menu); ?>
+						<?php
+echo $this->element('categories_menu', $categories_menu); ?>
 					</div>
 					
 					<div id="sportovni-obleceni-vrch"></div>
 					<div class="menu">
-						<? echo $this->element('categories_menu', $nebbia_menu); ?>
+						<?php
+echo $this->element('categories_menu', $nebbia_menu); ?>
 					</div>
 					
 					<div id="posilovaci-stroje-vrch"></div>
 					<div class="menu">
-						<? echo $this->element('categories_menu', $other_menu);?>
+						<?php
+echo $this->element('categories_menu', $other_menu);?>
 					</div>
 					<div id="spoluprace-vrch"></div>
 					<div id="spoluprace">
-						<?
+						<?php
 						//echo $this->element('we_support');
 						?>
 
@@ -139,17 +143,17 @@ if ( !isset($description_for_content) ){
 			<div id="right-column">
 				<div id="hledani-vrch"></div>
 				<div id="hledani-form">
-					<?=$form->create('Search', array('action' => 'do_search')) ?>
+					<?php echo $form->create('Search', array('action' => 'do_search')) ?>
 					<div>
-						<?=$form->text('Search.q', array('class' => 'text', 'value' => '- hledat -', 'onclick' => 'return this.select();'))  ?>
-						<?=$form->submit('Hledej', array('div' => false, 'class' => 'submit')) ?>
+						<?php echo $form->text('Search.q', array('class' => 'text', 'value' => '- hledat -', 'onclick' => 'return this.select();'))  ?>
+						<?php echo $form->submit('Hledej', array('div' => false, 'class' => 'submit')) ?>
 					</div>
-					<?=$form->end() ?>
+					<?php echo $form->end() ?>
 				</div>
 				<div id="user-menu-vrch"></div>
 				<ul id="user-menu">
 					<li><a href="/">úvodní stránka</a></li>
-					<?
+					<?php
 						if ( $session->check('Customer.id') ){
 							echo '<li><a href="/customers">zákaznický panel</a></li>';
 							echo '<li><a href="/customers/orders_list">mé objednávky</a></li>';
@@ -172,17 +176,19 @@ if ( !isset($description_for_content) ){
 				</ul>
 				<div id="novinky-vrch"></div>
 				<div id="novinky">
-					<? echo $this->element('products_newest', $newest_product); ?>
+					<?php
+echo $this->element('products_newest', $newest_product); ?>
 				</div>
 				<div id="vyrobci-vrch"></div>
 				<div id="vyrobci">
-					<? echo $this->element('manufacturers_list', $manufacturers_list); ?>
+					<?php
+echo $this->element('manufacturers_list', $manufacturers_list); ?>
 				</div>
 			</div>
 			<div style="clear:both;"></div>			
 		
 			<div id="footer">
-				&copy;2007 - <?=date('Y')?> Stanislav Vávra, <a href="/">sportovní výživa - nutrishop.cz</a>
+				&copy;2007 - <?php echo date('Y')?> Stanislav Vávra, <a href="/">sportovní výživa - nutrishop.cz</a>
 			</div>
 		</div>
 		<!-- navrcholu.cz -->

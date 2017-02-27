@@ -1,4 +1,4 @@
-<?
+<?php
 
 class AttributesSubproductsController extends AppController {
 

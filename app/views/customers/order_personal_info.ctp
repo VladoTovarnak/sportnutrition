@@ -12,9 +12,11 @@
 </script>
 
 <h2><span>Osobní údaje</span></h2>
-<? if (!$session->check('Customer')){ ?>
+<?php
+if (!$session->check('Customer')){ ?>
 <p><strong>Jste-li již našim zákazníkem</strong>, přihlašte se prosím pomocí formuláře v záhlaví stranky.</p>
-<? } ?>
+<?php
+} ?>
 
 <?php echo $this->Form->create('Customer', array('url' => array('controller' => 'customers', 'action' => 'order_personal_info')))?>
 <table>

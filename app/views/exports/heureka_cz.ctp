@@ -1,4 +1,5 @@
-<? 
+<?php
+
 foreach ($products as $product) { 
 	$name = $product['Product']['heureka_name'];
 	if (empty($name)) {
@@ -8,8 +9,8 @@ foreach ($products as $product) {
 	<SHOPITEM>
 		<PRODUCT><![CDATA[<?php echo $name ?>]]></PRODUCT>
 		<DESCRIPTION><![CDATA[<?php echo $product['Product']['short_description']?>]]></DESCRIPTION>
-		<URL><![CDATA[http://www.<?php echo CUST_ROOT?>/<?=$product['Product']['url']?>]]></URL>
-		<IMGURL><![CDATA[http://www.<?php echo CUST_ROOT ?>/product-images/<?=(empty($product['Image']['name']) ? '' : str_replace(" ", "%20", $product['Image']['name']))?>]]></IMGURL>
+		<URL><![CDATA[http://www.<?php echo CUST_ROOT?>/<?php echo $product['Product']['url']?>]]></URL>
+		<IMGURL><![CDATA[http://www.<?php echo CUST_ROOT ?>/product-images/<?php echo (empty($product['Image']['name']) ? '' : str_replace(" ", "%20", $product['Image']['name']))?>]]></IMGURL>
 		<PRICE><![CDATA[<?php echo ceil($product['Product']['price'] * 100 / ($product['TaxClass']['value'] + 100)) ?>]]></PRICE>
 		<PRICE_VAT><![CDATA[<?php echo $product['Product']['price']?>]]></PRICE_VAT>
 		<VAT><![CDATA[<?php echo str_replace('.', ',', $product['TaxClass']['value'] / 100) ?>]]></VAT>
@@ -30,4 +31,5 @@ foreach ($products as $product) {
 		</DELIVERY>
 <?php } ?>
 	</SHOPITEM>
-<? } ?>
+<?php
+} ?>

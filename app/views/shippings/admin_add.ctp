@@ -31,7 +31,7 @@
 	</tr>
 </table>
 <br/>
-<?
+<?php
 	echo $this->Form->hidden('Shipping.active', array('value' => true));
 	echo $form->submit('Uložit');
 	echo $this->Form->end();

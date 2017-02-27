@@ -39,7 +39,7 @@
 			</tr>
 		</table>
 	</fieldset>
-<?
+<?php
 	echo $form->hidden('Status.id');
 	echo $form->end('upravit')
 ?>

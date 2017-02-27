@@ -1,4 +1,4 @@
-﻿<?
+﻿<?php
 /**
 	menu pro administraci
 */
@@ -7,7 +7,8 @@
 	<li><a href="/admin/categories/index">KATALOG</a></li>
 	<li>
 		<ul id="menu">
-<?			foreach ($categories as $category) { ?>
+<?php
+		foreach ($categories as $category) { ?>
 			<li><?php
 					echo (isset($opened_category_id) && in_array($category['Category']['id'], $path_ids) ? '<strong>' : '');
 					echo $this->Html->link($category['Category']['name'], array('controller' => 'categories', 'action' => 'list_products', $category['Category']['id']));
@@ -15,7 +16,8 @@
 					echo (isset($opened_category_id) && in_array($category['Category']['id'], $path_ids) ? '</strong>&nbsp;&nbsp;<a href="/admin/categories/view/' . $category['Category']['id'] . '">&gt;&gt;&gt;</a>' : '');
 					if (!empty($category['children'])) { ?>
 				<ul>
-<?					foreach ($category['children'] as $subcategory) { ?>
+<?php
+				foreach ($category['children'] as $subcategory) { ?>
 					<li><?php
 						echo (isset($opened_category_id) && in_array($subcategory['Category']['id'], $path_ids) ? '<strong>' : '');
 						echo $this->Html->link($subcategory['Category']['name'], array('controller' => 'categories', 'action' => 'list_products', $subcategory['Category']['id']));
@@ -46,11 +48,14 @@
 						</ul>
 <?php					} ?>
 					</li>
-<?		 			} ?>
+<?php
+	 			} ?>
 				</ul>
-<?				} ?>
+<?php
+			} ?>
 			</li>
-<?			} ?>
+<?php
+		} ?>
 		</ul>
 	</li>
 </ul>

@@ -1,4 +1,4 @@
-<?
+<?php
 class SpoolController extends AppController {
    var $name = 'Spool';
 

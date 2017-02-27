@@ -12,7 +12,7 @@
 			&nbsp;
 		</th>
 	</tr>
-<?
+<?php
 	foreach ( $mail_templates as $mail_template ){
 		echo '
 		<tr>
@@ -33,6 +33,6 @@
 </table>
 <div class="actions">
 	<ul>
-		<li><?=$html->link('nová šablona', array('controller' => 'mail_templates', 'action' => 'add'))?></li>
+		<li><?php echo $html->link('nová šablona', array('controller' => 'mail_templates', 'action' => 'add'))?></li>
 	</ul>
 </div>

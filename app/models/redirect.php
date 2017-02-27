@@ -1,4 +1,4 @@
-<?
+<?php
 class Redirect extends AppModel{
 	var $name = 'Redirect';
 

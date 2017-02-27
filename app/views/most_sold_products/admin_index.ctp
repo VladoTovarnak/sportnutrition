@@ -95,7 +95,7 @@
 		</tr>
 	</thead>
 	<tbody>
-<?
+<?php
 	foreach ( $most_sold as $product ){
 		$style = '';
 		if (!$product['Product']['active']) {
@@ -109,12 +109,12 @@
 			$icon = '<img src="/images/' . REDESIGN_PATH . 'icons/delete.png" alt="" />';
 			echo $html->link($icon, array('controller' => 'most_sold_products', 'action' => 'delete', $product['MostSoldProduct']['id']), array('escape' => false, 'title' => 'Odstranit ze seznamu'));
 		?></td>
-		<td><?=$product['Product']['id']?></td>
-		<td><?=$product['Product']['name']?></td>
+		<td><?php echo $product['Product']['id']?></td>
+		<td><?php echo $product['Product']['name']?></td>
 		<td><?php echo ($product['Product']['active'] ? 'ano' : 'ne') ?></td>
-		<td><?=$product['Product']['retail_price_with_dph']?></td>
+		<td><?php echo $product['Product']['retail_price_with_dph']?></td>
 	</tr>
-<?
+<?php
 	}
 ?>
 	</tbody>

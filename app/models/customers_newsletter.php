@@ -1,4 +1,4 @@
-<?
+<?php
 class CustomersNewsletter extends AppModel{
 	var $name = 'CustomersNewsletter';
 	

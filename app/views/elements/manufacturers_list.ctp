@@ -1,5 +1,5 @@
-﻿<?=$form->create('Manufacturer', array('action' => 'show')) ?>
-<?
+﻿<?php echo $form->create('Manufacturer', array('action' => 'show')) ?>
+<?php
 	$selected = null;
 	if ( isset($this->params['manufacturer_id']) ){
 		$selected = $this->params['manufacturer_id'];
@@ -11,5 +11,5 @@
 	
 	echo '<div>' . $form->select('Manufacturer.id', $manufacturers, $selected, array('empty' => false)) . '</div>';
 ?>
-<?=$form->submit('zobrazit produkty') ?>
-<?=$form->end() ?>
+<?php echo $form->submit('zobrazit produkty') ?>
+<?php echo $form->end() ?>

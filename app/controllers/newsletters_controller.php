@@ -1,4 +1,4 @@
-<?
+<?php
 class NewslettersController extends AppController{
 	var $name = 'Newsletters';
 	//var $scaffold;

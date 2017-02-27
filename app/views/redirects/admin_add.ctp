@@ -22,7 +22,7 @@
 			</tr>
 		</table>
 	</fieldset>
-<?
+<?php
 	echo $form->end('uložit')
 ?>
 <div class="actions">

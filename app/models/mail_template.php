@@ -1,4 +1,4 @@
-<?
+<?php
 class MailTemplate extends AppModel{
 	var $name = 'MailTemplate';
 	

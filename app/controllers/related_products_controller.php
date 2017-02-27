@@ -1,4 +1,4 @@
-<?
+<?php
 class RelatedProductsController extends AppController {
 
 	var $name = 'RelatedProducts';

@@ -1,5 +1,6 @@
 <h1>Nová webstránka</h1>
-<? echo $form->Create('Content'); ?>
+<?php
+echo $form->Create('Content'); ?>
 <fieldset>
 	<table class="tabulkaedit">
 		<tr class="nutne">
@@ -26,7 +27,7 @@
 		</tr>
 	</table>
 </fieldset>
-<?
+<?php
 	echo $form->Submit('Uložit');
 	echo $form->end();
 ?>

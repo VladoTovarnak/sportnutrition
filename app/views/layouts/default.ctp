@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * ZAKLADNI TEMPLATE PRO VSECHNY OBSAHOVE STRANKY
 */
@@ -18,7 +18,7 @@ if ( !isset( $opened_category_id ) ){
 	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-	<?
+	<?php
 		// prihodim si javascriptovy soubor s funkcemi
 	if ( isset($javascript) ){
 		echo $javascript->link('functions');
@@ -71,18 +71,18 @@ if ( !isset( $opened_category_id ) ){
 	<table id="mainWrapper">
 		<tr>
 			<td valign="top" class="leftSideWrapper">
-				<?
+				<?php
 					echo $form->create('Search', array('action' => 'do'));
 					echo $form->text('query');
 					echo $form->submit('Hledej');
 					echo $form->end();
 				?>
 				<a href="/admin/orders">Seznam objednávek</a><br />
-				&nbsp;&nbsp;<?=$html->link('kontrola doručených objednávek', array('controller' => 'orders', 'action' => 'track'), array('style' => 'font-size:9px;')) ?><br />
-				<?=$html->link('Seznam zákazníků', array('controller' => 'customers', 'action' => 'list')) ?><br />
-				<?=$html->link('Dotazy / komentáře', array('controller' => 'comments', 'action' => 'index')) ?><br />
-				<?=$html->link('Statistiky', array('controller' => 'statistics', 'action' => 'index'))?><br /><br />
-				<?
+				&nbsp;&nbsp;<?php echo $html->link('kontrola doručených objednávek', array('controller' => 'orders', 'action' => 'track'), array('style' => 'font-size:9px;')) ?><br />
+				<?php echo $html->link('Seznam zákazníků', array('controller' => 'customers', 'action' => 'list')) ?><br />
+				<?php echo $html->link('Dotazy / komentáře', array('controller' => 'comments', 'action' => 'index')) ?><br />
+				<?php echo $html->link('Statistiky', array('controller' => 'statistics', 'action' => 'index'))?><br /><br />
+				<?php
 				echo $this->element(
 						'admin_categories_list',
 						$this->requestAction('/categories/getSubcategoriesMenuList/' . $opened_category_id . '/0/1')

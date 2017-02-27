@@ -5,7 +5,8 @@
 		<th>jedn. cena</th>
 		<th>cena celkem</th>
 	</tr>
-	<? foreach ($order['OrderedProduct'] as $product) { ?>
+	<?php
+foreach ($order['OrderedProduct'] as $product) { ?>
 	<tr>
 		<td><?php 
 			echo $product['product_quantity'] . ' &times; ' . (isset($product['Product']['name']) ? $this->Html->link($product['Product']['name'], $product['Product']['url'], array('target' => 'blank')) : '<em>produkt není v nabídce</em>');
@@ -24,11 +25,11 @@
 	<?php } ?>
 	<tr>
 		<th colspan="2">objednané zboží celkem:</th>
-		<td><?=front_end_display_price($order['Order']['subtotal_with_dph'])?> Kč</td>
+		<td><?php echo front_end_display_price($order['Order']['subtotal_with_dph'])?> Kč</td>
 	</tr>
 	<tr>
 		<th colspan="2">způsob dopravy:</th>
-		<td><?=$order['Shipping']['name']?> (<?=front_end_display_price($order['Order']['shipping_cost'])?>&nbsp;Kč)</td>
+		<td><?php echo $order['Shipping']['name']?> (<?php echo front_end_display_price($order['Order']['shipping_cost'])?>&nbsp;Kč)</td>
 	</tr>
 	<tr>
 		<th colspan="2">způsob platby:</th>
@@ -36,7 +37,7 @@
 	</tr>
 	<tr>
 		<th colspan="2">celková cena objednávky:</th>
-		<td><?=front_end_display_price($order['Order']['subtotal_with_dph'] + $order['Order']['shipping_cost'])?>&nbsp;Kč</td>
+		<td><?php echo front_end_display_price($order['Order']['subtotal_with_dph'] + $order['Order']['shipping_cost'])?>&nbsp;Kč</td>
 	</tr>
 	<?php if (isset($order['Order']['comments']) && !empty($order['Order']['comments'])) { ?>
 	<tr>

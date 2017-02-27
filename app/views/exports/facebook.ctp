@@ -4,13 +4,14 @@
 		<title>SportNutrition Vávra</title>
 		<link>http://www.SportNutrition.cz</link>
 		
-	<? foreach ( $products as $product ){ ?>
+	<?php
+foreach ( $products as $product ){ ?>
 		<item>
 			<g:id>CZ_<?php echo $product['Product']['id']?></g:id>
 			<g:title><![CDATA[<?php echo $product['Product']['name']?>]]></g:title>
 			<g:description><![CDATA[<?php echo $product['Product']['short_description']?>]]></g:description>
-			<g:link><![CDATA[http://www.<?php echo CUST_ROOT?>/<?=$product['Product']['url']?>]]></g:link>
-			<g:image_link><![CDATA[http://www.<?php echo CUST_ROOT ?>/product-images/<?=(empty($product['Image']['name']) ? '' : str_replace(" ", "%20", $product['Image']['name']))?>]]></g:image_link>
+			<g:link><![CDATA[http://www.<?php echo CUST_ROOT?>/<?php echo $product['Product']['url']?>]]></g:link>
+			<g:image_link><![CDATA[http://www.<?php echo CUST_ROOT ?>/product-images/<?php echo (empty($product['Image']['name']) ? '' : str_replace(" ", "%20", $product['Image']['name']))?>]]></g:image_link>
 			<g:brand><![CDATA[<?php echo $product['Manufacturer']['name']?>]]></g:brand>
 			<g:condition>new</g:condition>
 			<g:availability>in stock</g:availability>
@@ -30,6 +31,7 @@
 			</g:shipping>
 <?php } ?>
 		</item>
-	<? } ?>
+	<?php
+} ?>
 	</channel>
 </rss>
