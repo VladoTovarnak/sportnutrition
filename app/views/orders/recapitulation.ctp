@@ -92,26 +92,18 @@
 		<tr>
 			<td valign="top" style="width:50%">
 				<h3>Adresa doručení</h3>
-				<?php
-echo $address['name']?><br />
-				<?php
-echo $address['street'] . ' ' . $address['street_no']?><br />
-				<?php
-echo $address['zip'] . ' ' . $address['city'];?><br />
-				<?php
-echo $address['state']?><br />
+				<?php echo $address['name']?><br />
+				<?php echo $address['street'] . ' ' . $address['street_no']?><br />
+				<?php echo $address['zip'] . ' ' . $address['city'];?><br />
+				<?php echo $address['state']?><br />
 				<?php echo $html->link('upravit', array('controller' => 'orders', 'action' => 'address_edit', 'type' => 'd'), array('class' => 'smallLinkEdit')) ?>
 			</td>
 			<td>
 				<h3>Fakturační adresa</h3>
-				<?php
-echo $address_payment['name']?><br />
-				<?php
-echo $address_payment['street'] . ' ' . $address_payment['street_no']?><br />
-				<?php
-echo $address_payment['zip'] . ' ' . $address_payment['city']?><br />
-				<?php
-echo $address_payment['state']?><br />
+				<?php echo $address_payment['name']?><br />
+				<?php echo $address_payment['street'] . ' ' . $address_payment['street_no']?><br />
+				<?php echo $address_payment['zip'] . ' ' . $address_payment['city']?><br />
+				<?php echo $address_payment['state']?><br />
 				<?php echo $html->link('upravit', array('controller' => 'orders', 'action' => 'address_edit', 'type' => 'f'), array('class' => 'smallLinkEdit')) ?>
 			</td>
 	</table>
