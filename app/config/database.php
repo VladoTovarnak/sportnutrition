@@ -83,17 +83,6 @@ class DATABASE_CONFIG {
 	var $default = array(
 		'driver' => 'mysql',
 		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'root',
-		'password' => '',
-		'database' => 'f74422',
-		'prefix' => '',
-		'encoding' => 'utf8'
-	);
-	
-/*	var $default = array(
-		'driver' => 'mysql',
-		'persistent' => false,
 		'host' => 'c102um.forpsi.com',
 		'login' => 'f74422',
 		'password' => 'e8upe98',
@@ -101,7 +90,18 @@ class DATABASE_CONFIG {
 		'port' => 3306,
 		'prefix' => '',
 		'encoding' => 'utf8'
-	);*/
+	);
+	
+/*	var $default = array(
+			'driver' => 'mysql',
+			'persistent' => false,
+			'host' => 'localhost',
+			'login' => 'root',
+			'password' => '',
+			'database' => 'f74422',
+			'prefix' => '',
+			'encoding' => 'utf8'
+	); */
 	
 	var $sportnutrition = array(
 		'driver' => 'mysql',
