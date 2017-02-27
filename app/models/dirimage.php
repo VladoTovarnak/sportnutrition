@@ -1,4 +1,4 @@
-<?
+<?php
 class Dirimage extends AppModel {
 	var $name = 'Dirimage';
 

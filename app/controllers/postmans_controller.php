@@ -1,4 +1,4 @@
-<?
+<?php
 class PostmansController extends AppController{
 	var $name = 'Postmans';
 

@@ -31,7 +31,7 @@
 	</tr>
 </table>
 <br/>
-<?
+<?php
 	echo $this->Form->hidden('Shipping.id');
 	echo $form->submit('Uložit');
 	echo $this->Form->end();

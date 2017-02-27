@@ -95,7 +95,7 @@
 		</tr>
 	</thead>
 	<tbody>
-<?
+<?php
 	foreach ( $recommended as $product ){
 		$style = '';
 		if (!$product['Product']['active']) {
@@ -114,7 +114,7 @@
 		<td><?php echo ($product['Product']['active'] ? 'ano' : 'ne') ?></td>
 		<td><?=$product['Product']['retail_price_with_dph']?></td>
 	</tr>
-<?
+<?php
 	}
 ?>
 	</tbody>

@@ -1,4 +1,5 @@
-<? class AppController extends Controller {
+<?php
+class AppController extends Controller {
 	// musim si importnout cookie, potrebuju je pouzivat	
 	var $components = array('Cookie', 'Session');
 	
@@ -8,7 +9,7 @@
 
 	// beforeFilter se provede pri uplne kazde akci, ktera se vykona
 	function beforeFilter() {
-		if ($_SERVER['HTTP_HOST'] != 'www.sportnutrition.cz' && $_SERVER['HTTP_HOST'] != 'localhost') {
+		if ($_SERVER['HTTP_HOST'] != 'www.sportnutrition.cz' && $_SERVER['HTTP_HOST'] != 'localhost' && $_SERVER['HTTP_HOST'] != 'sportnutrition') {
 			header("HTTP/1.0 410 Gone");
 			echo "The requested page has been removed.";
 			die();

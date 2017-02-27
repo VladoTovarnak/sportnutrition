@@ -1,4 +1,4 @@
-﻿<?
+﻿<?php
 	if ( !empty($most_sold) ){
 ?>
 		<div class="leftBoxHeading">
@@ -6,13 +6,13 @@
 		</div>
 		<div class="leftBox">
 			<ol>
-			<?
+			<?php
 				foreach ( $most_sold as $product ){
 					echo '<li>' . $html->link($product['Product']['name'], '/' . $product['Product']['url']) . '</li>';
 				}
 			?>
 			</ol>
 		</div>
-<?
+<?php
 	}
 ?>

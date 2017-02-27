@@ -150,4 +150,5 @@
 		<div id="mainContentWrapper">
 			<p>Tato kategorie neobsahuje žádné produkty ani podkategorie.</p>
 		</div>
-<? } ?>
+<?php
+} ?>

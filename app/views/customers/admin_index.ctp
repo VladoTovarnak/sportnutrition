@@ -69,7 +69,7 @@ if (isset($this->data) && isset($this->Paginator)) {
 </table>
 
 <div>
-<?
+<?php
 if (isset($this->Paginator)) {
 	echo $this->Paginator->prev('<< Předchozí', array(), '<< Předchozí');
 	echo '&nbsp;&nbsp;' . $this->Paginator->numbers() . '&nbsp;&nbsp;';

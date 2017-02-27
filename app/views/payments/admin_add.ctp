@@ -15,7 +15,7 @@
 	</tr>
 </table>
 <br/>
-<?
+<?php
 	echo $this->Form->hidden('Payment.active', array('value' => true));
 	echo $form->submit('Uložit');
 	echo $this->Form->end();

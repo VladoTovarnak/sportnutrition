@@ -62,7 +62,8 @@
 	<div id="mainContentWrapper">
 		<p>Zadanému dotazu neodpovídají žádné produkty v našem obchodě.</p>
 	</div>
-<? } ?>
+<?php
+} ?>
 <script type="text/javascript">
 	fbq('track', 'Search');
 </script>

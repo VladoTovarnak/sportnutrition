@@ -39,7 +39,7 @@
 			</tr>
 		</table>
 	</fieldset>
-<?
+<?php
 	echo $form->end('upravit')
 ?>
 <div class="actions">

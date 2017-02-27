@@ -4,7 +4,7 @@
 		<th style="width:50%">krátký popis</th>
 		<th>cena</th>
 	</tr>
-<?
+<?php
 	$i = 0;
 	foreach ( $products as $product ){
 		$bg = ' style="background-color:#F5F5F5"';
@@ -13,29 +13,29 @@
 			$bg = '';
 		}
 ?>
-	<tr<?=$bg?>>
+	<tr<?php echo $bg?>>
 		<th valign="top">
-			<h2><a href="/<?=$product['Product']['url']?>"><?=$product['Product']['name']?></a></h2>
+			<h2><a href="/<?php echo $product['Product']['url']?>"><?php echo $product['Product']['name']?></a></h2>
 		</th>
 		<td>
-			<p class="productsShortDescription"><?=$product['Product']['short_description']?></p>
+			<p class="productsShortDescription"><?php echo $product['Product']['short_description']?></p>
 		</td>
 		<td align="right">
-			<?
+			<?php
 				if ( $product['Product']['discount_price'] < $product['Product']['retail_price_with_dph'] ){
 			?>
-					<span class="old_price"><?=$product['Product']['retail_price_with_dph']?> Kč</span><br />
-           			<strong><?=$product['Product']['discount_price']?> Kč</strong>
-           	<?
+					<span class="old_price"><?php echo $product['Product']['retail_price_with_dph']?> Kč</span><br />
+           			<strong><?php echo $product['Product']['discount_price']?> Kč</strong>
+           	<?php
 				} else {
 			?>
-					<strong><?=$product['Product']['retail_price_with_dph']?> Kč</strong>
-			<?
+					<strong><?php echo $product['Product']['retail_price_with_dph']?> Kč</strong>
+			<?php
 				}
 			?>
 		</td>
 	</tr>
-<?
+<?php
 	}
 ?>
 </table>

@@ -1,4 +1,4 @@
-<?
+<?php
 class Ordernote extends AppModel{
 	var $name = 'Ordernote';
 	var $order = array(

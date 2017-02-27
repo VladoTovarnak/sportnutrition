@@ -16,7 +16,8 @@
 		<th>Notifikace</th>
 		<th>Publikován</th>
 	</tr>
-	<? foreach ($comments as $comment) { ?>
+	<?php
+foreach ($comments as $comment) { ?>
 	<tr>
 		<td><?php 
 			$icon = '<img src="/images/' . REDESIGN_PATH . 'icons/pencil.png" alt="" />';
@@ -26,14 +27,15 @@
 			$icon = '<img src="/images/' . REDESIGN_PATH . 'icons/delete.png" alt="" />';
 			echo $this->Html->link($icon, array('controller' => 'comments', 'action' => 'delete', $comment['Comment']['id']), array('escape' => false), 'Opravdu chcete komenář smazat?');
 		?></td>
-		<td><?=$comment['Comment']['id'] ?></td>
-		<td><?=$comment['Comment']['created'] ?></td>
-		<td><?=$comment['Comment']['subject'] ?></td>
-		<td><?=$comment['Comment']['author'] ?></td>
-		<td><?=( empty($comment['Comment']['reply']) ? $this->Html->link('<span style="color:red">NE</span>', array('controller' => 'comments', 'action' => 'edit', $comment['Comment']['id']), array('escape' => false)) : '<span style="color:green">ANO</span>' ) ?>
-		<td><?=( $comment['Comment']['sent'] == '0' ? $html->link('<span style="color:red">NE</span>', array('controller' => 'comments', 'action' => 'notify', $comment['Comment']['id']), array('escape' => false), false) : '<span style="color:green">ANO</span>' ) ?>
-		<td><?=( $comment['Comment']['confirmed'] == '0' ? $this->Html->link('<span style="color:red">NE</span>', array('controller' => 'comments', 'action' => 'confirm', $comment['Comment']['id']), array('escape' => false)) : '<span style="color:green">ANO</span>' ) ?>
+		<td><?php echo $comment['Comment']['id'] ?></td>
+		<td><?php echo $comment['Comment']['created'] ?></td>
+		<td><?php echo $comment['Comment']['subject'] ?></td>
+		<td><?php echo $comment['Comment']['author'] ?></td>
+		<td><?php echo ( empty($comment['Comment']['reply']) ? $this->Html->link('<span style="color:red">NE</span>', array('controller' => 'comments', 'action' => 'edit', $comment['Comment']['id']), array('escape' => false)) : '<span style="color:green">ANO</span>' ) ?>
+		<td><?php echo ( $comment['Comment']['sent'] == '0' ? $html->link('<span style="color:red">NE</span>', array('controller' => 'comments', 'action' => 'notify', $comment['Comment']['id']), array('escape' => false), false) : '<span style="color:green">ANO</span>' ) ?>
+		<td><?php echo ( $comment['Comment']['confirmed'] == '0' ? $this->Html->link('<span style="color:red">NE</span>', array('controller' => 'comments', 'action' => 'confirm', $comment['Comment']['id']), array('escape' => false)) : '<span style="color:green">ANO</span>' ) ?>
 	</tr>
 		
-	<? } ?>
+	<?php
+} ?>
 </table>

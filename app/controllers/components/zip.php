@@ -1,4 +1,4 @@
-<?
+<?php
 class ZipComponent extends Object {
 	var $controller = true;
 

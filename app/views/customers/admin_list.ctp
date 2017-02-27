@@ -1,5 +1,5 @@
 ﻿<h2>Seznam zákazníků</h2>
-<?
+<?php
 	$count = count($alphabet);
 	setlocale( LC_ALL, 'cs_CZ' );
 	for ( $i = 0; $i < $count; $i++){
@@ -19,21 +19,21 @@
 				</th>
 				<th>&nbsp;</th>
 			</tr>
-<?
+<?php
 	foreach ( $customers as $customer ){
 ?>
 			<tr>
 				<td><?php echo $html->link($customer['Customer']['last_name'] . '&nbsp;' . $customer['Customer']['first_name'], array('controller' => 'customers', 'action' => 'view', $customer['Customer']['id']), array('escape' => false), false, false); ?></td>
 				<td><?php echo $customer['Customer']['phone']?><br /><?php echo $customer['Customer']['email']?></td>
 				<td>
-					<?
+					<?php
 						foreach ( $customer['Customer']['orders'] as $order ){
 							echo $html->link($order['Order']['id'], array('controller' => 'orders', 'action' => 'view', $order['Order']['id'])) . '<br />';
 						}
 					?>
 				</td>
 				<td>
-					<?
+					<?php
 						foreach ( $customer['Customer']['addresses'] as $address ){
 							echo $html->link($address['Address']['name'], array('controller' => 'orders', 'action' => 'view', $address['Address']['id'])) . '<br />';
 						}
@@ -48,11 +48,11 @@
 					<?php echo $html->link('smazat zákazníka z&nbsp;databáze', array('controller' => 'customers', 'action' => 'delete', $customer['Customer']['id']), array('style' => 'color:red;', 'escape' => false), 'Opravdu si přejete zákazníka odstranit z databáze?')?>
 				</td>
 			</tr>
-<?
+<?php
 	}
 ?>
 		</table>
-<?
+<?php
 	} else {
 		echo '<p>Žádný zákazník s počátečním písmenem <strong>' . strtoupper($id) . '</strong> nebyl nalezen.</p>';
 	}

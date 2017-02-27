@@ -41,7 +41,8 @@ $(function() {
 	<img src='/images/<?php echo REDESIGN_PATH?>icons/help.png' width='16' height='16' />
 </a>
 <br/>
-<? 
+<?php
+
 	if (isset($statuses)) {
 		foreach ($statuses as $status) {
 			$anchor = '<span style="font-size:11px;color:#' . $status['Status']['color'] . '">' . $status['Status']['name'] . ' (' . $status['Status']['count'] . ')</span>';
@@ -54,7 +55,7 @@ $(function() {
 	));
 ?>
 <div class="paging">
-<?
+<?php
 	echo $this->Paginator->prev('<< Předchozí', array(), '<< Předchozí');
 	echo '&nbsp;&nbsp;' . $this->Paginator->numbers() . '&nbsp;&nbsp;';
 	echo $this->Paginator->next('Další >>', array(), 'Další >>');
@@ -65,14 +66,15 @@ $(function() {
 	<tr>
 		<th>&nbsp;</th>
 		<th>&nbsp;</th>
-		<th><?=$this->Paginator->sort('ID', 'Order.id')?></th>
-		<th><?=$this->Paginator->sort('Datum', 'Order.created')?></th>
-		<th><?=$this->Paginator->sort('Odběratel', 'Order.customer_last_name')?></th>
+		<th><?php echo $this->Paginator->sort('ID', 'Order.id')?></th>
+		<th><?php echo $this->Paginator->sort('Datum', 'Order.created')?></th>
+		<th><?php echo $this->Paginator->sort('Odběratel', 'Order.customer_last_name')?></th>
 		<th>Položky</th>
-		<th><?=$this->Paginator->sort('Cena', 'Order.subtotal_with_dph')?></th>
+		<th><?php echo $this->Paginator->sort('Cena', 'Order.subtotal_with_dph')?></th>
 		<th>&nbsp;</th>
 	</tr>
-<? foreach ($orders as $index => $order) { ?>
+<?php
+foreach ($orders as $index => $order) { ?>
 	<tr>
 		<td><?php 
 			if (!$order['Order']['invoice']) {
@@ -169,7 +171,8 @@ $(function() {
 					<th>kdo</th>
 					<th>poznámka</th>
 				</tr>
-			<?  foreach ( $order['Ordernote'] as $note ){ ?>
+			<?php
+ foreach ( $order['Ordernote'] as $note ){ ?>
 				<tr>
 					<td><?php echo $note['created'] ?></td>
 					<td><?php echo $note['Status']['name'] ?></td>
@@ -235,7 +238,7 @@ $(function() {
 				echo '<br/><strong>FAKTUROVÁNO</strong>';
 			}
 		?></td>
-		<td><?
+		<td><?php
 			echo $this->Form->input('Order.' . $index . '.status_id', array('label' => false, 'div' => false, 'options' => $statuses_options, 'value' => $order['Order']['status_id']));
 			echo $this->Form->hidden('Order.' . $index . '.id', array('value' => $order['Order']['id']));
 			echo $this->Form->input('Order.' . $index . '.shipping_number', array('type' => 'text', 'label' => '<abbr title="číslo balíku">ČB</abbr>:&nbsp;'));
@@ -244,11 +247,12 @@ $(function() {
 			echo $this->Form->button('»', array('div' => false, 'type' => 'submit', 'class' => 'status_change_submit'));
 		?></td>
 	</tr>
-<? } ?>
+<?php
+} ?>
 </table>
 
 <div>
-<?
+<?php
 	echo $this->Paginator->prev('<< Předchozí', array(), '<< Předchozí');
 	echo '&nbsp;&nbsp;' . $this->Paginator->numbers() . '&nbsp;&nbsp;';
 	echo $this->Paginator->next('Další >>', array(), 'Další >>');

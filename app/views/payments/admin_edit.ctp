@@ -15,7 +15,7 @@
 	</tr>
 </table>
 <br/>
-<?
+<?php
 	echo $this->Form->hidden('Payment.id');
 	echo $form->submit('Uložit');
 	echo $this->Form->end();

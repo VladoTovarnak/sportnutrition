@@ -15,7 +15,8 @@
 		?></td>
 		<td colspan="4">&nbsp;</td>
 	</tr>
-	<? foreach ($availabilities as $availability) { ?>
+	<?php
+foreach ($availabilities as $availability) { ?>
 	<tr>
 		<td><?php 
 			$icon = '<img src="/images/' . REDESIGN_PATH . 'icons/pencil.png" alt="" />';

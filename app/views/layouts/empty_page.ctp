@@ -22,13 +22,13 @@
 <body>
 
 	<div style="width:800px;margin:auto;">
-<?
+<?php
 		if ($session->check('Message.flash')){
 			echo $session->flash();
 		}
 ?>
 
-	<?
+	<?php
 	echo $content_for_layout 
 	?>
 	</div>

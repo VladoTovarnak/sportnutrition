@@ -1,4 +1,4 @@
-<?
+<?php
 class MenuBehavior extends ModelBehavior{
 	var $settings = array();
 	

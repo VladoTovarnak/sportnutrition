@@ -8,10 +8,12 @@ if ($this->Session->check('Message.flash')) {
 	}
 }
 ?>
-<? if (empty($cart_products)) { ?>
+<?php
+if (empty($cart_products)) { ?>
 	<p class="empty_cart">Nákupní košík zatím zeje prázdnotou. Vložte produkty, které chcete objednat, do košíku.</p>
 	<?php echo $this->Html->link('Zpět do obchodu', $back_shop_url, array('class' => 'button_like_link red'))?>
-<? } else { ?>
+<?php
+} else { ?>
 	<table class="cart-contents" cellpadding="0" cellspacing="0">
 		<tr>
 			<th style="width:60%">Název produktu</th>
@@ -20,7 +22,7 @@ if ($this->Session->check('Message.flash')) {
 			<th style="width:9%" nowrap>Cena celkem</th>
 			<th style="width:6%">&nbsp;</th>
 		</tr>
-<?
+<?php
 		$final_price = 0;
 		foreach ( $cart_products as $cart_product ){
 			$final_price = $final_price + $cart_product['CartsProduct']['price_with_dph'] * $cart_product['CartsProduct']['quantity'];
@@ -147,21 +149,21 @@ if ($this->Session->check('Message.flash')) {
 		<input type="radio" class="customer-is-registered" value="1" id="CustomerIsRegistered1" name="data[Customer][is_registered]" <?php echo $checked?>/>
 			<label for="CustomerIsRegistered1" class="customer_status_label">Přihlásit se, jsem již zaregistrován</label>
 			<div id="CustomerOneStepOrderDiv" class="neukazovat">
-				<?=$form->Create('Customer', array('url' => array('controller' => 'orders', 'action' => 'one_step_order', '#OrderDetails'), 'encoding' => false));?>
+				<?php echo $form->Create('Customer', array('url' => array('controller' => 'orders', 'action' => 'one_step_order', '#OrderDetails'), 'encoding' => false));?>
 				<table id="orderForm">
 					<tr>
 						<th>Login:</th>
-						<td><?=$form->text('Customer.login', array('class' => 'content'))?></td>
+						<td><?php echo $form->text('Customer.login', array('class' => 'content'))?></td>
 					</tr>
 					<tr>
 						<th>Heslo:</th>
-						<td><?=$form->password('Customer.password', array('class' => 'content'))?></td>
+						<td><?php echo $form->password('Customer.password', array('class' => 'content'))?></td>
 					</tr>
 				</table>
 				<?php echo $this->Form->hidden('Order.action', array('value' => 'customer_login'))?>
 				<?php echo $this->Form->submit('Přihlásit')?>
 				<?php echo $this->Form->end()?>
-				<?=$html->link('zapomněl(a) jsem heslo', array('controller' => 'customers', 'action' => 'password')) ?>
+				<?php echo $html->link('zapomněl(a) jsem heslo', array('controller' => 'customers', 'action' => 'password')) ?>
 			</div>
 	</li>
 </ul>

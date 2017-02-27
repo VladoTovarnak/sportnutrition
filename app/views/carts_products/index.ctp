@@ -3,9 +3,11 @@
 Chcete-li dokončit objednávku a <a href="/orders/add">zaplatit</a>, klikněte <a href="/orders/add">zde</a>.</p>
 
 <h3><span>Seznam produktů v nákupním košíku</span></h3>
-<? if ( empty($cart_products) ){ ?>
+<?php
+if ( empty($cart_products) ){ ?>
 	<p>V košíku nemáte žádné zboží.</p>
-<? } else { ?>
+<?php
+} else { ?>
 	<table id="cartContents" cellpadding="0" cellspacing="0">
 		<tr>
 			<th style="width:50%">Název produktu</th>
@@ -14,7 +16,7 @@ Chcete-li dokončit objednávku a <a href="/orders/add">zaplatit</a>, klikněte 
 			<th>Cena celkem</th>
 			<th>&nbsp;</th>
 		</tr>
-<?
+<?php
 		$final_price = 0;
 		foreach ( $cart_products as $cart_product ){
 			$final_price = $final_price + $cart_product['CartsProduct']['price_with_dph'] * $cart_product['CartsProduct']['quantity'];
@@ -70,4 +72,5 @@ Chcete-li dokončit objednávku a <a href="/orders/add">zaplatit</a>, klikněte 
 			</td>
 		</tr>
 	</table>
-<? } ?>
+<?php
+} ?>

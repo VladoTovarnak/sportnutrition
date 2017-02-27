@@ -92,6 +92,17 @@ class DATABASE_CONFIG {
 		'encoding' => 'utf8'
 	);
 	
+/*	var $default = array(
+			'driver' => 'mysql',
+			'persistent' => false,
+			'host' => 'localhost',
+			'login' => 'root',
+			'password' => '',
+			'database' => 'f74422',
+			'prefix' => '',
+			'encoding' => 'utf8'
+	); */
+	
 	var $sportnutrition = array(
 		'driver' => 'mysql',
 		'persistent' => false,

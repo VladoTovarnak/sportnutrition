@@ -1,4 +1,4 @@
-﻿<?
+﻿<?php
 	if ( !empty($products) ){
 		switch ( $listing_style ){
 			case "products_listing_grid":
@@ -15,7 +15,7 @@
 	<div id="mainContentWrapper">
 		<p>Pokračujte ve výběru:</p>
 		<div id="subcategoriesWrapper">
-			<?
+			<?php
 				$first = true;
 				foreach ( $subcategories as $subcategory ){
 					if ( !$first ){
@@ -27,11 +27,11 @@
 			?>
 		</div>
 		<h2>Novinky z kategorie:</h2>
-<?
+<?php
 		$this->set('products', $products_new);
 //		$products = $products_new;
 		echo $this->element('products_listing_grid');?>
 	</div>
-<?
+<?php
 	}
 ?>

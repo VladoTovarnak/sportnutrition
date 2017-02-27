@@ -1,5 +1,5 @@
 <div class="products">
-<?
+<?php
 $odd = true;
 foreach ( $products as $product ){
 	$image = '/img/na_small.jpg';
@@ -46,7 +46,8 @@ foreach ( $products as $product ){
 		<p class="desc<?php echo ($odd ? '' : ' right')?>"><?php echo $product['Product']['short_description']?></p>
 		<?php } ?>
 	</div>
-<? $odd = !$odd; 
+<?php
+$odd = !$odd; 
 } ?>
 	<hr class="cleaner" />
 </div>

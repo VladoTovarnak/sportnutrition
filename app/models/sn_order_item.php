@@ -59,3 +59,4 @@ class SnOrderItem extends AppModel {
 		return false;
 	}
 }
+?>

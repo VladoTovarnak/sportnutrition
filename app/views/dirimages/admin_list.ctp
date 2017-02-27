@@ -1,5 +1,5 @@
 ﻿<h2>Seznam uploadových obrázků</h2>
-<?=$html->link('zpět na obrázky produktu', array('controller' => 'products', 'action' => 'images_list', $product_id))?>
+<?php echo $html->link('zpět na obrázky produktu', array('controller' => 'products', 'action' => 'images_list', $product_id))?>
 <a href=""></a>
 <table class="topHeading" cellpadding="5" cellspacing="3">
 	<tr>
@@ -7,7 +7,7 @@
 		<th>název</th>
 		<th>&nbsp;</th>
 	</tr>
-<?
+<?php
 	foreach ( $files as $file ){
 		echo '
 		<tr>

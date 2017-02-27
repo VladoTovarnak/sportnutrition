@@ -1,4 +1,4 @@
-﻿<?
+﻿<?php
 	echo $html->link($newest_product['Product']['name'], '/' . $newest_product['Product']['url']);
 	echo '<br />';
 	$done = false;
@@ -15,12 +15,12 @@
 
 	if ( $newest_product['Product']['discount_price'] < $newest_product['Product']['retail_price_with_dph'] ){
 ?>
-		<span class="old_price"><?=intval($newest_product['Product']['retail_price_with_dph'])?> Kč</span><br />
-		<strong><?=intval($newest_product['Product']['discount_price'])?> Kč</strong>
-<?
+		<span class="old_price"><?php echo intval($newest_product['Product']['retail_price_with_dph'])?> Kč</span><br />
+		<strong><?php echo intval($newest_product['Product']['discount_price'])?> Kč</strong>
+<?php
 	} else {
 ?>
-		<strong><?=intval($newest_product['Product']['retail_price_with_dph'])?> Kč</strong>
-<?
+		<strong><?php echo intval($newest_product['Product']['retail_price_with_dph'])?> Kč</strong>
+<?php
 	}
 ?>

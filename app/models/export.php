@@ -1,4 +1,4 @@
-<?
+<?php
 class Export extends AppModel{
 	var $name = 'Export';
 	
