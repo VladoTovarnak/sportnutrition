@@ -1438,6 +1438,12 @@ div.item_count_holder{
     float: right;
 }
 
+#footer p.eet_warrning{
+	font-size: 12px;
+    padding: 0px 20px 5px 20px;
+    margin:0px;
+}
+
 div.error-message{
 	color:red;
 }

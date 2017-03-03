@@ -52,6 +52,11 @@
 		<a href="https://plus.google.com/b/107543305825459915226/107543305825459915226/about?hl=cs" target="_blank"><img src="/images/<?php echo REDESIGN_PATH ?>logo_google.png" width="38" height="38" alt="Google+" /></a>
 		<a href="http://www.youtube.com/channel/UCheMzjYoHUiq-9I5OH3DdKA" target="_blank"><img src="/images/<?php echo REDESIGN_PATH ?>logo_youtube.png" width="38" height="38" alt="YouTube" /></a>
 	</div>
+	<p class="eet_warrning">
+		Podle zákona o evidenci tržeb je prodávající povinen vystavit kupujícímu účtenku.
+		Zároveň je povinen zaevidovat přijatou tržbu u správce daně online;<br>
+  		v případě technického výpadku pak nejpozději do 48hodin.
+  	</p>
 </div>
 
 <script type="text/javascript">
