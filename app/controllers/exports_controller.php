@@ -28,7 +28,7 @@ class ExportsController extends AppController{
 			'fields' => array('Product.id', 'Product.name')
 		));
 		
-		//ids samotstatne neprodejnych darku
+		//ids samostatne neprodejnych darku
 		$present_ids = Set::extract('/Product/id', $presents);
 		
 		$conditions = array(
@@ -184,7 +184,7 @@ class ExportsController extends AppController{
 	
 	function seznam_cz() {
 		// nastavim si layout do ktereho budu cpat data v XML
-		$this->layout = 'xml/heureka';
+		$this->layout = 'xml/zbozi_cz';
 		
 		$products = $this->get_products(2);
 		$this->set('products', $products);
