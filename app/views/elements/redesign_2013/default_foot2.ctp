@@ -1,21 +1,19 @@
 <script type="text/javascript">
 	function lazyLoad(){
-		/*
-		var scriptTag = document.createElement('script'); 
-	    scriptTag.src = "//js/<?php echo REDESIGN_PATH?>jquery.js"; // set the src attribute
-	    scriptTag.type = 'text/javascript'; // if you have an HTML5 website you may want to comment this line out
-	    scriptTag.async = true; // the HTML5 async attribute
-	    var headTag = document.getElementsByTagName('head')[0];
-	    headTag.appendChild(scriptTag);
-	    */
 	    return true;
 	}
 </script>
+
+	<script type="text/javascript">
+		var ratingStarType = 'small';
+		<?php if (isset($this->params['controller']) && isset($this->params['action']) && $this->params['controller'] == 'products' && $this->params['action'] == 'view') { ?>
+			ratingStarType = 'big';
+		<?php } ?>
+	</script>
+
+
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>jquery.js"></script>
-	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
-	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.js"></script>
-	<script charset="utf-8" src="/js/<?php echo REDESIGN_PATH?>jquery.easing.js" type="text/javascript"></script>
-	<script charset="utf-8" src="/js/<?php echo REDESIGN_PATH?>jquery.slidorion.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>hp.min.js?v=4"></script>
 <?php 
 	if ($this->params['controller'] == 'searches' && $this->params['action'] == 'do_search') {
 ?>
@@ -23,22 +21,6 @@
 <?php
 	}
 ?>
-	<!-- veci pro vypis kategorie -->
-	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>products_pagination.js?v=1"></script>
-	<script type="text/javascript" src="/loadmask/jquery.loadmask.min.js"></script>
-
-	<!-- veci pro vypis detailu produktu -->
-	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>comment_form_management.js"></script>
-
-	<script charset="utf-8" src="/js/<?php echo REDESIGN_PATH?>jquery-ui.js" type="text/javascript"></script>
-	<script type="text/javascript" src="/jRating-master/jquery/jRating.jquery.js"></script>
-	<script type="text/javascript">
-		var ratingStarType = 'small';
-		<?php if (isset($this->params['controller']) && isset($this->params['action']) && $this->params['controller'] == 'products' && $this->params['action'] == 'view') { ?>
-			ratingStarType = 'big';
-		<?php } ?> 
-	</script>
-	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>/product_rating_management.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function() {
 		var url = document.URL;

@@ -3,7 +3,7 @@
 	<head lang="cs">
 		<?php echo $this->element(REDESIGN_PATH . 'default_head2')?>
 	</head>
-<body onload="lazyLoad();">
+<body>	
 
 <div id="body">
 	<div id="header">

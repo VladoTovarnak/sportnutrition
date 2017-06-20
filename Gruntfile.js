@@ -7,10 +7,16 @@ module.exports = function(grunt) {
         separator: ';'
       },
       dist: {
-        src: ['app/webroot/js/redesign_2013/fancybox/jquery.fancybox.js',
+        src: ['app/webroot/js/redesign_2013/fancybox/jquery.mousewheel-3.0.6.pack.js',
+        	'app/webroot/js/redesign_2013/fancybox/jquery.fancybox.js',
         	'app/webroot/js/redesign_2013/jquery.easing.js',
+        	'app/webroot/js/redesign_2013/jquery.slidorion.js',
+        	'app/webroot/js/redesign_2013/products_pagination.js',
+        	'app/webroot/loadmask/jquery.loadmask.min.js',
+        	'app/webroot/js/redesign_2013/comment_form_management.js',
+        	'app/webroot/js/redesign_2013/jquery-ui.js',
         	'app/webroot/jRating-master/jquery/jRating.jquery.js',
-        	'app/webroot/js/redesign_2013/jquery.slidorion.js'
+        	'app/webroot/js/redesign_2013/product_rating_management.js'
         	],
         dest: 'app/webroot/js/redesign_2013/concatenated.js'
       }
