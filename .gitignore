@@ -10,3 +10,4 @@ app/tmp/
 /app/webroot/files/notification_log.log
 /app/vendors/mailchimp/mailchimp.log
 /app/webroot/images/redesign_2013/icons/Thumbs.db
+/node_modules
