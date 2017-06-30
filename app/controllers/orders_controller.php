@@ -1098,7 +1098,7 @@ class OrdersController extends AppController {
 			
 		}
 		
-		// zaloguju zakaznika do mailchimpu
+		// zalistuju zakaznika do mailchimpu
 		App::import('Vendor', 'MailchimpTools', array('file' => 'mailchimp/mailchimp_tools.php'));
 		$this->Order->Customer->MailchimpTools = &new MailchimpTools;
 		$this->Order->Customer->MailchimpTools->subscribe($customer['Customer']['email'], $customer['Customer']['first_name'], $customer['Customer']['last_name']);
