@@ -1099,9 +1099,9 @@ class OrdersController extends AppController {
 		}
 		
 		// zalistuju zakaznika do mailchimpu
-		App::import('Vendor', 'MailchimpTools', array('file' => 'mailchimp/mailchimp_tools.php'));
+/*		App::import('Vendor', 'MailchimpTools', array('file' => 'mailchimp/mailchimp_tools.php'));
 		$this->Order->Customer->MailchimpTools = &new MailchimpTools;
-		$this->Order->Customer->MailchimpTools->subscribe($customer['Customer']['email'], $customer['Customer']['first_name'], $customer['Customer']['last_name']);
+		$this->Order->Customer->MailchimpTools->subscribe($customer['Customer']['email'], $customer['Customer']['first_name'], $customer['Customer']['last_name']);*/
 		
 		//data pro objednavku
 		$order = $this->Order->build($customer);
