@@ -1167,7 +1167,8 @@ class CustomersController extends AppController {
 	}
 	
 	function test_mc() {
-		$api_key = '1dc2cb5152762d18ed8eb879b7b3b37d-us9';
+//		$api_key = '1dc2cb5152762d18ed8eb879b7b3b37d-us9'; puvodni - unikly
+		$api_key = '00f16d66326f5ac7d6b02fbe01f3ba90-us9';
 		$list_id = '3423967b09';
 
 		// zjistim list, kam chci clena zapsat
