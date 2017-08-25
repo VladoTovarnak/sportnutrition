@@ -409,7 +409,7 @@ class CustomersController extends AppController {
 		
 		// nastavim layout
 		$this->layout = REDESIGN_PATH . 'content';
-		$this->set('g_recaptcha', true); // na strance s registraci chci zobrazit recaptchu
+		$this->set('g_recaptcha', 'display'); // na strance s registraci chci zobrazit recaptchu
 		
 		// formular byl vyplnen
 		if (isset($this->data)) {
