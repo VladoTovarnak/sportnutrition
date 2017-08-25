@@ -2,6 +2,13 @@
 <html>
 	<head>
 		<?php echo $this->element(REDESIGN_PATH . 'default_head2')?>
+		<?php 
+		if ( isset($g_recaptcha) && $g_recaptcha === true ){
+		?>
+				<script src='https://www.google.com/recaptcha/api.js'></script>
+		<?php
+			}
+		?>
 	</head>
 <body>
 
