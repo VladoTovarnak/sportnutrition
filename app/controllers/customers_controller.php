@@ -240,7 +240,7 @@ class CustomersController extends AppController {
 		
 		$this->layout = REDESIGN_PATH . 'admin';
 	}
-	
+
 	function admin_add() {
 		if (isset($this->data)) {
 			$address = $this->data['Address'][0];
@@ -409,6 +409,7 @@ class CustomersController extends AppController {
 		
 		// nastavim layout
 		$this->layout = REDESIGN_PATH . 'content';
+		$this->set('g_recaptcha', true); // na strance s registraci chci zobrazit recaptchu
 		
 		// formular byl vyplnen
 		if (isset($this->data)) {
@@ -442,9 +443,12 @@ class CustomersController extends AppController {
 			// ukladam zakaznika (spolu s adresou a udaji o prihlaseni
 			if ($this->Customer->saveAll($this->data)) {
 				// pokud jsem zakaznika uspesne ulozil do db, zaloguju ho do mailchimpu
+
+/*				// AUTOMAMATICKY ZAPIS ZAKAZNIKA DO DATABAZE MAILCHIMP JE VYPNUTY
 				App::import('Vendor', 'MailchimpTools', array('file' => 'mailchimp/mailchimp_tools.php'));
 				$this->Customer->MailchimpTools = &new MailchimpTools;
-				$this->Customer->MailchimpTools->subscribe($this->data['Customer']['email'], $this->data['Customer']['first_name'], $this->data['Customer']['last_name']);
+				$this->Customer->MailchimpTools->subscribe($this->data['Customer']['email'], $this->data['Customer']['first_name'], $this->data['Customer']['last_name']);*/
+
 				// ulozeni probehlo v poradku, naimportuju mailer class a odeslu zakaznikovi mail,
 				// ze jeho ucet byl vytvoren, do dat o zakaznikovi si musim ale vratit nekryptovane heslo
 				$this->data['CustomerLogin'][0]['password'] = $password_not_md5;

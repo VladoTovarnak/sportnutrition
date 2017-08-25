@@ -62,4 +62,5 @@
 			</td>
 		</tr>
 	</table>
+	<div class="g-recaptcha" data-sitekey="6LeMKC4UAAAAAEvCL1S2pRku25nVEEOHNYlUpgbv"></div>
 <?php echo $form->end()?>
