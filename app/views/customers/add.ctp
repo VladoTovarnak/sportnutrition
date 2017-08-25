@@ -55,12 +55,13 @@
 	
 	<table id="orderForm">
 		<tr>
-			<th>&nbsp;</th>
+			<th>
+				<div class="g-recaptcha" data-sitekey="6LeMKC4UAAAAAEvCL1S2pRku25nVEEOHNYlUpgbv"></div>
+			</th>
 			<td>
 				<?php echo $this->Form->hidden('Customer.customer_type_id', array('value' => 1))?>
 				<?php echo $form->Submit('zaregistrovat', array('class' => 'content'));?>
 			</td>
 		</tr>
 	</table>
-	<div class="g-recaptcha" data-sitekey="6LeMKC4UAAAAAEvCL1S2pRku25nVEEOHNYlUpgbv"></div>
 <?php echo $form->end()?>
