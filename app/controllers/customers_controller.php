@@ -1165,34 +1165,5 @@ class CustomersController extends AppController {
 		$this->Customer->import();
 		die('here');
 	}
-	
-	function test_mc() {
-//		$api_key = '1dc2cb5152762d18ed8eb879b7b3b37d-us9'; puvodni - unikly
-		$api_key = '00f16d66326f5ac7d6b02fbe01f3ba90-us9';
-		$list_id = '3423967b09';
-
-		// zjistim list, kam chci clena zapsat
-		App::import('Vendor', 'Mailchimp', array('file' => 'mailchimp/Mailchimp.php'));
-		$mc = &new Mailchimp($api_key);
-		$mcList = &new Mailchimp_Lists($mc);
-		$subscribed_count = $mcList->members($list_id);
-		$subscribed_count = $subscribed_count['total'];
-		$limit = 100;
-		$page = 0;
-		$members = array();
-		while (($page * $limit) < $subscribed_count) {
-			$options = array(
-				'limit' => $limit,
-				'start' => $page
-			);
-			$data = $mcList->members($list_id, 'subscribed', $options);
-			$data = $data['data'];
-			$data = Set::extract('/email', $data);
-			$members = array_merge($members, $data);
-			$page++;
-		}
-		echo implode('<br/>', $members);
-		die();
-	}
 }
 ?>
