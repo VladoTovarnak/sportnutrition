@@ -1,10 +1,9 @@
 <?php
 include_once('Mailchimp.php');
+require 'api_key.php';
 
 class MailChimpTools {
-
-//    public static $apikey = '1dc2cb5152762d18ed8eb879b7b3b37d-us9'; puvodni - unikly
-	public static $apikey = '00f16d66326f5ac7d6b02fbe01f3ba90-us9';
+	public static $apikey = MAILCHIMP_API_KEY;
 
 	public static $listIds = array(
         'cz' => array(

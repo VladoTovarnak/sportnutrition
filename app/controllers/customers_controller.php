@@ -444,10 +444,10 @@ class CustomersController extends AppController {
 			if ($this->Customer->saveAll($this->data)) {
 				// pokud jsem zakaznika uspesne ulozil do db, zaloguju ho do mailchimpu
 
-/*				// AUTOMAMATICKY ZAPIS ZAKAZNIKA DO DATABAZE MAILCHIMP JE VYPNUTY
+				// AUTOMATICKY ZAPIS ZAKAZNIKA DO DATABAZE MAILCHIMP JE VYPNUTY
 				App::import('Vendor', 'MailchimpTools', array('file' => 'mailchimp/mailchimp_tools.php'));
 				$this->Customer->MailchimpTools = &new MailchimpTools;
-				$this->Customer->MailchimpTools->subscribe($this->data['Customer']['email'], $this->data['Customer']['first_name'], $this->data['Customer']['last_name']);*/
+				$this->Customer->MailchimpTools->subscribe($this->data['Customer']['email'], $this->data['Customer']['first_name'], $this->data['Customer']['last_name']);
 
 				// ulozeni probehlo v poradku, naimportuju mailer class a odeslu zakaznikovi mail,
 				// ze jeho ucet byl vytvoren, do dat o zakaznikovi si musim ale vratit nekryptovane heslo
