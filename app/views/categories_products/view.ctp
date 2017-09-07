@@ -1,4 +1,4 @@
-<?php 	if (isset($category['Category']['content']) && !empty($category['Category']['content'])) { ?>
+<?php if (isset($category['Category']['content']) && !empty($category['Category']['content'])) { ?>
 		<div id="category-desc">
 <?php 		echo $category['Category']['content']; ?>
 		</div>
@@ -152,3 +152,15 @@
 		</div>
 <?php
 } ?>
+<script type="text/javascript">
+	function fireAddToCart(id, name, price){
+		fbq('track', 'AddToCart', { 
+		    content_type: 'product',
+		    content_ids: '["CZ_' + id + '"]',
+		    content_name: "'" + name + "'",
+		    content_category: '<?php echo $category['Category']['name'] ?>',
+		    value: price,
+		    currency: 'CZK'
+		});
+	}
+</script>

@@ -73,5 +73,17 @@
 	
 	window.onload = loadScript;
 </script>
+<script type="text/javascript">
+	function fireAddToCart(id, name, cname, price){
+		fbq('track', 'AddToCart', { 
+		    content_type: 'product',
+		    content_ids: '["CZ_' + id + '"]',
+		    content_name: "'" + name + "'",
+		    content_category: "'" + cname + "'",
+		    value: price,
+		    currency: 'CZK'
+		});
+	}
+</script>
 </body>
 </html>

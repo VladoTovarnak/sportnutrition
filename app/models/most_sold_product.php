@@ -29,7 +29,25 @@ class MostSoldProduct extends AppModel {
 		$this->Product->virtualFields['price'] = $this->Product->price;
 		$most_sold = $this->Product->find('all', array(
 			'conditions' => array('Product.active' => true),
-			'contain' => array(),
+			'contain' => array(
+				'Subproduct' => array(
+						'fields' => array(
+								'id'
+						)
+				),
+				'CategoriesProduct' => array(
+					'fields' => array(
+							'id'
+					),
+					'order' => array(
+							'primary' => 'DESC',
+							'created' => 'ASC'
+					),
+					'Category' => array(
+								'name'
+					)
+				)
+			),
 			'fields' => array(
 				'Product.id',
 				'Product.name',

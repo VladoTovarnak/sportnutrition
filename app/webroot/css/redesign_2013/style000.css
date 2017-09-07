@@ -489,7 +489,7 @@ form div.pair button {
 	border: 1px solid #E8E8E8;
 }
 
-#main div.product.card input.cart_add{
+#main div.product.card input.cart_add, #main div.product.card a.cart_add{
 	background: #E2001A;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -500,6 +500,11 @@ form div.pair button {
 	margin:0px 0px 0px 10px;
 	margin-top:5px;
 	cursor: pointer;
+}
+
+#main div.product.card a.cart_add{
+	text-decoration: none;
+	font-family: Arial;
 }
 
 #main div.product.card p.comments{
@@ -1484,7 +1489,7 @@ div.prices_holder{
 	float:right;
 }
 
-input.right_sidebar_cart_add{
+input.right_sidebar_cart_add, .right_sidebar_product a.cart_add{
 	background:#E2001A;
 	border:none;
 	color:#FFF;
@@ -1493,6 +1498,11 @@ input.right_sidebar_cart_add{
 	border-radius:3px;
 	margin-top:10px;
 	cursor: pointer;
+}
+
+.right_sidebar_product a.cart_add{
+	text-decoration: none;
+	font-family: Arial;
 }
 
 div.right_sidebar_product span.regular_price{

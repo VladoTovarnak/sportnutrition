@@ -23,12 +23,19 @@
 		<div class="prices_holder">
 			běžná cena: <span class="old_price"><?php echo front_end_display_price($action_product['Product']['retail_price_with_dph'])?> Kč</span><br />
 			<span class="regular_price">cena: <?php echo front_end_display_price($action_product['Product']['price'])?> Kč</span>
-			<?php 
-				echo $this->Form->create('Product', array('url' => '/' . $action_product['Product']['url'], 'encoding' => false));
-				echo $this->Form->hidden('Product.id', array('value' => $action_product['Product']['id']));
-				echo $this->Form->hidden('Product.quantity', array('value' => 1));
-				echo $this->Form->submit('Vložit do košíku', array('class' => 'right_sidebar_cart_add'));
-				echo $this->Form->end();
+			<?php
+			if ( count($action_product['Subproduct']) < 1 ){
+					echo $this->Form->create('Product', array('url' => '/' . $action_product['Product']['url'], 'encoding' => false));
+					echo $this->Form->hidden('Product.id', array('value' => $action_product['Product']['id']));
+					echo $this->Form->hidden('Product.quantity', array('value' => 1));
+					echo $this->Form->submit('Vložit do košíku', array('class' => 'right_sidebar_cart_add', 'onclick' => 'fireAddToCart(' . $action_product['Product']['id'] . ', "' . $action_product['Product']['name'] . '", ' . $action_product['Product']['price'] . ');'));
+					echo $this->Form->end();
+				} else {
+			?>
+				<a style="float:left" href="/<?php echo $action_product['Product']['url']?>#AddProductWithVariantsForm" class="cart_add">Vybrat variantu</a>
+			<?php
+					
+				}
 			?>
 		</div>
 		<div style="clear:both"></div>
