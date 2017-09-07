@@ -20,12 +20,18 @@ foreach ( $products as $product ){
 		</a>
 		<!-- <div class="rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div> -->
 		<p class="comments"><a href="/<?php echo $product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="/<?php echo $product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
-		<?php if (isset($product['Availability']['cart_allowed']) && $product['Availability']['cart_allowed']) { 
-			echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false));
-			echo $this->Form->hidden('Product.id', array('value' => $product['Product']['id']));
-			echo $this->Form->hidden('Product.quantity', array('value' => 1));
-			echo $this->Form->submit('Vložit do košíku', array('class' => 'cart_add'));
-			echo $this->Form->end();
+		<?php if (isset($product['Availability']['cart_allowed']) && $product['Availability']['cart_allowed']) {
+				if ( count($product['Subproduct']) < 1 ){
+					echo $this->Form->create('Product', array('url' => '/' . $product['Product']['url'], 'encoding' => false));
+					echo $this->Form->hidden('Product.id', array('value' => $product['Product']['id']));
+					echo $this->Form->hidden('Product.quantity', array('value' => 1));
+					echo $this->Form->submit('Vložit do košíku', array('class' => 'cart_add', 'onclick' => 'fireAddToCart(' . $product['Product']['id'] . ', "' . $product['Product']['name'] . '", ' . $product['Product']['price'] . ');'));
+					echo $this->Form->end();
+				} else {
+					?>
+						<a href="/<?php echo $product['Product']['url']?>#AddProductWithVariantsForm" class="cart_add">Vybrat variantu</a>
+					<?php
+				}
 		} else { ?>
 		<p class="product-not-available">Produkt nyní nelze objednat.</p>
 		<?php } ?>

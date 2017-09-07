@@ -294,7 +294,13 @@ class CategoriesProductsController extends AppController {
 
 		$this->paginate['Product'] = array(
 			'conditions' => $conditions,
-			'contain' => array(),
+			'contain' => array(
+				'Subproduct' => array(
+					'fields' => array(
+						'id'
+					)
+				)
+			),
 			'fields' => array(
 				'Product.id',
 				'Product.name',

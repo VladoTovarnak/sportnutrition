@@ -216,7 +216,25 @@ class Category extends AppModel {
 				'Image.is_main' => true,
 				'Product.active' => true
 			),
-			'contain' => array(),
+			'contain' => array(
+				'Subproduct' => array(
+						'fields' => array(
+								'id'
+						)
+				),
+				'CategoriesProduct' => array(
+						'fields' => array(
+								'id'
+						),
+						'order' => array(
+								'primary' => 'DESC',
+								'created' => 'ASC'
+						),
+						'Category' => array(
+								'name'
+						)
+				)
+			),
 			'fields' => array(
 				'Product.id',
 				'Product.name',
@@ -443,7 +461,9 @@ class Category extends AppModel {
 		$this->CategoriesProduct->Product->virtualFields['price'] = $this->CategoriesProduct->Product->price;
 		$products = $this->CategoriesProduct->Product->find('all', array(
 			'conditions' => $conditions,
-			'contain' => array(),
+			'contain' => array(
+				'Subproduct'
+			),
 			'joins' => array(
 				array(
 					'table' => 'categories_products',
@@ -482,7 +502,6 @@ class Category extends AppModel {
 			'limit' => $limit
 		));
 		unset($this->CategoriesProduct->Product->virtualFields['price']);
-		
 		return $products;
 	}
 	

@@ -36,7 +36,25 @@ class RecommendedProduct extends AppModel {
 		$this->Product->virtualFields['price'] = $this->Product->price;
 		$recommended = $this->Product->find('all', array(
 			'conditions' => array('Product.active' => true),
-			'contain' => array(),
+			'contain' => array(
+				'Subproduct' => array(
+					'fields' => array(
+						'id'
+					)
+				),
+				'CategoriesProduct' => array(
+					'fields' => array(
+						'id'
+					),
+					'order' => array(
+						'primary' => 'DESC',
+						'created' => 'ASC'
+					),
+					'Category' => array(
+						'name'
+					)
+				)
+			),
 			'fields' => array(
 				'Product.id',
 				'Product.name',
@@ -82,7 +100,7 @@ class RecommendedProduct extends AppModel {
 			'order' => array('RecommendedProduct.order' => 'asc')
 		));
 		unset($this->Product->virtualFields['price']);
-
+		
 		return $recommended;
 	}
 }

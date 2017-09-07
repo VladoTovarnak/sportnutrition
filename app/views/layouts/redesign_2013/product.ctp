@@ -69,12 +69,18 @@
 					<div class="prices_holder">
 						běžná cena: <span class="old_price"><?php echo $similar_product['Product']['retail_price_with_dph']?> Kč</span><br />
 						<span class="regular_price">cena: <?php echo $similar_product[0]['price']?> Kč</span>
-						<?php 
-							echo $this->Form->create('Product', array('url' => '/' . $similar_product['Product']['url'], 'encoding' => false));
-							echo $this->Form->hidden('Product.id', array('value' => $similar_product['Product']['id']));
-							echo $this->Form->hidden('Product.quantity', array('value' => 1));
-							echo $this->Form->submit('Vložit do košíku', array('class' => 'right_sidebar_cart_add'));
-							echo $this->Form->end();
+						<?php
+							if ( count($similar_product['Subproduct']) < 1 ){
+									echo $this->Form->create('Product', array('url' => '/' . $similar_product['Product']['url'], 'encoding' => false));
+									echo $this->Form->hidden('Product.id', array('value' => $similar_product['Product']['id']));
+									echo $this->Form->hidden('Product.quantity', array('value' => 1));
+									echo $this->Form->submit('Vložit do košíku', array('class' => 'right_sidebar_cart_add', 'onclick' => 'fireAddToCart(' . $similar_product['Product']['id'] . ', "' . $similar_product['Product']['name'] . '", "' . $similar_product['CategoriesProduct'][0]['Category']['name']. '", ' . $similar_product['Product']['price'] . ');'));
+									echo $this->Form->end();
+							} else {
+						?>
+							<a style="float:left" href="/<?php echo $similar_product['Product']['url']?>#AddProductWithVariantsForm" class="cart_add">Vybrat variantu</a>
+						<?php
+							}
 						?>
 					</div>
 				</div>
@@ -110,11 +116,17 @@
 						běžná cena: <span class="old_price"><?php echo $right_sidebar_product['Product']['retail_price_with_dph']?> Kč</span><br />
 						<span class="regular_price">cena: <?php echo $right_sidebar_product['Product']['price']?> Kč</span>
 						<?php 
-							echo $this->Form->create('Product', array('url' => '/' . $right_sidebar_product['Product']['url'], 'encoding' => false));
-							echo $this->Form->hidden('Product.id', array('value' => $right_sidebar_product['Product']['id']));
-							echo $this->Form->hidden('Product.quantity', array('value' => 1));
-							echo $this->Form->submit('Vložit do košíku', array('class' => 'right_sidebar_cart_add'));
-							echo $this->Form->end();
+							if ( count($right_sidebar_product['Subproduct']) < 1 ){
+								echo $this->Form->create('Product', array('url' => '/' . $right_sidebar_product['Product']['url'], 'encoding' => false));
+								echo $this->Form->hidden('Product.id', array('value' => $right_sidebar_product['Product']['id']));
+								echo $this->Form->hidden('Product.quantity', array('value' => 1));
+								echo $this->Form->submit('Vložit do košíku', array('class' => 'right_sidebar_cart_add', 'onclick' => 'fireAddToCart(' . $right_sidebar_product['Product']['id'] . ', "' . $right_sidebar_product['Product']['name'] . '", "' . $product['CategoriesProduct'][0]['Category']['name']. '", ' . $right_sidebar_product['Product']['price'] . ');'));
+								echo $this->Form->end();
+							} else{
+						?>
+								<a style="float:left" href="/<?php echo $right_sidebar_product['Product']['url']?>#AddProductWithVariantsForm" class="cart_add">Vybrat variantu</a>
+						<?php
+							}
 						?>
 					</div>
 				</div>
@@ -142,6 +154,17 @@
 	    value: <?php echo $product['Product']['price']?>,
 	    currency: 'CZK'
 	});
+
+	function fireAddToCart(id, name, cname, price){
+		fbq('track', 'AddToCart', { 
+		    content_type: 'product',
+		    content_ids: '["CZ_' + id + '"]',
+		    content_name: "'" + name + "'",
+		    content_category: "'" + cname + "'",
+		    value: price,
+		    currency: 'CZK'
+		});
+	}
 </script>
 </body>
 </html>

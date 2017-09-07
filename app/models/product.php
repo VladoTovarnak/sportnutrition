@@ -461,7 +461,8 @@ class Product extends AppModel {
 				'SUM(OtherOrderedProduct.product_quantity) AS ordered_quantity',
 				'Image.id',
 				'Image.name',
-				'CategoriesProduct.*'
+				'CategoriesProduct.*',
+				'Subproduct.*'
 			),
 			'joins' => array(
 				array(
@@ -481,6 +482,12 @@ class Product extends AppModel {
 					'alias' => 'Product',
 					'type' => 'INNER',
 					'conditions' => array('Product.id = OtherOrderedProduct.product_id AND Product.active = 1')
+				),
+				array(
+					'table' => 'subproducts',
+					'alias' => 'Subproduct',
+					'type' => 'LEFT',
+					'conditions' => array('Subproduct.product_id = Product.id')
 				),
 				array(
 					'table' => 'images',
@@ -511,6 +518,7 @@ class Product extends AppModel {
 			'order' => array('ordered_quantity' => 'desc'),
 			'limit' => 4
 		));
+		//debug($products); die();
 
 		return $products;
 	}
@@ -571,6 +579,12 @@ class Product extends AppModel {
 					'alias' => 'Product',
 					'type' => 'INNER',
 					'conditions' => array('Product.id = RelatedProduct.related_product_id AND Product.active = 1')
+				),
+				array(
+					'table' => 'subproducts',
+					'alias' => 'Subproduct',
+					'type' => 'LEFT',
+					'conditions' => array('Subproduct.product_id = Product.id')
 				),
 				array(
 					'table' => 'images',
