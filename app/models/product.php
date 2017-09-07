@@ -518,7 +518,6 @@ class Product extends AppModel {
 			'order' => array('ordered_quantity' => 'desc'),
 			'limit' => 4
 		));
-		//debug($products); die();
 
 		return $products;
 	}
