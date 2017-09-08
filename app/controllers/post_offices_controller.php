@@ -5,16 +5,21 @@ class PostOfficesController extends AppController {
 	function load() {
 		$xml = simplexml_load_file($this->PostOffice->xmlFile);
 		if ($xml != FALSE) {
+			$counter = 0;
 			foreach ($xml->children() AS $child) {
 				$name = $child->getName();
+				// v XMLku si prolezeme jen atributy ROW
 				if ($name == 'row') {
-					$save = array();
+					$save = array(); // inicializace stacku pro ulozeni
 					foreach ($child as $a => $b) {
-						if ($a == 'OTV_DOBA') {
+						// prolezu vsechny atributy
+						if ($a != 'OTV_DOBA') { // pokud se nejedna o otviraci dobu
+							$save[$a] = $this->PostOffice->setBool($b);
+						} else { // jedna se o otviraci dobu, musim prolezt vsechno i "prestavky" v otviraci dobe
 							foreach ($b->children() AS $x) {
 								$day = $x->attributes()->name;
 								$den = mb_strtolower($day, 'UTF-8');
-		
+								
 								$den = str_replace(array('ě', 'í', 'č', 'ř', 'ú', 'ý', 'á'), array('e', 'i', 'c', 'r', 'u', 'y', 'a'), $den);
 								// od_do
 								$count = 1;
@@ -22,23 +27,23 @@ class PostOfficesController extends AppController {
 									// <od> a <do>
 									$start = (string) $doba->od;
 									$end = (string) $doba->do;
-		
+									
 									$save[$den . "_od" . $count] = $start;
 									$save[$den . "_do" . $count] = $end;
-		
+									
 									$count++;
 								}
 							}
-						} else {
-							$save[$a] = $this->PostOffice->setBool($b);
 						}
 					}
+					// zkusim najit, jestli uz zaznam s postou v databazi existuje
 					$db_post_office = $this->PostOffice->find('first', array(
 						'conditions' => array('PostOffice.PSC' => $save['PSC']),
 						'contain' => array(),
 						'fields' => array('PostOffice.id')
 					));
 					
+					// pokud jsem zaznam nasel, nastavim jeho ID - tim zaznam updatujeme
 					if (!empty($db_post_office)) {
 						$save['id'] = $db_post_office['PostOffice']['id'];
 					}
@@ -51,7 +56,9 @@ class PostOfficesController extends AppController {
 						trigger_error('Nepodarilo se ulozit postu', E_USER_NOTICE);
 					}
 				}
+				$counter = $counter + 1;
 			}
+			echo "Zpracoval jsem XML a jeho " . $counter . " radku.";
 		}
 		else {
 			echo "DB se nepodařilo naimportovat! Chybí vstupní XML formát.";
