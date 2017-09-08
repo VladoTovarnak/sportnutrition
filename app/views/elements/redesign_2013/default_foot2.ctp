@@ -23,6 +23,7 @@
 ?>
 	<script type="text/javascript">
 	$(document).ready(function() {
+		// upozornovaci hlaska o zruseni Nutrishopu
 		var url = document.URL;
 		var a = $('<a>', { href:url } )[0];
 		if (a.hash == '#nutrishop_redirect') {
@@ -32,6 +33,7 @@
 				autoSize: false,
 			}).trigger('click');
 		}
+
 		// select box s vyrobci
 		$('#ManufacturerSelect').change(function() {
 			 $("#ManufacturerSelect option:selected").each(function() {
