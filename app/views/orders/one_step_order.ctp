@@ -199,6 +199,10 @@ if ($this->Session->check('Message.flash')) {
 			$shipping_info .= ' - ' . $this->Html->link('vyberte pobočku', '#', array('id' => 'PostOfficeChoiceLink'));
 		} elseif ($shipping['Shipping']['id'] == BALIKOMAT_SHIPPING_ID) {
 			$shipping_info .= ' - ' . $this->Html->link('vyberte pobočku', '#', array('id' => 'BalikomatChoiceLink'));
+		} elseif ( $shipping['Shipping']['id'] == BALIKOVNA_POST_SHIPPING_ID ){
+			$shipping_info .= ' - ' . $this->Html->link('vyberte pobočku', '#', array('id' => 'PostBoxChoiceLink'));
+		}  elseif ( $shipping['Shipping']['id'] == HOMEDELIVERY_POST_SHIPPING_ID){
+			$shipping_info .= ' - ' . $this->Html->link('zvolit čas doručení', '#', array('id' => 'PostDeliveryChoiceLink'));
 		}
 		echo $shipping_info
 		?></td>
@@ -297,7 +301,10 @@ if ($this->Session->check('Message.flash')) {
 		</tr>
 		<tr>
 			<th>PSČ<sup>*</sup></th>
-			<td><?php echo $this->Form->input('Address.0.zip', array('label' => false))?></td>
+			<td>
+				<?php echo $this->Form->input('Address.0.zip', array('label' => false))?>
+				<?php echo $this->Form->hidden('Address.0.cpost_delivery_info', array('label' => false, 'value' => ''))?>
+			</td>
 		</tr>
 		<tr>
 			<th>Stát</th>
@@ -362,23 +369,59 @@ if ($this->Session->check('Message.flash')) {
 } // konec nakupni kosik neni prazdny
 ?>
 <div id="PostOfficeChoice" class="neukazovat">
-<h2>Vybrat pobočku</h2>
-<p>Zadejte název nebo PSČ obce, ve které si přejete zásilku vyzvednout na pobočce ČP.</p>
-<p class="no-input neukazovat red_alert">Zadejte PSČ nebo město</p>
-<p class="empty-output neukazovat red_alert">Zadanému PSČ nebo městu neodpovídá žádná pošta</p>
-<?php echo $this->Form->create('PostOffice', array('url' => '#', 'id' => 'PostOfficeChoiceForm'));?>
-<table class="content-table">
-	<tr>
-		<th>PSČ</th>
-		<td><?php echo $this->Form->input('PostOffice.PSC', array('label' => false, 'div' => false)); ?></td>
-		<th>Město</th>
-		<td><?php echo $this->Form->input('PostOffice.NAZ_PROV', array('label' => false, 'div' => false, 'class' => 'content')); ?></td>
-		<td><?php echo $this->Form->submit('Hledej', array('div' => false));?>
-	</tr>
-</table>
-<?php echo $this->Form->end();?>
-<div class="post-offices-list"></div>
+	<h2>Vybrat pobočku České pošty</h2>
+	<p>Zadejte název nebo PSČ obce, ve které si přejete zásilku vyzvednout na pobočce ČP.</p>
+	<p class="no-input neukazovat red_alert">Zadejte PSČ nebo město</p>
+	<p class="empty-output neukazovat red_alert">Zadanému PSČ nebo městu neodpovídá žádná pošta</p>
+	<?php echo $this->Form->create('PostOffice', array('url' => '#', 'id' => 'PostOfficeChoiceForm'));?>
+	<table class="content-table">
+		<tr>
+			<th>PSČ</th>
+			<td><?php echo $this->Form->input('PostOffice.PSC', array('label' => false, 'div' => false)); ?></td>
+			<th>Město</th>
+			<td><?php echo $this->Form->input('PostOffice.NAZ_PROV', array('label' => false, 'div' => false, 'class' => 'content')); ?></td>
+			<td><?php echo $this->Form->submit('Hledej', array('div' => false));?>
+		</tr>
+	</table>
+	<?php echo $this->Form->end();?>
+	<div class="post-offices-list"></div>
 </div>
+
+<div id="PostBoxChoice" class="neukazovat">
+	<h2>Vybrat Balíkovnu České pošty</h2>
+	<p>Zadejte název obce, název části obce nebo PSČ obce,<br>ve které si přejete zásilku vyzvednout v Balíkovně České pošty.</p>
+	<p class="no-input neukazovat red_alert">Zadejte PSČ, obec nebo její část</p>
+	<p class="empty-output neukazovat red_alert">Zadanému PSČ nebo obci neodpovídá žádná Balíkovna</p>
+	<?php echo $this->Form->create('PostBox', array('url' => '#', 'id' => 'PostBoxesChoiceForm'));?>
+	<table class="content-table">
+		<tr>
+			<th>PSČ</th>
+			<td><?php echo $this->Form->input('PostBox.PSC', array('label' => false, 'div' => false)); ?></td>
+			<th>Obec (město)</th>
+			<td><?php echo $this->Form->input('PostBox.NAZ_PROV', array('label' => false, 'div' => false, 'class' => 'content')); ?></td>
+			<td><?php echo $this->Form->submit('Hledej', array('div' => false));?>
+		</tr>
+	</table>
+	<?php echo $this->Form->end();?>
+	<div class="post-boxes-list"></div>
+</div>
+
+<div id="PostDeliveryChoice" class="neukazovat">
+	<h2>Preferovaný termín doručení</h2>
+	<p>Zadejte prosím vaše PSČ. Na základě PSČ<br>vám nabídneme výběr termínu doručení.</p>
+	<p class="bad-input neukazovat red_alert">Zadejte prosím platné PSČ.<br>5 číslic např. ve tvaru <strong>62100</strong></p>
+	<p class="delivery-holder neukazovat red_alert"></p>
+	<?php echo $this->Form->create('PostDelivery', array('url' => '#', 'id' => 'PostDeliveryChoiceForm')); ?>
+	<table class="content-table">
+		<tr>
+			<th>PSČ</th>
+			<td><?php echo $this->Form->input('PostDelivery.PSC', array('label' => false, 'div' => false)); ?></td>
+			<td><?php echo $this->Form->submit('Hledej', array('div' => false));?>
+		</tr>
+	</table>
+	<?php echo $this->Form->end(); ?>
+</div>
+
 
 <script type="text/javascript">
 	fbq('track', 'InitiateCheckout');
