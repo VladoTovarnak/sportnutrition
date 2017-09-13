@@ -187,38 +187,40 @@ $(document).ready(function() {
 		var paymentId = $('input[name="data[Order][payment_id]"]:checked').val();
 		fillShippingPriceCell(shippingId, paymentId);
 
-		// zobrazit / skryt elementy pro zadani adres, pokud jsem zaskrtnul, ze chci / nechci doruceni osobnim odberem
-		if (shippingId == PERSONAL_PURCHASE_SHIPPING_ID) {
-			$('#InvoiceAddressBox').hide();
-			$('#DeliveryAddressBox').hide();
-		// pokud chci balik na postu
-		} else if (shippingId == ON_POST_SHIPPING_ID || shippingId == BALIKOMAT_SHIPPING_ID || BALIKOVNA_POST_SHIPPING_ID) {
-			// skryt pole pro zadani dorucovaci adresy
-			$('#DeliveryAddressBox').hide();
-			// zobrazit pole pro zadani fakturacni adresy
-			$('#InvoiceAddressBox').show();
+		// pokud doslo k zmene zpusobu doruceni
+		// zresetuju vsechno nejdriv do puvodniho stavu
+		$('#InvoiceAddressBox').show();
+		$('#DeliveryAddressBox').show();
+		$('#PostDeliveryChoiceLink').text("zvolit čas doručení");
+		$('#PostBoxChoiceLink').text("vyberte pobočku");
+		$('#PostOfficeChoiceLink').text("vyberte pobočku");
+		$('#Address1Zip').val(""); // zapomenu zvolene PSC
+		$("#Address0CpostDeliveryInfo").val(""); // zapomenu volbu dopo/odpo doruceni
+		
+		// podle aktualne zvoleneho zpusobu dopravy
+		// musim zobrazit / skryt elementy s adresami apod.
+		switch ( true ){ // workaround pro pouziti variables vevnitr switche
+			case shippingId == PERSONAL_PURCHASE_SHIPPING_ID: // osobni odber
+				console.log("PERSONAL IN CASE");
+				$('#InvoiceAddressBox').hide(); // nepotrebuji fakturacni adresu
+				$('#DeliveryAddressBox').hide(); // nepotrebuji dorucovaci adresu
+			break;
 
-			if (shippingId == ON_POST_SHIPPING_ID) {
-				choiceType = 'postOffice';
-				// zapomenu vybranou pobocku ceske posty
-				$('#BalikomatChoiceLink').text('vyberte pobočku');
-				postOfficeChoice();
-			} else if (shippingId == BALIKOMAT_SHIPPING_ID) {
-				choiceType = 'balikomat';
-				// zapomenu vybranou pobocku ceske posty
-				$('#PostOfficeChoiceLink').text('vyberte pobočku');
-				postOfficeChoice();
-			} else if ( shippingId == BALIKOVNA_POST_SHIPPING_ID ){
-				choiceType = 'postBox';
-				// zapomenu vybranou pobocku ceske posty
-				$('#PostOfficeChoiceLink').text('vyberte pobočku');
-				postBoxChoice();
-			}
-		} else {
-			$('#InvoiceAddressBox').show();
-			$('#DeliveryAddressBox').show();			
+			case shippingId == ON_POST_SHIPPING_ID: // dorucovani NA POSTU
+				$('#DeliveryAddressBox').hide(); // nepotrebuji dorucovaci adresu
+				postOfficeChoice(); // vyhodim okno s vyberem posty
+			break;
+			
+			case shippingId == BALIKOVNA_POST_SHIPPING_ID: // dorucovani DO BALIKOVNY
+				$('#DeliveryAddressBox').hide(); // nepotrebuji dorucovaci adresu
+				postBoxChoice(); // vyhodim okno s vyberem balikovny
+			break;
+
+			case shippingId == HOMEDELIVERY_POST_SHIPPING_ID: // dorucovani DO RUKY
+				// listener pro otevreni okna mam vytazeny ven do externiho
+				// javascriptu, nemusim poustet zadny trigger
+			break;
 		}
-
 	});
 
 
@@ -519,47 +521,56 @@ $(document).ready(function() {
 				shippingId: shippingId,
 				paymentId: paymentId
 			},
-			async: false,
+			async: true,
 			beforeSend: function(jqXHR, settings) {
 				// zobrazim loading spinner
 				body.addClass("loading");
 			},
 			success: function(data) {
 				shippingPrice = parseInt(data.value);
+
+				// zjistim, jaka cena je v soucasne dobe zobrazena
+				var prevShippingPrice = $('.shipping-price-span').text();
+				
+				if (prevShippingPrice == 'ZDARMA') {
+					prevShippingPrice = 0;
+				}
+				// a pokud je nova cena ruzna, prepocitam hodnoty ceny za dopravu a celkove ceny objednavky
+		 		if (prevShippingPrice != shippingPrice) {
+					// cena za zbozi v kosiku
+		 	 		var goodsPrice = parseInt($('#GoodsPriceSpan').text());
+		 			// cena dopravy
+		 			var shippingPriceInfo = '';
+		 	 		if (shippingPrice == 0) {
+		 	 			shippingPriceInfo = '<span class="final-price shipping-price-span">ZDARMA</span>';
+		 	 		} else if ( shippingPrice != -1 ){
+			 	 		shippingPriceInfo = '<span class="final-price shipping-price-span">' + shippingPrice + '</span> Kč';
+			 	 	} else {  // doprava jeste neni vybrana, musim vlozit "cena od:"
+		 	 			shippingPriceInfo = '<span class="final-price shipping-price-span">ZDARMA</span>';
+		 	 			shippingPrice = 0;
+				 	 	if ( goodsPrice < 1000 ){
+			 	 			shippingPriceInfo = '<span class="final-price shipping-price-span">od 50</span> Kč';
+			 	 			shippingPrice = 50; // @TODO - pokud neni vybrana doprava, tak se natvrdo vklada cena od 50 Kc (problem bude, kdyz se zmeni nejnizsi cena dopravy)
+				 	 	}
+		 	 		}
+		 	 		$('.shipping-price-cell').empty();
+		 	 		$('.shipping-price-cell').html('<strong>' + shippingPriceInfo + '</strong>');
+
+		 	 		// celkova cena za objednavku
+		 	 		var totalPrice = goodsPrice + shippingPrice;
+		 	 		var totalPriceInfo = '<span class="final-price total-price-span">' + totalPrice + '</span> Kč';
+		 	 		$('.total-price-cell').empty();
+		 	 		$('.total-price-cell').html('<strong>' + totalPriceInfo + '</strong>');
+				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				alert(textStatus);
+				alert("Došlo k chybě, při změně způsobu platby: " + textStatus);
 			},
 			complete: function(jqXHR, textStatus) {
 				// skryju loading spinner
 				body.removeClass("loading");
 			}
 		});
-
-		// zjistim, jaka cena je v soucasne dobe zobrazena
-		var prevShippingPrice = $('.shipping-price-span').text();
-		if (prevShippingPrice == 'ZDARMA') {
-			prevShippingPrice = 0;
-		}
-		// a pokud je nova cena ruzna, prepocitam hodnoty ceny za dopravu a celkove ceny objednavky
- 		if (prevShippingPrice != shippingPrice) {
- 	 		// cena dopravy
- 			var shippingPriceInfo = '';
- 	 		if (shippingPrice == 0) {
- 	 			shippingPriceInfo = '<span class="final-price shipping-price-span">ZDARMA</span>';
- 	 		} else {
- 	 			shippingPriceInfo = '<span class="final-price shipping-price-span">' + shippingPrice + '</span> Kč';
- 	 		}
- 	 		$('.shipping-price-cell').empty();
- 	 		$('.shipping-price-cell').html('<strong>' + shippingPriceInfo + '</strong>');
-
- 	 		// celkova cena za objednavku
- 	 		var goodsPrice = parseInt($('#GoodsPriceSpan').text());
- 	 		var totalPrice = goodsPrice + shippingPrice;
- 	 		var totalPriceInfo = '<span class="final-price total-price-span">' + totalPrice + '</span> Kč';
- 	 		$('.total-price-cell').empty();
- 	 		$('.total-price-cell').html('<strong>' + totalPriceInfo + '</strong>');
-		}
 	}
 
 	// JAVASCRIPTOVA VALIDACE FORMU PRO ODESLANI OBJEDNAVKY
@@ -604,6 +615,7 @@ $(document).ready(function() {
 		theClass = flashClass();
 		$(element).prev('.' + theClass).remove();
 		var shippingId = $('input[name="data[Order][shipping_id]"]:checked').val();
+		console.log("shippingId: " + shippingId);
 		if (typeof(shippingId) == 'undefined') {
 			messageOpenings.push(flashOpening());
 			messageClosings.push(flashClosing());
@@ -614,16 +626,24 @@ $(document).ready(function() {
 				skipTarget = '#ShippingInfo';
 			}
 		} else {
-			// pokud je doprava na postu, mam vybranou pobocku?
-			if (shippingId == ON_POST_SHIPPING_ID || shippingId == BALIKOMAT_SHIPPING_ID) {
+			// pokud je doprava na postu, do ruky, nebo do balikovny - mam vybrane vse, co ma byt vybrane?
+			if (shippingId == ON_POST_SHIPPING_ID || shippingId == BALIKOVNA_POST_SHIPPING_ID || shippingId == HOMEDELIVERY_POST_SHIPPING_ID) {
 				var postOfficeZip = $('#Address1Zip').val();
+				console.log("postOfficeZip: " + postOfficeZip);
 				if (typeof(postOfficeZip) == 'undefined' || postOfficeZip == '') {
 					messageOpenings.push(flashOpening());
 					messageClosings.push(flashClosing());
+					// default message pro ON_POST_SHIPPING_ID
 					var messageText = 'Vyberte prosím pobočku České pošty, kam si přejete zboží doručit.';
-					if (shippingId == BALIKOMAT_SHIPPING_ID) {
-						messageText = 'Vyberte prosím balíkomat České pošty, kam si přejete zboží doručit.';
+
+					if (shippingId == BALIKOVNA_POST_SHIPPING_ID) {
+						messageText = 'Vyberte prosím balíkovnu České pošty, kam si přejete zboží doručit.';
 					}
+
+					if (shippingId == HOMEDELIVERY_POST_SHIPPING_ID) {
+						messageText = 'Zvolte prosím čas doručení pro Balík do ruky České pošty.';
+					}
+					
 					messageTexts.push(messageText);
 					messageTargets.push(element);
 					messageMethods.push('before');

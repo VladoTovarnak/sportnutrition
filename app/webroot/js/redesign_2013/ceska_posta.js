@@ -36,11 +36,23 @@ nemusi to vyplnovat znovu, kdyz to uz vime
 	- naimportovat udaje o balikovnach
 	- replikace Baliku na postu
 
+
+
+CHYBY:
+	- LOW PRIORITY:
+		- pokud neni vybrana doprava, tak se natvrdo vklada cena od 50 Kc (problem bude, kdyz se zmeni nejnizsi cena dopravy),
+		  kosik take nebere v potaz, ze je tam zbozi za vic nez 1000 Kc
+		
+		- neni spravne udelana tabulka s payments v objednavce, pokud zvolim dopravu na slovensko,
+		  neni rozdelena cena podle toho, zda to chci na dobirku, kde je ted 250 Kc a zda to chci prevodem,
+		  kde je cena 180 Kc 
+
+
 */
 
 $(document).ready(function(){
 	// listener na vyber baliku do ruky
-	$("#OrderShippingId2").click(function(){
+	$("#OrderShippingId" + HOMEDELIVERY_POST_SHIPPING_ID).click(function(){
 		// otevrit okno s vyzvou na zadani PSC nebo mesta
 		$.fancybox(
 			$('#PostDeliveryChoice').html(), {
@@ -104,7 +116,7 @@ $(document).ready(function(){
 							});
 						} else{
 							// mam data o pochuzkach jsou dve
-							$(".delivery-holder").html("Vyberte prosím kliknutím jeden z termínů doručení:<br>" +
+							$(".delivery-holder").html("<strong>Vyberte prosím kliknutím jeden z termínů doručení:</strong><br>" +
 									"Dopolední pochůzka: <a id=\"A\" class=\"closeFancy\" style=\"color:red\" href=\"#\"><strong>" + data.casDopoledniPochuzky + "</strong>&nbsp;&raquo;</a>" +
 									"<br>Odpolední pochůzka: <a id=\"B\" class=\"closeFancy\" style=\"color:red\" href=\"#\"><strong>" + data.casOdpoledniPochuzky + "</strong>&nbsp;&raquo;</a>");
 							$(".delivery-holder").removeClass("red_alert");

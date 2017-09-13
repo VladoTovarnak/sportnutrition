@@ -1517,8 +1517,17 @@ class OrdersController extends AppController {
 			$shipping_price = $this->Order->get_shipping_cost($shipping_id, $payment_id);
 			$res['value'] = $shipping_price;
 			echo json_encode($res);
+		} else {
+			// nemam stanovenou dopravu, nebo zpusob platby,
+			// musim vratit chybu - vyzva k zvoleni platby
+			// a dopravy
+			$res = array(
+				'error' => 'Y',
+				'message' => 'Není zvolena doprava, nebo platba.',
+				'value' => '-1'
+			);
+			echo json_encode($res);
 		}
-		
 		die();
 	}
 	
