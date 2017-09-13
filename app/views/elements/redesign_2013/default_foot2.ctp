@@ -227,70 +227,14 @@ $(document).ready(function() {
 	// pokud chci vybrat pobocku posty
 	$('#PostOfficeChoiceLink').click(function(e) {
 		e.preventDefault();
-		// skryt pole pro zadani dorucovaci adresy
-		$('#DeliveryAddressBox').hide();
-		// zobrazit pole pro zadani fakturacni adresy
-		$('#InvoiceAddressBox').show();
-		// zapamatuju si typ vyberu pobocek
-		choiceType = 'postOffice';
-		// vyberu dane radio
-		$('#OrderShippingId' + ON_POST_SHIPPING_ID).prop('checked', true);
-		// prepocitam cenu za dopravu
-		var shippingId = ON_POST_SHIPPING_ID;
-		// doprava je take zavisla na zpusobu platby
-		var paymentId = $('input[name="data[Order][payment_id]"]:checked').val();
-		fillShippingPriceCell(shippingId, paymentId);
-		// zapomenu vybranou pobocku balikomatu a balikovny
-		$('#BalikomatChoiceLink').text('vyberte pobočku');
-		$('#PostBoxChoiceLink').text('vyberte pobočku');
-		postOfficeChoice();
+		// trigger pro kliknuti na input, chova se stejne
+		$('#OrderShippingId' + ON_POST_SHIPPING_ID).click();
 	});
 
 	// pokud chci vybrat BALIKOVNU ceske posty
 	$('#PostBoxChoiceLink').click(function(e) {
 		e.preventDefault();
-		// skryt pole pro zadani dorucovaci adresy
-		$('#DeliveryAddressBox').hide();
-		// zobrazit pole pro zadani fakturacni adresy
-		$('#InvoiceAddressBox').show();
-		// zapamatuju si typ vyberu pobocek
-		choiceType = 'postBox';
-		// vyberu dane radio
-		$('#OrderShippingId' + BALIKOVNA_POST_SHIPPING_ID).prop('checked', true);
-		// prepocitam cenu za dopravu
-		var shippingId = BALIKOVNA_POST_SHIPPING_ID;
-		// doprava je take zavisla na zpusobu platby
-		var paymentId = $('input[name="data[Order][payment_id]"]:checked').val();
-		fillShippingPriceCell(shippingId, paymentId);
-		// zapomenu vybranou pobocku balikomatu a baliku na postu
-		$('#BalikomatChoiceLink').text('vyberte pobočku');
-		$('#PostOfficeChoiceLink').text('vyberte pobočku');
-		postBoxChoice();
-	});
-
-
-	// pokud chci vybrat balikomat posty
-	$('#BalikomatChoiceLink').click(function(e) {
-		e.preventDefault();
-		// skryt pole pro zadani dorucovaci adresy
-		$('#DeliveryAddressBox').hide();
-		// zobrazit pole pro zadani fakturacni adresy
-		$('#InvoiceAddressBox').show();
-		// zapamatuju si typ vyberu pobocek
-		choiceType = 'balikomat';
-		// zapomenu zadane PSC
-		$('#Address1Zip').empty();
-		// vyberu dane radio
-		$('#OrderShippingId' + BALIKOMAT_SHIPPING_ID).prop('checked', true);
-		// prepocitam cenu za dopravu
-		var shippingId = BALIKOMAT_SHIPPING_ID;
-		// doprava je take zavisla na zpusobu platby
-		var paymentId = $('input[name="data[Order][payment_id]"]:checked').val();
-		fillShippingPriceCell(shippingId, paymentId);
-		// zapomenu vybranou pobocku ceske posty a balikovny
-		$('#PostOfficeChoiceLink').text('vyberte pobočku');
-		$('#PostBoxChoiceLink').text('vyberte pobočku');
-		postOfficeChoice();
+		$('#OrderShippingId' + BALIKOVNA_POST_SHIPPING_ID).click();
 	});
 
 	function postOfficeChoice() {
@@ -306,38 +250,6 @@ $(document).ready(function() {
         );
 
 		$('.post-offices-list').empty();
-		// pokud chci vybrat balikomat, rovnou vypisu vsechny balikomaty, protoze je jich par
-		if (choiceType == 'balikomat') {
-			$.ajax({
-				url: '/post_offices/ajax_search',
-				method: 'POST',
-				dataType: 'json',
-				data: {
-					zip: '',
-					city: '',
-					type: choiceType
-				},
-				success: function(data) {
-					if (data.success) {
-						$('.post-offices-list').empty();
-						var postOffices = data.data;
-						if (postOffices.length == 0) {
-							$('.empty-output').show();
-						} else {
-							$('.post-offices-list').append(drawPostOfficesDiv(postOffices));
-						}
-					} else {
-						alert(data.message);
-					}
-				},
-				error: function(jqXHR, textStatus, errorThrown) {
-					alert(textStatus);
-				},
-				complete: function(jqXHR, textStatus) {
-					$.fancybox.update();
-				}
-			});
-		}
 	}
 
 	function postBoxChoice() {
