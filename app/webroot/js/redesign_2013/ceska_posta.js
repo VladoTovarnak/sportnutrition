@@ -52,7 +52,7 @@ CHYBY:
 
 $(document).ready(function(){
 	// listener na vyber baliku do ruky
-	$("#OrderShippingId" + HOMEDELIVERY_POST_SHIPPING_ID).click(function(){
+	$("#OrderShippingId" + HOMEDELIVERY_POST_SHIPPING_ID).change(function(){
 		// otevrit okno s vyzvou na zadani PSC nebo mesta
 		$.fancybox(
 			$('#PostDeliveryChoice').html(), {
@@ -68,8 +68,8 @@ $(document).ready(function(){
 	// kdyz kliknu na zvoleni casu doruceni
 	$("#PostDeliveryChoiceLink").click(function(e){
 		e.preventDefault();
-		// vyvolam klik na input
-		$('#OrderShippingId' + HOMEDELIVERY_POST_SHIPPING_ID).click();
+		// vyvolam change inputu
+		$('#OrderShippingId' + HOMEDELIVERY_POST_SHIPPING_ID).change();
 	});
 	
 	// listener pro submit formulare s PSC
@@ -106,9 +106,17 @@ $(document).ready(function(){
 							$(document).on('click', '#closeFancy', function(e){
 								e.preventDefault();
 								$(".delivery-holder").hide(); // schovam hlasku, kdyby to znovu otevrel
-								$("#Address0Zip").val(psc); // nastavim PSC, protoze uz ho znam, nemusi to znovu vypisovat
+								if ( $("#Address0Zip").val().length == 0 ){
+									$("#Address0Zip").val(psc); // nastavim PSC, protoze uz ho znam, nemusi to znovu vypisovat
+								}
+								
+								if ( $("#Address1Zip").val().length == 0 ){
+									$('#Address1Zip').val(psc); // nastavim PSC2, odsud validuju data
+								}
+									
+								$("#Address0CpostDeliveryPsc").val(psc); // nastavim delivery PSC - kvuli kontrole integrity
 								$("#Address0CpostDeliveryInfo").val('A'); // nastavim delivery na A - default hodnota, pokud nemaji dorucovaci okna
-								$("#PostDeliveryChoiceLink").html(""); // odstranim vyzvu k volbe casu, at to nelaka
+								$("#PostDeliveryChoiceLink").html("běžný režim doručení"); // odstranim vyzvu k volbe casu, at to nelaka
 								$('html, body').animate({ 
 								    scrollTop: ($('#PaymentInfo').first().offset().top)
 								},500); // odskroluju dolu k informacim o platbe
@@ -125,7 +133,15 @@ $(document).ready(function(){
 							$(document).on('click', '.closeFancy', function(e){
 								e.preventDefault();
 								$(".delivery-holder").hide(); // schovam hlasku, kdyby to znovu otevrel
-								$("#Address0Zip").val(psc); // nastavim PSC, protoze uz ho znam, nemusi to znovu vypisovat
+								if ( $("#Address0Zip").val().length == 0 ){
+									$("#Address0Zip").val(psc); // nastavim PSC, protoze uz ho znam, nemusi to znovu vypisovat
+								}
+								
+								if ( $("#Address1Zip").val().length == 0 ){
+									$('#Address1Zip').val(psc); // nastavim PSC2, odsud validuju data
+								}
+								
+								$("#Address0CpostDeliveryPsc").val(psc); // nastavim delivery PSC - kvuli kontrole integrity
 								$("#Address0CpostDeliveryInfo").val(
 									$(this).attr("id")
 								); // nastavim delivery na to co zvolil

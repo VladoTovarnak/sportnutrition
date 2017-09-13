@@ -304,6 +304,7 @@ if ($this->Session->check('Message.flash')) {
 			<td>
 				<?php echo $this->Form->input('Address.0.zip', array('label' => false))?>
 				<?php echo $this->Form->hidden('Address.0.cpost_delivery_info', array('label' => false, 'value' => ''))?>
+				<?php echo $this->Form->hidden('Address.0.cpost_delivery_psc', array('label' => false, 'value' => ''))?>
 			</td>
 		</tr>
 		<tr>

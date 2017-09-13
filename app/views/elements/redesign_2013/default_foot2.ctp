@@ -182,6 +182,11 @@ $(document).ready(function() {
 	var choiceType = 'postOffice';
 	// pri zmene dopravy chci prepsat jeji cenu v kosiku 
 	$('input[name="data[Order][shipping_id]"]').change(function(e) {
+		// zaskrtnu radio, dostanu se sem i kliknutim mimo radio
+		// potom zustava radio nezaskrtnute
+		$(this).prop("checked", true);
+
+
 		var shippingId = this.value;
 		// doprava je take zavisla na zpusobu platby
 		var paymentId = $('input[name="data[Order][payment_id]"]:checked').val();
@@ -194,14 +199,13 @@ $(document).ready(function() {
 		$('#PostDeliveryChoiceLink').text("zvolit čas doručení");
 		$('#PostBoxChoiceLink').text("vyberte pobočku");
 		$('#PostOfficeChoiceLink').text("vyberte pobočku");
-		$('#Address1Zip').val(""); // zapomenu zvolene PSC
+		$('#Address0CpostDeliveryPsc').val(""); // zapomenu zvolene PSC
 		$("#Address0CpostDeliveryInfo").val(""); // zapomenu volbu dopo/odpo doruceni
 		
 		// podle aktualne zvoleneho zpusobu dopravy
 		// musim zobrazit / skryt elementy s adresami apod.
 		switch ( true ){ // workaround pro pouziti variables vevnitr switche
 			case shippingId == PERSONAL_PURCHASE_SHIPPING_ID: // osobni odber
-				console.log("PERSONAL IN CASE");
 				$('#InvoiceAddressBox').hide(); // nepotrebuji fakturacni adresu
 				$('#DeliveryAddressBox').hide(); // nepotrebuji dorucovaci adresu
 			break;
@@ -227,14 +231,15 @@ $(document).ready(function() {
 	// pokud chci vybrat pobocku posty
 	$('#PostOfficeChoiceLink').click(function(e) {
 		e.preventDefault();
-		// trigger pro kliknuti na input, chova se stejne
-		$('#OrderShippingId' + ON_POST_SHIPPING_ID).click();
+		// trigger pro zmenu inputu, chova se stejne
+		$('#OrderShippingId' + ON_POST_SHIPPING_ID).change();
 	});
 
 	// pokud chci vybrat BALIKOVNU ceske posty
 	$('#PostBoxChoiceLink').click(function(e) {
 		e.preventDefault();
-		$('#OrderShippingId' + BALIKOVNA_POST_SHIPPING_ID).click();
+		// trigger pro zmenu inputu, chova se stejne
+		$('#OrderShippingId' + BALIKOVNA_POST_SHIPPING_ID).change();
 	});
 
 	function postOfficeChoice() {
@@ -527,7 +532,6 @@ $(document).ready(function() {
 		theClass = flashClass();
 		$(element).prev('.' + theClass).remove();
 		var shippingId = $('input[name="data[Order][shipping_id]"]:checked').val();
-		console.log("shippingId: " + shippingId);
 		if (typeof(shippingId) == 'undefined') {
 			messageOpenings.push(flashOpening());
 			messageClosings.push(flashClosing());
@@ -541,7 +545,6 @@ $(document).ready(function() {
 			// pokud je doprava na postu, do ruky, nebo do balikovny - mam vybrane vse, co ma byt vybrane?
 			if (shippingId == ON_POST_SHIPPING_ID || shippingId == BALIKOVNA_POST_SHIPPING_ID || shippingId == HOMEDELIVERY_POST_SHIPPING_ID) {
 				var postOfficeZip = $('#Address1Zip').val();
-				console.log("postOfficeZip: " + postOfficeZip);
 				if (typeof(postOfficeZip) == 'undefined' || postOfficeZip == '') {
 					messageOpenings.push(flashOpening());
 					messageClosings.push(flashClosing());
@@ -557,6 +560,36 @@ $(document).ready(function() {
 					}
 					
 					messageTexts.push(messageText);
+					messageTargets.push(element);
+					messageMethods.push('before');
+					if (!skipTarget) {
+						skipTarget = '#ShippingInfo';
+					}
+				}
+			}
+
+
+			// musim jeste vyzkouset integritu dat, pokud zvolil odpo/dopo doruceni
+			// a zaroven doslo k zmene PSC ve formulari s adresama, musim ho na to
+			// upozornit, at znovu podle dorucovaciho PSC vybere cas doruceni
+			// za dorucovaci se bere primarne FAKTURACNI ADRESA a v pripade, ze
+			// je zakliknute ze chce odlisnou FAKTURACNI A DORUCOVACI
+			// tak se bere za dorucovaci adresu DORUCOVACI ADRESA
+			if ( shippingId == HOMEDELIVERY_POST_SHIPPING_ID ){
+				var chosen_psc = $("#Address0CpostDeliveryPsc").val();
+				var compare_psc = $("#Address0Zip").val();
+
+				// zjistim, zda nahodou nepouziva "jina dorucovaci adresa" nez
+				// fakturacni - v tom pripade to porovnam s tim dorucovacim PSC
+				if ( $("#isDifferentAddressCheckbox").prop("checked") ){
+					compare_psc = $("#Address1Zip").val();
+				}
+
+				// porovnam PSC - pokud se nerovnaji, tak upozornim
+				if ( chosen_psc != compare_psc ){
+					messageOpenings.push(flashOpening());
+					messageClosings.push(flashClosing());
+					messageTexts.push("V doručovací adrese jste zvolil(a) jako PSČ: <strong>" + compare_psc + "</strong>, termín doručování jste, ale zvolil(a) pro jiné PSČ: <strong>" + chosen_psc + "</strong>.<br> Zvolte prosím znovu termín doručení podle PSČ zadaného v doručovací adrese.");
 					messageTargets.push(element);
 					messageMethods.push('before');
 					if (!skipTarget) {
