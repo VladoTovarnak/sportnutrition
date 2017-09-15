@@ -74,21 +74,18 @@ class PostBoxesController extends AppController {
 		);
 		
 		if (!isset($_POST['zip']) || !isset($_POST['city']) || !isset($_POST['type'])) {
-			$result['message'] = 'Neznám všechny atributy pro vyhledání pošty';
+			$result['message'] = 'Neznám všechny atributy pro vyhledání Balíkomatu.';
 		} else {
-			$zip = $_POST['zip'];
-			$city = $_POST['city'];
-			$type = $_POST['type'];
+			$zip = isset($_POST['zip']) ? $_POST['zip']: '';
+			$city = isset($_POST['city']) ? $_POST['city'] : '';
+			$type = isset($_POST['type']) ? $_POST['type'] : '';
 
 			$conditions = array();
 			if (!empty($zip)) {
 				$conditions[] = 'PostBox.PSC LIKE "%%' . $zip . '%%"';
 			}
 			if (!empty($city)) {
-				$conditions[] = 'PostBox.NAZ_PROV LIKE "%%' . $city . '%%"';
-			}
-			if ($type == 'balikomat') {
-				$conditions[] = 'PostBox.NAZ_PROV LIKE "%%Balíkomat%%"';
+				$conditions[] = 'PostBox.OBEC LIKE "%%' . $city . '%%" OR PostBox.C_OBCE LIKE "%%' . $city . '%%"  ';
 			}
 			
 			// pokud nemam zadano mesto ani psc, koncim s chybou
@@ -97,7 +94,9 @@ class PostBoxesController extends AppController {
 			} else {
 				// vytahnu si pobocky podle podminek
 				$post_boxes = $this->PostBox->find('all', array(
-					'conditions' => $conditions,
+					'conditions' => array(
+						'OR' => $conditions
+					),
 					'contain' => array(),
 				));
 				

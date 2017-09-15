@@ -58,3 +58,12 @@ ADD `nedele_od2` varchar(40) COLLATE 'utf8_general_ci' NOT NULL AFTER `nedele_do
 ADD `nedele_do2` varchar(40) COLLATE 'utf8_general_ci' NOT NULL AFTER `nedele_od2`,
 ADD `nedele_od3` varchar(40) COLLATE 'utf8_general_ci' NOT NULL AFTER `nedele_do2`,
 ADD `nedele_do3` varchar(40) COLLATE 'utf8_general_ci' NOT NULL AFTER `nedele_od3`;
+
+# vlozit pres admin noveho dopravce a jeho ID predat do nize uvedene query
+
+INSERT INTO `settings` (`created`, `modified`, `name`, `value`)
+VALUES (now(), now(), 'BALIKOVNA_POST_SHIPPING_ID', '31');
+
+# vlozit spravnou value podle aktivni DB
+INSERT INTO `settings` (`created`, `modified`, `name`, `value`)
+VALUES (now(), now(), 'HOMEDELIVERY_POST_ID', '2');

@@ -109,4 +109,19 @@ class PostOfficesController extends AppController {
 		echo json_encode($result);
 		die();
 	}
+	
+	function delivery_search($postCode = null){
+		if ( !isset($postCode) ){
+			echo '[{"response": "Empty PSC"}]';
+		} else {
+			$result = @file_get_contents("https://b2c.cpost.cz/services/PostCode/getDataAsJson?postCode=" . $postCode);
+			if ( $result === false ){
+				echo '[{"response": "Bad PSC"}]';
+			} else{
+				echo $result;
+			}
+		}
+		die();
+	}
+	
 }

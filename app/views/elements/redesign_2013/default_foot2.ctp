@@ -138,6 +138,8 @@ $(document).ready(function() {
 	PERSONAL_PURCHASE_SHIPPING_ID = parseInt(<?php echo PERSONAL_PURCHASE_SHIPPING_ID?>);
 	ON_POST_SHIPPING_ID = parseInt(<?php echo ON_POST_SHIPPING_ID?>);
 	BALIKOMAT_SHIPPING_ID = parseInt(<?php echo BALIKOMAT_SHIPPING_ID?>);
+	BALIKOVNA_POST_SHIPPING_ID = parseInt(<?php echo BALIKOVNA_POST_SHIPPING_ID?>);
+	HOMEDELIVERY_POST_SHIPPING_ID = parseInt(<?php echo HOMEDELIVERY_POST_SHIPPING_ID?>);
 	
 	// zobrazit form pro prihlaseni, pokud jsem zaskrtnul, ze zakaznik je jiz registrovany
 	if ($('#CustomerIsRegistered1').is(':checked')) {
@@ -180,85 +182,64 @@ $(document).ready(function() {
 	var choiceType = 'postOffice';
 	// pri zmene dopravy chci prepsat jeji cenu v kosiku 
 	$('input[name="data[Order][shipping_id]"]').change(function(e) {
+		// zaskrtnu radio, dostanu se sem i kliknutim mimo radio
+		// potom zustava radio nezaskrtnute
+		$(this).prop("checked", true);
+
+
 		var shippingId = this.value;
 		// doprava je take zavisla na zpusobu platby
 		var paymentId = $('input[name="data[Order][payment_id]"]:checked').val();
 		fillShippingPriceCell(shippingId, paymentId);
 
-		// zobrazit / skryt elementy pro zadani adres, pokud jsem zaskrtnul, ze chci / nechci doruceni osobnim odberem
-		if (shippingId == PERSONAL_PURCHASE_SHIPPING_ID) {
-			$('#InvoiceAddressBox').hide();
-			$('#DeliveryAddressBox').hide();
-		// pokud chci balik na postu
-		} else if (shippingId == ON_POST_SHIPPING_ID || shippingId == BALIKOMAT_SHIPPING_ID) {
-			// skryt pole pro zadani dorucovaci adresy
-			$('#DeliveryAddressBox').hide();
-			// zobrazit pole pro zadani fakturacni adresy
-			$('#InvoiceAddressBox').show();
+		// pokud doslo k zmene zpusobu doruceni
+		// zresetuju vsechno nejdriv do puvodniho stavu
+		$('#InvoiceAddressBox').show();
+		$('#DeliveryAddressBox').show();
+		$('#PostDeliveryChoiceLink').text("zvolit čas doručení");
+		$('#PostBoxChoiceLink').text("vyberte pobočku");
+		$('#PostOfficeChoiceLink').text("vyberte pobočku");
+		$('#Address0CpostDeliveryPsc').val(""); // zapomenu zvolene PSC
+		$("#Address0CpostDeliveryInfo").val(""); // zapomenu volbu dopo/odpo doruceni
+		
+		// podle aktualne zvoleneho zpusobu dopravy
+		// musim zobrazit / skryt elementy s adresami apod.
+		switch ( true ){ // workaround pro pouziti variables vevnitr switche
+			case shippingId == PERSONAL_PURCHASE_SHIPPING_ID: // osobni odber
+				$('#InvoiceAddressBox').hide(); // nepotrebuji fakturacni adresu
+				$('#DeliveryAddressBox').hide(); // nepotrebuji dorucovaci adresu
+			break;
 
-			if (shippingId == ON_POST_SHIPPING_ID) {
-				choiceType = 'postOffice';
-				// zapomenu vybranou pobocku ceske posty
-				$('#BalikomatChoiceLink').text('vyberte pobočku');
-			} else if (shippingId == BALIKOMAT_SHIPPING_ID) {
-				choiceType = 'balikomat';
-				// zapomenu vybranou pobocku ceske posty
-				$('#PostOfficeChoiceLink').text('vyberte pobočku');
-			}
+			case shippingId == ON_POST_SHIPPING_ID: // dorucovani NA POSTU
+				$('#DeliveryAddressBox').hide(); // nepotrebuji dorucovaci adresu
+				postOfficeChoice(); // vyhodim okno s vyberem posty
+			break;
 			
-			// a nemam zadane PSC, kam chci poslat zasilku
-			postOfficeChoice();
+			case shippingId == BALIKOVNA_POST_SHIPPING_ID: // dorucovani DO BALIKOVNY
+				$('#DeliveryAddressBox').hide(); // nepotrebuji dorucovaci adresu
+				postBoxChoice(); // vyhodim okno s vyberem balikovny
+			break;
 
-		} else {
-			$('#InvoiceAddressBox').show();
-			$('#DeliveryAddressBox').show();			
+			case shippingId == HOMEDELIVERY_POST_SHIPPING_ID: // dorucovani DO RUKY
+				// listener pro otevreni okna mam vytazeny ven do externiho
+				// javascriptu, nemusim poustet zadny trigger
+			break;
 		}
-
 	});
 
 
 	// pokud chci vybrat pobocku posty
 	$('#PostOfficeChoiceLink').click(function(e) {
 		e.preventDefault();
-		// skryt pole pro zadani dorucovaci adresy
-		$('#DeliveryAddressBox').hide();
-		// zobrazit pole pro zadani fakturacni adresy
-		$('#InvoiceAddressBox').show();
-		// zapamatuju si typ vyberu pobocek
-		choiceType = 'postOffice';
-		// vyberu dane radio
-		$('#OrderShippingId' + ON_POST_SHIPPING_ID).prop('checked', true);
-		// prepocitam cenu za dopravu
-		var shippingId = ON_POST_SHIPPING_ID;
-		// doprava je take zavisla na zpusobu platby
-		var paymentId = $('input[name="data[Order][payment_id]"]:checked').val();
-		fillShippingPriceCell(shippingId, paymentId);
-		// zapomenu vybranou pobocku balikomatu
-		$('#BalikomatChoiceLink').text('vyberte pobočku');
-		postOfficeChoice();
+		// trigger pro zmenu inputu, chova se stejne
+		$('#OrderShippingId' + ON_POST_SHIPPING_ID).change();
 	});
 
-	// pokud chci vybrat pobocku posty
-	$('#BalikomatChoiceLink').click(function(e) {
+	// pokud chci vybrat BALIKOVNU ceske posty
+	$('#PostBoxChoiceLink').click(function(e) {
 		e.preventDefault();
-		// skryt pole pro zadani dorucovaci adresy
-		$('#DeliveryAddressBox').hide();
-		// zobrazit pole pro zadani fakturacni adresy
-		$('#InvoiceAddressBox').show();
-		// zapamatuju si typ vyberu pobocek
-		choiceType = 'balikomat';
-		// zapomenu zadane PSC
-		$('#Address1Zip').empty();
-		// vyberu dane radio
-		$('#OrderShippingId' + BALIKOMAT_SHIPPING_ID).prop('checked', true);
-		// prepocitam cenu za dopravu
-		var shippingId = BALIKOMAT_SHIPPING_ID;
-		// doprava je take zavisla na zpusobu platby
-		var paymentId = $('input[name="data[Order][payment_id]"]:checked').val();
-		fillShippingPriceCell(shippingId, paymentId);
-		// zapomenu vybranou pobocku ceske posty
-		$('#PostOfficeChoiceLink').text('vyberte pobočku');
-		postOfficeChoice();
+		// trigger pro zmenu inputu, chova se stejne
+		$('#OrderShippingId' + BALIKOVNA_POST_SHIPPING_ID).change();
 	});
 
 	function postOfficeChoice() {
@@ -274,40 +255,24 @@ $(document).ready(function() {
         );
 
 		$('.post-offices-list').empty();
-		// pokud chci vybrat balikomat, rovnou vypisu vsechny balikomaty, protoze je jich par
-		if (choiceType == 'balikomat') {
-			$.ajax({
-				url: '/post_offices/ajax_search',
-				method: 'POST',
-				dataType: 'json',
-				data: {
-					zip: '',
-					city: '',
-					type: choiceType
-				},
-				success: function(data) {
-					if (data.success) {
-						$('.post-offices-list').empty();
-						var postOffices = data.data;
-						if (postOffices.length == 0) {
-							$('.empty-output').show();
-						} else {
-							$('.post-offices-list').append(drawPostOfficesDiv(postOffices));
-						}
-					} else {
-						alert(data.message);
-					}
-				},
-				error: function(jqXHR, textStatus, errorThrown) {
-					alert(textStatus);
-				},
-				complete: function(jqXHR, textStatus) {
-					$.fancybox.update();
-				}
-			});
-		}
 	}
 
+	function postBoxChoice() {
+		// zobrazit form pro vyber pobocky
+		$.fancybox(
+			$('#PostBoxChoice').html(), {
+				'autoSize'		    : true,
+				'transitionIn'      : 'none',
+				'transitionOut'     : 'none',
+				'hideOnContentClick': false,
+				'autoResize': true,
+			}
+        );
+
+		$('.post-boxes-list').empty();
+	}
+
+	
 	// odeslani formulare pro vyber pobocky posty
 	$(document).on('submit', '#PostOfficeChoiceForm', function(e) {
 		e.preventDefault();
@@ -353,6 +318,52 @@ $(document).ready(function() {
 		}
 	});
 
+
+	// odeslani formulare pro vyber BALIKOVNY posty
+	$(document).on('submit', '#PostBoxesChoiceForm', function(e) {
+		e.preventDefault();
+		$('.no-input').hide();
+		$('.empty-output').hide();
+		$('.post-boxes-list').empty();
+		
+		var zip = $(this).find('#PostBoxPSC').val();
+		var city = $(this).find('#PostBoxNAZPROV').val();
+		if (zip == '' && city == '' && choiceType == 'postBoxes') {
+			$('.no-input').show();
+			$('.post-boxes-list').empty();
+		} else {
+			$.ajax({
+				url: '/post_boxes/ajax_search',
+				method: 'POST',
+				dataType: 'json',
+				data: {
+					zip: zip,
+					city: city,
+					type: choiceType
+				},
+				success: function(data) {
+					if (data.success) {
+						$('.post-boxes-list').empty();
+						var postBoxes = data.data;
+						if (postBoxes.length == 0) {
+							$('.empty-output').show();
+						} else {
+							$('.post-boxes-list').append(drawPostBoxesDiv(postBoxes));
+						}
+					} else {
+						alert(data.message);
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					alert(textStatus);
+				},
+				complete: function(jqXHR, textStatus) {
+					$.fancybox.update();
+				}
+			});
+		}
+	});
+
 	function drawPostOfficesDiv(postOffices) {
 		var content = '<h2>Vyberte vaši pobočku</h2>';
 		content += '<table style="width:100%" class="content-table"><thead><tr><th>PSČ</th><th>Adresa</th><th>&nbsp;</th></tr></thead><tbody>';
@@ -363,6 +374,18 @@ $(document).ready(function() {
 		content += '</tbody></table>';
 		return content;
 	}
+
+	function drawPostBoxesDiv(postBoxes) {
+		var content = '<h2>Vyberte Balíkovnu</h2>';
+		content += '<table style="width:100%" class="content-table"><thead><tr><th>PSČ</th><th>Adresa</th><th>&nbsp;</th></tr></thead><tbody>';
+		for (i=0; i<postBoxes.length; i++) {
+			postBox = postBoxes[i];
+			content += '<tr><td>' + postBox.PostBox.PSC + '</td><td>' + postBox.PostBox.ADRESA + '</td><td><a href="#" class="choose-post-box-link button_like_link silver" data-post-box-id="' + postBox.PostBox.id + '" data-post-box-zip="' + postBox.PostBox.PSC + '" data-post-box-address="' + postBox.PostBox.ADRESA + '">Vybrat</a></td></tr>';
+		}
+		content += '</tbody></table>';
+		return content;
+	}
+
 
 	// vybiram pobocku posty pro doruceni baliku na postu nebo balikomat
 	$(document).on('click', '.choose-post-office-link', function(e) {
@@ -380,6 +403,21 @@ $(document).ready(function() {
 		$('#Address1Zip').val(postOfficeZip);
 		$.fancybox.close();
 	});
+
+
+	// vybiram pobocku posty pro doruceni baliku do balikovny
+	$(document).on('click', '.choose-post-box-link', function(e) {
+		e.preventDefault();
+		var postBoxId = $(this).attr('data-post-box-id');
+		var postBoxZip = $(this).attr('data-post-box-zip');
+		var postBoxAddress = $(this).attr('data-post-box-address');
+		// zobrazim adresu vybrane pobocky
+		$('#PostBoxChoiceLink').text(postBoxAddress);
+		// zapamatuju si PSC vybrane posty v dorucovaci adrese
+		$('#Address1Zip').val(postBoxZip);
+		$.fancybox.close();
+	});
+
 
 	// pri zmene zpusobu platby chci prepsat cenu dopravy v kosiku 
 	$('input[name="data[Order][payment_id]"]').change(function(e) {
@@ -400,47 +438,56 @@ $(document).ready(function() {
 				shippingId: shippingId,
 				paymentId: paymentId
 			},
-			async: false,
+			async: true,
 			beforeSend: function(jqXHR, settings) {
 				// zobrazim loading spinner
 				body.addClass("loading");
 			},
 			success: function(data) {
 				shippingPrice = parseInt(data.value);
+
+				// zjistim, jaka cena je v soucasne dobe zobrazena
+				var prevShippingPrice = $('.shipping-price-span').text();
+				
+				if (prevShippingPrice == 'ZDARMA') {
+					prevShippingPrice = 0;
+				}
+				// a pokud je nova cena ruzna, prepocitam hodnoty ceny za dopravu a celkove ceny objednavky
+		 		if (prevShippingPrice != shippingPrice) {
+					// cena za zbozi v kosiku
+		 	 		var goodsPrice = parseInt($('#GoodsPriceSpan').text());
+		 			// cena dopravy
+		 			var shippingPriceInfo = '';
+		 	 		if (shippingPrice == 0) {
+		 	 			shippingPriceInfo = '<span class="final-price shipping-price-span">ZDARMA</span>';
+		 	 		} else if ( shippingPrice != -1 ){
+			 	 		shippingPriceInfo = '<span class="final-price shipping-price-span">' + shippingPrice + '</span> Kč';
+			 	 	} else {  // doprava jeste neni vybrana, musim vlozit "cena od:"
+		 	 			shippingPriceInfo = '<span class="final-price shipping-price-span">ZDARMA</span>';
+		 	 			shippingPrice = 0;
+				 	 	if ( goodsPrice < 1000 ){
+			 	 			shippingPriceInfo = '<span class="final-price shipping-price-span">od 50</span> Kč';
+			 	 			shippingPrice = 50; // @TODO - pokud neni vybrana doprava, tak se natvrdo vklada cena od 50 Kc (problem bude, kdyz se zmeni nejnizsi cena dopravy)
+				 	 	}
+		 	 		}
+		 	 		$('.shipping-price-cell').empty();
+		 	 		$('.shipping-price-cell').html('<strong>' + shippingPriceInfo + '</strong>');
+
+		 	 		// celkova cena za objednavku
+		 	 		var totalPrice = goodsPrice + shippingPrice;
+		 	 		var totalPriceInfo = '<span class="final-price total-price-span">' + totalPrice + '</span> Kč';
+		 	 		$('.total-price-cell').empty();
+		 	 		$('.total-price-cell').html('<strong>' + totalPriceInfo + '</strong>');
+				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				alert(textStatus);
+				alert("Došlo k chybě, při změně způsobu platby: " + textStatus);
 			},
 			complete: function(jqXHR, textStatus) {
 				// skryju loading spinner
 				body.removeClass("loading");
 			}
 		});
-
-		// zjistim, jaka cena je v soucasne dobe zobrazena
-		var prevShippingPrice = $('.shipping-price-span').text();
-		if (prevShippingPrice == 'ZDARMA') {
-			prevShippingPrice = 0;
-		}
-		// a pokud je nova cena ruzna, prepocitam hodnoty ceny za dopravu a celkove ceny objednavky
- 		if (prevShippingPrice != shippingPrice) {
- 	 		// cena dopravy
- 			var shippingPriceInfo = '';
- 	 		if (shippingPrice == 0) {
- 	 			shippingPriceInfo = '<span class="final-price shipping-price-span">ZDARMA</span>';
- 	 		} else {
- 	 			shippingPriceInfo = '<span class="final-price shipping-price-span">' + shippingPrice + '</span> Kč';
- 	 		}
- 	 		$('.shipping-price-cell').empty();
- 	 		$('.shipping-price-cell').html('<strong>' + shippingPriceInfo + '</strong>');
-
- 	 		// celkova cena za objednavku
- 	 		var goodsPrice = parseInt($('#GoodsPriceSpan').text());
- 	 		var totalPrice = goodsPrice + shippingPrice;
- 	 		var totalPriceInfo = '<span class="final-price total-price-span">' + totalPrice + '</span> Kč';
- 	 		$('.total-price-cell').empty();
- 	 		$('.total-price-cell').html('<strong>' + totalPriceInfo + '</strong>');
-		}
 	}
 
 	// JAVASCRIPTOVA VALIDACE FORMU PRO ODESLANI OBJEDNAVKY
@@ -495,17 +542,54 @@ $(document).ready(function() {
 				skipTarget = '#ShippingInfo';
 			}
 		} else {
-			// pokud je doprava na postu, mam vybranou pobocku?
-			if (shippingId == ON_POST_SHIPPING_ID || shippingId == BALIKOMAT_SHIPPING_ID) {
+			// pokud je doprava na postu, do ruky, nebo do balikovny - mam vybrane vse, co ma byt vybrane?
+			if (shippingId == ON_POST_SHIPPING_ID || shippingId == BALIKOVNA_POST_SHIPPING_ID || shippingId == HOMEDELIVERY_POST_SHIPPING_ID) {
 				var postOfficeZip = $('#Address1Zip').val();
 				if (typeof(postOfficeZip) == 'undefined' || postOfficeZip == '') {
 					messageOpenings.push(flashOpening());
 					messageClosings.push(flashClosing());
+					// default message pro ON_POST_SHIPPING_ID
 					var messageText = 'Vyberte prosím pobočku České pošty, kam si přejete zboží doručit.';
-					if (shippingId == BALIKOMAT_SHIPPING_ID) {
-						messageText = 'Vyberte prosím balíkomat České pošty, kam si přejete zboží doručit.';
+
+					if (shippingId == BALIKOVNA_POST_SHIPPING_ID) {
+						messageText = 'Vyberte prosím balíkovnu České pošty, kam si přejete zboží doručit.';
 					}
+
+					if (shippingId == HOMEDELIVERY_POST_SHIPPING_ID) {
+						messageText = 'Zvolte prosím čas doručení pro Balík do ruky České pošty.';
+					}
+					
 					messageTexts.push(messageText);
+					messageTargets.push(element);
+					messageMethods.push('before');
+					if (!skipTarget) {
+						skipTarget = '#ShippingInfo';
+					}
+				}
+			}
+
+
+			// musim jeste vyzkouset integritu dat, pokud zvolil odpo/dopo doruceni
+			// a zaroven doslo k zmene PSC ve formulari s adresama, musim ho na to
+			// upozornit, at znovu podle dorucovaciho PSC vybere cas doruceni
+			// za dorucovaci se bere primarne FAKTURACNI ADRESA a v pripade, ze
+			// je zakliknute ze chce odlisnou FAKTURACNI A DORUCOVACI
+			// tak se bere za dorucovaci adresu DORUCOVACI ADRESA
+			if ( shippingId == HOMEDELIVERY_POST_SHIPPING_ID ){
+				var chosen_psc = $("#Address0CpostDeliveryPsc").val();
+				var compare_psc = $("#Address0Zip").val();
+
+				// zjistim, zda nahodou nepouziva "jina dorucovaci adresa" nez
+				// fakturacni - v tom pripade to porovnam s tim dorucovacim PSC
+				if ( $("#isDifferentAddressCheckbox").prop("checked") ){
+					compare_psc = $("#Address1Zip").val();
+				}
+
+				// porovnam PSC - pokud se nerovnaji, tak upozornim
+				if ( chosen_psc != compare_psc ){
+					messageOpenings.push(flashOpening());
+					messageClosings.push(flashClosing());
+					messageTexts.push("V doručovací adrese jste zvolil(a) jako PSČ: <strong>" + compare_psc + "</strong>, termín doručování jste, ale zvolil(a) pro jiné PSČ: <strong>" + chosen_psc + "</strong>.<br> Zvolte prosím znovu termín doručení podle PSČ zadaného v doručovací adrese.");
 					messageTargets.push(element);
 					messageMethods.push('before');
 					if (!skipTarget) {
@@ -785,5 +869,7 @@ $(document).ready(function() {
 		}
 	});
 });
+
+$.getScript("/js/redesign_2013/ceska_posta.js");
 </script>
 <?php } ?>

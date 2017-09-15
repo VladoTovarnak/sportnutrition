@@ -1070,7 +1070,7 @@ class OrdersController extends AppController {
 		if (!isset($customer['Customer']['id']) || empty($customer['Customer']['id'])) {
 			// musim vytvorit novy zakaznicky ucet, takze vygeneruju login a heslo
 			$customer['CustomerLogin'][0]['login'] = $this->Order->Customer->generateLogin($sess_customer);
-			$customer_password = $this->Order->Customer->generatePassword($sess_customer['last_name']);
+			$customer_password = $this->Order->Customer->generatePassword($sess_customer);
 			$customer['CustomerLogin'][0]['password'] = md5($customer_password);
 			$customer['Customer']['confirmed'] = 1;
 			$customer['Customer']['registration_source'] = 'eshop';
@@ -1212,6 +1212,9 @@ class OrdersController extends AppController {
 		$this->set('shipping_price', $shipping_price);
 		
 		if (isset($this->data)) {
+			
+//			debug($this->data); die('vypsana data');
+			
 			if (isset($this->data['Order']['action'])) {
 				switch ($this->data['Order']['action']) {
 					// upravuju obsah kosiku
@@ -1330,8 +1333,8 @@ class OrdersController extends AppController {
 							// pokud neni zvolena doprava osobnim odberem
 							if ($shipping_id == PERSONAL_PURCHASE_SHIPPING_ID) {
 								unset($this->data['Address']);
-							// je zvolena doprava na postu nebo balikomat?
-							} elseif ($shipping_id == ON_POST_SHIPPING_ID || $shipping_id == BALIKOMAT_SHIPPING_ID) {
+							// je zvolena doprava na postu nebo do balikovny?
+							} elseif ($shipping_id == ON_POST_SHIPPING_ID || $shipping_id == BALIKOVNA_POST_SHIPPING_ID) {
 								// zapamatuju si psc pobocky, na kterou chci poslat zasilku
 								$branch_zip = $this->data['Address'][1]['zip'];
 								$this->data['Address'][0]['name'] = $this->data['Customer']['first_name'] . ' ' . $this->data['Customer']['last_name'];
@@ -1358,13 +1361,21 @@ class OrdersController extends AppController {
 								}
 								$address_data = $this->data['Address'];
 							}
+							
+							/* mam-li doruceni DO RUKY - prehodim si do poznamky volbu zakaznika co se tyce casu dorucovani  */
+							if ($shipping_id == HOMEDELIVERY_POST_SHIPPING_ID) {
+								$this->data['Order']['comments'] .= "\n" . "má zvolený Balík do ruky - PSČ pobočky, kterou vybral: " . $this->data['Address'][0]['cpost_delivery_psc'] . "\n";
+								$this->data['Order']['comments'] .= "časové okno doručení, které vybral: " . $this->data['Address'][0]['cpost_delivery_info'];
+								unset($this->data['Address'][0]['cpost_delivery_psc']);
+								unset($this->data['Address'][0]['cpost_delivery_info']);
+							}
 	
 							$customer_data['Customer'] = $this->data['Customer'];
 							if ($address_data) {
 								$customer_data['Address'] = $address_data;
 							}
 
-							// jestlize jsou data o zakaznikovy validni
+							// jestlize jsou data o zakaznikovi validni
 							if ($this->Order->Customer->saveAll($customer_data, array('validate' => 'only'))) {
 								// jestli neni zakaznik prihlaseny a zaroven existuje zakaznik se zadanou emailovou adresou
 								if (!$this->Session->check('Customer.id')) {
@@ -1517,8 +1528,17 @@ class OrdersController extends AppController {
 			$shipping_price = $this->Order->get_shipping_cost($shipping_id, $payment_id);
 			$res['value'] = $shipping_price;
 			echo json_encode($res);
+		} else {
+			// nemam stanovenou dopravu, nebo zpusob platby,
+			// musim vratit chybu - vyzva k zvoleni platby
+			// a dopravy
+			$res = array(
+				'error' => 'Y',
+				'message' => 'Není zvolena doprava, nebo platba.',
+				'value' => '-1'
+			);
+			echo json_encode($res);
 		}
-		
 		die();
 	}
 	
