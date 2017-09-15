@@ -66,4 +66,4 @@ VALUES (now(), now(), 'BALIKOVNA_POST_SHIPPING_ID', '31');
 
 # vlozit spravnou value podle aktivni DB
 INSERT INTO `settings` (`created`, `modified`, `name`, `value`)
-VALUES (now(), now(), 'HOMEDELIVERY_POST_ID', '2');
+VALUES (now(), now(), 'HOMEDELIVERY_POST_SHIPPING_ID', '2');

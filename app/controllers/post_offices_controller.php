@@ -111,10 +111,17 @@ class PostOfficesController extends AppController {
 	}
 	
 	function delivery_search($postCode = null){
+		$arrContextOptions=array(
+				"ssl" => array(
+						"verify_peer" => false,
+						"verify_peer_name" => false,
+				),
+		);
+		
 		if ( !isset($postCode) ){
 			echo '[{"response": "Empty PSC"}]';
 		} else {
-			$result = @file_get_contents("https://b2c.cpost.cz/services/PostCode/getDataAsJson?postCode=" . $postCode);
+			$result = @file_get_contents("https://b2c.cpost.cz/services/PostCode/getDataAsJson?postCode=" . $postCode, false, stream_context_create($arrContextOptions));
 			if ( $result === false ){
 				echo '[{"response": "Bad PSC"}]';
 			} else{
