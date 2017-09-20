@@ -755,9 +755,9 @@ class Order extends AppModel {
 				$customer_delivery_address = 'Dodací adresa: ' . $this->PostBox->delivery_address($order['Order']['shipping_delivery_psc']);
 			} elseif ( $order['Order']['shipping_id'] == ON_POST_SHIPPING_ID ){
 				$customer_delivery_address = 'Dodací adresa: ' . $this->PostOffice->delivery_address($order['Order']['shipping_delivery_psc']);
+			} else {
+				$customer_delivery_address = 'Dodací adresa: ' . $order['Order']['delivery_name'] . ', ' . $order['Order']['delivery_street'] . ', ' . $order['Order']['delivery_zip'] . ' ' . $order['Order']['delivery_city'] . ', ' . $order['Order']['delivery_state'];
 			}
-			
-			$customer_delivery_address = 'Dodací adresa: ' . $order['Order']['delivery_name'] . ', ' . $order['Order']['delivery_street'] . ', ' . $order['Order']['delivery_zip'] . ' ' . $order['Order']['delivery_city'] . ', ' . $order['Order']['delivery_state'];
 		}
 		
 		// hlavicka emailu s identifikaci dodavatele a odberatele
