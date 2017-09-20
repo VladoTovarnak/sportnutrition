@@ -751,9 +751,9 @@ class Order extends AppModel {
 		if ($order['Order']['shipping_id'] != PERSONAL_PURCHASE_SHIPPING_ID) {
 			$customer_invoice_address = 'Fakturační adresa: ' . $order['Order']['customer_street'] . ', ' . $order['Order']['customer_zip'] . ' ' . $order['Order']['customer_city'] . ' ' . $order['Order']['delivery_state'];
 
-			if ( $order['Shipping']['id'] == BALIKOVNA_POST_SHIPPING_ID  ){
+			if ( $order['Order']['shipping_id'] == BALIKOVNA_POST_SHIPPING_ID  ){
 				$customer_delivery_address = 'Dodací adresa: ' . $this->PostBox->delivery_address($order['Order']['shipping_delivery_psc']);
-			} elseif ( $order['Shipping']['id'] == ON_POST_SHIPPING_ID){
+			} elseif ( $order['Order']['shipping_id'] == ON_POST_SHIPPING_ID ){
 				$customer_delivery_address = 'Dodací adresa: ' . $this->PostOffice->delivery_address($order['Order']['shipping_delivery_psc']);
 			}
 			

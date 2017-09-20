@@ -108,4 +108,10 @@ class PostBoxesController extends AppController {
 		echo json_encode($result);
 		die();
 	}
+	
+	function test(){
+		die($this->PostBox->delivery_address("10003"));
+		
+	}
+	
 }
