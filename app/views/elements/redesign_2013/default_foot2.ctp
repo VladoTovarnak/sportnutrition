@@ -122,7 +122,8 @@
 	<link rel="stylesheet" property="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH ?>jqueryui/style.css" />
 	<link rel="stylesheet" property="stylesheet" type="text/css" href="/jRating-master/jquery/jRating.jquery.css" media="screen" />
 	<link rel="stylesheet" property="stylesheet" type="text/css" href="/loadmask/jquery.loadmask.css" />
-	
+
+
 <!-- SEZNAM retargeting -->
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -199,8 +200,8 @@ $(document).ready(function() {
 		$('#PostDeliveryChoiceLink').text("zvolit čas doručení");
 		$('#PostBoxChoiceLink').text("vyberte pobočku");
 		$('#PostOfficeChoiceLink').text("vyberte pobočku");
-		$('#Address0CpostDeliveryPsc').val(""); // zapomenu zvolene PSC
-		$("#Address0CpostDeliveryInfo").val(""); // zapomenu volbu dopo/odpo doruceni
+		$('#OrderShippingDeliveryPsc').val(""); // zapomenu zvolene PSC
+		$("#OrderShippingDeliveryInfo").val(""); // zapomenu volbu dopo/odpo doruceni
 		
 		// podle aktualne zvoleneho zpusobu dopravy
 		// musim zobrazit / skryt elementy s adresami apod.
@@ -400,7 +401,7 @@ $(document).ready(function() {
 			$('#BalikomatChoiceLink').text(postOfficeAddress);
 		}
 		// zapamatuju si PSC vybrane posty v dorucovaci adrese
-		$('#Address1Zip').val(postOfficeZip);
+		$("#OrderShippingDeliveryPsc").val(postOfficeZip);
 		$.fancybox.close();
 	});
 
@@ -414,7 +415,7 @@ $(document).ready(function() {
 		// zobrazim adresu vybrane pobocky
 		$('#PostBoxChoiceLink').text(postBoxAddress);
 		// zapamatuju si PSC vybrane posty v dorucovaci adrese
-		$('#Address1Zip').val(postBoxZip);
+		$("#OrderShippingDeliveryPsc").val(postBoxZip);
 		$.fancybox.close();
 	});
 
@@ -544,7 +545,7 @@ $(document).ready(function() {
 		} else {
 			// pokud je doprava na postu, do ruky, nebo do balikovny - mam vybrane vse, co ma byt vybrane?
 			if (shippingId == ON_POST_SHIPPING_ID || shippingId == BALIKOVNA_POST_SHIPPING_ID || shippingId == HOMEDELIVERY_POST_SHIPPING_ID) {
-				var postOfficeZip = $('#Address1Zip').val();
+				var postOfficeZip = $('#OrderShippingDeliveryPsc').val();
 				if (typeof(postOfficeZip) == 'undefined' || postOfficeZip == '') {
 					messageOpenings.push(flashOpening());
 					messageClosings.push(flashClosing());
@@ -576,7 +577,7 @@ $(document).ready(function() {
 			// je zakliknute ze chce odlisnou FAKTURACNI A DORUCOVACI
 			// tak se bere za dorucovaci adresu DORUCOVACI ADRESA
 			if ( shippingId == HOMEDELIVERY_POST_SHIPPING_ID ){
-				var chosen_psc = $("#Address0CpostDeliveryPsc").val();
+				var chosen_psc = $("#OrderShippingDeliveryPsc").val();
 				var compare_psc = $("#Address0Zip").val();
 
 				// zjistim, zda nahodou nepouziva "jina dorucovaci adresa" nez
@@ -873,3 +874,6 @@ $(document).ready(function() {
 $.getScript("/js/redesign_2013/ceska_posta.js");
 </script>
 <?php } ?>
+
+<?php 
+	echo $this->element('sql_dump');

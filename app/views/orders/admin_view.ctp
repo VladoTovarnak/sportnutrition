@@ -143,6 +143,13 @@ foreach ( $order['OrderedProduct'] as $product ){
 			. $order['Order']['delivery_zip'] . ' ' . $order['Order']['delivery_city'] . '<br />'
 			. $order['Order']['delivery_state'] . '<br />
 			doručení: <strong>' . $order['Shipping']['name'] . '</strong>';
+			
+			if ( $order['Shipping']['id'] == BALIKOVNA_POST_SHIPPING_ID || $order['Shipping']['id'] == ON_POST_SHIPPING_ID ){
+				echo '<strong style="color:red">(' . $order['Order']['shipping_delivery_psc'] . ')</strong>';
+			}
+			if ( $order['Shipping']['id'] == HOMEDELIVERY_POST_SHIPPING_ID ){
+				echo '<strong style="color:red">(' . $order['Order']['shipping_delivery_info'] . ')</strong>';
+			}
 
 			echo '<br />číslo balíku: ' . $html->link($order['Order']['shipping_number'], $order['Shipping']['tracker_prefix'] . trim($order['Order']['shipping_number']) . $order['Shipping']['tracker_postfix']);
 			echo '<br />variabilní symbol: ' . $order['Order']['variable_symbol'];

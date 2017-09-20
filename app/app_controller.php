@@ -15,6 +15,16 @@ class AppController extends Controller {
 			die();
 		}
 		
+		$developer_hosts = array(
+			'localhost',
+			'sportnutrition',
+			'beta.sportnutrition.cz'
+		);
+		
+		if ( in_array($_SERVER['HTTP_HOST'], $developer_hosts) ){
+			define('ISDEVELOPER', true);
+		}
+		
 		Controller::disableCache();
 		
 /*		// kontrola, jestli jedeme pres spravny host name

@@ -135,7 +135,7 @@ class OrdersController extends AppController {
 					)
 				)	
 			),
-			'fields' => array('Order.id', 'Order.created', 'Order.comments', 'Order.subtotal_with_dph', 'Order.shipping_cost', 'Order.status_id', 'Order.customer_id', 'Order.customer_phone', 'Order.customer_email', 'Order.customer_name', 'Order.customer_ico', 'Order.customer_dic', 'Order.customer_street', 'Order.customer_city', 'Order.customer_zip', 'Order.customer_state', 'Order.delivery_name', 'Order.delivery_street', 'Order.delivery_city', 'Order.delivery_zip', 'Order.delivery_state', 'Order.shipping_number', 'Order.variable_symbol')
+			'fields' => array('Order.id', 'Order.created', 'Order.comments', 'Order.subtotal_with_dph', 'Order.shipping_cost', 'Order.status_id', 'Order.customer_id', 'Order.customer_phone', 'Order.customer_email', 'Order.customer_name', 'Order.customer_ico', 'Order.customer_dic', 'Order.customer_street', 'Order.customer_city', 'Order.customer_zip', 'Order.customer_state', 'Order.delivery_name', 'Order.delivery_street', 'Order.delivery_city', 'Order.delivery_zip', 'Order.delivery_state', 'Order.shipping_number', 'Order.variable_symbol', 'Order.shipping_delivery_psc', 'Order.shipping_delivery_info')
 		));
 
 		// pokud je zadano spatne id, nic se nenacte,
@@ -1335,8 +1335,6 @@ class OrdersController extends AppController {
 								unset($this->data['Address']);
 							// je zvolena doprava na postu nebo do balikovny?
 							} elseif ($shipping_id == ON_POST_SHIPPING_ID || $shipping_id == BALIKOVNA_POST_SHIPPING_ID) {
-								// zapamatuju si psc pobocky, na kterou chci poslat zasilku
-								$branch_zip = $this->data['Address'][1]['zip'];
 								$this->data['Address'][0]['name'] = $this->data['Customer']['first_name'] . ' ' . $this->data['Customer']['last_name'];
 								$this->data['Address'][1]['name'] = $this->data['Address'][0]['name'];
 								$this->data['Address'][1]['street'] = $this->data['Address'][0]['street'];
@@ -1362,14 +1360,6 @@ class OrdersController extends AppController {
 								$address_data = $this->data['Address'];
 							}
 							
-							/* mam-li doruceni DO RUKY - prehodim si do poznamky volbu zakaznika co se tyce casu dorucovani  */
-							if ($shipping_id == HOMEDELIVERY_POST_SHIPPING_ID) {
-								$this->data['Order']['comments'] .= "\n" . "má zvolený Balík do ruky - PSČ pobočky, kterou vybral: " . $this->data['Address'][0]['cpost_delivery_psc'] . "\n";
-								$this->data['Order']['comments'] .= "časové okno doručení, které vybral: " . $this->data['Address'][0]['cpost_delivery_info'];
-								unset($this->data['Address'][0]['cpost_delivery_psc']);
-								unset($this->data['Address'][0]['cpost_delivery_info']);
-							}
-	
 							$customer_data['Customer'] = $this->data['Customer'];
 							if ($address_data) {
 								$customer_data['Address'] = $address_data;
@@ -1399,10 +1389,6 @@ class OrdersController extends AppController {
 								}
 								if (isset($this->data['Address'][0])) {
 									$this->Session->write('Address_payment', $this->data['Address'][0]);
-								}
-								// pokud mam doruceni na postu, v predchozim prubehu jsem si zapamatoval jeji PSC a ted si ho musim zapsat do sesny, abych si ho pozdeji vytahl a pridal k objednavce
-								if (isset($branch_zip)) {
-									$this->Session->write('branch_zip', $branch_zip);
 								}
 								
 								$this->Session->write('Order', $this->data['Order']);
@@ -1560,7 +1546,6 @@ class OrdersController extends AppController {
 		$this->Session->delete('Address_payment');
 		$this->Session->delete('cpass');
 		$this->Session->delete('login');
-		$this->Session->delete('branch_zip');
 				
 		// nastavim si pro menu zakladni idecko
 		$this->set('opened_category_id', ROOT_CATEGORY_ID);
@@ -1706,6 +1691,11 @@ class OrdersController extends AppController {
 		$soap = new SoapClient('https://www.ppl.cz/IEGate/IEGate.asmx?WSDL');
 		$GetPackageInfoResponse = $soap->GetPackageInfo(array('PackageID' => '40990066613'));
 		debug($GetPackageInfoResponse);
+	}
+	
+	function testHost(){
+		print_r ( $_SERVER );
+		die('konec vypisu');
 	}
 } // konec tridy
 ?>

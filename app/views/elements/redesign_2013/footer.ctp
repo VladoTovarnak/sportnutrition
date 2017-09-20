@@ -59,28 +59,35 @@
   	</p>
 </div>
 
-<script type="text/javascript">
-	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-55908391-1']);
-
-<?php
-	if ($searchers = file_get_contents('js/ga-add.js')) {
-		echo $searchers;
-	}
+<?php 
+	if (!defined('ISDEVELOPER')){
 ?>
-	_gaq.push(['_setSiteSpeedSampleRate', 90]);
-	_gaq.push(['_trackPageview']);
-<?php // data do GA o objednavce na dekovaci strance
-if ($this->params['controller'] == 'orders' && $this->params['action'] == 'finished' && isset($jscript_code)) {
-	echo $jscript_code;
-} ?>
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-55908391-1']);
+		
+		<?php
+			if ($searchers = file_get_contents('js/ga-add.js')) {
+				echo $searchers;
+			}
+		?>
+			_gaq.push(['_setSiteSpeedSampleRate', 90]);
+			_gaq.push(['_trackPageview']);
+		<?php // data do GA o objednavce na dekovaci strance
+		if ($this->params['controller'] == 'orders' && $this->params['action'] == 'finished' && isset($jscript_code)) {
+			echo $jscript_code;
+		} ?>
+		
+			(function() {
+		 	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		 	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+		<a href="http://www.toplist.cz/" target="_top"><img src="http://toplist.cz/dot.asp?id=116188" alt="TOPlist" width="1" height="1"/></a>
+<?php 
+	} // !defined('ISDEVELOPER')
+?>
 
-	(function() {
- 	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
- 	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
- 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	})();
-</script>
-<a href="http://www.toplist.cz/" target="_top"><img src="http://toplist.cz/dot.asp?id=116188" alt="TOPlist" width="1" height="1"/></a>
+
 <?php echo $this->element(REDESIGN_PATH . 'nutrishop_banner')?>
-<?php echo $this->element('sql_dump')?>

@@ -108,17 +108,33 @@ foreach ($orders as $index => $order) { ?>
 			$address_info = '<br/>';
 			// fakturacni adresa
 			$delivery_address_info = '<br/>';
+			
+//			print_r ( $order );
+			
 			if ($order['Order']['shipping_id'] != PERSONAL_PURCHASE_SHIPPING_ID) { 
+				// dorucovaci a fakturacni nezobrazuju, kdyz se jedna o osobni odber
 				$address_info = 'DA: ';
-				$address_info .= $order['Order']['delivery_name'] . ', ' . $order['Order']['delivery_street'];
-				if (!empty($order['Order']['delivery_street'])) {
-					$address_info .= ', ';
+				
+				if ( $order['Order']['shipping_id'] == BALIKOVNA_POST_SHIPPING_ID || $order['Order']['shipping_id'] == ON_POST_SHIPPING_ID){
+					// pokud se jedna o balik do balikovny nebo na postu,
+					// jako dorucovaci adresu zobrazim adresu balikovny nebo posty
+					$address_info .= $order['Shipping']['name'] . " (<span style=\"color:red;\">" . $order['Order']['shipping_delivery_psc'] . "</span>)";
+				} else {
+					$address_info .= $order['Order']['delivery_name'] . ', ' . $order['Order']['delivery_street'];
+					if (!empty($order['Order']['delivery_street'])) {
+						$address_info .= ', ';
+					}
+					$address_info .= $order['Order']['delivery_zip'];
+					if ( $order['Order']['shipping_id'] == HOMEDELIVERY_POST_SHIPPING_ID){
+						// pokud se jedna o balik do ruky musim k dorucovaci adrese
+						// pridat info o tom jaky typ dorucovani byl zvolen
+						$address_info .= "(<span style=\"color:red;\">" . $order['Order']['shipping_delivery_info'] . "</span>)";
+					}
+					if (!empty($order['Order']['delivery_zip'])) {
+						$address_info .= ' ';
+					}
+					$address_info .= $order['Order']['delivery_city'];
 				}
-				$address_info .= $order['Order']['delivery_zip'];
-				if (!empty($order['Order']['delivery_zip'])) {
-					$address_info .= ' ';
-				}
-				$address_info .= $order['Order']['delivery_city'];
 				if (!empty($address_info)) {
 					$address_info .= '<br/>';
 				}
@@ -137,6 +153,8 @@ foreach ($orders as $index => $order) { ?>
 				if (!empty($address_info)) {
 					$delivery_address_info .= '<br/>';
 				}
+			
+			
 			}
 			echo $address_info;
 			echo $delivery_address_info;

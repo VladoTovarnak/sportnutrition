@@ -67,3 +67,10 @@ VALUES (now(), now(), 'BALIKOVNA_POST_SHIPPING_ID', '31');
 # vlozit spravnou value podle aktivni DB
 INSERT INTO `settings` (`created`, `modified`, `name`, `value`)
 VALUES (now(), now(), 'HOMEDELIVERY_POST_SHIPPING_ID', '2');
+
+# pridat dva sloupce do orders, ulozim si tam data o volbach
+# zakaznika pro doruceni (PSC doruceni, Casove okno doruceni)
+ALTER TABLE `orders`
+ADD `shipping_delivery_psc` varchar(5) COLLATE 'utf8_czech_ci' NULL AFTER `shipping_id`,
+ADD `shipping_delivery_info` varchar(100) COLLATE 'utf8_czech_ci' NULL AFTER `shipping_delivery_psc`,
+COMMENT='';
