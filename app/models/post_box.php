@@ -28,7 +28,7 @@ class PostBox extends AppModel {
 		));
 		$log = $this->getDataSource()->getLog(false, false);
 		
-		return $postBoxInfo['PostBox']['NAZEV'] . ', ' .  $postBoxInfo['PostBox']['ADRESA'];
+		return 'balíkomat - ' . $postBoxInfo['PostBox']['NAZEV'] . ', ' .  $postBoxInfo['PostBox']['ADRESA'];
 	}
 	
 }

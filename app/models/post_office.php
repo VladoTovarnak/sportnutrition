@@ -27,7 +27,7 @@ class PostOffice extends AppModel {
 			)
 		));
 		
-		return 'Pošta: ' . $postOfficeInfo['PostOffice']['NAZ_PROV'] . ', ' .  $postOfficeInfo['PostOffice']['ADRESA'];
+		return 'pošta - ' . $postOfficeInfo['PostOffice']['NAZ_PROV'] . ', ' .  $postOfficeInfo['PostOffice']['ADRESA'];
 	}
 	
 }
