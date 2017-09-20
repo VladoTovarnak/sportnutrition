@@ -475,9 +475,11 @@ class Order extends AppModel {
 			$order['Order']['customer_name'] = $customer['Customer']['first_name'] . ' ' . $customer['Customer']['last_name'];
 		}
 		// doplnim data o dorucovaci adrese
-		// jestli mam v sesne PSC pobocky posty (dorucovatele), kam poslat zasilku, pouziju to a zahodim dorucovaci adresu
+		// @TODO - pokud dorucuju do pobocky (posta, balikovna)
+		// rozhodnout, zda kopirovat tuto info do dorucovaci adresy,
+		// nebo to vynechat ( je to v datech o objednavce, zbytecne se to zdvoji )
 		if ($this->Session->check('branch_zip')) {
-			$order['Order']['delivery_zip'] = $this->Session->read('branch_zip');
+			// $order['Order']['delivery_zip'] = $this->Session->read('branch_zip');
 		} elseif (isset($customer['Address'][0]['name']) && isset($customer['Address'][0]['street']) && isset($customer['Address'][0]['street_no']) && isset($customer['Address'][0]['city']) && isset($customer['Address'][0]['zip']) && isset($customer['Address'][0]['state'])) {
 			$order['Order']['delivery_name'] = $customer['Address'][0]['name'];		
 			$order['Order']['delivery_street'] = $customer['Address'][0]['street'] . ' ' . $customer['Address'][0]['street_no'];
@@ -645,7 +647,6 @@ class Order extends AppModel {
 			$mail_c->AddReplyTo(CUST_MAIL, CUST_NAME);
 	
 			$mail_c->AddAddress($customer['email'], $customer['first_name'] . ' ' . $customer['last_name']);
-			//$mail_c->AddBCC('brko11@gmail.com');
 			$mail_c->Subject = 'POTVRZENÍ OBJEDNÁVKY (č. ' . $this->id . ')';
 
 			$customer_mail = 'Vážený(á) ' . $customer['first_name'] . ' ' . $customer['last_name'] . "\n\n";
@@ -711,6 +712,12 @@ class Order extends AppModel {
 		App::import('Model', 'Setting');
 		$this->Setting = &new Setting;
 		
+		App::import('Model', 'PostBox');
+		$this->PostBox = new PostBox;
+		
+		App::import('Model', 'PostOffice');
+		$this->PostOffice = new PostOffice;
+		
 		$order = $this->find('first', array(
 			'conditions' => array('Order.id' => $id),
 			'contain' => array(
@@ -743,6 +750,13 @@ class Order extends AppModel {
 		$customer_delivery_address = '&nbsp;';
 		if ($order['Order']['shipping_id'] != PERSONAL_PURCHASE_SHIPPING_ID) {
 			$customer_invoice_address = 'Fakturační adresa: ' . $order['Order']['customer_street'] . ', ' . $order['Order']['customer_zip'] . ' ' . $order['Order']['customer_city'] . ' ' . $order['Order']['delivery_state'];
+
+			if ( $order['Shipping']['id'] == BALIKOVNA_POST_SHIPPING_ID  ){
+				$customer_delivery_address = 'Dodací adresa: ' . $this->PostBox->delivery_address($order['Order']['shipping_delivery_psc']);
+			} elseif ( $order['Shipping']['id'] == ON_POST_SHIPPING_ID){
+				$customer_delivery_address = 'Dodací adresa: ' . $this->PostOffice->delivery_address($order['Order']['shipping_delivery_psc']);
+			}
+			
 			$customer_delivery_address = 'Dodací adresa: ' . $order['Order']['delivery_name'] . ', ' . $order['Order']['delivery_street'] . ', ' . $order['Order']['delivery_zip'] . ' ' . $order['Order']['delivery_city'] . ', ' . $order['Order']['delivery_state'];
 		}
 		

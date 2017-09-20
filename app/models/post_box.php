@@ -19,4 +19,15 @@ class PostBox extends AppModel {
 		else
 			return mysql_real_escape_string($value);
 	}
+	
+	function delivery_address($psc){
+		$postBoxInfo = $this->find('first', array(
+			'conditions' => array(
+				'PSC' => $psc
+			)
+		));
+		
+		return $postBoxInfo['PostBox']['NAZEV'] . ', ' .  $postBoxInfo['PostBox']['ADRESA'];
+	}
+	
 }

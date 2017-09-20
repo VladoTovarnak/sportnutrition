@@ -114,8 +114,8 @@ $(document).ready(function(){
 									$('#Address1Zip').val(psc); // nastavim PSC2, odsud validuju data
 								}
 									
-								$("#Address0CpostDeliveryPsc").val(psc); // nastavim delivery PSC - kvuli kontrole integrity
-								$("#Address0CpostDeliveryInfo").val('A'); // nastavim delivery na A - default hodnota, pokud nemaji dorucovaci okna
+								$("#OrderShippingDeliveryPsc").val(psc); // nastavim delivery PSC - kvuli kontrole integrity
+								$("#OrderShippingDeliveryInfo").val('A'); // nastavim delivery na A - default hodnota, pokud nemaji dorucovaci okna
 								$("#PostDeliveryChoiceLink").html("běžný režim doručení"); // odstranim vyzvu k volbe casu, at to nelaka
 								$('html, body').animate({ 
 								    scrollTop: ($('#PaymentInfo').first().offset().top)
@@ -141,8 +141,8 @@ $(document).ready(function(){
 									$('#Address1Zip').val(psc); // nastavim PSC2, odsud validuju data
 								}
 								
-								$("#Address0CpostDeliveryPsc").val(psc); // nastavim delivery PSC - kvuli kontrole integrity
-								$("#Address0CpostDeliveryInfo").val(
+								$("#OrderShippingDeliveryPsc").val(psc); // nastavim delivery PSC
+								$("#OrderShippingDeliveryInfo").val(
 									$(this).attr("id")
 								); // nastavim delivery na to co zvolil
 								

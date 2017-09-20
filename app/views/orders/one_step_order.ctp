@@ -303,8 +303,6 @@ if ($this->Session->check('Message.flash')) {
 			<th>PSČ<sup>*</sup></th>
 			<td>
 				<?php echo $this->Form->input('Address.0.zip', array('label' => false))?>
-				<?php echo $this->Form->hidden('Address.0.cpost_delivery_info', array('label' => false, 'value' => ''))?>
-				<?php echo $this->Form->hidden('Address.0.cpost_delivery_psc', array('label' => false, 'value' => ''))?>
 			</td>
 		</tr>
 		<tr>
@@ -363,6 +361,9 @@ if ($this->Session->check('Message.flash')) {
 	echo $this->Form->hidden('Address.1.type', array('value' => (isset($customer['Address'][0]['type']) ? $customer['Address'][0]['type'] : 'd')));
 	
 	echo $this->Form->hidden('Order.action', array('value' => 'order_finish'));
+	echo $this->Form->hidden('Order.shipping_delivery_info', array('value' => ''));
+	echo $this->Form->hidden('Order.shipping_delivery_psc', array('value' => ''));
+	
 
 	echo $this->Form->submit('ODESLAT OBJEDNÁVKU', array('class' => 'finish_order_button', 'onclick' => "fbq('track', 'AddPaymentInfo');"));
 	echo $this->Form->end();
