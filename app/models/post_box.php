@@ -26,6 +26,7 @@ class PostBox extends AppModel {
 				'PSC' => $psc
 			)
 		));
+		$log = $this->getDataSource()->getLog(false, false);
 		
 		return $postBoxInfo['PostBox']['NAZEV'] . ', ' .  $postBoxInfo['PostBox']['ADRESA'];
 	}
