@@ -666,7 +666,7 @@ class Order extends AppModel {
 	
 	function notifyAdmin($id = null) {
 		App::import('Model', 'Setting');
-		$this->Setting = &new Setting;
+		$this->Setting = new Setting;
 		
 		if (isset($id) && (!isset($this->id) || (isset($this->id) && empty($this->id)))) {
 			$this->id = $id;
@@ -691,7 +691,6 @@ class Order extends AppModel {
 
 		$mail->AddAddress($this->Setting->findValue('CUST_MAIL'), $this->Setting->findValue('CUST_NAME'));
 //		$mail->AddAddress("vlado.tovarnak@gmail.com", "Vlado Tovarnak");
-		$mail->AddAddress('brko11@gmail.com', 'Martin Polák');
 
 		$mail->Subject = 'E-SHOP OBJEDNÁVKA (č. ' . $this->id . ')';
 		$mail->Body = 'Právě byla přijata nová objednávka pod číslem ' . $this->id . '.' . "\n";
@@ -703,7 +702,7 @@ class Order extends AppModel {
 
 		if (!$mail->Send()) {
 			App::import('Model', 'Tool');
-			$this->Tool = &new Tool;
+			$this->Tool = new Tool;
 			$this->Tool->log_notification($this->id, 'admin');
 		}
 	}
