@@ -764,9 +764,6 @@ class Order extends AppModel {
 			}
 		}
 		
-		print_r ($customer_delivery_address);
-		die();
-		
 		// hlavicka emailu s identifikaci dodavatele a odberatele
 		$customer_mail = '<h1>Objednávka č. ' . $id . '</h1>' . "\n";
 		$customer_mail .= '<table style="width:100%">' . "\n";
