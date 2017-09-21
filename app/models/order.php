@@ -790,7 +790,7 @@ class Order extends AppModel {
 		
 		if ( $order['Order']['shipping_id'] == HOMEDELIVERY_POST_SHIPPING_ID ){
 			// pokud je doruceni do ruky, doplnim jeste info o doruceni
-			$customer_delivery_address .= " " . $this->PostOffice->delivery_time($order['Order']['shipping_delivery_psc'], $order['Order']['shipping_delivery_info']);
+			$customer_mail .= " " . $this->PostOffice->delivery_time($order['Order']['shipping_delivery_psc'], $order['Order']['shipping_delivery_info']);
 		}
 		
 		$customer_mail .= '<td>' . round($order['Order']['shipping_cost']) . '&nbsp;Kč</td><td>' . round($order['Order']['shipping_cost']) . '&nbsp;Kč</td></tr>' . "\n";
