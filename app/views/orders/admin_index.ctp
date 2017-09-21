@@ -294,7 +294,7 @@ foreach ($orders as $index => $order) { ?>
 			delivery_text = '';
 
 			// natahnout data o PSC
-			(function (spanObjectId){
+			(function (spanObjectId, choice){
 				$.ajax({
 					type: 'GET',
 					url: '/post_offices/delivery_search/' + psc,
@@ -308,7 +308,7 @@ foreach ($orders as $index => $order) { ?>
 							// mam pasma vetvim na A a B
 							if ( choice == 'A' ){
 								delivery_text = "dopolední doručení: " + data.casDopoledniPochuzky;
-							} else if ( choice == 'B' ){
+							} else {
 								delivery_text = "odpolední doručení: " + data.casOdpoledniPochuzky;
 							}
 						}
@@ -320,7 +320,7 @@ foreach ($orders as $index => $order) { ?>
 					complete: function(jqXHR, textStatus) {
 					}
 				});
-			})(spanObjectId);
+			})(spanObjectId, choice);
 		});
 	});
 </script>
