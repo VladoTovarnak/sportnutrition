@@ -149,6 +149,7 @@ foreach ( $order['OrderedProduct'] as $product ){
 			}
 			if ( $order['Shipping']['id'] == HOMEDELIVERY_POST_SHIPPING_ID ){
 				echo '<strong style="color:red">(' . $order['Order']['shipping_delivery_info'] . ')</strong>';
+				echo '<br><span style="color:red" id="deliveryInfo"></span>';
 			}
 
 			echo '<br />číslo balíku: ' . $html->link($order['Order']['shipping_number'], $order['Shipping']['tracker_prefix'] . trim($order['Order']['shipping_number']) . $order['Shipping']['tracker_postfix']);
@@ -157,3 +158,34 @@ foreach ( $order['OrderedProduct'] as $product ){
 	</td>
 </tr>
 </table>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+			type: 'GET',
+			url: '/post_offices/delivery_search/<?php echo $order['Order']['shipping_delivery_psc']?>',
+			dataType: 'json',
+			data: {
+			},
+			success: function(data) {
+				choice = "<?php echo $order['Order']['shipping_delivery_info']?>";
+				data = data[0];
+				delivery_text = "běžný režim doručení";					
+				if ( data.casovaPasma == 'ANO' ){
+					// mam pasma vetvim na A a B
+					if ( choice == 'A' ){
+						delivery_text = "dopolední doručení: " + data.casDopoledniPochuzky;
+					} else if ( choice == 'B' ){
+						delivery_text = "odpolední doručení: " + data.casOdpoledniPochuzky;
+					}
+				}
+				$("#deliveryInfo").text(delivery_text);
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				alert("Nefunguje spojeni s postou. /views/orders/admin_view.ctp TS:" + textStatus + " ET:" + errorThrown);
+			},
+			complete: function(jqXHR, textStatus) {
+			}
+		});
+	});
+</script>

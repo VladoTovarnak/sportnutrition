@@ -64,6 +64,7 @@ class OrdersController extends AppController {
 		unset($this->Order->virtualFields['date']);
 
 		foreach ($orders as &$order) {
+			// spocitam si kolik objednavek ma zakaznik celkem 
 			$order['Customer']['orders_count'] = $this->Order->Customer->orders_count($order['Customer']['id']);
 			foreach ($order['OrderedProduct'] as &$ordered_product) {
 				if ((!isset($ordered_product['product_name']) || (empty($ordered_product['product_name']))) && isset($ordered_product['Product']['name'])) {
