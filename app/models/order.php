@@ -786,14 +786,14 @@ class Order extends AppModel {
 			
 			$customer_mail .= '<tr><td>' . $ordered_product['product_quantity'] . '</td><td><a href="http://www.' . $this->Setting->findValue('CUST_ROOT') . '/' . $ordered_product['Product']['url'] . '">' . $ordered_product['product_name'] . '</a>' . (!empty($attributes) ? ', ' . $attributes : '') . '</td><td>' . round($ordered_product['product_price_with_dph']) . '&nbsp;Kč</td><td>' . ($ordered_product['product_quantity'] * round($ordered_product['product_price_with_dph'])) . '&nbsp;Kč</td></tr>' . "\n";
 		}
-		$customer_mail .= '<tr><td>1</td><td>' . $order['Shipping']['name'] . '</td>';
+		$customer_mail .= '<tr><td>1</td><td>' . $order['Shipping']['name'];
 		
 		if ( $order['Order']['shipping_id'] == HOMEDELIVERY_POST_SHIPPING_ID ){
 			// pokud je doruceni do ruky, doplnim jeste info o doruceni
 			$customer_mail .= " " . $this->PostOffice->delivery_time($order['Order']['shipping_delivery_psc'], $order['Order']['shipping_delivery_info']);
 		}
 		
-		$customer_mail .= '<td>' . round($order['Order']['shipping_cost']) . '&nbsp;Kč</td><td>' . round($order['Order']['shipping_cost']) . '&nbsp;Kč</td></tr>' . "\n";
+		$customer_mail .= '</td><td>' . round($order['Order']['shipping_cost']) . '&nbsp;Kč</td><td>' . round($order['Order']['shipping_cost']) . '&nbsp;Kč</td></tr>' . "\n";
 		$customer_mail .= '<tr><td>1</td><td>' . $order['Payment']['name'] . '</td><td>0&nbsp;Kč</td><td>0&nbsp;Kč</td></tr>' . "\n";
 		$customer_mail .= '</table>' . "\n";
 		
