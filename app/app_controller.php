@@ -21,7 +21,7 @@ class AppController extends Controller {
 			'beta.sportnutrition.cz'
 		);
 		
-		if ( in_array($_SERVER['HTTP_HOST'], $developer_hosts) ){
+		if ( !defined('ISDEVELOPER') && in_array($_SERVER['HTTP_HOST'], $developer_hosts) ){
 			define('ISDEVELOPER', true);
 		}
 		
@@ -36,7 +36,7 @@ class AppController extends Controller {
 	
 		// presmerovani puvodnich adres sportnutrition na nase
 		App::import('Model', 'Tool');
-		$this->Tool = &new Tool;
+		$this->Tool = new Tool;
 		if ($redirect_url = $this->Tool->redirect_old_sn()) {
 			$query_string = $_SERVER['QUERY_STRING'];
 			$pattern = '/^url=[^&]*&/U';

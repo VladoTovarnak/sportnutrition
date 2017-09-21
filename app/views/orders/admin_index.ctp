@@ -109,8 +109,6 @@ foreach ($orders as $index => $order) { ?>
 			// fakturacni adresa
 			$delivery_address_info = '<br/>';
 			
-//			print_r ( $order );
-			
 			if ($order['Order']['shipping_id'] != PERSONAL_PURCHASE_SHIPPING_ID) { 
 				// dorucovaci a fakturacni nezobrazuju, kdyz se jedna o osobni odber
 				$address_info = 'DA: ';
@@ -125,15 +123,19 @@ foreach ($orders as $index => $order) { ?>
 						$address_info .= ', ';
 					}
 					$address_info .= $order['Order']['delivery_zip'];
-					if ( $order['Order']['shipping_id'] == HOMEDELIVERY_POST_SHIPPING_ID){
-						// pokud se jedna o balik do ruky musim k dorucovaci adrese
-						// pridat info o tom jaky typ dorucovani byl zvolen
-						$address_info .= "(<span style=\"color:red;\">" . $order['Order']['shipping_delivery_info'] . "</span>)";
-					}
+
 					if (!empty($order['Order']['delivery_zip'])) {
 						$address_info .= ' ';
 					}
 					$address_info .= $order['Order']['delivery_city'];
+					
+					if ( $order['Order']['shipping_id'] == HOMEDELIVERY_POST_SHIPPING_ID){
+						// pokud se jedna o balik do ruky musim k dorucovaci adrese
+						// pridat info o tom jaky typ dorucovani byl zvolen
+						$address_info .= "(<span style=\"color:red;\">" . $order['Order']['shipping_delivery_info'] . "</span>)";
+						$address_info .= "<br><span style=\"color:red\" class=\"delivery_time_holder\" id=\"DTH-" . $order['Order']['shipping_delivery_psc'] . "-" . $order['Order']['shipping_delivery_info']. "-" . $order['Order']['id']. "\"></span>";
+					}
+					
 				}
 				if (!empty($address_info)) {
 					$address_info .= '<br/>';
@@ -279,3 +281,46 @@ foreach ($orders as $index => $order) { ?>
 <?php echo $this->Form->hidden('backtrace_url', array('value' => $_SERVER['REQUEST_URI']))?>
 <?php echo $this->Form->submit('Fakturovat (účetní systém Pohoda)')?>
 <?php echo $this->Form->end()?>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".delivery_time_holder").each(function(){
+			// zjistit PSC
+			spanObjectId = $(this).attr("id");
+			psc = spanObjectId;
+			psc = psc.split("-");
+			choice = psc[2];
+			psc = psc[1];
+			delivery_text = '';
+
+			// natahnout data o PSC
+			(function (spanObjectId){
+				$.ajax({
+					type: 'GET',
+					url: '/post_offices/delivery_search/' + psc,
+					dataType: 'json',
+					data: {
+					},
+					success: function(data) {
+						data = data[0];
+						delivery_text = "běžný režim doručení";					
+						if ( data.casovaPasma == 'ANO' ){
+							// mam pasma vetvim na A a B
+							if ( choice == 'A' ){
+								delivery_text = "dopolední doručení: " + data.casDopoledniPochuzky;
+							} else if ( choice == 'B' ){
+								delivery_text = "odpolední doručení: " + data.casOdpoledniPochuzky;
+							}
+						}
+						$("#" + spanObjectId).text(delivery_text);
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						alert("Nefunguje spojeni s postou. /views/orders/admin_index.ctp TS:" + textStatus + " ET:" + errorThrown);
+					},
+					complete: function(jqXHR, textStatus) {
+					}
+				});
+			})(spanObjectId);
+		});
+	});
+</script>
