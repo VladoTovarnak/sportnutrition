@@ -658,7 +658,7 @@ class Order extends AppModel {
 			$mail_c->Body = $customer_mail;
 			if (!$mail_c->Send()) {
 				App::import('Model', 'Tool');
-				$this->Tool = &new Tool;
+				$this->Tool = new Tool;
 				$this->Tool->log_notification($this->id, 'customer');
 			}
 		}
@@ -710,7 +710,7 @@ class Order extends AppModel {
 	
 	function order_mail($id) {
 		App::import('Model', 'Setting');
-		$this->Setting = &new Setting;
+		$this->Setting = new Setting;
 		
 		App::import('Model', 'PostBox');
 		$this->PostBox = new PostBox;
@@ -758,7 +758,15 @@ class Order extends AppModel {
 			} else {
 				$customer_delivery_address = 'Dodací adresa: ' . $order['Order']['delivery_name'] . ', ' . $order['Order']['delivery_street'] . ', ' . $order['Order']['delivery_zip'] . ' ' . $order['Order']['delivery_city'] . ', ' . $order['Order']['delivery_state'];
 			}
+			
+			if ( $order['Order']['shipping_id'] == HOMEDELIVERY_POST_SHIPPING_ID ){
+				// pokud je doruceni do ruky, doplnim jeste info o doruceni
+				$customer_delivery_address .= "<br>" . $this->PostOffice->delivery_time($order['Order']['shipping_delivery_psc'], $order['Order']['shipping_delivery_info']);
+			}
 		}
+		
+		print_r ($customer_delivery_address);
+		die();
 		
 		// hlavicka emailu s identifikaci dodavatele a odberatele
 		$customer_mail = '<h1>Objednávka č. ' . $id . '</h1>' . "\n";
