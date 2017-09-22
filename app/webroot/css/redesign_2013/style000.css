@@ -453,7 +453,6 @@ form div.pair button {
     float: right;
     margin: 0px 0px 5px 0px;
     width: 156px;
-    line-height: 12px;
 }
 #main div.product.card.small h3 {
     margin: 0;
@@ -470,7 +469,10 @@ form div.pair button {
 #main div.product.card h3 a {
     color: #2F2F2F;
     text-decoration: none;
-    font-size: 14px; font-weight: bold;
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    line-height: 14px;
 }
 #main div.product.card p {
     font-size: 14px;
