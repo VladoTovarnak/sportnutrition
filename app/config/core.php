@@ -40,10 +40,25 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-	$admin_ids = array('127.0.0.1', '85.237.234.7', '::1');
+	$developer_hosts = array(
+		'localhost',
+		'sportnutrition',
+		'beta.sportnutrition.cz'
+	);
+	
+	$admin_ids = array(
+		'127.0.0.1',
+		'94.112.149.133',
+		'::1'
+	);
+	
+	if ( !defined('ISDEVELOPER') && ( in_array($_SERVER['HTTP_HOST'], $developer_hosts) || in_array($_SERVER['REMOTE_ADDR'], $admin_ids) ) ){
+		define('ISDEVELOPER', true);
+	}
+
 	Configure::write('debug', 0);
 	if (in_array($_SERVER['REMOTE_ADDR'], $admin_ids)) {
-		Configure::write('debug', 0);
+		Configure::write('debug', 2);
 	}
 
 /**
