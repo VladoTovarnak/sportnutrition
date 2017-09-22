@@ -58,7 +58,6 @@
 
 	Configure::write('debug', 0);
 	if (in_array($_SERVER['REMOTE_ADDR'], $admin_ids)) {
-
 		Configure::write('debug', 2);
 	}
 
