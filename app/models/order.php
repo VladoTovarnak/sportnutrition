@@ -1334,5 +1334,38 @@ class Order extends AppModel {
 		
 		return array($shipping, $payment, $orderedProducts);
 	}
+	
+	function notify_order_error($customer, $sCustomer){
+		$encoding = "utf-8";
+		
+		$from_name = 'obchod SNV - notifikátor';
+		$from_mail = 'noreply@sportnutrition.cz';
+		$mail_subject = 'chyba v ukládání objednávky - nulové ID zákazníka';
+		$mail_message = 'Výpis proměnných: ' . "\r\n";
+		$mail_message .= 'customer: ' . "\r\n";
+		$mail_message .= serialize($customer) . "\r\n";
+		$mail_message .= 'sessionCustomer: ' . "\r\n";
+		$mail_message .= serialize($sCustomer) . "\r\n";
+		
+		
+		$subject_preferences = array(
+				"input-charset" => $encoding,
+				"output-charset" => $encoding,
+				"line-length" => 76,
+				"line-break-chars" => "\r\n"
+		);
+		
+		// Mail header
+		$header = "Content-type: text/html; charset=".$encoding." \r\n";
+		$header .= "From: ".$from_name." <".$from_mail."> \r\n";
+		$header .= "MIME-Version: 1.0 \r\n";
+		$header .= "Content-Transfer-Encoding: 8bit \r\n";
+		$header .= "Date: ".date("r (T)")." \r\n";
+		$header .= iconv_mime_encode("Subject", $mail_subject, $subject_preferences);
+		
+		// Send mail
+		mail($mail_to, $mail_subject, $mail_message, $header);
+	}
+	
 } // konec tridy
 ?>

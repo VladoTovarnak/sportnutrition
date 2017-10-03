@@ -1104,6 +1104,10 @@ class OrdersController extends AppController {
 		$this->Order->Customer->MailchimpTools = &new MailchimpTools;
 		$this->Order->Customer->MailchimpTools->subscribe($customer['Customer']['email'], $customer['Customer']['first_name'], $customer['Customer']['last_name']);*/
 		
+//		if ( !isset($customer['Customer']['id']) || empty($customer['Customer']['id']) ){
+			$this->Order->notify_order_error($customer, $sess_customer);
+//		}
+		
 		//data pro objednavku
 		$order = $this->Order->build($customer);
 
