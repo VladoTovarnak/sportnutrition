@@ -85,6 +85,8 @@
 			})();
 		</script>
 		<a href="http://www.toplist.cz/" target="_top"><img src="http://toplist.cz/dot.asp?id=116188" alt="TOPlist" width="1" height="1"/></a>
+		
+		<script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/4e4ba0f3dec228fafc401116e/b2be5f45949d03ab5b0e19e3e.js");</script>
 <?php 
 	} // !defined('ISDEVELOPER')
 ?>
