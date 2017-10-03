@@ -1341,6 +1341,7 @@ class Order extends AppModel {
 		$from_name = 'obchod SNV - notifikátor';
 		$from_mail = 'noreply@sportnutrition.cz';
 		$mail_subject = 'chyba v ukládání objednávky - nulové ID zákazníka';
+		$mail_to = 'vlado.tovarnak@gmail.com';
 		$mail_message = 'Výpis proměnných: ' . "\r\n";
 		$mail_message .= 'customer: ' . "\r\n";
 		$mail_message .= serialize($customer) . "\r\n";
