@@ -98,7 +98,8 @@ $(document).ready(function(){
 					if (data.casovaPasma) {
 						if ( data.casovaPasma == 'NE' ){
 							// nemam data o pochuzkach
-							$(".delivery-holder").html("Na vaší adrese Česká pošta nenabízí možnost vybrat termín doručení." +
+							$(".delivery-holder").html("Ve vámi zadané lokalitě není poskytována služba časová pásma,<br>" +
+									"zásilka Vám bude doručena v pracovní den mezi 8-16 hodinou." + 
 									"<br><a id=\"closeFancy\" style=\"color:red\" href=\"#\"><strong>Kliknutím pokračujte</strong> k výběru zbůsobu platby.&nbsp;&raquo;</a>");
 							$(".delivery-holder").addClass("red_alert");
 							$(".delivery-holder").show();
