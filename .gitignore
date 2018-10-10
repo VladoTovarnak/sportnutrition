@@ -12,3 +12,4 @@ app/tmp/
 /app/webroot/images/redesign_2013/icons/Thumbs.db
 /node_modules
 /app/config/database.php
+.idea/

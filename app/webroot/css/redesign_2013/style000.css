@@ -1,5 +1,4 @@
 body, html {
-    background: #EEEEEE;
     text-align: center;
     padding: 0; margin: 0;
     font-family: Calibri, sans-serif;
@@ -1623,4 +1622,12 @@ body.loading .modal {
 
 table.content-table td {
 	padding: 15px 10px;
+}
+
+/*
+2018 resets
+ */
+
+#sidebar img.award  {
+    max-width: 193px;
 }
