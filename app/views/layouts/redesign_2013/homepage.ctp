@@ -46,10 +46,10 @@
 ?>
 <script type="text/javascript">
 	function initialize() {
-		var point = new google.maps.LatLng(49.5699293, 17.2946395);
+		var point = new google.maps.LatLng(49.569130, 17.302750);
 		var mapOptions = {
 				zoom: 15,
-				center: new google.maps.LatLng(49.5699293, 17.2946395),
+				center: new google.maps.LatLng(49.569130, 17.302750),
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 	
