@@ -46,10 +46,10 @@
 ?>
 <script type="text/javascript">
 	function initialize() {
-		var point = new google.maps.LatLng(49.580042, 17.289001)
+		var point = new google.maps.LatLng(49.5691291, 17.3005511);
 		var mapOptions = {
 				zoom: 14,
-				center: new google.maps.LatLng(49.580042, 17.289001),
+				center: new google.maps.LatLng(49.5691291, 17.3005511),
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 	
@@ -59,8 +59,16 @@
 		var marker = new google.maps.Marker({
 				position: point,
 				map: map,
-				title: 'SportNutrition Vávra'
+				title: 'SNV Vávra s.r.o.'
 		});
+
+		// toggle infowindow by clicking on marker
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map,marker);
+        });
+
+        // open infowindow by default
+        infowindow.open(map,marker);
 	}
 	
 	function loadScript() {
