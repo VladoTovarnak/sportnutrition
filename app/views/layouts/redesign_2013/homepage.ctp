@@ -48,8 +48,8 @@
 	function initialize() {
 		var point = new google.maps.LatLng(49.5691291, 17.3005511);
 		var mapOptions = {
-				zoom: 14,
-				center: new google.maps.LatLng(49.5691291, 17.3005511),
+				zoom: 15,
+				center: new google.maps.LatLng(49.5699292, 17.3012055),
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 	
@@ -58,9 +58,10 @@
 
 		// Define content of infowindow
         var contentInfoWindow =
+            '<strong>SNV Vávra s.r.o.</strong><br/>' +
             'Týnecká 826/55, Holice,<br/>' +
             '779 00 Olomouc<br/>' +
-            '(Budova Husqvarny 1. patro, vchod ze zadu)';
+            '(Budova Husqvarny 1. patro, vchod zezadu)';
 
         // Define infowindow and assign the content
         var infowindow = new google.maps.InfoWindow({
