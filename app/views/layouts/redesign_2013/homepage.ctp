@@ -55,7 +55,19 @@
 	
 		var map = new google.maps.Map(document.getElementById('map'),
 		mapOptions);
-	
+
+		// Define content of infowindow
+        var contentInfoWindow =
+            'Týnecká 826/55, Holice,<br/>' +
+            '779 00 Olomouc<br/>' +
+            '(Budova Husqvarny 1. patro, vchod ze zadu)';
+
+        // Define infowindow and assign the content
+        var infowindow = new google.maps.InfoWindow({
+            content: contentInfoWindow
+        });
+
+        // Define marker on the map
 		var marker = new google.maps.Marker({
 				position: point,
 				map: map,
