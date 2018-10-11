@@ -49,7 +49,7 @@
 		var point = new google.maps.LatLng(49.5691291, 17.3005511);
 		var mapOptions = {
 				zoom: 15,
-				center: new google.maps.LatLng(49.5699292, 17.3012055),
+				center: new google.maps.LatLng(49.5691291, 17.3005511),
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 	
