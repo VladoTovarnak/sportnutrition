@@ -106,7 +106,7 @@
 
 		<div class="left">
 			<h2><span>Kde nás najdete</span></h2>
-			<div id="map" style="width:585px;height:300px"></div>
+			<div id="map" style="width:585px;height:375px"></div>
 		</div>
 		<div class="right open">
 			<h2><span>Otevírací doba prodejny v Olomouci</span></h2>
