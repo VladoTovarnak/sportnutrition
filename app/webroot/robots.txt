@@ -1,1 +1,1 @@
-Sitemap: http://www.sportnutrition.cz/sitemap.xml
+Sitemap: https://www.sportnutrition.cz/sitemap.xml
