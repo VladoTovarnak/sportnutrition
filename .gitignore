@@ -13,3 +13,8 @@ app/tmp/
 /node_modules
 /app/config/database.php
 .idea/
+#ignore product images
+/app/webroot/product-images-new
+
+#ignore mailchimp api
+/app/vendors/mailchimp/api_key.php
