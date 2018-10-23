@@ -13,3 +13,11 @@ app/tmp/
 /node_modules
 /app/config/database.php
 .idea/
+#ignore product images
+/app/webroot/product-images-new
+
+#ignore banners on HP
+/app/webroot/images/hp-banner
+
+#ignore mailchimp api
+/app/vendors/mailchimp/api_key.php

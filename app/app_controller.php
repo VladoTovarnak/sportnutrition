@@ -9,7 +9,7 @@ class AppController extends Controller {
 
 	// beforeFilter se provede pri uplne kazde akci, ktera se vykona
 	function beforeFilter() {
-		if ($_SERVER['HTTP_HOST'] != 'www.sportnutrition.cz' && $_SERVER['HTTP_HOST'] != 'localhost' && $_SERVER['HTTP_HOST'] != 'sportnutrition' && $_SERVER['HTTP_HOST'] != 'beta.sportnutrition.cz') {
+		if ($_SERVER['HTTP_HOST'] != 'www.sportnutrition.cz' && $_SERVER['HTTP_HOST'] != 'localhost' && $_SERVER['HTTP_HOST'] != 'sportnutrition.test' && $_SERVER['HTTP_HOST'] != 'sportnutrition' && $_SERVER['HTTP_HOST'] != 'beta.sportnutrition.cz') {
 			header("HTTP/1.0 410 Gone");
 			echo "The requested page has been removed.";
 			die();
