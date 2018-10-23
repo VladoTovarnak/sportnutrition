@@ -33,7 +33,7 @@
 	<div id="main">
 		<?php echo $this->element(REDESIGN_PATH . 'breadcrumbs'); ?>
 		<?php echo $this->element(REDESIGN_PATH . 'category_banner')?>
-		<h2 class="product_name"><a href="/<?php echo $product['Product']['url']?>"><?php echo $product['Product']['heading']?></a></h2>
+		<h1 class="product_name"><a href="/<?php echo $product['Product']['url']?>"><?php echo $product['Product']['heading']?></a></h1>
 		<div class="left">
 			<?php 
 				if ($session->check('Message.flash')){

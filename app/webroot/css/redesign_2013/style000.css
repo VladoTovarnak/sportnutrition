@@ -625,7 +625,7 @@ p.register_note{
 	line-height: 35px;
 }
 
-#main h2.product_name {
+#main h1.product_name, #main h2.product_name {
     border: none;
     height: auto;
     font-size:26px;
@@ -633,7 +633,13 @@ p.register_note{
 	border-bottom: 1px solid silver;
 }
 
-#main h2.product_name a{
+#main h1.product_name a, #main h2.product_name a{
+    text-decoration: none;
+    color: #373B3D;
+    font-weight: normal;
+}
+
+#main h1 a{
     text-decoration: none;
     color: #373B3D;
 }
