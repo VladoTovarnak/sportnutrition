@@ -11,7 +11,7 @@
 				<?php } ?>
 			</div>
 		</div>
-
+        <h1><a title="Sportovní výživa a doplňky stravy pro sportovce - SNV Vávra" href="/">Sportovní výživa a doplňky stravy pro sportovce - SNV Vávra</a></h1>
 		<h2><span>Doporučujeme</span></h2>
 		<?php foreach ($hp_recommended as $suggested_product) {?>
 		<div class="product card">
