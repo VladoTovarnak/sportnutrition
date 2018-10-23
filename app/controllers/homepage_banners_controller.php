@@ -83,7 +83,7 @@ class HomepageBannersController extends AppController {
 					break;
 				case 'change_url':
 					if (!preg_match('/^http:\/\/www\.sportnutrition\.cz/', $this->data['HomepageBanner']['url'])) {
-						$this->data['HomepageBanner']['url'] = 'http://www.sportnutrition.cz' . $this->data['HomepageBanner']['url'];
+						$this->data['HomepageBanner']['url'] = 'https://www.sportnutrition.cz' . $this->data['HomepageBanner']['url'];
 					}
 					if ($this->HomepageBanner->save($this->data)) {
 						$this->Session->setFlash('URL byla upravena', REDESIGN_PATH . 'flash_success');
