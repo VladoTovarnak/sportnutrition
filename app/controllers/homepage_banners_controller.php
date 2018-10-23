@@ -82,7 +82,7 @@ class HomepageBannersController extends AppController {
 					$this->redirect(array('controller' => 'homepage_banners', 'action' => 'index'));
 					break;
 				case 'change_url':
-					if (!preg_match('/^http:\/\/www\.sportnutrition\.cz/', $this->data['HomepageBanner']['url'])) {
+					if (!preg_match('/^https:\/\/www\.sportnutrition\.cz/', $this->data['HomepageBanner']['url'])) {
 						$this->data['HomepageBanner']['url'] = 'https://www.sportnutrition.cz' . $this->data['HomepageBanner']['url'];
 					}
 					if ($this->HomepageBanner->save($this->data)) {
