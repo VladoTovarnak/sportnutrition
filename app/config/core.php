@@ -43,7 +43,8 @@
 	$developer_hosts = array(
 		'localhost',
 		'sportnutrition',
-		'beta.sportnutrition.cz'
+		'beta.sportnutrition.cz',
+		'sportnutrition.test'
 	);
 	
 	$admin_ids = array(
