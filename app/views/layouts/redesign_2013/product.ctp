@@ -5,7 +5,18 @@
 		<?php if (!$product['Product']['active']) { ?>
 			<meta name="robots" content="noindex, follow" />
 		<?php } ?>
-	</head>
+        <?php if (front_end_display_price($product['Product']['retail_price_with_dph'])) { ?>
+        <meta property="product:price:amount" content="<?php echo front_end_display_price($product['Product']['retail_price_with_dph']) ?>">
+        <meta property="product:price:currency" content="CZK">
+        <?php } ?>
+        <?php if (front_end_display_price($product['Product']['price'])) { ?>
+        <meta property="product:sales_price:amount" content="<?php echo front_end_display_price($product['Product']['price']) ?>">
+        <meta property="product:sales_price:currency" content="CZK">
+        <?php } ?>
+        <?php if ($product['Availability']['name'] === 'skladem') { ?>
+            <meta property="product:availability" content="in stock">
+        <?php } ?>
+    </head>
 <body>
 
 <div id="body">
