@@ -175,7 +175,8 @@ class ProductsController extends AppController {
 				'Product.rate',
 				'Product.video',
 				'Product.note',
-				'Product.active'
+				'Product.active',
+				'Product.voted_count'
 				
 			),
 			'joins' => array(

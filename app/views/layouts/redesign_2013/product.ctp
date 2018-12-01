@@ -178,33 +178,34 @@
 	}
 </script>
 <script type="application/ld+json">
+{
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": "<?php echo ltrim(rtrim($product['Product']['name'])) ?>",
+    "image": "https://<?php echo $_SERVER['SERVER_NAME']; ?>/product-images/<?= $product['Image'][0]['name'] ?>",
+    "description": "<?php echo ltrim(rtrim($product['Product']['short_description'])) ?>",
+    "sku": "<?php echo $product['Product']['id'] ?>",
+    "brand": {
+        "@type": "Brand",
+        "name": "<?php echo $product['Manufacturer']['name'] ?>"
+    },
+    <?php if ($product['Product']['rate']) { ?>
+    "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "<?php echo $product['Product']['rate'] ?>",
+    "reviewCount": "<?php echo $product['Product']['voted_count'] ?>"
+    },
+    <?php } ?>
 
-
-                {
-                    "@context": "http://schema.org/",
-                    "@type": "Product",
-                    "name": "<?= $product['Product']['name'] ?>",
-                    "image": "https://<?= $_SERVER['SERVER_NAME']; ?>/product-images/<?= $product['Image'][0]['name'] ?>",
-                    "description": "<?= $product['Product']['short_description'] ?>",
-                    "sku": "<?= $product['Product']['id'] ?>;",
-                    "brand": {
-                        "@type": "Brand",
-                        "name": "<?= $product['Manufacturer']['name'] ?>"
-                    },
-
-
-                    "offers": {
-                        "@type": "Offer",
-                        "availability": "http://schema.org/InStock",
-                        "priceCurrency": "CZK",
-                        "price": "<?= front_end_display_price($product['Product']['price']) ?>",
-                        "url": "https://<?= $_SERVER['SERVER_NAME']; ?>/<?= $product['Product']['url'] ?>",
-                        "itemCondition": "new"
-                    }
-                }
-
-
-
+    "offers": {
+        "@type": "Offer",
+        "availability": "http://schema.org/InStock",
+        "priceCurrency": "CZK",
+        "price": "<?php echo front_end_display_price($product['Product']['price']) ?>",
+        "url": "https://<?php echo $_SERVER['SERVER_NAME']; ?>/<?= $product['Product']['url'] ?>",
+        "itemCondition": "new"
+    }
+}
 </script>
 </body>
 </html>
