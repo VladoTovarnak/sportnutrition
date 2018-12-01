@@ -34,7 +34,7 @@
 				}
 				if (file_exists($path) && is_file($path) && getimagesize($path)) {
 					$image = '/' . $path;
-					echo '<a href="/product-images/' . $image_item['name'] . '" class="' . $class . ' fancybox"><img src="' . $image . '" alt="" /></a>';
+					echo '<a href="/product-images/' . $image_item['name'] . '" class="' . $class . ' fancybox"><img src="' . $image . '" alt="' . $product['Product']['name'] . '" /></a>';
 				} else {
 					echo '<img src="' . $image . '" alt="" />';
 					break;
@@ -169,7 +169,7 @@ foreach ($subproducts as $subproduct) {
 			<?php echo $this->Form->input('Subproduct.' . $subproduct['Subproduct']['id'] . '.quantity', array('label' => false, 'div' => false, 'value' => 1, 'after' => '&nbsp;Ks'))?>
 			<?php echo $this->Form->hidden('Subproduct.' . $subproduct['Subproduct']['id'] . '.id', array('value' => $subproduct['Subproduct']['id']))?>
 		</td>
-		<td class="center"><button name="data[Subproduct][<?php echo $subproduct['Subproduct']['id'] ?>][chosen]" value="1" onclick="fireAddToCart(<?= $product['Product']['id'] ?>,'<?= $product['Product']['name'] ?>','<?= $product['CategoriesProduct'][0]['Category']['name'] ?>',<?= $product['Product']['price'] ?>)">Do košíku</button></td>
+		<td class="center"><button name="data[Subproduct][<?php echo $subproduct['Subproduct']['id'] ?>][chosen]" value="1" onclick="fireAddToCart(<?= $product['Product']['id'] ?>,'<?= $product['Product']['name'] ?>,'<?= $product['CategoriesProduct'][0]['Category']['name'] ?>',<?= $product['Product']['price'] ?>)">Do košíku</button></td>
 	</tr>
 <?php } ?>
 </table>
