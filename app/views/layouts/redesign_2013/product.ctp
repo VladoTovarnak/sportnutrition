@@ -177,6 +177,35 @@
 		});
 	}
 </script>
+<script type="application/ld+json">
+
+
+                {
+                    "@context": "http://schema.org/",
+                    "@type": "Product",
+                    "name": "<?= $product['Product']['name'] ?>",
+                    "image": "https://<?= $_SERVER['SERVER_NAME']; ?>/product-images/<?= $product['Image'][0]['name'] ?>",
+                    "description": "<?= $product['Product']['short_description'] ?>",
+                    "sku": "<?= $product['Product']['id'] ?>;",
+                    "brand": {
+                        "@type": "Brand",
+                        "name": "<?= $product['Manufacturer']['name'] ?>"
+                    },
+
+
+                    "offers": {
+                        "@type": "Offer",
+                        "availability": "http://schema.org/InStock",
+                        "priceCurrency": "CZK",
+                        "price": "<?= front_end_display_price($product['Product']['price']) ?>",
+                        "url": "https://<?= $_SERVER['SERVER_NAME']; ?>/<?= $product['Product']['url'] ?>",
+                        "itemCondition": "new"
+                    }
+                }
+
+
+
+</script>
 </body>
 </html>
 <?php echo $this->element('sql_dump')?>
