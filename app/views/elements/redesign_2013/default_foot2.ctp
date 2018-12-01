@@ -119,16 +119,16 @@
 	}); // document.ready
 	</script>
     // Async css load by JS + noscript fallback
-    <link rel="stylesheet" property="stylesheet" type="text/css" href="/jRating-master/jquery/jRating.jquery.css" media="none" onload="if(media!='all')media='screen'">
+    <link rel="stylesheet" property="stylesheet" type="text/css" href="/jRating-master/jquery/jRating.jquery.css" media="none" onload="if(media!='screen')media='screen'">
     <noscript><link rel="stylesheet" href="/jRating-master/jquery/jRating.jquery.css"></noscript>
 
-    <link rel="stylesheet" property="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.css" media="none" onload="if(media!='all')media='screen'">
+    <link rel="stylesheet" property="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.css" media="none" onload="if(media!='screen')media='screen'">
     <noscript><link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.css"></noscript>
 
-    <link rel="stylesheet" property="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH ?>jqueryui/style.css" media="none" onload="if(media!='all')media='screen'">
+    <link rel="stylesheet" property="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH ?>jqueryui/style.css" media="none" onload="if(media!='all')media='all'">
     <noscript><link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH ?>jqueryui/style.css"></noscript>
 
-    <link rel="stylesheet" property="stylesheet" type="text/css" href="/loadmask/jquery.loadmask.css" media="none" onload="if(media!='all')media='screen'">
+    <link rel="stylesheet" property="stylesheet" type="text/css" href="/loadmask/jquery.loadmask.css" media="none" onload="if(media!='all')media='all'">
     <noscript><link rel="stylesheet" href="/loadmask/jquery.loadmask.css"></noscript>
 
 
