@@ -118,9 +118,12 @@
 		});
 	}); // document.ready
 	</script>
-	<link rel="stylesheet" property="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.css" media="screen" />
+    <link rel="stylesheet" property="stylesheet" type="text/css" href="/jRating-master/jquery/jRating.jquery.css" media="none" onload="if(media!='all')media='all'">
+    <noscript><link rel="stylesheet" href="/jRating-master/jquery/jRating.jquery.css"></noscript>
+
+    <link rel="stylesheet" property="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.css" media="screen" />
 	<link rel="stylesheet" property="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH ?>jqueryui/style.css" />
-	<link rel="stylesheet" property="stylesheet" type="text/css" href="/jRating-master/jquery/jRating.jquery.css" media="screen" />
+	<!--<link rel="stylesheet" property="stylesheet" type="text/css" href="/jRating-master/jquery/jRating.jquery.css" media="screen" />-->
 	<link rel="stylesheet" property="stylesheet" type="text/css" href="/loadmask/jquery.loadmask.css" />
 
 
