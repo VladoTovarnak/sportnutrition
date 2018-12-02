@@ -107,8 +107,7 @@
 ?>
 		</div>
 <?php 
-echo rtrim(ltrim($product['Product']['name']));
-echo $this->Form->button('Vložit do košíku', array('id' => 'AddToCartButton', 'onclick' => 'fireAddToCart(' . $product['Product']['id'] . ', \'' . rtrim(ltrim($product['Product']['name'])) . '\', \'' . $product['CategoriesProduct'][0]['Category']['name']. '\', ' . $product['Product']['price'] . ')'));
+        echo $this->Form->button('Vložit do košíku', array('id' => 'AddToCartButton', 'onclick' => 'fireAddToCart(' . $product['Product']['id'] . ', \'' . rtrim(ltrim($product['Product']['name'])) . '\', \'' . $product['CategoriesProduct'][0]['Category']['name']. '\', ' . $product['Product']['price'] . ')'));
 ?>
 		<div class="clearer"></div>
 	</div>
