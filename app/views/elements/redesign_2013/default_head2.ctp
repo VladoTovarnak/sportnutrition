@@ -18,6 +18,9 @@
 <?php
 	}
 ?>
+<?php
+if ( !defined('ISDEVELOPER') ){
+?>
 
 		<!-- Facebook Pixel Code -->
 		<script>
@@ -47,3 +50,6 @@
 		src="https://www.facebook.com/tr?id=792712067534673&ev=PageView&noscript=1"
 		/></noscript>
 		<!-- End Facebook Pixel Code -->
+    <?php
+}
+?>
