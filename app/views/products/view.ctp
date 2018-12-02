@@ -34,7 +34,7 @@
 				}
 				if (file_exists($path) && is_file($path) && getimagesize($path)) {
 					$image = '/' . $path;
-					echo '<a href="/product-images/' . $image_item['name'] . '" class="' . $class . ' fancybox"><img src="' . $image . '" alt="" /></a>';
+					echo '<a href="/product-images/' . $image_item['name'] . '" class="' . $class . ' fancybox"><img src="' . $image . '" alt="' . $product['Product']['name'] . '" /></a>';
 				} else {
 					echo '<img src="' . $image . '" alt="" />';
 					break;
@@ -107,7 +107,8 @@
 ?>
 		</div>
 <?php 
-		echo $this->Form->button('Vložit do košíku', array('id' => 'AddToCartButton', 'onclick' => 'fireAddToCart(' . $product['Product']['id'] . ', "' . $product['Product']['name'] . '", "' . $product['CategoriesProduct'][0]['Category']['name']. '", ' . $product['Product']['price'] . ');'));
+echo rtrim(ltrim($product['Product']['name']));
+echo $this->Form->button('Vložit do košíku', array('id' => 'AddToCartButton', 'onclick' => 'fireAddToCart(' . $product['Product']['id'] . ', \'' . rtrim(ltrim($product['Product']['name'])) . '\', \'' . $product['CategoriesProduct'][0]['Category']['name']. '\', ' . $product['Product']['price'] . ')'));
 ?>
 		<div class="clearer"></div>
 	</div>

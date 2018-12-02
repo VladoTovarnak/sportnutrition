@@ -17,7 +17,7 @@
 		<div class="product card">
 			<h3><a href="/<?php echo $suggested_product['Product']['url']?>"><?php echo $suggested_product['Product']['name']?></a></h3>
 			<a class="image_holder" href="/<?php echo $suggested_product['Product']['url']?>">
-				<img src="/product-images/small/<?php echo $suggested_product['Image']['name']?>" alt="<?php $suggested_product['Product']['title']?>" />
+				<img src="/product-images/small/<?php echo $suggested_product['Image']['name']?>" alt="<?php echo $suggested_product['Product']['title']?>" />
 			</a>
 			<!-- <div class="rating" data-average="<?php echo $suggested_product['Product']['rate']?>" data-id="<?php echo $suggested_product['Product']['id']?>"></div> -->
 			<p class="comments"><a href="<?php echo $suggested_product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="<?php echo $suggested_product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
@@ -132,7 +132,7 @@
 		<?php foreach ($hp_discounted as $product) {?>
 		<div class="product card">
 			<h3><a href="/<?php echo $product['Product']['url']?>"><?php echo $product['Product']['name']?></a></h3>
-			<a class="image_holder" href="/<?php echo $product['Product']['url']?>"><img src="/product-images/small/<?php echo $product['Image']['name']?>" alt="<?php $product['Product']['title']?>" /></a>
+			<a class="image_holder" href="/<?php echo $product['Product']['url']?>"><img src="/product-images/small/<?php echo $product['Image']['name']?>" alt="<?php echo $product['Product']['title']?>" /></a>
 			<!-- <div class="rating" data-average="<?php echo $product['Product']['rate']?>" data-id="<?php echo $product['Product']['id']?>"></div>  -->
 			<p class="comments"><a href="<?php echo $product['Product']['url']?>#comment_list">Přečíst komentáře</a> | <a href="<?php echo $product['Product']['url']?>#tabs-2">Přidat komentář</a></p>
 			<?php
