@@ -199,7 +199,9 @@
 
     "offers": {
         "@type": "Offer",
+    <?php if ($product['Availability']['name'] === 'skladem') { ?>
         "availability": "http://schema.org/InStock",
+    <?php } ?>
         "priceCurrency": "CZK",
         "price": "<?php echo front_end_display_price($product['Product']['price']) ?>",
         "url": "https://<?php echo $_SERVER['SERVER_NAME']; ?>/<?= $product['Product']['url'] ?>",
