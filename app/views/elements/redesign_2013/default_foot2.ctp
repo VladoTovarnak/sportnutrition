@@ -118,7 +118,7 @@
 		});
 	}); // document.ready
 	</script>
-    // Async css load by JS + noscript fallback
+    <!-- Async css load by JS + noscript fallback -->
     <link rel="stylesheet" property="stylesheet" type="text/css" href="/jRating-master/jquery/jRating.jquery.css" media="none" onload="if(media!='screen')media='screen'">
     <noscript><link rel="stylesheet" href="/jRating-master/jquery/jRating.jquery.css"></noscript>
 
