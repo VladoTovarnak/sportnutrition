@@ -107,7 +107,8 @@
 ?>
 		</div>
 <?php 
-		echo $this->Form->button('Vložit do košíku', array('id' => 'AddToCartButton', 'onclick' => 'fireAddToCart(' . $product['Product']['id'] . ', "' . $product['Product']['name'] . '", "' . $product['CategoriesProduct'][0]['Category']['name']. '", ' . $product['Product']['price'] . ');'));
+echo rtrim(ltrim($product['Product']['name']));
+echo $this->Form->button('Vložit do košíku', array('id' => 'AddToCartButton', 'onclick' => 'fireAddToCart(' . $product['Product']['id'] . ', \'' . rtrim(ltrim($product['Product']['name'])) . '\', \'' . $product['CategoriesProduct'][0]['Category']['name']. '\', ' . $product['Product']['price'] . ')'));
 ?>
 		<div class="clearer"></div>
 	</div>
@@ -169,7 +170,7 @@ foreach ($subproducts as $subproduct) {
 			<?php echo $this->Form->input('Subproduct.' . $subproduct['Subproduct']['id'] . '.quantity', array('label' => false, 'div' => false, 'value' => 1, 'after' => '&nbsp;Ks'))?>
 			<?php echo $this->Form->hidden('Subproduct.' . $subproduct['Subproduct']['id'] . '.id', array('value' => $subproduct['Subproduct']['id']))?>
 		</td>
-		<td class="center"><button name="data[Subproduct][<?php echo $subproduct['Subproduct']['id'] ?>][chosen]" value="1" onclick="fireAddToCart(<?= $product['Product']['id'] ?>,'<?= $product['Product']['name'] ?>,'<?= $product['CategoriesProduct'][0]['Category']['name'] ?>',<?= $product['Product']['price'] ?>)">Do košíku</button></td>
+		<td class="center"><button name="data[Subproduct][<?php echo $subproduct['Subproduct']['id'] ?>][chosen]" value="1" onclick="fireAddToCart(<?= $product['Product']['id'] ?>,'<?= $product['Product']['name'] ?>','<?= $product['CategoriesProduct'][0]['Category']['name'] ?>',<?= $product['Product']['price'] ?>)">Do košíku</button></td>
 	</tr>
 <?php } ?>
 </table>
