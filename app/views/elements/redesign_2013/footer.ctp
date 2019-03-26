@@ -93,3 +93,4 @@
 
 
 <?php echo $this->element(REDESIGN_PATH . 'nutrishop_banner')?>
+<?php echo $this->element(REDESIGN_PATH . 'cookies_panel')?>
