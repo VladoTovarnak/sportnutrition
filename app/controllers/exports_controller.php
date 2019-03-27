@@ -192,6 +192,17 @@ class ExportsController extends AppController{
 		// produkty zobrazovane na detailu na firmy.cz
 		$this->set('firmy_cz_products', array(762, 971, 880, 363, 654));
 	}
+
+	function seznam_cz_new() {
+		// nastavim si layout do ktereho budu cpat data v XML
+		$this->layout = 'xml/zbozi_cz';
+
+		$products = $this->get_products(2);
+		$this->set('products', $products);
+
+		// produkty zobrazovane na detailu na firmy.cz
+		$this->set('firmy_cz_products', array(762, 971, 880, 363, 654));
+	}
 	
 	function heureka_cz() {
 		$this->layout = 'xml/heureka';
