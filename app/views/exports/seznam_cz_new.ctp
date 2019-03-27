@@ -60,8 +60,7 @@ foreach ( $products as $product ) { ?>
 		?>
 
 		<?php if ( file_exists( 'product-images/' . $product['Image']['name'] ) ) { ?>
-            <IMGURL>https://www.<?php echo CUST_ROOT ?>
-                /product-images/<?php echo( empty( $product['Image']['name'] ) ? '' : str_replace( " ", "%20", $product['Image']['name'] ) ) ?></IMGURL>
+            <IMGURL>https://www.<?php echo CUST_ROOT ?>/product-images/<?php echo( empty( $product['Image']['name'] ) ? '' : str_replace( " ", "%20", $product['Image']['name'] ) ) ?></IMGURL>
 		<?php } ?>
 
         <PRICE_VAT><?php echo $product['Product']['price'] ?></PRICE_VAT>
@@ -112,8 +111,7 @@ foreach ( $products as $product ) { ?>
 					?>
 
 					<?php if ( file_exists( 'product-images/' . $product['Image']['name'] ) ) { ?>
-                        <IMGURL>https://www.<?php echo CUST_ROOT ?>
-                            /product-images/<?php echo( empty( $product['Image']['name'] ) ? '' : str_replace( " ", "%20", $product['Image']['name'] ) ) ?></IMGURL>
+                        <IMGURL>https://www.<?php echo CUST_ROOT ?>/product-images/<?php echo( empty( $product['Image']['name'] ) ? '' : str_replace( " ", "%20", $product['Image']['name'] ) ) ?></IMGURL>
 					<?php } ?>
 
                     <PRICE_VAT><?php echo $product['Product']['price'] ?></PRICE_VAT>
