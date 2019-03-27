@@ -46,7 +46,8 @@
 				<li><?php echo $this->Html->link('Dostupnosti produktů', array('controller' => 'availabilities', 'action' => 'index'))?></li>
 				<li><?php echo $this->Html->link('Stavy objednávek', array('controller' => 'statuses', 'action' => 'index'))?></li>
 				<li><?php echo $this->Html->link('Přesměrování', array('controller' => 'redirects', 'action' => 'index'))?></li>
-			</ul>
+                <li><?php echo $this->Html->link('Generovat sitemap.xml', array('controller' => 'sitemaps', 'action' => 'index'))?></li>
+            </ul>
 		</li>
 		<li>
 			<a href="#">Přehledy</a>
