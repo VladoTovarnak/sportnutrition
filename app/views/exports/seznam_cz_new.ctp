@@ -23,7 +23,7 @@ foreach ( $products as $product ) { ?>
 		<?php } ?>
 
         <MANUFACTURER><?php echo $product['Manufacturer']['name'] ?></MANUFACTURER>
-        <URL>http://www.<?php echo CUST_ROOT ?>/<?php echo $product['Product']['url'] ?></URL>
+        <URL>https://www.<?php echo CUST_ROOT ?>/<?php echo $product['Product']['url'] ?></URL>
 		<?php
 		// vychozi dostupnost produktu je ihned
 		$availability = 0;
@@ -60,7 +60,7 @@ foreach ( $products as $product ) { ?>
 		?>
 
 		<?php if ( file_exists( 'product-images/' . $product['Image']['name'] ) ) { ?>
-            <IMGURL>http://www.<?php echo CUST_ROOT ?>
+            <IMGURL>https://www.<?php echo CUST_ROOT ?>
                 /product-images/<?php echo( empty( $product['Image']['name'] ) ? '' : str_replace( " ", "%20", $product['Image']['name'] ) ) ?></IMGURL>
 		<?php } ?>
 
@@ -90,7 +90,7 @@ foreach ( $products as $product ) { ?>
 					<?php } ?>
 
                     <MANUFACTURER><?php echo $product['Manufacturer']['name'] ?></MANUFACTURER>
-                    <URL>http://www.<?php echo CUST_ROOT ?>/<?php echo $product['Product']['url'] ?></URL>
+                    <URL>https://www.<?php echo CUST_ROOT ?>/<?php echo $product['Product']['url'] ?></URL>
 					<?php
 					// vychozi dostupnost produktu je ihned
 					$availability = 0;
@@ -112,7 +112,7 @@ foreach ( $products as $product ) { ?>
 					?>
 
 					<?php if ( file_exists( 'product-images/' . $product['Image']['name'] ) ) { ?>
-                        <IMGURL>http://www.<?php echo CUST_ROOT ?>
+                        <IMGURL>https://www.<?php echo CUST_ROOT ?>
                             /product-images/<?php echo( empty( $product['Image']['name'] ) ? '' : str_replace( " ", "%20", $product['Image']['name'] ) ) ?></IMGURL>
 					<?php } ?>
 
