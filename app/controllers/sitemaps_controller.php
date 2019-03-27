@@ -11,11 +11,11 @@ class SitemapsController extends AppController {
 
 		$start_string = '<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
-<loc>https://www.' . CUST_ROOT . '/</loc>
-<changefreq>daily</changefreq>
-<priority>1</priority>
-</url>';
+	<url>
+		<loc>https://www.' . CUST_ROOT . '/</loc>
+		<changefreq>daily</changefreq>
+		<priority>1</priority>
+	</url>';
 
 		fwrite( $fp, $start_string );
 
@@ -34,12 +34,13 @@ class SitemapsController extends AppController {
 			// pripnout k sitemape
 			$mod    = explode( ' ', $product['Product']['modified'] );
 			$mod    = $mod[0];
-			$string = '<url>
-<loc>https://www.' . CUST_ROOT . '/' . $product['Product']['url'] . '</loc>
-<lastmod>' . $mod . '</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.9</priority>
-</url>';
+			$string = '
+	<url>
+		<loc>https://www.' . CUST_ROOT . '/' . $product['Product']['url'] . '</loc>
+		<lastmod>' . $mod . '</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.9</priority>
+	</url>';
 
 			fwrite( $fp, $string );
 		}
@@ -58,11 +59,12 @@ class SitemapsController extends AppController {
 			$mod = date( 'Y-m-d' );
 
 			// pripnout k sitemape
-			$string = '<url>
-<loc>https://www.' . CUST_ROOT . '/' . $category['Category']['url'] . '</loc>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
-</url>';
+			$string = '
+	<url>
+		<loc>https://www.' . CUST_ROOT . '/' . $category['Category']['url'] . '</loc>
+		<changefreq>weekly</changefreq>
+		<priority>0.8</priority>
+	</url>';
 
 			fwrite( $fp, $string );
 
@@ -80,11 +82,12 @@ class SitemapsController extends AppController {
 		foreach ( $manufacturers as $manufacturer ) {
 			// pripnout k sitemape
 			// vytvorim si url z name a id
-			$string = '<url>
-<loc>https://www.' . CUST_ROOT . '/' . strip_diacritic( $manufacturer['Manufacturer']['name'] ) . '-v' . $manufacturer['Manufacturer']['id'] . '</loc>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
-</url>';
+			$string = '
+	<url>
+		<loc>https://www.' . CUST_ROOT . '/' . strip_diacritic( $manufacturer['Manufacturer']['name'] ) . '-v' . $manufacturer['Manufacturer']['id'] . '</loc>
+		<changefreq>weekly</changefreq>
+		<priority>0.8</priority>
+	</url>';
 			fwrite( $fp, $string );
 		}
 
@@ -102,11 +105,12 @@ class SitemapsController extends AppController {
 			if ( $content['Content']['path'] == 'index' ) {
 				continue;
 			}
-			$string = '<url>
-<loc>https://www.' . CUST_ROOT . '/' . $content['Content']['path'] . '.htm</loc>
-<changefreq>weekly</changefreq>
-<priority>0.7</priority>
-</url>';
+			$string = '
+	<url>
+		<loc>https://www.' . CUST_ROOT . '/' . $content['Content']['path'] . '.htm</loc>
+		<changefreq>weekly</changefreq>
+		<priority>0.7</priority>
+	</url>';
 			fwrite( $fp, $string );
 		}
 
