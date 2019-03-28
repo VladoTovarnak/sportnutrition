@@ -12,6 +12,14 @@
 		<meta name="description" content="<?php echo $_description?>" />
 
 <?php
+    // Add mobile view properties
+    if ($this->layout == "redesign_2013/product") {
+        // Add viewport
+        echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
+        // Add required mobile resets styles
+	    echo '<link rel="stylesheet" href="/css/' . REDESIGN_PATH . 'mobile_resets.css" type="text/css" media="screen" />';
+
+    }
 	if (isset($_keywords) && !empty($_keywords) && is_string($_keywords)) {
 ?>
 		<meta name="keywords" content="<?php echo $_keywords?>" />
