@@ -1,0 +1,281 @@
+.showMobileOnly {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    #header a#logo img {
+        max-width: 100px !important;
+        height: auto !important;
+        margin-top: 0;
+    }
+
+    #header a#logo {
+        margin-top: 5px;
+    }
+
+    #header {
+        padding: 0;
+        margin: 0 5px;
+        width: auto;
+    }
+
+    #sidebox {
+        display: none;
+    }
+
+    body, #body {
+        width: 100% !important;
+        position: relative;
+    }
+
+    body {
+        overflow: scroll;
+    }
+
+    ul.submenu, .cake-sql-log {
+        display: none !important;
+    }
+
+    /* ul.menu - horizontal menu */
+    #header ul.menu {
+        border: none;
+        height: auto;
+        line-height: 30px;
+        overflow: scroll;
+        float: left;
+        margin: 5px 0;
+        position: absolute;
+        top: 55px;
+        left: 5px;
+        width: auto;
+        z-index: 9;
+    }
+
+    #header ul.menu li a {
+        padding: 0 5px;
+        font-size: 15px;
+    }
+
+    #header ul.menu li.phone, #header ul.menu li.mail {
+        background: none;
+        padding: 0 5px;
+    }
+
+    /* ul#menu - sidebar menu */
+    ul#menu {
+        position: absolute;
+        top: 55px;
+        right: 5px;
+        max-width: 170px;
+        z-index: 9;
+    }
+
+    .showMobileOnly {
+        display: block;
+    }
+
+    .hideMobileOnly {
+        display: none;
+    }
+
+    .mobileMenuIcon {
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        height: auto;
+        width: auto;
+        background: #E10019;
+        border: none;
+        z-index: 100;
+        cursor: pointer;
+        padding: 10px 15px;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+
+        color: white;
+    }
+
+    #header ul.menu li {
+        float: none;
+
+    }
+
+    /* Search */
+    #search {
+        display: inline-block;
+        text-align: center;
+        position: relative;
+        float: none;
+        margin: 10px 5px;
+        z-index: 1;
+    }
+
+    #search div.pair {
+        font-size: 15px;
+    }
+
+    /* ul.accordion - basket, login, info*/
+    #header ul.accordion {
+        position: fixed;
+        bottom: 3px;
+        margin: 0;
+        z-index: 9;
+        width: 100%;
+    }
+
+    #header ul.accordion li a {
+        color: white;
+
+    }
+
+    #header ul.accordion li.login, #header ul.accordion li.basket, #header ul.accordion li.info {
+        background-position: 5px 5px;
+        width: auto;
+        padding-left: 10px;
+        padding-right: 10px;
+        background: #454545;
+        border: 3px solid #313131;
+        border-bottom: none;
+        -webkit-border-radius: 0px 0px 5px 5px;
+        border-radius: 0px 0px 5px 5px;
+        margin: auto;
+    }
+
+    #header ul.accordion li.login.active, #header ul.accordion li.basket.active, #header ul.accordion li.info.active {
+        background: #E10019;
+        border: 3px solid #D00909;
+        -webkit-border-radius: 0px 0px 5px 5px;
+        border-radius: 0px 0px 5px 5px;
+        border-bottom: none;
+
+    }
+
+    #header #basket p, #header #info ul, #header #login {
+        margin: 10px 5px;
+    }
+
+    #header #basket p {
+        font-size: 14px;
+    }
+
+    #header #basket p a {
+        font-size: 16px;
+    }
+
+
+    #header #basket, #header #info, #header #login {
+        margin: 0;
+        width: calc(100% - 26px);
+        position: fixed;
+        bottom: 25px;
+        z-index: 8;
+        height: auto;
+        padding: 5px;
+    }
+
+    /* Main */
+    #main {
+        width: auto;
+        float: left;
+        margin: 10px 5px;
+    }
+
+    #main div.left, #main div.product p, #main div.product div.photos, #main div.product div.availability, #main div.product form.on_detail, #main div.product div.social {
+        width: auto;
+        display: block;
+        float: left;
+        clear: both;
+        margin-left: 0;
+    }
+
+    #main div.product div.photos, #main div.product p {
+        float: none;
+    }
+
+    #main div.product p.comments, #main div.product p.manufacturer {
+        margin-left: 0;
+    }
+
+    #main div.product div.availability, #main div.product p, #main div.product div.social {
+        float: left !important;
+        clear: both;
+        width: calc(100% - 10px);
+    }
+
+    .ui-tabs .ui-tabs-panel {
+        padding: 0 !important;
+    }
+
+    /* table varianty */
+    #main div.left table th, #main table th, table.content-table th, #main div.left table td, #main table td, table.content-table td {
+        padding: 5px;
+        font-size: 15px;
+    }
+
+    #main div.left table {
+        max-width: calc(100% - 5px);
+    }
+
+    .ui-tabs .ui-tabs-panel {
+        overflow-x: auto;
+        max-width: calc(100vw - 10px);
+    }
+
+    #main div.left .ui-tabs .ui-tabs-panel table td, #main div.left .ui-tabs .ui-tabs-panel table th {
+        font-size: 8px;
+    }
+
+    #main div.left table input, #main table input, table.content-table input {
+        width: 20px;
+    }
+
+    /* Main right */
+    #main div.right {
+        float: left;
+    }
+
+    /* Mobile Menu Icon - Hamburger */
+    .barContainer {
+        display: inline-block;
+        cursor: pointer;
+        float: left;
+        margin-right: 5px;
+    }
+
+    .bar1, .bar2, .bar3 {
+        width: 20px;
+        height: 2px;
+        background-color: white;
+        margin: 3px 0;
+        transition: 0.4s;
+    }
+
+    .change .bar1 {
+        -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+        transform: rotate(-45deg) translate(-5px, 5px);
+    }
+
+    .change .bar2 {
+        opacity: 0;
+    }
+
+    .change .bar3 {
+        -webkit-transform: rotate(45deg) translate(-8px, -8px);
+        transform: rotate(45deg) translate(-2px, -2px);
+    }
+
+    /* Footer */
+    #footer p.eet_warrning {
+        padding-bottom: 150px;
+        padding-left: 10px;
+        padding-right: 30px;
+    }
+
+    #footer .recommend, #footer .news, #footer .company, #footer .copyright {
+        margin: 0 0 0 10px;
+    }
+
+    #footer form div.pair button {
+        z-index: 7;
+    }
+}

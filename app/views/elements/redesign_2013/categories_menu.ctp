@@ -3,7 +3,7 @@
 $categories = $categories_menu['categories'];
 $path_ids = $categories_menu['path_ids'];
 ?>
-<ul id="menu">
+<ul id="menu" class="hideMobileOnly">
 <?php
 foreach ($categories as $category) { ?>
 	<li<?php echo (isset($opened_category_id) && in_array($category['Category']['id'], $path_ids)) ? ' class="open"' : ''?>>

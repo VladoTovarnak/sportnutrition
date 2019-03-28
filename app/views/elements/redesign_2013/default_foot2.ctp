@@ -14,7 +14,11 @@
 
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>jquery.js"></script>
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>hp.min.js?v=4"></script>
-<?php 
+<?php
+if ($this->layout == "redesign_2013/product") {
+	// Add required mobile resets JS
+	echo '<script type="text/javascript" rel="stylesheet" src="/js/' . REDESIGN_PATH . 'mobile_resets.js" /></script>';
+}
 	if ($this->params['controller'] == 'searches' && $this->params['action'] == 'do_search') {
 ?>
 		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>search_filter.js"></script>
