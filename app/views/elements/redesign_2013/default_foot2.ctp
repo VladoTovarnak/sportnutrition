@@ -18,8 +18,11 @@
 if ($this->layout == "redesign_2013/product") {
 	// Add required mobile resets JS
 	echo '<script type="text/javascript" rel="stylesheet" src="/js/' . REDESIGN_PATH . 'mobile_resets.js" /></script>';
+	// Add required mobile resets styles
+	echo '<link rel="stylesheet" href="/css/' . REDESIGN_PATH . 'mobile_resets.css" type="text/css" media="screen" />';
 }
 	if ($this->params['controller'] == 'searches' && $this->params['action'] == 'do_search') {
+
 ?>
 		<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>search_filter.js"></script>
 <?php
