@@ -182,7 +182,6 @@
 {
     "@context": "http://schema.org/",
     "@type": "Product",
-    "id": "<?php echo ltrim(rtrim($product['Product']['id'])) ?>",
     "name": "<?php echo ltrim(rtrim($product['Product']['name'])) ?>",
     "image": "https://<?php echo $_SERVER['SERVER_NAME']; ?>/product-images/<?= $product['Image'][0]['name'] ?>",
     "description": "<?php echo ltrim(rtrim($product['Product']['short_description'])) ?>",
