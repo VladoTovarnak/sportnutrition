@@ -200,8 +200,10 @@
 
     "offers": {
         "@type": "Offer",
-    <?php if ($product['Availability']['name'] === 'skladem') { ?>
+    <?php if ($product['Availability']['name'] === 'skladem' || $product['Availability']['name'] === 'do 2 dnů') { ?>
         "availability": "http://schema.org/InStock",
+    <?php } else {  ?>
+        "availability": "http://schema.org/OutOfStock",
     <?php } ?>
         "priceCurrency": "CZK",
         "price": "<?php echo str_replace(" ", "", front_end_display_price($product['Product']['price'])) ?>",
