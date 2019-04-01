@@ -253,8 +253,8 @@ class ExportsController extends AppController{
 		$this->Shipping = &new Shipping;
 		// vytahnu si vsechny zpusoby dopravy
 		$shippings = $this->Shipping->find('all', array(
-			// do exportu budu davat jen PPL, GP a CP do ruky
-			'conditions' => array('Shipping.id' => array(2,3,7)),
+			// do exportu budu davat jen PPL, CP do ruky a na postu
+			'conditions' => array('Shipping.id' => array(2,14,7)),
 			'contain' => array(),
 			'fields' => array('Shipping.id', 'Shipping.name', 'Shipping.price', 'Shipping.free', 'Shipping.heureka_id')
 		));
