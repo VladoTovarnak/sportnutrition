@@ -7,13 +7,14 @@ foreach ($products as $product) {
 	}
 ?>
 	<SHOPITEM>
+		<ITEM_ID><![CDATA[<?php echo $product['Product']['id'] ?>]]></ITEM_ID>
 		<PRODUCT><![CDATA[<?php echo $name ?>]]></PRODUCT>
 		<DESCRIPTION><![CDATA[<?php echo $product['Product']['short_description']?>]]></DESCRIPTION>
 		<URL><![CDATA[http://www.<?php echo CUST_ROOT?>/<?php echo $product['Product']['url']?>]]></URL>
 		<IMGURL><![CDATA[http://www.<?php echo CUST_ROOT ?>/product-images/<?php echo (empty($product['Image']['name']) ? '' : str_replace(" ", "%20", $product['Image']['name']))?>]]></IMGURL>
 		<PRICE><![CDATA[<?php echo ceil($product['Product']['price'] * 100 / ($product['TaxClass']['value'] + 100)) ?>]]></PRICE>
 		<PRICE_VAT><![CDATA[<?php echo $product['Product']['price']?>]]></PRICE_VAT>
-		<VAT><![CDATA[<?php echo str_replace('.', ',', $product['TaxClass']['value'] / 100) ?>]]></VAT>
+		<VAT><![CDATA[<?php echo str_replace('.', ',', $product['TaxClass']['value']) ?>%]]></VAT>
 		<MANUFACTURER><![CDATA[<?php echo $product['Manufacturer']['name']?>]]></MANUFACTURER>
 		<ITEM_TYPE><![CDATA[new]]></ITEM_TYPE>
 		<CATEGORYTEXT><![CDATA[<?php echo $product['CATEGORYTEXT'] ?>]]></CATEGORYTEXT>
