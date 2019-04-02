@@ -32,9 +32,19 @@
 		<!-- Měřicí kód Sklik.cz -->
 		<iframe width="119" height="22" frameborder="0" scrolling="no" src="http://c.imedia.cz/checkConversion?c=100007593&color=ffffff&v=<?php echo $order['Order']['orderfinaltotal']?>"></iframe>
 		<!-- Měřicí kód Zbozi.cz -->
-		<iframe src="http://www.zbozi.cz/action/22378/conversion?chsum=o1dc7jMOpOK4TvZaW5rfwA==&price=<?php echo $order['Order']['orderfinaltotal']?>&uniqueId=<?php echo $order['Order']['id']?>" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="position:absolute; top:-3000px; left:-3000px; width:1px; height:1px; overflow:hidden;"></iframe>
-		<iframe width="119" height="22" frameborder="0" scrolling="no" src="http://c.imedia.cz/checkConversion?c=100007593&color=ffffff&v=<?php echo $order['Order']['orderfinaltotal']?>"></iframe>
-		<!-- Google Code for OBJEDNAVKA Conversion Page -->
+        <script>
+            (function(w,d,s,u,n,k,c,t){w.ZboziConversionObject=n;w[n]=w[n]||function(){
+                (w[n].q=w[n].q||[]).push(arguments)};w[n].key=k;c=d.createElement(s);
+                t=d.getElementsByTagName(s)[0];c.async=1;c.src=u;t.parentNode.insertBefore(c,t)
+            })(window,document,"script","https://www.zbozi.cz/conversion/js/conv.js","zbozi","22378");
+
+            zbozi("setOrder",{
+                "orderId": "<?php echo $order['Order']['orderfinaltotal']?>&uniqueId=<?php echo $order['Order']['id']?>",
+                "totalPrice": "<?php echo $order['Order']['orderfinaltotal']?>"
+            });
+            zbozi("send");
+        </script>
+        <!-- Google Code for OBJEDNAVKA Conversion Page -->
 		<script type="text/javascript">
 		/* <![CDATA[ */
 		var google_conversion_id = 960445286;
