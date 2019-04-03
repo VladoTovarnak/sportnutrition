@@ -365,4 +365,8 @@
         max-width: 100%;
     }
 
+    #map {
+        width: 100% !important;
+    }
+
 }
