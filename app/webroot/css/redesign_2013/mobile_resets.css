@@ -365,6 +365,11 @@
         max-width: 100%;
     }
 
+    #editorContent img {
+        max-width: 100%;
+        height: auto;
+    }
+
     #map {
         width: 100% !important;
     }
