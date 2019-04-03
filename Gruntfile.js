@@ -51,7 +51,7 @@ module.exports = function(grunt) {
       tasks: ['jshint', 'qunit']
     },
     cssmin : {
-        target : {
+        minify : {
             src : ["app/webroot/css/redesign_2013/style000.css"],
             dest : "app/webroot/css/redesign_2013/style000.min.css"
         }
