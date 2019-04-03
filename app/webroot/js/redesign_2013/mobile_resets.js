@@ -6,7 +6,7 @@ $('a.mobileMenuIcon').on('click', function() {
 /* reorder elements for mobile view */
 $(window).on('load resize', function() {
     if ($(window).width()<641) {
-        $('#sidebar').insertAfter('#main .left')
+        $('#sidebar').insertAfter('#main .left:eq(0)')
     }
     else {
         $('#sidebar').insertBefore('#main')

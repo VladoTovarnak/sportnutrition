@@ -15,7 +15,7 @@
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>jquery.js"></script>
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>hp.min.js?v=4"></script>
 <?php
-if ($this->layout == "redesign_2013/product" || $this->layout == "redesign_2013/category" || $this->layout == "redesign_2013/content") {
+if ($this->layout == "redesign_2013/product" || $this->layout == "redesign_2013/category" || $this->layout == "redesign_2013/content" || $this->layout == "redesign_2013/homepage") {
 	// Add required mobile resets JS
 	echo '<script type="text/javascript" src="/js/' . REDESIGN_PATH . 'mobile_resets.js?v=1" /></script>';
 	// Add required mobile resets styles
