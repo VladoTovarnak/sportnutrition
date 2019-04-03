@@ -162,7 +162,6 @@
         font-size: 16px;
     }
 
-
     #header #basket, #header #info, #header #login {
         margin: 0;
         width: calc(100% - 26px);
@@ -280,19 +279,18 @@
     }
 
     /* Category page */
-
     #main img.banner {
         max-width: 100%;
     }
 
     #main div.product.card p {
         max-width: 100%;
-        clear: none!important;
+        clear: none !important;
     }
 
     #main div.product.card {
         max-width: 252px;
-        padding: 0px!important;
+        padding: 0px !important;
     }
 
     #main div.left div.products div.product:nth-child(2n) {
@@ -302,6 +300,7 @@
     #main div.paginator .numbers {
         max-width: 300px;
     }
+
     @media screen and (max-width: 515px) {
         #main div.product.card {
             max-width: 100%;
@@ -318,6 +317,7 @@
         #main div.product.card p {
             width: calc(100% - 150px);
         }
+
         input.cart_add {
             zoom: 1.2;
         }
@@ -328,11 +328,12 @@
     }
 
     #sidebar, .right {
-        width: 100%!important;
+        width: 100% !important;
         margin: 0;
     }
+
     #main h3, #main h4, #main h5, #main h6 {
-        margin: 10px 0 5px!important;
+        margin: 10px 0 5px !important;
     }
 
     #sidebar h3 {
@@ -349,6 +350,7 @@
         max-width: 50%;
         min-width: 220px;
     }
+
     #main div.dark {
         padding: 0;
         width: 100%;
@@ -372,6 +374,57 @@
 
     #map {
         width: 100% !important;
+    }
+
+    /* Homepage */
+    #slides, #slides .slider .slide, #slides .slider .slide img, #slides .accordion, #slides .slider, #best_products .slider, #main div.left div.best, #best_products {
+        width: calc(100vw - 20px);
+        padding: 0;
+    }
+
+    #slide {
+        height: 75vw;
+    }
+
+    #slides .accordion {
+        float: none;
+        height: auto
+    ;
+    }
+
+    #slides .accordion .header , #slides .accordion .header:first-child{
+        height: auto;
+    }
+
+    #slides .accordion .header.active:after {
+        display: none;
+    }
+
+    #slides .slider {
+        height: 50vw;
+    }
+
+    #slides .slider .slide, #slides .slider .slide img {
+        height: auto;
+        left: 0;
+    }
+
+    .right.open, #news_container {
+        width: auto !important;
+    }
+
+    #main #best_products .slider .slide {
+        height: 100%;
+        text-align: center;
+    }
+
+    #main div.left div.card.big h3, #main div.left div.product.card.big p {
+        width: 100%;
+    }
+
+    #main div.left div.card.big a.image_holder {
+        float:  none;
+        margin: auto;
     }
 
 }
