@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="/plugins/cookie-panel/cookieconsent.min.css" />
 <script src="/plugins/cookie-panel//cookieconsent.min.js"></script>
 <script>
     window.addEventListener("load", function(){
