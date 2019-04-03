@@ -49,7 +49,14 @@ module.exports = function(grunt) {
     watch: {
       files: ['<%= jshint.files %>'],
       tasks: ['jshint', 'qunit']
+    },
+    cssmin : {
+        target : {
+            src : ["app/webroot/css/redesign_2013/style000.css"],
+            dest : "app/webroot/css/redesign_2013/style000.min.css"
+        }
     }
+
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -57,9 +64,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  //load cssmin plugin
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
 
   grunt.registerTask('test', ['jshint', 'qunit']);
 
-  grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify', 'cssmin']);
 
 };
