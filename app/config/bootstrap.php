@@ -226,6 +226,6 @@ if (preg_match('/\/.*(?:\/info@sportnutrition.cz)+\/(.+-p\d+)/', $_SERVER['REQUE
 	exit();
 }
 
-$category_banner = array('href' => '/l-carnitin-100-000-s-chromem-1l-1l-p2892', 'src' => '/images/category-banner.jpg');
+$category_banner = array('href' => '/deluxe-60g-p4215', 'src' => '/images/protein-category-banner.gif');
 define('CATEGORY_BANNER', serialize($category_banner));
 ?>
