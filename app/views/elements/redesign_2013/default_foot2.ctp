@@ -17,7 +17,7 @@
 <?php
 if ($this->layout == "redesign_2013/product" || $this->layout == "redesign_2013/category" || $this->layout == "redesign_2013/content" || $this->layout == "redesign_2013/homepage") {
 	// Add required mobile resets JS
-	echo '<script type="text/javascript" src="/js/' . REDESIGN_PATH . 'mobile_resets.js?v=1" /></script>';
+	echo '<script type="text/javascript" src="/js/' . REDESIGN_PATH . 'mobile_resets.js?v=1.1" /></script>';
 	// Add required mobile resets styles
 	echo '<link rel="stylesheet" href="/css/' . REDESIGN_PATH . 'mobile_resets.css?v=1.1" type="text/css" media="screen" />';
 }
