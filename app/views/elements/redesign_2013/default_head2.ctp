@@ -13,7 +13,7 @@
 
 <?php
     // Add mobile view properties
-    if ($this->layout == "redesign_2013/product" || $this->layout == "redesign_2013/category") {
+    if ($this->layout == "redesign_2013/product" || $this->layout == "redesign_2013/category" || $this->layout == "redesign_2013/content") {
         // Add viewport
         echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
 

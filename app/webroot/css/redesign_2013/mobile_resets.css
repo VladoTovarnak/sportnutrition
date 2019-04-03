@@ -359,4 +359,10 @@
         margin-right: 0;
     }
 
+    /* Content layout page */
+    #editorContent {
+        width: 100%;
+        max-width: 100%;
+    }
+
 }
