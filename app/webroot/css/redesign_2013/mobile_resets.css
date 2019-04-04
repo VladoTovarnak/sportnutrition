@@ -36,7 +36,7 @@
         overflow: scroll;
     }
 
-    ul.submenu, .cake-sql-log {
+   .cake-sql-log {
         display: none !important;
     }
 
@@ -71,7 +71,34 @@
         top: 55px;
         right: 5px;
         max-width: 170px;
-        z-index: 9;
+        z-index: 99;
+    }
+
+    ul.submenu {
+        position: absolute;
+        top: 300px;
+        left: 5px;
+        max-width: 170px;
+        z-index: 99;
+        margin: 0;
+        background: #E2001A;
+        border: 3px solid #D00909;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        list-style: none;
+        padding: 0;
+        overflow: hidden;
+
+    }
+
+    ul.submenu li {
+        float: none;
+        padding: 10px 0;
+    }
+
+    ul.submenu li a {
+        color: white;
+
     }
 
     .showMobileOnly {
@@ -92,7 +119,7 @@
         z-index: 100;
         cursor: pointer;
         padding: 10px 15px;
-        position: absolute;
+        position: fixed;
         right: 5px;
         top: 5px;
 

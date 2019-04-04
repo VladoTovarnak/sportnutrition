@@ -1,6 +1,7 @@
 $('a.mobileMenuIcon').on('click', function() {
     $('ul#menu').toggleClass('hideMobileOnly');
     $('ul.menu').toggleClass('hideMobileOnly')
+    $('ul.submenu').toggleClass('hideMobileOnly')
 });
 
 /* reorder elements for mobile view */
