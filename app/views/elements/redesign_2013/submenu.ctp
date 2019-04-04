@@ -1,4 +1,4 @@
-<ul class="submenu">
+<ul class="submenu hideMobileOnly">
 	<li><a href="/doprava.htm">Doprava</a></li>
 	<li><a href="/obchodni-podminky.htm">Obchodní podmínky</a></li>
 	<li><a href="/reklamacni-rad.htm">Reklamační řád</a></li>
