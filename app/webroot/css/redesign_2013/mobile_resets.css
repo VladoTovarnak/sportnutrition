@@ -392,6 +392,18 @@
         margin-right: 0;
     }
 
+    #category-desc {
+        padding: 5px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    #category-desc div {
+        font-size: 12px;
+    }
+
     /* Content layout page */
     #editorContent {
         width: 100%;
