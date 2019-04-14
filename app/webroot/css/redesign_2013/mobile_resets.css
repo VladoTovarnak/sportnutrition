@@ -476,8 +476,8 @@
         padding: 0;
     }
 
-    #order_process #main table th, #order_process #main table td, #order_process #main table td p span{
-        font-size: 12px!important;
+    #order_process #main table th, #order_process #main table td, #order_process #main table td p span, #order_process #main table td a, #cartContents, .cart-contents {
+        font-size: 12px;
         padding: 4px;
     }
 
