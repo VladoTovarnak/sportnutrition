@@ -9,7 +9,8 @@
 	<div id="header">
 		<a id="logo" href="/"><img src="/images/redesign_2013/logo_snv.png" width="240px" height="125px" alt="SNV - sportovní výživa pro Vás" /></a>
 		<?php
-			echo $this->element(REDESIGN_PATH . 'login_box');
+		    echo $this->element(REDESIGN_PATH . 'mobile_menu');
+		    echo $this->element(REDESIGN_PATH . 'login_box');
 			echo $this->element(REDESIGN_PATH . 'horizontal_menu');
 		?>
 	</div>
