@@ -470,4 +470,44 @@
         margin: auto;
     }
 
+    /* Order process page */
+    #order_process #main, #order_process #main div.left textarea.content, #order_process #main textarea.content, #order_process #main table.cart-contents  {
+        width: calc(100vw - 10px);
+        padding: 0;
+    }
+
+    #order_process #main table th, #order_process #main table td, #order_process #main table td p span{
+        font-size: 12px!important;
+        padding: 4px;
+    }
+
+    #order_process #main table span.price{
+        font-size: 16px;
+    }
+
+    #order_process #main table span.final-price{
+        font-size: 20px;
+    }
+
+    #order_process #main input#DiscountValidate.discount_code_field, #order_process #main .button_like_link{
+        display: block;
+        margin: 5px 0;
+    }
+
+    #order_process #main table.customer_info_form input.content {
+        width: 100%;
+    }
+
+    #order_process #main table.customer_info_form th, #order_process #main div.left table input,  #order_process #main table input, table.content-table input{
+        width: auto;
+    }
+
+    #order_process #main div.product form.on_detail button, #order_process #main input.finish_order_button {
+        padding: 15px 35px 15px 60px;
+    }
+
+    #order_process #PostOfficeChoiceForm table.content-table th, #order_process #PostOfficeChoiceForm table.content-table td, #order_process #PostBoxesChoiceForm table.content-table th, #order_process #PostBoxesChoiceForm table.content-table td {
+        display: block;
+    }
+
 }

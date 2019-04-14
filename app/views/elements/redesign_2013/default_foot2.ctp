@@ -15,11 +15,11 @@
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>jquery.js"></script>
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>hp.min.js?v=4"></script>
 <?php
-if ($this->layout == "redesign_2013/product" || $this->layout == "redesign_2013/category" || $this->layout == "redesign_2013/content" || $this->layout == "redesign_2013/homepage") {
+if ($this->layout == "redesign_2013/product" || $this->layout == "redesign_2013/category" || $this->layout == "redesign_2013/content" || $this->layout == "redesign_2013/homepage" || $this->layout == "redesign_2013/order_process") {
 	// Add required mobile resets JS
-	echo '<script type="text/javascript" src="/js/' . REDESIGN_PATH . 'mobile_resets.js?v=1.111" /></script>';
+	echo '<script type="text/javascript" src="/js/' . REDESIGN_PATH . 'mobile_resets.js?v=1.2" /></script>';
 	// Add required mobile resets styles
-	echo '<link rel="stylesheet" href="/css/' . REDESIGN_PATH . 'mobile_resets.css?v=1.11111" type="text/css" media="screen" />';
+	echo '<link rel="stylesheet" href="/css/' . REDESIGN_PATH . 'mobile_resets.css?v=1.2" type="text/css" media="screen" />';
 }
 	if ($this->params['controller'] == 'searches' && $this->params['action'] == 'do_search') {
 
