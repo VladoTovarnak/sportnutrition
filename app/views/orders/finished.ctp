@@ -75,12 +75,12 @@
 		    _hrq.push(['addProduct', '<?php echo $op['Product']['name'] ?>', '<?php echo $op['product_price_with_dph'] ?>', '<?php echo $op['product_quantity'] ?>']);
 		<?php } ?>
 		    _hrq.push(['trackOrder']);
-		
-		(function() {
-		    var ho = document.createElement('script'); ho.type = 'text/javascript'; ho.async = true;
-		    ho.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.heureka.cz/direct/js/cache/1-roi-async.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ho, s);
-		})();
+
+        (function() {
+            var ho = document.createElement('script'); ho.type = 'text/javascript'; ho.async = true;
+            ho.src = 'https://im9.cz/js/ext/1-roi-async.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ho, s);
+        })();
 		</script>
 		
 		<script type="text/javascript">
