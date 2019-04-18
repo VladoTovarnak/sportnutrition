@@ -412,7 +412,6 @@ if ($this->Session->check('Message.flash')) {
 	<h2>Preferovaný termín doručení</h2>
 	<p>Zadejte prosím vaše PSČ. Na základě PSČ<br>vám nabídneme výběr termínu doručení.</p>
 	<p class="bad-input neukazovat red_alert">Zadejte prosím platné PSČ.<br>5 číslic např. ve tvaru <strong>62100</strong></p>
-	<p class="delivery-holder neukazovat red_alert"></p>
 	<?php echo $this->Form->create('PostDelivery', array('url' => '#', 'id' => 'PostDeliveryChoiceForm')); ?>
 	<table class="content-table">
 		<tr>
@@ -421,6 +420,7 @@ if ($this->Session->check('Message.flash')) {
 			<td><?php echo $this->Form->submit('Hledej', array('div' => false));?>
 		</tr>
 	</table>
+	<div class="delivery-holder neukazovat red_alert"></div>
 	<?php echo $this->Form->end(); ?>
 </div>
 
