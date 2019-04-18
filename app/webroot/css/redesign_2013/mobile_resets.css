@@ -509,5 +509,19 @@
     #order_process #PostOfficeChoiceForm table.content-table th, #order_process #PostOfficeChoiceForm table.content-table td, #order_process #PostBoxesChoiceForm table.content-table th, #order_process #PostBoxesChoiceForm table.content-table td {
         display: block;
     }
-
+    #order_process h1 {
+      font-size: 20px
+    }
+    
+    #order_process #main h2, #order_process .fancybox-inner h2{
+      font-size: 18px;
+    }
+    
+    #order_process #main h3 {
+      font-size: 16px;
+    }
+    
+    #order_process #main label.customer_status_label, #order_process div.input.checkbox label, #order_process .fancybox-inner p, #order_process .fancybox-inner td {
+      font-size: 12px;
+    }
 }
