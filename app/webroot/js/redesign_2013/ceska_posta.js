@@ -98,11 +98,13 @@ $(document).ready(function(){
 					if (data.casovaPasma) {
 						if ( data.casovaPasma == 'NE' ){
 							// nemam data o pochuzkach
-							$(".delivery-holder").html("Ve vámi zadané lokalitě není poskytována služba<br>časová pásma," +
-									"zásilka Vám bude doručena<br>v pracovní den mezi 8-16 hodinou." + 
-									"<br><br><a id=\"closeFancy\" style=\"color:red\" href=\"#\"><strong>Kliknutím pokračujte</strong> k výběru zbůsobu platby.&nbsp;&raquo;</a>");
-							$(".delivery-holder").addClass("red_alert");
+							$(".delivery-holder").html("<p>Ve vámi zadané lokalitě není poskytována služba<br>časová pásma, " +
+									"zásilka Vám bude doručena<br>v pracovní den mezi 8-16 hodinou.</p>" +
+									"<h2>Vyberte prosím kliknutím termín doručení:</h2><table class=\"content-table\"><tbody><tr><td>Pochůzka: </td><td><strong>8:00-16:00</strong></td><td><a value=\"běžný režim doručení\" id=\"closeFancy\" href=\"#\" class=\"closeFancy button_like_link silver\">Vybrat</a></td></tr></tbody></table>");
+							$(".delivery-holder").removeClass("red_alert");
+							$(".delivery-holder p").addClass("red_alert");
 							$(".delivery-holder").show();
+
 							
 							$(document).on('click', '#closeFancy', function(e){
 								e.preventDefault();
@@ -125,11 +127,11 @@ $(document).ready(function(){
 							});
 						} else{
 							// mam data o pochuzkach jsou dve
-							$(".delivery-holder").html("<strong>Vyberte prosím kliknutím jeden z termínů doručení:</strong><br>" +
-									"Dopolední pochůzka: <a id=\"A\" class=\"closeFancy\" style=\"color:red\" href=\"#\"><strong>" + data.casDopoledniPochuzky + "</strong>&nbsp;&raquo;</a>" +
-									"<br>Odpolední pochůzka: <a id=\"B\" class=\"closeFancy\" style=\"color:red\" href=\"#\"><strong>" + data.casOdpoledniPochuzky + "</strong>&nbsp;&raquo;</a>");
-							$(".delivery-holder").removeClass("red_alert");
-							$(".delivery-holder").show();
+									$(".delivery-holder").html("<h2>Vyberte prosím kliknutím jeden z termínů doručení:</h2>" +
+											"<table class=\"content-table\"><tbody><tr><td>Dopolední pochůzka: </td><td><strong>" + data.casDopoledniPochuzky + "</strong></td><td><a id=\"A\" value=\"" + data.casDopoledniPochuzky + "\" href=\"#\" class=\"closeFancy button_like_link silver\">Vybrat</a></td></tr>" +
+											"<tr><td>Odpolední pochůzka: </td><td><strong>" + data.casOdpoledniPochuzky + "</strong></td><td><a id=\"B\" value=\"" + data.casOdpoledniPochuzky + "\" href=\"#\" class=\"closeFancy button_like_link silver\">Vybrat</a></td></tr></tbody></table>");
+									$(".delivery-holder").removeClass("red_alert");
+									$(".delivery-holder").show();
 							
 							$(document).on('click', '.closeFancy', function(e){
 								e.preventDefault();
@@ -147,7 +149,10 @@ $(document).ready(function(){
 									$(this).attr("id")
 								); // nastavim delivery na to co zvolil
 								
-								$("#PostDeliveryChoiceLink").html($(this).find("strong").text()); // nastavim na to co zvolil
+								$("#PostDeliveryChoiceLink").html($(this).attr("value")); // nastavim na to co zvolil
+								$('html, body').animate({ 
+										scrollTop: ($('#PaymentInfo').first().offset().top)
+								},500); // odskroluju dolu k informacim o platbe
 								parent.$.fancybox.close(); // zavru fancybox
 							});
 						}
