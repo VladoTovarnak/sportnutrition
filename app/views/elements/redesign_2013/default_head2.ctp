@@ -13,11 +13,15 @@
 
 <?php
     // Add mobile view properties
-    if ($this->layout == "redesign_2013/product" || $this->layout == "redesign_2013/category" || $this->layout == "redesign_2013/content" || $this->layout == "redesign_2013/homepage" || $this->layout == "redesign_2013/order_process") {
+    if ($this->layout == "redesign_2013/product" || $this->layout == "redesign_2013/category" || $this->layout == "redesign_2013/content" || $this->layout == "redesign_2013/homepage") {
         // Add viewport
-        echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">';
-
+        echo '<meta name="viewport" content="width=device-width, initial-scale=1.0>';
     }
+		
+		elseif ($this->layout == "redesign_2013/order_process") {
+			// Prevent zooming of page (on input clicks, etc..)
+			echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0>';
+		}
 	if (isset($_keywords) && !empty($_keywords) && is_string($_keywords)) {
 ?>
 		<meta name="keywords" content="<?php echo $_keywords?>" />
