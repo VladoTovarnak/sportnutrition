@@ -238,8 +238,8 @@
 
     /* table varianty */
     #main div.left table th, #main table th, table.content-table th, #main div.left table td, #main table td, table.content-table td {
-        padding: 5px;
-        font-size: 15px;
+        padding: 4px;
+        font-size: 12px;
     }
 
     #main div.left table {
