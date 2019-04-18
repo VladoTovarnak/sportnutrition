@@ -15,7 +15,7 @@
     // Add mobile view properties
     if ($this->layout == "redesign_2013/product" || $this->layout == "redesign_2013/category" || $this->layout == "redesign_2013/content" || $this->layout == "redesign_2013/homepage" || $this->layout == "redesign_2013/order_process") {
         // Add viewport
-        echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
+        echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />';
 
     }
 	if (isset($_keywords) && !empty($_keywords) && is_string($_keywords)) {
