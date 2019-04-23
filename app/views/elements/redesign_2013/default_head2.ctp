@@ -20,7 +20,7 @@
 		
 		elseif ($this->layout == "redesign_2013/order_process") {
 			// Prevent zooming of page (on input clicks, etc..)
-			echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />';
+			echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />';
 		}
 	if (isset($_keywords) && !empty($_keywords) && is_string($_keywords)) {
 ?>
