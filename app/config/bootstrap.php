@@ -226,6 +226,6 @@ if (preg_match('/\/.*(?:\/info@sportnutrition.cz)+\/(.+-p\d+)/', $_SERVER['REQUE
 	exit();
 }
 
-$category_banner = array('href' => '/deluxe-60g-p4215', 'src' => '/images/protein-category-banner.gif');
+$category_banner = array('href' => '/x3-fat-burner-120cps-120cps-navic-p2876', 'src' => '/images/protein-category-banner-x3.png');
 define('CATEGORY_BANNER', serialize($category_banner));
 ?>
