@@ -1859,13 +1859,13 @@ table.content-table td {
 
      /* Main */
      #main {
-         width: auto;
+         width: calc(100% - 10px);
          float: left;
          margin: 10px 5px;
      }
 
      #main div.left, #main div.product p, #main div.product div.photos, #main div.product div.availability, #main div.product form.on_detail, #main div.product div.social {
-         width: auto;
+         width: 100%;
          display: block;
          float: left;
          clear: both;
