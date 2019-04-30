@@ -2,18 +2,8 @@
 <html>
 	<head>
 		<?php echo $this->element(REDESIGN_PATH . 'default_head2')?>
-        <!-- To by moved to general styles after all layouts are responsive -->
-        <style>
-            @media screen and (max-width: 640px) {
-
-                #sidebar {
-                    display: none;
-                }
-            }
-        </style>
 	</head>
 <body>
-
 <div id="body">
 	<div id="header">
 		<a id="logo" href="/"><img src="/images/redesign_2013/logo_snv.png" width="240px" height="125px" alt="SNV - sportovní výživa pro Vás" /></a>

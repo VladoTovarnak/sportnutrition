@@ -7,20 +7,19 @@
 	}
 ?>
 		<meta charset="UTF-8" />
-		<link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH?><?php echo ($_SERVER['REMOTE_ADDR'] == IMAGE_IP ? 'style000-new.css' : 'style000.min.css?v=1')?>" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH?><?php echo ($_SERVER['REMOTE_ADDR'] == IMAGE_IP ? 'style000-new.css' : 'style000.min.css?v=1.1')?>" type="text/css" media="screen" />
 		<title><?php echo $_title?> : Sportnutrition</title>
 		<meta name="description" content="<?php echo $_description?>" />
 
 <?php
     // Add mobile view properties
-    if ($this->layout == "redesign_2013/product" || $this->layout == "redesign_2013/category" || $this->layout == "redesign_2013/content" || $this->layout == "redesign_2013/homepage") {
-        // Add viewport
-        echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
-    }
-		
-		elseif ($this->layout == "redesign_2013/order_process") {
+    if ($this->layout == "redesign_2013/order_process") {
 			// Prevent zooming of page (on input clicks, etc..)
 			echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />';
+    }
+		else {
+			// Add viewport
+			echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
 		}
 	if (isset($_keywords) && !empty($_keywords) && is_string($_keywords)) {
 ?>

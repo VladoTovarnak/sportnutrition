@@ -16,15 +16,6 @@
         <?php if ($product['Availability']['name'] === 'skladem') { ?>
             <meta property="product:availability" content="in stock">
         <?php } ?>
-        <!-- To by moved to general styles after all layouts are responsive -->
-        <style>
-            @media screen and (max-width: 640px) {
-
-                #sidebar {
-                    display: none;
-                }
-            }
-        </style>
     </head>
 <body>
 
