@@ -2152,7 +2152,7 @@ table.content-table td {
      }
 
      #order_process #main table.customer_info_form input.content {
-         width: 100%;
+         width: calc(100% - 10px);
      }
 
      #order_process #main table.customer_info_form th, #order_process #main div.left table input,  #order_process #main table input, table.content-table input{
