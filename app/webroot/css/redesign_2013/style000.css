@@ -1883,10 +1883,10 @@ table.content-table td {
      #main div.product div.availability, #main div.product p, #main div.product div.social {
          float: left !important;
          clear: both;
-         width: calc(100% - 10px);
+         width: 100%;
      }
 
-     .ui-tabs .ui-tabs-panel {
+     .ui-tabs .ui-tabs-panel, .ui-tabs {
          padding: 0 !important;
      }
 
@@ -1897,7 +1897,7 @@ table.content-table td {
      }
 
      #main div.left table {
-         max-width: calc(100% - 5px);
+         max-width: 100%;
      }
 
      .ui-tabs .ui-tabs-panel {
