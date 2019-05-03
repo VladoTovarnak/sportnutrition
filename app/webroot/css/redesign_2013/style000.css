@@ -2066,6 +2066,7 @@ table.content-table td {
 
         input.cart_add, #main div.product.card a.cart_add {
             zoom: 1.2;
+            float: left;
         }
     }
 
