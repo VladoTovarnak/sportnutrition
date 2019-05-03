@@ -2074,7 +2074,7 @@ table.content-table td {
         margin: 10px 0 5px 8px;
         -webkit-appearance: none;
         -moz-appearance: none;
-        padding: 10px 33px;
+        padding: 7px 33px;
     }
     
     #main div.paginator .numbers {
@@ -2154,7 +2154,7 @@ table.content-table td {
     }
     
     #best_products {
-        height: 350px
+        height: 375px
     }
 
     #best_products .slider, #main div.left div.best, #best_products {
