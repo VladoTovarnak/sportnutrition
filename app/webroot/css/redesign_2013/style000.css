@@ -1639,8 +1639,6 @@ table.content-table td {
 @media only screen and (max-width: 640px) {
     body {
         -webkit-text-size-adjust: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
     }
 
     .grayOverlay {
@@ -2066,13 +2064,15 @@ table.content-table td {
             width: calc(100% - 150px);
         }
 
-        input.cart_add {
+        input.cart_add, #main div.product.card a.cart_add {
             zoom: 1.2;
         }
     }
 
-    #main div.product.card input.cart_add {
+    #main div.product.card input.cart_add, #main div.product.card a.cart_add  {
         margin: 10px 0 5px 8px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
     }
 
     #main div.paginator .numbers {
