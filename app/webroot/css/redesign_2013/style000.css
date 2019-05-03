@@ -1639,6 +1639,8 @@ table.content-table td {
 @media only screen and (max-width: 640px) {
     body {
         -webkit-text-size-adjust: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
     }
 
     .grayOverlay {
@@ -2021,6 +2023,7 @@ table.content-table td {
     /* Category page */
     #main img.banner {
         max-width: 100%;
+        margin-top: 10px;
     }
 
     #main div.product.card p {
@@ -2106,8 +2109,8 @@ table.content-table td {
         margin: 0;
     }
 
-    #main div.left div.product.card {
-        margin-right: 0;
+    #main div.left div.products div.product {
+        margin: 0 0 10px 0;
     }
 
     #category-desc {
@@ -2200,6 +2203,10 @@ table.content-table td {
     #main div.left div.card.big a.image_holder {
         float: none;
         margin: auto;
+    }
+    
+    #main a.image_holder {
+        margin-top: 10px;
     }
 
     /* Order process page */
