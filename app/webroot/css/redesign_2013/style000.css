@@ -1725,6 +1725,10 @@ table.content-table td {
         max-width: 170px;
         z-index: 99;
     }
+    
+    #menu ul a {
+        padding: 5px 0;
+    }
 
     ul.submenu {
         position: absolute;
