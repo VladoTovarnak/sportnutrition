@@ -15,7 +15,7 @@
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>jquery.js"></script>
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>hp.min.js?v=4"></script>
 	<!-- Required mobile resets JS -->
-	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>mobile_resets.js?v=1.22" /></script>
+	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>mobile_resets.js?v=1.223" /></script>
 <?php
 	if ($this->params['controller'] == 'searches' && $this->params['action'] == 'do_search') {
 
