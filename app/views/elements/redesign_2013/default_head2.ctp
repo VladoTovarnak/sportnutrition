@@ -18,7 +18,7 @@
 		 	echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
 	 	}
 		 ?>
-		<link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH?><?php echo ($_SERVER['REMOTE_ADDR'] == IMAGE_IP ? 'style000-new.css' : 'style000.min.css?v=1.2')?>" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH?><?php echo ($_SERVER['REMOTE_ADDR'] == IMAGE_IP ? 'style000-new.css' : 'style000.min.css?v=1.21')?>" type="text/css" media="screen" />
 		<title><?php echo $_title?> : Sportnutrition</title>
 		<meta name="description" content="<?php echo $_description?>" />
 
