@@ -2066,7 +2066,7 @@ table.content-table td {
 
         input.cart_add, #main div.product.card a.cart_add {
             zoom: 1.2;
-            float: left;
+            display: inline-block;
         }
     }
 
@@ -2074,8 +2074,9 @@ table.content-table td {
         margin: 10px 0 5px 8px;
         -webkit-appearance: none;
         -moz-appearance: none;
+        padding: 10px 33px;
     }
-
+    
     #main div.paginator .numbers {
         width: 100%;
     }
@@ -2150,6 +2151,10 @@ table.content-table td {
         width: calc(100vw - 15px);
         padding: 0;
         z-index: 8;
+    }
+    
+    #best_products {
+        height: 350px
     }
 
     #best_products .slider, #main div.left div.best, #best_products {
