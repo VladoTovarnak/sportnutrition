@@ -2151,6 +2151,9 @@ table.content-table td {
     }
 
     /* Homepage */
+    #slides {
+        display: none;
+    }
     #slides, #slides .slider .slide, #slides .slider .slide img, #slides .accordion, #slides .slider {
         width: calc(100vw - 15px);
         padding: 0;
