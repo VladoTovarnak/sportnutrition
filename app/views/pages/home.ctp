@@ -7,7 +7,15 @@
 			</div>
 			<div class="slider">
 				<?php foreach ($homepage_banners as $banner) { ?>
-				<div class="slide"><a href="<?php echo $banner['HomepageBanner']['url']?>"><img src="<?php echo $homepage_banner_folder . '/' . $banner['HomepageBanner']['image']?>" alt="<?php echo $banner['HomepageBanner']['description']?>"></a></div>
+				<div class="slide">
+					<a href="<?php echo $banner['HomepageBanner']['url']?>">
+						<picture>
+						    <source media="(min-width: 641px)" srcset="<?php echo $homepage_banner_folder . '/' . $banner['HomepageBanner']['image']?>">
+								<img src="<?php echo $homepage_banner_folder ?>/placeholder.png" 
+								alt="<?php echo $banner['HomepageBanner']['description']?>">
+						</picture>
+					</a>
+				</div>
 				<?php } ?>
 			</div>
 		</div>
