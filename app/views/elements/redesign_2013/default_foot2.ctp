@@ -27,11 +27,6 @@
      });
 	});
 	</script>
-	<style media="screen">
-		img {
-			display: block;
-		}
-	</style>
 	<!-- Required mobile resets JS -->
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>mobile_resets.js?v=1.223" /></script>
 <?php
