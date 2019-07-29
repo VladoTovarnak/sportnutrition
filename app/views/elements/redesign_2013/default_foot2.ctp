@@ -20,7 +20,8 @@
 		$('.lazy').Lazy({
         
          effect: 'fadeIn',
-         //visibleOnly: true,
+         visibleOnly: true,
+		 treshold: 250,
          onError: function(element) {
              console.log('error loading ' + element.data('src'));
          }
