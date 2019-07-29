@@ -14,6 +14,24 @@
 
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>jquery.js"></script>
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>hp.min.js?v=4"></script>
+	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>jquery.lazy.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('.lazy').Lazy({
+        
+         effect: 'fadeIn',
+         //visibleOnly: true,
+         onError: function(element) {
+             console.log('error loading ' + element.data('src'));
+         }
+     });
+	});
+	</script>
+	<style media="screen">
+		img {
+			display: block;
+		}
+	</style>
 	<!-- Required mobile resets JS -->
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>mobile_resets.js?v=1.223" /></script>
 <?php
@@ -122,8 +140,9 @@
 	}); // document.ready
 	</script>
     <!-- Async css load by JS + noscript fallback -->
+	<!--
     <link rel="stylesheet" property="stylesheet" type="text/css" href="/jRating-master/jquery/jRating.jquery.css" media="none" onload="if(media!='screen')media='screen'">
-    <noscript><link rel="stylesheet" href="/jRating-master/jquery/jRating.jquery.css"></noscript>
+    <noscript><link rel="stylesheet" href="/jRating-master/jquery/jRating.jquery.css"></noscript>-->
 
     <link rel="stylesheet" property="stylesheet" type="text/css" href="/css/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.css" media="none" onload="if(media!='screen')media='screen'">
     <noscript><link rel="stylesheet" href="/css/<?php echo REDESIGN_PATH?>fancybox/jquery.fancybox.css"></noscript>
