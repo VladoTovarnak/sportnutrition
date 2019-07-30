@@ -138,7 +138,7 @@ class PagesController extends AppController{
 			3 => '8:00 - 17:00',
 			4 => '8:00 - 17:00',
 			5 => '8:00 - 16:00',
-			6 => 'viz <a href="https://www.facebook.com/SportNutritionCZ/" target="_blank">Facebook</a>',
+			6 => 'viz <a rel="noreferrer" href="https://www.facebook.com/SportNutritionCZ/" target="_blank">Facebook</a>',
 			7 => 'Zavřeno'
 		);
 		
