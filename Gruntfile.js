@@ -15,8 +15,8 @@ module.exports = function(grunt) {
         	'app/webroot/loadmask/jquery.loadmask.min.js',
         	'app/webroot/js/redesign_2013/comment_form_management.js',
         	'app/webroot/js/redesign_2013/jquery-ui.js',
-        	'app/webroot/jRating-master/jquery/jRating.jquery.js',
-        	'app/webroot/js/redesign_2013/product_rating_management.js'
+        	//'app/webroot/jRating-master/jquery/jRating.jquery.js',
+        	//'app/webroot/js/redesign_2013/product_rating_management.js'
         	],
         dest: 'app/webroot/js/redesign_2013/concatenated.js'
       }
