@@ -21,7 +21,7 @@
         
          effect: 'fadeIn',
          visibleOnly: true,
-		 threshold: 50,
+		 threshold: 200,
          onError: function(element) {
              console.log('error loading ' + element.data('src'));
          }
