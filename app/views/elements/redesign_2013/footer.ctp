@@ -46,9 +46,9 @@
 	<hr />
 
 	<div class="copyright">
-		<img onerror="this.src='/images/<?php echo REDESIGN_PATH?>placeholder.png';" src="" class="lazy" data-src="/images/<?php echo REDESIGN_PATH ?>logo_dark.png" width="102" height="44" alt="<?php echo CUST_NAME?>" />
+		<img src="/images/<?php echo REDESIGN_PATH?>placeholder.png" class="lazy" data-src="/images/<?php echo REDESIGN_PATH ?>logo_dark.png" width="102" height="44" alt="<?php echo CUST_NAME?>" />
 		&copy; <a href="/">www.<?php echo CUST_ROOT?></a> All rights Reserved.
-		<a rel="noreferrer" href="https://www.facebook.com/pages/SportNutrition/230263693680695?fref=ts" target="_blank"><img onerror="this.src='/images/<?php echo REDESIGN_PATH?>placeholder.png';" src="" class="lazy" data-src="/images/<?php echo REDESIGN_PATH ?>logo_facebook.png" width="38" height="38" alt="Facebook" /></a>
+		<a rel="noreferrer" href="https://www.facebook.com/pages/SportNutrition/230263693680695?fref=ts" target="_blank"><img src="/images/<?php echo REDESIGN_PATH?>placeholder.png" class="lazy" data-src="/images/<?php echo REDESIGN_PATH ?>logo_facebook.png" width="38" height="38" alt="Facebook" /></a>
 	</div>
 	<p class="eet_warrning">
 		Podle zákona o evidenci tržeb je prodávající povinen vystavit kupujícímu účtenku.
