@@ -13,7 +13,7 @@
 
 
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>jquery.js"></script>
-	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>hp.min.js?v=4"></script>
+	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>hp.min.js?v=5"></script>
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>jquery.lazy.min.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
