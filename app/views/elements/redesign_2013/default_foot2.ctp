@@ -4,12 +4,12 @@
 	}
 </script>
 
-	<script type="text/javascript">
+	<!--<script type="text/javascript">
 		var ratingStarType = 'small';
 		<?php if (isset($this->params['controller']) && isset($this->params['action']) && $this->params['controller'] == 'products' && $this->params['action'] == 'view') { ?>
 			ratingStarType = 'big';
 		<?php } ?>
-	</script>
+	</script>-->
 
 
 	<script type="text/javascript" src="/js/<?php echo REDESIGN_PATH?>jquery.js"></script>
