@@ -1,4 +1,4 @@
-<?php 
+<!-- <?php 
 	if ( $_SERVER['DOCUMENT_ROOT'] != 'C:/wamp/www/sportnutrition.cz' ){
 ?>
 <h3 class="facebook">Facebook</h3>
@@ -13,4 +13,4 @@
 <div class="fb-like-box" data-href="https://www.facebook.com/SportNutritionCZ" data-width="193" data-height="400" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
 <?php
 	}
-?>
+?>-->
