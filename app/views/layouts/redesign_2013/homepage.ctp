@@ -45,7 +45,7 @@
 	echo $this->element(REDESIGN_PATH . 'facebook_prava');
 	echo $this->element(REDESIGN_PATH . 'default_foot2');
 ?>
-<script type="text/javascript">
+<!--<script type="text/javascript">
 	function initialize() {
 		var point = new google.maps.LatLng(49.569130, 17.302750);
 		var mapOptions = {
@@ -106,6 +106,6 @@
 		    currency: 'CZK'
 		});
 	}
-</script>
+</script>-->
 </body>
 </html>
