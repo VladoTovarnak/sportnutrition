@@ -126,9 +126,6 @@
 		<div id="social_holder">
 			<div class="fb-like" data-href="http://www.<?php echo CUST_ROOT?>/<?php echo $product['Product']['url']?>" data-width="100" data-layout="button" data-action="like" data-show-faces="false" data-share="true"></div>
 			<div><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="http://www.<?php echo CUST_ROOT?>/<?php echo $product['Product']['url']?>" data-count="none">Tweet</a></div>
-			<div style="float:left">
-				<div class="g-plusone" data-href="http://www.<?php echo CUST_ROOT?>/<?php echo $product['Product']['url']?>" data-size="medium" data-annotation="none" style="float:left"></div>
-			</div>
 		</div>
 	</div>
 	<hr class="cleaner" />
