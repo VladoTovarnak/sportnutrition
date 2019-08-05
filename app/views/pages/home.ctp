@@ -116,7 +116,7 @@
 			<h2><span>Kde nás najdete</span></h2>
 			<!--<div id="map" style="width:585px;height:375px"></div>-->
 			<a href="/firma.htm#map">
-				<img class="lazy" src="/images/<?php echo REDESIGN_PATH?>placeholder.png" data-src="/images/<?php echo REDESIGN_PATH?>mapa.png" alt="Kde nás najdete" />
+				<img class="map lazy" src="/images/<?php echo REDESIGN_PATH?>placeholder.png" data-src="/images/<?php echo REDESIGN_PATH?>mapa.png" alt="Kde nás najdete" />
 			</a>	
 		</div>
 		<div class="right open">

@@ -2165,7 +2165,7 @@ table.content-table td {
     }
 
     #best_products .slider, #main div.left div.best, #best_products {
-        width: calc(100vw - 10px);
+        width: calc(100vw - 25px);
         padding: 0;
         z-index: 8;
     }
@@ -2198,6 +2198,10 @@ table.content-table td {
     #slides .slider .slide, #slides .slider .slide img {
         height: auto;
         left: 0;
+    }
+    
+    img.map {
+        max-width: calc(100vw - 25px);
     }
 
     .right.open, #news_container {
