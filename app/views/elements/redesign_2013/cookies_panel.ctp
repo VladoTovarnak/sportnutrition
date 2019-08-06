@@ -1,4 +1,3 @@
-<script src="/plugins/cookie-panel//cookieconsent.min.js"></script>
 <script>
     window.addEventListener("load", function(){
         window.cookieconsent.initialise({
