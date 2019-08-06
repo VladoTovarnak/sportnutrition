@@ -3,7 +3,6 @@
 		<h2>Informace</h2>
 		<ul>
 			<li><a href="/jak-nakupovat.htm">Jak nakupovat?</a></li>
-			<li><a href="#">Často kladené dotazy</a></li>
 			<li><a href="/firma.htm">Kontaktní a reklamační údaje</a></li>
 			<li><a href="/doprava.htm">Ceník dopravy</a></li>
 		</ul>
