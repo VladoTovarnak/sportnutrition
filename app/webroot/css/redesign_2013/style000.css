@@ -1039,7 +1039,7 @@ table.customer_info_form th{
     line-height: 25px;
 }
 
-#main div.right.open table tr.active_weekday{
+#main div.right.open table tr.active_weekday td, #main div.right.open table tr.active_weekday th{
 	background-color:#373B3D;
 	color:#FFFFFF;
 }
