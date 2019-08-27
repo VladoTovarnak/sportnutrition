@@ -226,6 +226,6 @@ if (preg_match('/\/.*(?:\/info@sportnutrition.cz)+\/(.+-p\d+)/', $_SERVER['REQUE
 	exit();
 }
 
-$category_banner = array('href' => '/x3-fat-burner-120cps-120cps-navic-p2876', 'src' => '/images/category-banner-x3.png');
+$category_banner = array('href' => '/snv-v8', 'src' => '/images/category-banner-snv.png');
 define('CATEGORY_BANNER', serialize($category_banner));
 ?>
