@@ -1598,6 +1598,7 @@ class OrdersController extends AppController {
 		// celkova dan vsech produktu v objednavce
 		$tax_value = 0;
 		
+		/*
 		// heureka overeno zakazniky
 		App::import('Vendor', 'HeurekaOvereno', array('file' => 'HeurekaOvereno.php'));
 		try {
@@ -1610,7 +1611,8 @@ class OrdersController extends AppController {
 			$overeno->addOrderId($order['Order']['id']);
 			$overeno->send();
 		} catch (Exception $e) {}
-
+		*/
+		
 		$fb_content_ids = array();
 		
 		foreach ( $order['OrderedProduct'] as $op ){
