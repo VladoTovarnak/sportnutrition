@@ -5,7 +5,8 @@
 		$linker_output = upload_links('nutrishop_linkovaci_stranka', base64_encode($_SERVER['REQUEST_URI']));
 		$page_content = str_replace('##LINKER##', $linker_output, $page_content);
 	}
-	
+
+	/*
 	// na zvolene stranky pridam mapu
 	$map_pages = array('osobni-odber.htm', 'firma.htm');
 	if (in_array($this->params['url']['url'], $map_pages)) {
@@ -55,7 +56,7 @@
 	    google.maps.event.addDomListener(window, \'load\', initialize);
 	    </script>';
 	}
-
+*/
 	echo $page_content;
 ?>
 </div>
