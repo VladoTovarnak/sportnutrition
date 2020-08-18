@@ -95,7 +95,23 @@
 				</div>
 			</div>
 		</div>
-
+        <div class="right open">
+            <h2><span>Otevírací doba prodejny v Olomouci</span></h2>
+            <?php
+            $weekday = date('N');
+            ?>
+            <table>
+                <tr<?php echo ( $weekday == 1 ) ? ' class="active_weekday"' : ''?>><th>Pondělí</th><td><?php echo $opening_hours[1]?></td></tr>
+                <tr<?php echo ( $weekday == 2 ) ? ' class="active_weekday"' : ''?>><th>Úterý</th><td><?php echo $opening_hours[2]?></td></tr>
+                <tr<?php echo ( $weekday == 3 ) ? ' class="active_weekday"' : ''?>><th>Středa</th><td><?php echo $opening_hours[3]?></td></tr>
+                <tr<?php echo ( $weekday == 4 ) ? ' class="active_weekday"' : ''?>><th>Čtvrtek</th><td><?php echo $opening_hours[4]?></td></tr>
+                <tr<?php echo ( $weekday == 5 ) ? ' class="active_weekday"' : ''?>><th>Pátek</th><td><?php echo $opening_hours[5]?></td></tr>
+                <tr<?php echo ( $weekday == 6 ) ? ' class="active_weekday"' : ''?>><th>Sobota</th><td><?php echo $opening_hours[6]?></td></tr>
+                <tr<?php echo ( $weekday == 7 ) ? ' class="active_weekday"' : ''?>><th>Neděle</th><td><?php echo $opening_hours[7]?></td></tr>
+            </table>
+            <p><a href="/firma.htm">Kontakty a další informace o prodejně naleznete <strong>zde</strong></a>.</p>
+        </div>
+        <?php /* ?>
 		<div class="right news">
 			<h2><span>Aktuality</span></h2>
 <?php 		if (empty($hp_news)) { ?>
@@ -113,31 +129,15 @@
 		</div>
 
 		<div class="left">
-            <?php /* ?>
+
 			<h2><span>Kde nás najdete</span></h2>
 			<!--<div id="map" style="width:585px;height:375px"></div>-->
 			<a href="/firma.htm#map">
 				<img class="map lazy" src="/images/<?php echo REDESIGN_PATH?>placeholder.png" data-src="/images/<?php echo REDESIGN_PATH?>mapa.png" alt="Kde nás najdete" />
 			</a>
-            <?php */ ?>
+
 		</div>
-		<div class="right open">
-			<h2><span>Otevírací doba prodejny v Olomouci</span></h2>
-<?php 
-	$weekday = date('N');
-?>
-			<table>
-				<tr<?php echo ( $weekday == 1 ) ? ' class="active_weekday"' : ''?>><th>Pondělí</th><td><?php echo $opening_hours[1]?></td></tr>
-				<tr<?php echo ( $weekday == 2 ) ? ' class="active_weekday"' : ''?>><th>Úterý</th><td><?php echo $opening_hours[2]?></td></tr>
-				<tr<?php echo ( $weekday == 3 ) ? ' class="active_weekday"' : ''?>><th>Středa</th><td><?php echo $opening_hours[3]?></td></tr>
-				<tr<?php echo ( $weekday == 4 ) ? ' class="active_weekday"' : ''?>><th>Čtvrtek</th><td><?php echo $opening_hours[4]?></td></tr>
-				<tr<?php echo ( $weekday == 5 ) ? ' class="active_weekday"' : ''?>><th>Pátek</th><td><?php echo $opening_hours[5]?></td></tr>
-				<tr<?php echo ( $weekday == 6 ) ? ' class="active_weekday"' : ''?>><th>Sobota</th><td><?php echo $opening_hours[6]?></td></tr>
-				<tr<?php echo ( $weekday == 7 ) ? ' class="active_weekday"' : ''?>><th>Neděle</th><td><?php echo $opening_hours[7]?></td></tr>
-			</table>
-			<p><a href="/firma.htm">Kontakty a další informace o prodejně naleznete <strong>zde</strong></a>.</p>
-		</div>
-		
+		<?php */ ?>
 		<div style="clear:both;"></div>
 		
 		<h2><span>Akční zboží</span></h2>
