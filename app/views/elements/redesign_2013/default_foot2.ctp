@@ -1,4 +1,11 @@
 <script type="text/javascript">
+    window.omnisend = window.omnisend || [];
+    omnisend.push(["accountID", "5fbff9934c7fa41a08d625f3"]);
+    omnisend.push(["track", "$pageViewed"]);
+    !function(){var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://omnisrc.com/inshop/launcher-v2.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();
+</script>
+
+<script type="text/javascript">
 	function lazyLoad(){
 	    return true;
 	}
