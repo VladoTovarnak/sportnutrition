@@ -25,6 +25,13 @@ if (!defined('PHP5')) {
 if (!defined('E_DEPRECATED')) {
 	define('E_DEPRECATED', 8192);
 }
+
+$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+if (!strpos($actual_link, '/admin/') !== false) {
+    die('www stránky v rekonstrukci');
+}
+
+
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
 
 require CORE_PATH . 'cake' . DS . 'basics.php';
